@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+let url = require('url');
 
 /*
  |--------------------------------------------------------------------------
@@ -10,7 +11,18 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+const appUrl = url.parse(process.env.APP_URL || '');
 
-mix.js('resources/js/app.js', 'public/js')
-    .vue()
-    .sass('resources/sass/app.scss', 'public/css');
+if (process.env.MIX_HOT_HTTPS) {
+  require('laravel-mix-valet');
+  mix.valet(appUrl.host || appUrl.path);
+}
+
+mix
+  .js('resources/js/app.js', 'public/js')
+  .vue()
+  .js('resources/js/main.js', 'public/js')
+  .vue()
+  .sass('resources/sass/app.scss', 'public/css');
+
+mix.version();
