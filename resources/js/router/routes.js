@@ -9,7 +9,7 @@ export default {
       name: 'welcome',
       path: '/',
       component: WelcomeRoot,
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: false },
     },
     {
       name: 'home',
