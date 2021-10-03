@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Mail\TestMail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,8 +17,13 @@ use App\Http\Controllers\Auth\LoginController;
 */
 
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/{any?}', [App\Http\Controllers\HomeController::class, 'index'])->where('any', '.*')->name('home');
+Route::get('/test-mail', function (Request $request) {
+    $email = $request->email ?? 'brianobare@gmail.com';
+    return Mail::to($email)->send(new TestMail());
+});
+
+Route::get('/{any?}', [App\Http\Controllers\HomeController::class, 'index'])->where('any', '.*')->middleware('verified')->name('home');
