@@ -8,7 +8,7 @@
       dismissible
       >{{ message.text }}</b-alert
     >
-    <b-navbar toggleable="lg" type="dark" variant="info" class="row">
+    <b-navbar toggleable="lg" type="dark" variant="success" class="row">
       <b-navbar-brand href="/">
         AppName
       </b-navbar-brand>

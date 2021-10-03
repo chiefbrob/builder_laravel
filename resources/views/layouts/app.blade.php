@@ -6,11 +6,14 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="description" content="Template to base new applications from">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#317EFB"/>
+    <link rel="apple-touch-icon" href="/images/180.png">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <title>{{ config('app.name', 'LaravelTemplate') }}</title>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,6 +21,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
 </head>
 <body>
     <div id="app">
@@ -79,5 +83,20 @@
             @yield('content')
         </main>
     </div>
+    <!-- Scripts -->
+    <script>
+        window.feature_flags = @json(\FriendsOfCat\LaravelFeatureFlags\FeatureFlagsForJavascript::get());
+        window.User = @json(Auth::user());
+    </script>
+    <script>
+        // Check that service workers are supported
+        if ('serviceWorker' in navigator) {
+          // Use the window load event to keep the page load performant
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js');
+          });
+        }
+    </script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

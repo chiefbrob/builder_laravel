@@ -1,0 +1,32 @@
+{
+  "short_name": "Template",
+  "name": "Laravel template",
+  "icons": [
+    {
+      "src": "/images/192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": ".",
+  "background_color": "#FFF",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#f6993f",
+  "shortcuts": [
+    {
+      "name": "Update Status?",
+      "short_name": "Status",
+      "description": "Upload media or text to your status",
+      "url": "/profile/status?source=pwa",
+      "icons": [{ "src": "/images/180.png", "sizes": "180x180" }]
+    }
+  ],
+  "description": "Using this application you can build anything quickly"
+}
