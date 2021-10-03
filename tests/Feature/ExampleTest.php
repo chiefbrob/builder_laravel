@@ -14,6 +14,9 @@ class ExampleTest extends TestCase
      */
     public function test_example()
     {
+        $this->actingAsRandomUser([
+            'email_verified_at' => now()
+        ]);
         $response = $this->get('/');
 
         $response->assertStatus(200);
