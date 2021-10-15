@@ -1,0 +1,24 @@
+ip: 138.68.146.155
+ login_pass: 5Qfn3vymkS5cg+F
+ mysql_root: 7LKh3uvq-FFGH
+
+ssh-keygen -R 138.68.146.155
+
+Validation component
+Y-setup
+2-strong
+Kenya1sHome!
+Kenya1sHome!
+Y-continue
+y-anonymous users
+y-disallow root login remote
+y-remove test db and access to it
+y-reload privileges
+
+./configure --prefix=/opt/php-8.0.11 --enable-mbstring --with-curl --with-zlib --enable-gd --disable-rpath --enable-inline-optimization --with-bz2 --with-zlib --enable-sockets --enable-sysvsem --enable-sysvshm --enable-pcntl --enable-mbregex --enable-exif --enable-bcmath --with-mhash --with-zip --with-pdo-mysql --with-mysqli --with-mysql-sock=/var/run/mysqld/mysqld.sock --with-jpeg=/usr --with-openssl --with-fpm-user=www-data --with-fpm-group=www-data --with-libdir=/lib/x86_64-linux-gnu --enable-ftp --enable-opcache --enable-fpm --without-sqlite3
+
+
+curl -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+        -H "Content-Type: application/json" \
+        -d '{"name": "example.com", "ip_address": "127.0.0.1"}' \
+        -X GET "https://api.digitalocean.com/v2/droplets"

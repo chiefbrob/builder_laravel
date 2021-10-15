@@ -1,0 +1,14 @@
+#!/bin/sh
+
+git --work-tree=/var/www/builder-laravel.on.chiefbrob.info --git-dir=/var/repo/builder-laravel.on.chiefbrob.info.git checkout -f
+chown -R :www-data /var/www/builder-laravel.on.chiefbrob.info
+chmod -R 777 /var/www/builder-laravel.on.chiefbrob.info
+
+composer install -d /var/www/builder-laravel.on.chiefbrob.info --no-dev
+php /var/www/builder-laravel.on.chiefbrob.info/artisan migrate --force
+npm i --prefix "/var/www/builder-laravel.on.chiefbrob.info"
+npm run production --prefix "/var/www/builder-laravel.on.chiefbrob.info/"
+
+chown -R :www-data /var/www/builder-laravel.on.chiefbrob.info
+chmod -R 777 /var/www/builder-laravel.on.chiefbrob.info
+
