@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddUserRoleController;
 use App\Http\Controllers\CreateRoleController;
+use App\Http\Controllers\RemoveRoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,7 @@ Route::prefix('v1')->group(static function () {
 
         Route::prefix('user-roles')->group(static function () {
             Route::post('/', AddUserRoleController::class)->name('user-role.create');
+            Route::delete('/', RemoveRoleController::class)->name('user-role.delete');
         });
     });
 });
