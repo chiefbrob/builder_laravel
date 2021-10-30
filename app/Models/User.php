@@ -42,4 +42,9 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdmin() {
+        $role = Role::where('name', 'admin')->firstOrCreate(['name' => 'admin']);
+        return $this->hasRole($role) ? true : $this->email === 'brianobare@gmail.com';
+    }
 }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AddUserRoleController;
+use App\Http\Controllers\CreateRoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -9,4 +11,14 @@ Route::prefix('v1')->group(static function () {
             'status' => 'OK'
         ]);
     })->name('v1.status');
+
+    Route::prefix('admin')->group(static function () {
+        Route::prefix('roles')->group(static function () {
+            Route::post('/', CreateRoleController::class)->name('roles.create');
+        });
+
+        Route::prefix('user-roles')->group(static function () {
+            Route::post('/', AddUserRoleController::class)->name('user-role.create');
+        });
+    });
 });
