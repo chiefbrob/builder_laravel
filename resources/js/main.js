@@ -37,22 +37,15 @@ VueRouter.prototype.push = function push(location) {
 let router = new VueRouter(routes);
 
 router.beforeEach((to, from, next) => {
-  let beforeLoginRequest = localStorage.getItem('to');
-  if (beforeLoginRequest) {
-    localStorage.removeItem('to');
-    next(JSON.parse(beforeLoginRequest));
-  }
   const auth = to.matched[0].meta;
-  if (auth?.requiresAuth === true) {
-    if (!window.User) {
-      localStorage.setItem('to', JSON.stringify(to));
-      window.location = '/login';
+  if (auth?.requiresAuth !== true) {
+    next();
+  } else {
+    if (window.User) {
       next();
     } else {
-      next();
+      window.location = '/login';
     }
-  } else {
-    next();
   }
 });
 
