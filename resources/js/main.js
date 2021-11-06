@@ -38,7 +38,17 @@ let router = new VueRouter(routes);
 
 router.beforeEach((to, from, next) => {
   const auth = to.matched[0].meta;
-  if (auth?.requiresAuth !== true) {
+  if (auth?.requiresAdmin === true) {
+    if (window.User) {
+      if (window.User.admin) {
+        next();
+      } else {
+        next(false);
+      }
+    } else {
+      window.location = '/login';
+    }
+  } else if (auth?.requiresAuth !== true) {
     next();
   } else {
     if (window.User) {

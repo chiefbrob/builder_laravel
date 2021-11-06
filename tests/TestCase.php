@@ -10,6 +10,8 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    public $user;
+
     /**
      * Logs in a random user into the application.
      * @param  array  $attributes
@@ -18,7 +20,8 @@ abstract class TestCase extends BaseTestCase
      */
     public function actingAsRandomUser(array $attributes = [])
     {
-        return $this->actingAs(User::factory()->create($attributes));
+        $this->user = User::factory()->create($attributes);
+        return $this->actingAs($this->user);
     }
 
     /**
@@ -32,6 +35,7 @@ abstract class TestCase extends BaseTestCase
         $admin = User::factory()->create($attributes);
         $role = Role::firstOrCreate(['name' => 'admin']);
         $admin->assignRole($role);
+        $this->user = $admin;
         return $this->actingAs($admin);
     }
 }
