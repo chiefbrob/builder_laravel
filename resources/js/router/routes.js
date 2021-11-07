@@ -2,6 +2,7 @@ import HomeRoot from '../components/home/HomeRoot';
 import Error404 from '../components/errors/Error404';
 import WelcomeRoot from '../components/WelcomeRoot';
 import AdminDashboard from '../components/admin/AdminDashboard';
+import Style from '../components/style/Style';
 
 export default {
   mode: 'history',
@@ -22,6 +23,12 @@ export default {
       name: 'admin',
       path: '/admin',
       component: AdminDashboard,
+      meta: { requiresAdmin: true },
+    },
+    {
+      name: 'style',
+      path: '/style',
+      component: Style,
       meta: { requiresAdmin: true },
     },
     {
