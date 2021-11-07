@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 import '../sass/main.scss';
+import Multiselect from 'vue-multiselect';
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 import routes from './router/routes';
@@ -21,7 +22,11 @@ if (token) {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+Vue.component('multiselect', Multiselect);
+
 Vue.component('nav-root', require('./components/nav/NavRoot').default);
+
+Vue.component('file-uploader', require('./components/shared/FileUploader').default);
 
 Vue.use(VueRouter);
 
