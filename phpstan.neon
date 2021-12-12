@@ -1,0 +1,10 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+parameters:
+    level: 0
+    paths:
+        - app
+    ignoreErrors:
+        - '#Call to an undefined static method Illuminate\\Support\\Facades\\Broadcast::routes\(\)\.#'
+    excludes_analyse:
+        - /*/*/FileToBeExcluded.php
