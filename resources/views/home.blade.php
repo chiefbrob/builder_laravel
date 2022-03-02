@@ -16,7 +16,7 @@
         <meta name="theme-color" content="#317EFB"/>
         <link rel="apple-touch-icon" href="/images/180.png">
         <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
         
     </head>
     <body>

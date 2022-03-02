@@ -13,6 +13,7 @@
     "tdd": "jest --watch"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^6.0.0",
     "@vue/test-utils": "^1.2.2",
     "axios": "^0.21",
     "babel-core": "^7.0.0-0",

@@ -26,4 +26,6 @@ Route::get('/test-mail', function (Request $request) {
     return Mail::to($email)->send(new TestMail());
 });
 
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
+
 Route::get('/{any?}', [App\Http\Controllers\HomeController::class, 'index'])->where('any', '.*')->middleware('verified')->name('home');
