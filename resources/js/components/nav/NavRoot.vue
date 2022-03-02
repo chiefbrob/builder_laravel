@@ -9,7 +9,7 @@
       >{{ message.text }}</b-alert
     >
     <b-navbar toggleable="lg" type="dark" variant="success" class="row">
-      <b-navbar-brand href="/"> AppName <i class="far fa-user"></i> </b-navbar-brand>
+      <b-navbar-brand href="/"> AppName </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
