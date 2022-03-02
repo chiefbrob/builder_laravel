@@ -33,7 +33,7 @@
             <template #button-content>
               <em>{{ longName }}</em>
             </template>
-            <b-dropdown-item href="#" v-if="user" @click="$router.push('profile')"
+            <b-dropdown-item href="#" v-if="user" @click="$router.push({ name: 'profile' })"
               >My Profile</b-dropdown-item
             >
             <b-dropdown-item href="#" v-if="admin" @click="$router.push({ name: 'admin' })"

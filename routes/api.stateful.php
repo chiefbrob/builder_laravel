@@ -1,10 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\Users\AdminDeleteUserController;
-use App\Http\Controllers\Admin\Roles\AddUserRoleController;
-use App\Http\Controllers\Admin\AdminGetUsersController;
-use App\Http\Controllers\Admin\Roles\CreateRoleController;
-use App\Http\Controllers\Admin\Roles\RemoveRoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,18 +10,22 @@ Route::prefix('v1')->group(static function () {
         ]);
     })->name('v1.status');
 
+    Route::prefix('users')->group(static function () {
+        Route::patch('/{user_id}', UserProfileUpdateController::class)->name('v1.user.update');
+    });
+
     Route::prefix('admin')->group(static function () {
         Route::prefix('roles')->group(static function () {
-            Route::post('/', CreateRoleController::class)->name('roles.create');
+            Route::post('/', Admin\Roles\CreateRoleController::class)->name('roles.create');
         });
         Route::prefix('users')->group(static function () {
-            Route::get('/', AdminGetUsersController::class)->name('admin.users');
-            Route::delete('/', AdminDeleteUserController::class)->name('admin.users.delete');
+            Route::get('/', Admin\AdminGetUsersController::class)->name('admin.users');
+            Route::delete('/', Admin\Users\AdminDeleteUserController::class)->name('admin.users.delete');
         });
 
         Route::prefix('user-roles')->group(static function () {
-            Route::post('/', AddUserRoleController::class)->name('user-role.create');
-            Route::delete('/', RemoveRoleController::class)->name('user-role.delete');
+            Route::post('/', Admin\Roles\AddUserRoleController::class)->name('user-role.create');
+            Route::delete('/', Admin\Roles\RemoveRoleController::class)->name('user-role.delete');
         });
     });
 });
