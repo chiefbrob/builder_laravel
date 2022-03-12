@@ -20,7 +20,7 @@
         
     </head>
     <body>
-        <div id="app" class="col-md-10 offset-md-1"><router-view></router-view></div>
+        <div id="app"><router-view></router-view></div>
     <script>
         // Check that service workers are supported
         if ('serviceWorker' in navigator) {
