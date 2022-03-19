@@ -9,14 +9,17 @@
       >{{ message.text }}</b-alert
     >
     <b-navbar toggleable="lg" type="dark" variant="info" class=" row">
-      <b-navbar-brand href="/" v-text="$root.$store.state.config.name"></b-navbar-brand>
+      <b-navbar-brand
+        @click="$router.push({ name: 'welcome' })"
+        v-text="$root.$store.state.config.name"
+      ></b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item
-            v-if="isWelcome"
+            v-if="!isWelcome"
             href="#"
             @click="$router.push({ name: 'home' })"
             :active="$route.name === 'home'"
@@ -96,7 +99,7 @@
         return longN;
       },
       isWelcome() {
-        return this.$router.currentRoute.name !== 'welcome';
+        return this.$router.currentRoute.name === 'welcome';
       },
       home() {
         return this.$route.name === 'home';
