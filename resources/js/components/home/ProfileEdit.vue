@@ -1,11 +1,10 @@
 <template>
   <div>
     <nav-root></nav-root>
-    <b-card :title="user.name" tag="article" class="col-md-4 offset-md-4">
+    <b-card title="Edit Profile" tag="article" class="col-md-4 offset-md-4 py-5 ">
       <b-card-text>
         <b-form class="py-3 row">
           <div class="col-md-12">
-            <h4>Edit Profile</h4>
             <b-form-group
               id="input-group-1"
               label="Name:"

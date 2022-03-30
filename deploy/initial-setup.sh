@@ -30,4 +30,4 @@ service php8.0-fpm restart
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 add-apt-repository -y ppa:certbot/certbot
-apt-get update && apt-get install -y python-certbot-nginx
+apt-get update && apt-get install -y python3-certbot-nginx
