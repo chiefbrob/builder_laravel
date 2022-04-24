@@ -11,7 +11,7 @@ Route::prefix('v1')->group(static function () {
     })->name('v1.status');
 
     Route::prefix('users')->group(static function () {
-        Route::patch('/{user_id}', UserProfileUpdateController::class)->name('v1.user.update');
+        Route::post('/{user_id}', UserProfileUpdateController::class)->name('v1.user.update');
     });
 
     Route::prefix('admin')->group(static function () {

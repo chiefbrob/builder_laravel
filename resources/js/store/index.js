@@ -29,6 +29,11 @@ export default new Vuex.Store({
     config: state => {
       return state.config;
     },
+    avatarUrl: state => {
+      return state.user?.photo
+        ? '/storage/images/profile/' + state.user.photo
+        : '/images/avatar.png';
+    },
   },
   mutations: {
     loading(state, loading) {

@@ -23,8 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'phone_number',
-        'phone_number_verified_at',
-        'password',
+        'photo',
     ];
 
     protected $appends = [ 'admin'];

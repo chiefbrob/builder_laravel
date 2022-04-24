@@ -1,13 +1,30 @@
 <template>
   <div>
     <nav-root></nav-root>
-    <b-card title="Edit Profile" tag="article" class="col-md-4 offset-md-4 py-5 ">
+    <b-card tag="article" class="col-md-4 offset-md-4 py-5 ">
+      <b-card-title>
+        <b-button
+          variant="dark"
+          class="fa fa-arrow-left"
+          @click="$router.push({ name: 'profile' })"
+        ></b-button>
+        Edit Profile
+      </b-card-title>
       <b-card-text>
-        <b-form class="py-3 row">
+        <form
+          class="py-3 row"
+          enctype="multipart/form-data"
+          @submit.prevent="updateName"
+          method="POST"
+        >
+          <input type="hidden" name="_token" :value="csrf" />
+          <div style="width: 80%; margin-left: 10%;">
+            <avatar></avatar>
+          </div>
           <div class="col-md-12">
             <b-form-group
               id="input-group-1"
-              label="Name:"
+              label="Name: *"
               label-for="name"
               description="Your full name."
             >
@@ -19,10 +36,11 @@
                 :placeholder="`Enter your name i.e. ${user.name}`"
               ></b-form-input>
             </b-form-group>
+            <field-error :solid="false" :errors="errors" field="name"></field-error>
 
             <b-form-group
               id="input-group-2"
-              label="Phone Number:"
+              label="Phone Number: *"
               label-for="phone_number"
               description="Your active phone number"
             >
@@ -34,25 +52,30 @@
                 :placeholder="`Enter your phone i.e. ${user.phone_number}`"
               ></b-form-input>
             </b-form-group>
+            <field-error :solid="false" :errors="errors" field="phone_number"></field-error>
 
-            <p>
-              Image update on
-              <a href="https://en.gravatar.com/profiles/edit#about-you" target="_blank">Gravatar</a>
-            </p>
+            <b-form-group label="Photo:" label-cols-sm="2">
+              <b-form-file
+                @change="imageUpdated"
+                id="profile-image"
+                size="sm"
+                accept=".jpg, .jpeg"
+                ref="photoInput"
+              ></b-form-file>
+            </b-form-group>
 
-            <p>
-              <b-button variant="danger" @click="$router.push({ name: 'profile' })"
-                >Cancel Edit</b-button
-              >
-              <b-button
-                variant="success"
+            <field-error :solid="false" :errors="errors" field="image"></field-error>
+
+            <p class="py-3">
+              <input
+                type="submit"
+                class="btn btn-success"
+                text="Update Profile"
                 :disabled="form.name === null || form.name.length < 3"
-                @click="updateName"
-                >Update Profile</b-button
-              >
+              />
             </p>
           </div>
-        </b-form>
+        </form>
       </b-card-text>
     </b-card>
   </div>
@@ -62,10 +85,13 @@
   export default {
     data() {
       return {
+        csrf: window.csrf_token,
         form: {
           name: null,
           phone_number: null,
+          photo: null,
         },
+        errors: [],
       };
     },
     computed: {
@@ -74,18 +100,31 @@
       },
     },
     mounted() {
-      this.form = this.user;
+      this.form.name = this.user.name;
+      this.form.phone_number = this.user.phone_number;
     },
     methods: {
+      imageUpdated(img) {
+        this.form.photo = img.target.files[0];
+      },
       updateName() {
+        let form = new FormData();
+        if (this.form.photo) {
+          form.append('photo', this.form.photo);
+        }
+        form.append('phone_number', this.form.phone_number);
+        form.append('name', this.form.name);
+
         axios
-          .patch(`/api/v1/users/${this.user.id}`, this.form)
+          .post(`/api/v1/users/${this.user.id}`, form, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+          })
           .then(results => {
             this.$root.$emit('sendMessage', 'Profile updated', 'success');
             this.$root.$emit('loadUser');
           })
-          .catch(error => {
-            console.log(error);
+          .catch(({ response }) => {
+            this.errors = response.data.errors;
             this.$root.$emit('sendMessage', 'Profile update failed!');
           });
       },

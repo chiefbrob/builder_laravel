@@ -48,7 +48,7 @@
 
           <b-nav-item-dropdown right>
             <template #button-content>
-              <em>{{ longName }}</em>
+              <em> <avatar style="display:inline; width: 2.5em"></avatar> </em>
             </template>
             <b-dropdown-item href="#" v-if="user" @click="$router.push({ name: 'profile' })"
               >My Profile</b-dropdown-item
