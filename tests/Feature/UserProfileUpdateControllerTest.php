@@ -19,7 +19,6 @@ class UserProfileUpdateControllerTest extends TestCase
      */
     public function testUpdateUserProfile()
     {
-        $this->withoutExceptionHandling();
         $user = User::factory()->create([
             'name' => 'Mark',
             'phone_number' => 323232332383

@@ -10,6 +10,10 @@ Route::prefix('v1')->group(static function () {
         ]);
     })->name('v1.status');
 
+    Route::prefix('blog')->namespace('Blog')->group(static function () {
+        Route::post('/', CreateBlogController::class)->name('v1.blog.create');
+    });
+
     Route::prefix('users')->group(static function () {
         Route::post('/{user_id}', UserProfileUpdateController::class)->name('v1.user.update');
         Route::delete('/{user_id}', User\UserDeactivateController::class)->name('v1.user.delete');
