@@ -1,6 +1,7 @@
 import HomeRoot from '../components/home/HomeRoot';
 import ProfileRoot from '../components/home/ProfileRoot';
 import ProfileEdit from '../components/home/ProfileEdit';
+import Settings from '../components/home/Settings';
 import Error404 from '../components/errors/Error404';
 import WelcomeRoot from '../components/WelcomeRoot';
 import AdminDashboard from '../components/admin/AdminDashboard';
@@ -37,6 +38,12 @@ export default {
       name: 'profile',
       path: '/profile',
       component: ProfileRoot,
+      meta: { requiresAuth: true },
+    },
+    {
+      name: 'settings',
+      path: '/profile/settings/:section?',
+      component: Settings,
       meta: { requiresAuth: true },
     },
     {

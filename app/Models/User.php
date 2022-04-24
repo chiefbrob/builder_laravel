@@ -24,6 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'phone_number',
         'photo',
+        'details',
     ];
 
     protected $appends = [ 'admin'];
@@ -45,6 +46,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'details' => 'array',
     ];
 
     public function isAdmin() {

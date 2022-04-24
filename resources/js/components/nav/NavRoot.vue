@@ -53,6 +53,10 @@
             <b-dropdown-item href="#" v-if="user" @click="$router.push({ name: 'profile' })"
               >My Profile</b-dropdown-item
             >
+            <b-dropdown-item href="#" v-if="user" @click="$router.push({ name: 'settings' })"
+              >Settings</b-dropdown-item
+            >
+
             <b-dropdown-item href="#" v-if="admin" @click="$router.push({ name: 'admin' })"
               >Admin Panel</b-dropdown-item
             >
