@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserProfileUpdateRequest;
 use App\Models\User;
+use App\PhotoManager;
 use Exception;
-use Intervention\Image\Facades\Image;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 
 class UserProfileUpdateController extends Controller
 {
@@ -33,23 +31,11 @@ class UserProfileUpdateController extends Controller
 
             if ($request->hasFile('photo')) {
                 $photo = $request->file('photo');
-                $fileName = time() . '.' . $photo->getClientOriginalExtension();
-                
-
-                $img = Image::make($photo->getRealPath());
-                $img->resize(120, 120);
-
-                $img->stream();
-
-                $storage = Storage::disk('local')->put("public/images/profile/$fileName", $img, 'public');
-                
-                if ($storage) {
-                    if ($user->photo) {
-                        Storage::disk('local')
-                            ->delete("public/images/profile/".$user->photo);
-                    }
-                    $user->photo = $fileName;
-                }
+                $user->photo =  PhotoManager::savePhoto(
+                    $photo,
+                    'profile',
+                    $user->photo
+                );
                 
             }
             

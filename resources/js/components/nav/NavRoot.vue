@@ -23,7 +23,7 @@
             href="#"
             @click="$router.push({ name: 'home' })"
             :active="$route.name === 'home'"
-            >Home</b-nav-item
+            ><i class="fa fa-tachometer"></i> Home</b-nav-item
           >
         </b-navbar-nav>
 
