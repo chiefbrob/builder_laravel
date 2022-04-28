@@ -2,7 +2,7 @@
   <div>
     <nav-root></nav-root>
 
-    <div class="row py-4">
+    <div class="row py-4 mb-5">
       <b-card no-body class="overflow-hidden col-md-6 offset-md-3 py-2 ">
         <b-row no-gutters>
           <b-col md="6">

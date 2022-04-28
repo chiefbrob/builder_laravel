@@ -2,7 +2,7 @@
   <div>
     <nav-root></nav-root>
 
-    <div class="row py-4">
+    <div class="row py-4  mb-5">
       <b-card class="col-md-8 offset-md-2" title="Settings">
         <b-tabs pills card vertical nav-wrapper-class="w-50">
           <b-tab title="Your Account" active
@@ -17,6 +17,7 @@
         </b-tabs>
       </b-card>
     </div>
+    <page-footer></page-footer>
   </div>
 </template>
 
