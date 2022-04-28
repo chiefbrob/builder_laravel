@@ -16,10 +16,8 @@ class CreateBlogControllerTest extends TestCase
 
     function setUp(): void
     {
-        $this->markTestSkipped("failing wierdly");
-        dd(User::factory()->create());
-        $user = User::create(['name' => 'foo', 'email' => 'foo@gmail.com']);
-        $this->actingAs($user);
+        parent::setUp();
+        $this->actingAsAdmin();
 
     }
     /**
@@ -29,22 +27,26 @@ class CreateBlogControllerTest extends TestCase
      */
     public function testUserCanCreateBlog()
     {
-        $this->assertTrue(true);
-        // $this->withoutExceptionHandling();
-        // //$this->actingAsRandomUser();
-        // Storage::fake('local');
-        // $response = $this->actingAsRandomUser()->post(route('v1.blog.create'), [
-        //     'title' => 'New Blog',
-        //     'subtitle'  => 'this is a new blog',
-        //     'user_id' => $this->user->id,
-        //     'contents' => 'Contents of a special blog',
-        //     'default_image' => UploadedFile::fake()->image('profile.jpeg'),
-        //     'blog_category_id' => BlogCategory::first()->id,
-        // ])->assertOk();
+        $this->withoutExceptionHandling();
+        Storage::fake('local');
+        $response = $this->post(route('v1.blog.create'), [
+            'title' => 'New Blog',
+            'subtitle'  => 'this is a new blog',
+            'user_id' => $this->user->id,
+            'contents' => 'Contents of a special blog',
+            'default_image' => UploadedFile::fake()->image('profile.jpg'),
+            'blog_category_id' => 1,
+        ])->assertCreated();
 
-        // $blog = $response['data'];
+        $blog = $response->baseResponse->original->toArray();
 
-        // Storage::disk('local')
-        //     ->assertExists("public/images/blog/".$blog->default_image);
+        unset($blog['created_at']);
+        unset($blog['updated_at']);
+
+        $this->assertDatabaseHas('blogs', $blog);
+        
+
+        Storage::disk('local')
+            ->assertExists("public/images/blog/".$blog['default_image']);
     }
 }
