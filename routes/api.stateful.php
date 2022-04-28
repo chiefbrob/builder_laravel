@@ -12,6 +12,7 @@ Route::prefix('v1')->group(static function () {
 
     Route::prefix('blog')->namespace('Blog')->group(static function () {
         Route::post('/', CreateBlogController::class)->name('v1.blog.create');
+        Route::post('/{id}', UpdateBlogController::class)->name('v1.blog.update');
     });
 
     Route::prefix('users')->group(static function () {

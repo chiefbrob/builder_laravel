@@ -25,9 +25,8 @@ class CreateBlogControllerTest extends TestCase
      *
      * @return void
      */
-    public function testUserCanCreateBlog()
+    public function testAdminCanCreateBlog()
     {
-        $this->withoutExceptionHandling();
         Storage::fake('local');
         $response = $this->post(route('v1.blog.create'), [
             'title' => 'New Blog',

@@ -19,24 +19,24 @@ class PhotoManager
         $photo, string $path = 'profile', $oldName = null
     ): string
     {
-        $fileName = time() . '.' . $photo->getClientOriginalExtension();
+        $fileName = time(). rand(1,10000) . '.' . $photo->getClientOriginalExtension();
                 
 
-            $img = Image::make($photo->getRealPath());
-            $img->resize(120, 120);
+        $img = Image::make($photo->getRealPath());
+        $img->resize(120, 120);
 
-            $img->stream();
+        $img->stream();
 
-            $storage = Storage::disk('local')
-                ->put("public/images/$path/$fileName", $img, 'public');
-            
-            if ($storage) {
-                if ($oldName) {
-                    Storage::disk('local')
-                        ->delete("public/images/$path/".$oldName);
-                }
-                return $fileName;
+        $storage = Storage::disk('local')
+            ->put("public/images/$path/$fileName", $img, 'public');
+        
+        if ($storage) {
+            if ($oldName) {
+                Storage::disk('local')
+                    ->delete("public/images/$path/".$oldName);
             }
-            return null;
+            return $fileName;
+        }
+        return null;
     }
 }
