@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav-root></nav-root>
-    <div class="row py-5">
+    <div class="row py-5 mb-5" v-for="i in 5" v-bind:key="i">
       <div class="col-md-3 offset-md-1">
         <b-card
           title="Card Title"

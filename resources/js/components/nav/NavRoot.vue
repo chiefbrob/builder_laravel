@@ -10,16 +10,17 @@
     >
     <b-navbar toggleable="lg" type="dark" variant="info" class=" row">
       <b-navbar-brand
+        class="pl-2"
         @click="$router.push({ name: 'welcome' })"
         v-text="$root.$store.state.config.name"
       ></b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-      <b-collapse id="nav-collapse" is-nav>
+      <b-collapse id="nav-collapse" is-nav class="pl-4">
         <b-navbar-nav>
           <b-nav-item
-            v-if="!isWelcome"
+            v-if="!home"
             href="#"
             @click="$router.push({ name: 'home' })"
             :active="$route.name === 'home'"

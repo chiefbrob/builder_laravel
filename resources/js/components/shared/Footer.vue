@@ -37,7 +37,7 @@
     <!-- Footer Elements -->
 
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">
+    <div class="footer-copyright text-center pb-2">
       © {{ today.getFullYear() }} {{ $store.getters.config.name }}
     </div>
     <!-- Copyright -->
@@ -57,9 +57,10 @@
 
 <style scoped>
   #footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
     padding: 0;
+    background-color: white;
   }
 </style>
