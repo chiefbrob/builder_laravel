@@ -31,6 +31,8 @@
         </b-row>
       </b-card>
     </div>
+
+    <page-footer></page-footer>
   </div>
 </template>
 

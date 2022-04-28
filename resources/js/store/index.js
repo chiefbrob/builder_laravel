@@ -43,8 +43,8 @@ export default new Vuex.Store({
       state.user = user;
     },
     config(state, config) {
-      state.user = {
-        ...state.user,
+      state.config = {
+        ...state.state,
         ...config,
       };
     },

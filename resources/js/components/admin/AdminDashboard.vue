@@ -3,6 +3,7 @@
     <nav-root></nav-root>
     <h4>Admin Panel</h4>
     <admin-users></admin-users>
+    <page-footer></page-footer>
   </div>
 </template>
 

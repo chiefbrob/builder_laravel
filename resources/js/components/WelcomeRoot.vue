@@ -27,5 +27,6 @@
         </b-tabs>
       </div>
     </div>
+    <page-footer></page-footer>
   </div>
 </template>

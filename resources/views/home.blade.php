@@ -20,7 +20,7 @@
         
     </head>
     <body>
-        <div id="app"><router-view></router-view></div>
+        <div id="app"><router-view style="min-height: 100vh;"></router-view></div>
     <script>
         // Check that service workers are supported
         if ('serviceWorker' in navigator) {

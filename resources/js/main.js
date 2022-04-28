@@ -32,6 +32,8 @@ Vue.component('field-error', require('./components/shared/FieldError').default);
 
 Vue.component('avatar', require('./components/home/ProfileImage').default);
 
+Vue.component('page-footer', require('./components/shared/Footer').default);
+
 Vue.use(VueRouter);
 
 require('./filters');
