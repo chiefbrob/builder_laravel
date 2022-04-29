@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav-root></nav-root>
-    <b-row>
+    <b-row class="mb-5 pb-5">
       <b-col md="6" offset="3">
         <b-card
           title="Snap, We Could't find it!"

@@ -20,11 +20,16 @@
       <b-collapse id="nav-collapse" is-nav class="pl-4">
         <b-navbar-nav>
           <b-nav-item
-            v-if="!home"
             href="#"
             @click="$router.push({ name: 'home' })"
             :active="$route.name === 'home'"
             ><i class="fa fa-tachometer"></i> Home</b-nav-item
+          >
+          <b-nav-item
+            href="#"
+            @click="$router.push({ name: 'blog' })"
+            :active="$route.name === 'blog'"
+            ><i class="fa fa-book"></i> Blog</b-nav-item
           >
         </b-navbar-nav>
 

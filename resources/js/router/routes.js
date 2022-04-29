@@ -6,6 +6,8 @@ import Error404 from '../components/errors/Error404';
 import WelcomeRoot from '../components/WelcomeRoot';
 import AdminDashboard from '../components/admin/AdminDashboard';
 import Style from '../components/style/Style';
+import BlogRoot from '../components/blog/BlogRoot';
+import BlogSingle from '../components/blog/BlogSingle';
 
 export default {
   mode: 'history',
@@ -53,7 +55,18 @@ export default {
       meta: { requiresAuth: true },
     },
     {
-      // will match everything
+      name: 'blog',
+      path: '/blog',
+      component: BlogRoot,
+      meta: { requiresAuth: false },
+    },
+    {
+      name: 'blog-single',
+      path: '/blog/:id/:long_title?',
+      component: BlogSingle,
+      meta: { requiresAuth: false },
+    },
+    {
       path: '*',
       component: Error404,
     },
