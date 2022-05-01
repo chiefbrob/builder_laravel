@@ -1,6 +1,17 @@
 <template>
   <div style="">
-    <b-card :title="blog.title" :sub-title="blog.subtitle" style="">
+    <b-card :sub-title="full ? blog.subtitle : null" style="">
+      <b-card-title>
+        <div>
+          {{ blog.title }}
+          <span v-if="full && admin" class="float-right ">
+            <b-button variant="info"><i class="fa fa-pen text-white"></i></b-button>
+            <b-button variant="danger" @click="deleteBlog"><i class="fa fa-trash"></i></b-button>
+          </span>
+          <br />
+          <small v-if="full"> {{ blog.user.name }} - {{ blog.created_at | relative }}</small>
+        </div>
+      </b-card-title>
       <b-card-img :src="imageSrc" :class="full ? 'py-4' : 'py-2'" :alt="blog.title"></b-card-img>
       <b-card-text v-if="full">
         {{ blog.contents }}
@@ -31,6 +42,9 @@
           return '/images/blog.png';
         }
       },
+      admin() {
+        return this.$store.getters.user.admin;
+      },
     },
     props: {
       blog: {
@@ -41,6 +55,20 @@
       },
     },
     methods: {
+      deleteBlog() {
+        axios
+          .delete(`/api/v1/blog/${this.blog.id}`)
+          .then(results => {
+            this.$root.$emit('sendMessage', 'Blog Deleted');
+            setTimeout(() => {
+              this.$router.push({ name: 'blog' });
+            }, 3000);
+          })
+          .catch(error => {
+            console.log(error);
+            this.$root.$emit('sendMessage', 'Failed to delete blog');
+          });
+      },
       showBlog() {
         if (!this.full) {
           this.$router.push({

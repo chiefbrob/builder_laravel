@@ -3,35 +3,32 @@
 namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Blog\GetBlogsRequest;
+use App\Http\Requests\Blog\BlogDeleteRequest;
 use App\Models\Blog;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 
-class GetBlogsController extends Controller
+class BlogDeleteController extends Controller
 {
     /**
      * Handle the incoming request.
      *
-     * @param  \App\Http\Requests\Blog\GetBlogsRequest  $request
+     * @param  \App\Http\Requests\Blog\BlogDeleteRequest  $request
      * 
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(GetBlogsRequest $request)
+    public function __invoke(BlogDeleteRequest $request, int $id)
     {
         try {
-           // return $request->id;
-            if ($request->id) {
-                return Blog::where('id', $request->id)->with('user')->with('blogCategory')->first();
-            }
-            return Blog::with('blogCategory')->with('user')->paginate();
+            $blog = Blog::findOrFail($id);
+            return $blog->delete();
             
         } catch (Exception $e) {
             Log::error($e);
             return response()->json([
-                'message' => 'Failed to fetch blogs'
+                'message' => 'Failed to delete blog'
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
