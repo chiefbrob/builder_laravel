@@ -9,6 +9,7 @@ import Style from '../components/style/Style';
 import BlogRoot from '../components/blog/BlogRoot';
 import BlogSingle from '../components/blog/BlogSingle';
 import NewBlog from '../components/blog/NewBlog';
+import BlogEdit from '../components/blog/BlogEdit';
 
 export default {
   mode: 'history',
@@ -65,6 +66,12 @@ export default {
       name: 'blog-new',
       path: '/blog/create',
       component: NewBlog,
+      meta: { requiresAdmin: true },
+    },
+    {
+      name: 'blog-edit',
+      path: '/blog/:id/edit',
+      component: BlogEdit,
       meta: { requiresAdmin: true },
     },
     {

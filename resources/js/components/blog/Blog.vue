@@ -5,7 +5,9 @@
         <div>
           {{ blog.title }}
           <span v-if="full && admin" class="float-right ">
-            <b-button variant="info"><i class="fa fa-pen text-white"></i></b-button>
+            <b-button variant="info" @click="editBlog"
+              ><i class="fa fa-pen text-white"></i
+            ></b-button>
             <b-button variant="danger" @click="deleteBlog"><i class="fa fa-trash"></i></b-button>
           </span>
           <br />
@@ -55,6 +57,9 @@
       },
     },
     methods: {
+      editBlog() {
+        this.$router.push({ name: 'blog-edit', params: { id: this.blog.id } });
+      },
       deleteBlog() {
         axios
           .delete(`/api/v1/blog/${this.blog.id}`)

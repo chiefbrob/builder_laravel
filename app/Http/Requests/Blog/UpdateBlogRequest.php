@@ -28,7 +28,7 @@ class UpdateBlogRequest extends FormRequest
             'subtitle' => 'required|string|min:5',
             'user_id' => 'required|integer|exists:users,id',
             'contents' => 'required|string',
-            'default_image' => 'required|image|mimes:jpeg,jpg|max:2048',
+            'default_image' => 'sometimes|nullable|image|mimes:jpeg,jpg|max:2048',
             'blog_category_id' => 'required|integer|exists:blog_categories,id',
         ];
     }

@@ -87,7 +87,17 @@
         },
       };
     },
+    created() {
+      this.setDefaults();
+    },
     methods: {
+      setDefaults() {
+        if (this.blog) {
+          this.form.title = this.blog.title;
+          this.form.subtitle = this.blog.subtitle;
+          this.form.contents = this.blog.contents;
+        }
+      },
       imageUpdated(img) {
         this.form.default_image = img.target.files[0];
       },
