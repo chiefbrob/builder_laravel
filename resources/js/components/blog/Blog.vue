@@ -6,11 +6,17 @@
         {{ blog.contents }}
       </b-card-text>
 
-      <h4>
-        <b-button style="color: white" variant="info" class="mr-4" v-if="!full" @click="showBlog"
+      <p>
+        <b-button
+          style="color: white"
+          variant="info"
+          size="sm"
+          class="mr-4"
+          v-if="!full"
+          @click="showBlog"
           >Read More</b-button
         >{{ blog.blog_category.title }}
-      </h4>
+      </p>
     </b-card>
   </div>
 </template>
@@ -19,8 +25,8 @@
   export default {
     computed: {
       imageSrc() {
-        if (this.blog.photo) {
-          return '/storage/images/blog/' + this.blog.photo;
+        if (this.blog.default_image) {
+          return '/storage/images/blog/' + this.blog.default_image;
         } else {
           return '/images/blog.png';
         }

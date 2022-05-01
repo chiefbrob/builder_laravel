@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Blog\GetBlogsRequest;
 use App\Models\Blog;
 use Exception;
 use Illuminate\Http\Request;
@@ -14,15 +15,16 @@ class GetBlogsController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Blog\GetBlogsRequest  $request
      * 
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(GetBlogsRequest $request)
     {
         try {
+           // return $request->id;
             if ($request->id) {
-                return Blog::findOrFail($request->id)->with('blogCategory')->first();
+                return Blog::where('id', $request->id)->with('blogCategory')->first();
             }
             return Blog::with('blogCategory')->paginate();
             

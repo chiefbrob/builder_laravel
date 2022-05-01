@@ -41,7 +41,11 @@ require('./filters');
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => {
-    if (err.name !== 'NavigationDuplicated') throw err;
+    if (err.name === 'NavigationDuplicated') {
+    } else {
+      console.log(err.includes('navigation guard'));
+      throw err;
+    }
   });
 };
 
@@ -54,7 +58,7 @@ router.beforeEach((to, from, next) => {
       if (window.User.admin) {
         next();
       } else {
-        next(false);
+        next({ name: 'welcome' });
       }
     } else {
       window.location = '/login';

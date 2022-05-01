@@ -8,6 +8,7 @@ import AdminDashboard from '../components/admin/AdminDashboard';
 import Style from '../components/style/Style';
 import BlogRoot from '../components/blog/BlogRoot';
 import BlogSingle from '../components/blog/BlogSingle';
+import NewBlog from '../components/blog/NewBlog';
 
 export default {
   mode: 'history',
@@ -59,6 +60,12 @@ export default {
       path: '/blog',
       component: BlogRoot,
       meta: { requiresAuth: false },
+    },
+    {
+      name: 'blog-new',
+      path: '/blog/create',
+      component: NewBlog,
+      meta: { requiresAdmin: true },
     },
     {
       name: 'blog-single',
