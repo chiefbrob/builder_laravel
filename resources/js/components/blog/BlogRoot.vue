@@ -8,6 +8,7 @@
           <h4>
             <span> Blog </span>
             <b-button
+              v-if="$store.getters.user.admin"
               class="float-right text-white"
               variant="info"
               @click="$router.push({ name: 'blog-new' })"
