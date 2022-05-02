@@ -8,7 +8,7 @@
           <h4>
             <span> Blog </span>
             <b-button
-              v-if="$store.getters.user.admin"
+              v-if="admin"
               class="float-right text-white"
               variant="info"
               @click="$router.push({ name: 'blog-new' })"
@@ -51,6 +51,11 @@
     },
     created() {
       this.loadBlogs();
+    },
+    computed: {
+      admin() {
+        return this.$store.getters.user?.admin;
+      },
     },
     methods: {
       pageChanged(page) {
