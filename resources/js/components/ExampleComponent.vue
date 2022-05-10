@@ -1,23 +1,23 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Example Component</div>
-
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div>
+    <nav-root></nav-root>
+    <div class="mb-5 pb-5 row">
+      <div class="col-md-10 offset-md-1">
+        Example component
+      </div>
     </div>
+    <page-footer></page-footer>
+  </div>
 </template>
 
 <script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
-    }
+  export default {
+    props: [],
+    data() {
+      return {};
+    },
+    computed: {},
+    methods: {},
+    created() {},
+  };
 </script>

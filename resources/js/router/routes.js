@@ -10,6 +10,8 @@ import BlogRoot from '../components/blog/BlogRoot';
 import BlogSingle from '../components/blog/BlogSingle';
 import NewBlog from '../components/blog/NewBlog';
 import BlogEdit from '../components/blog/BlogEdit';
+import PrivacyPolicy from '../components/pages/PrivacyPolicy';
+import TermsAndConditions from '../components/pages/TermsAndConditions';
 
 export default {
   mode: 'history',
@@ -78,6 +80,18 @@ export default {
       name: 'blog-single',
       path: '/blog/:id/:long_title?',
       component: BlogSingle,
+      meta: { requiresAuth: false },
+    },
+    {
+      name: 'terms',
+      path: '/terms-and-conditions',
+      component: TermsAndConditions,
+      meta: { requiresAuth: false },
+    },
+    {
+      name: 'privacy-policy',
+      path: '/privacy-policy',
+      component: PrivacyPolicy,
       meta: { requiresAuth: false },
     },
     {

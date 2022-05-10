@@ -2,25 +2,29 @@
 mkdir -p /var/www/means.on.chiefbrob.info
 rm -f /etc/nginx/sites-enabled/default
 cat <<EOF > /etc/nginx/sites-available/means.on.chiefbrob.info
-server {
+sserver {
     listen 80;
-    root /var/www/means.on.chiefbrob.info/public;
-    index index.php index.html index.htm;
+    #listen [::]:80 default_server ipv6only=on;
+
+    root /var/www/on/means/public;
+    index index.php index.html index.htm index.nginx-debian.html;
+
     server_name means.on.chiefbrob.info;
+
     location / {
-        try_files $uri $uri/ /index.php$is_args$args;
+    try_files $uri $uri/ /index.php$is_args$args;
     }
+
     location ~ \.php$ {
-            try_files $uri /index.php = 404;
-            fastcgi_pass unix:/var/run/php/php8.0-fpm.sock;
-            fastcgi_index index.php;
-            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-            include fastcgi_params;
+      try_files $uri /index.php =404;
+      fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+      fastcgi_index index.php;
+      fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+      include fastcgi_params;
     }
-    location ~* \.(?:jpg|jpeg|gif|png|ico|cur|gz|svg|svgz|mp4|ogg|ogv|webm|htc|svg|woff|woff2|ttf)\$ {
-        expires 1M;
-        access_log off;
-        add_header Cache-Control "public";
+
+    location ~ /\.ht {
+        deny all;
     }
 }
 EOF
