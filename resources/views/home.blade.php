@@ -33,6 +33,7 @@
     <script>
         window.feature_flags = @json(\FriendsOfCat\LaravelFeatureFlags\FeatureFlagsForJavascript::get());
         window.User = @json(Auth::user());
+        window.locale =  @json(\Illuminate\Support\Facades\App::currentLocale());
     </script>
     <script src="{{ mix('js/main.js') }}"></script>
     </body>

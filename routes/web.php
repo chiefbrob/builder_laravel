@@ -5,6 +5,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Mail\TestMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,4 +29,20 @@ Route::get('/test-mail', function (Request $request) {
     return Mail::to($email)->send(new TestMail());
 });
 
-Route::get('/{any?}', [App\Http\Controllers\HomeController::class, 'index'])->where('any', '.*')->name('home');
+Route::post('/language/{locale}', function ($locale) {
+    if (! in_array($locale, ['en', 'fr', 'sw'])) {
+        abort(400);
+    }
+ 
+    App::setLocale($locale);
+    Session::put('locale', $locale);
+    if (auth()->user()) {
+        $user = User::where('id', auth()->user()->id)->first();
+        $user->language = $locale;
+        $user->save();
+    }
+
+    return redirect()->back();
+})->name('language-switcher');
+
+Route::get('/{any?}', [\App\Http\Controllers\HomeController::class, 'index'])->where('any', '.*')->name('home');

@@ -45,11 +45,16 @@
             <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
           </b-nav-form>
 
-          <b-nav-item-dropdown text="Lang" right v-if="false">
-            <b-dropdown-item href="#">EN</b-dropdown-item>
-            <b-dropdown-item href="#">SW</b-dropdown-item>
-            <b-dropdown-item href="#">FR</b-dropdown-item>
-            <b-dropdown-item href="#">AR</b-dropdown-item>
+          <b-nav-item-dropdown right>
+            <template #button-content> <i class="fa fa-language"></i> {{ language }} </template>
+            <b-dropdown-item
+              v-for="lang in languages"
+              v-bind:key="lang.short"
+              :active="lang.short === language"
+              href="#"
+              @click="setLocale(lang.short)"
+              >{{ lang.name }}</b-dropdown-item
+            >
           </b-nav-item-dropdown>
 
           <b-nav-item-dropdown right>
@@ -89,6 +94,21 @@
         form: {
           query: null,
         },
+        languages: [
+          {
+            name: 'English',
+            short: 'en',
+          },
+          {
+            name: 'French',
+            short: 'fr',
+          },
+          {
+            name: 'Swahili',
+            short: 'sw',
+          },
+        ],
+        language: window.locale,
       };
     },
     computed: {
@@ -122,11 +142,26 @@
       },
     },
     created() {
+      console.log(this.language);
       this.$root.$on('sendMessage', (message, variant) => {
         this.sendMessage(message, variant);
       });
     },
     methods: {
+      setLocale(lang) {
+        axios
+          .post(`/language/${lang}`)
+          .then(results => {
+            this.sendMessage('Language switched. Reloading...', 'success');
+            setTimeout(() => {
+              window.location.reload();
+            }, 1200);
+          })
+          .catch(error => {
+            console.log(error);
+            this.sendMessage('Language switch Failed!', 'danger');
+          });
+      },
       formSubmitted() {
         if (!this.formComplete) {
           return;

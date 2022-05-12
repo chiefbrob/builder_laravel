@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -52,6 +54,13 @@ class LoginController extends Controller
             $user->deactivated_at = null;
             $user->deleted_at = null;
             $user->save();
+        }
+        if (Session::has('locale')) {
+            App::setLocale(Session::get('locale'));
+        } else {
+            $locale = $user->language;
+            App::setLocale($locale);
+            Session::put('locale', $locale);
         }
     }
 }
