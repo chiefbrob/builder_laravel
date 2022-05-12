@@ -30,3 +30,20 @@ git remote add template git@github.com:chiefbrob/builder_laravel.git
 git fetch template
 git rebase template/master
 ```
+
+# Run with docker-compose
+
+Login Docker
+
+`docker login`
+
+Build Image
+
+```bash
+npm run production
+docker-compose build
+```
+
+Test Image
+
+`docker-compose up -d` and `docker-compose stop`
