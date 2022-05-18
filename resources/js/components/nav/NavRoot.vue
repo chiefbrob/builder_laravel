@@ -142,7 +142,7 @@
       },
     },
     created() {
-      console.log(this.language);
+      console.log(this.$root.$featureIsEnabled('production'));
       this.$root.$on('sendMessage', (message, variant) => {
         this.sendMessage(message, variant);
       });

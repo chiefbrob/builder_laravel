@@ -16,7 +16,9 @@
             content.
           </b-card-text>
 
-          <b-button href="#" variant="primary">Go somewhere</b-button>
+          <b-button href="#" variant="primary">Go somewhere </b-button>
+
+          <clipboard content="copy me"></clipboard>
         </b-card>
       </div>
       <div class="col-md-7">

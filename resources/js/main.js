@@ -7,20 +7,12 @@ Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 import routes from './router/routes';
 import store from './store';
+import './spark-bootstrap.js';
+import VueClipboard from 'vue-clipboard2';
+VueClipboard.config.autoSetContainer = true;
+Vue.use(VueClipboard);
 
-window._ = require('lodash');
-window.axios = require('axios');
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-window.moment = require('moment');
-
-let token = document.head.querySelector('meta[name="csrf-token"]');
-
-if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-} else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-}
+Vue.component('clipboard', require('./components/shared/ClipBoard').default);
 
 Vue.component('multiselect', Multiselect);
 
@@ -37,6 +29,8 @@ Vue.component('page-footer', require('./components/shared/Footer').default);
 Vue.use(VueRouter);
 
 require('./filters');
+
+Vue.mixin(require('./mixin'));
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
@@ -84,3 +78,6 @@ const app = new Vue({
     }
   },
 });
+
+window.Vue = app;
+window.Bus = new Vue();
