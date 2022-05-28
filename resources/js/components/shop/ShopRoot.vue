@@ -1,0 +1,23 @@
+<template>
+  <div>
+    <nav-root></nav-root>
+    <div class="mb-5 pb-5 row">
+      <div class="col-md-10 offset-md-1">
+        Shop
+      </div>
+    </div>
+    <page-footer></page-footer>
+  </div>
+</template>
+
+<script>
+  export default {
+    props: [],
+    data() {
+      return {};
+    },
+    computed: {},
+    methods: {},
+    created() {},
+  };
+</script>

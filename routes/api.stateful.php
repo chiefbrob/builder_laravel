@@ -10,6 +10,10 @@ Route::prefix('v1')->group(static function () {
         ]);
     })->name('v1.status');
 
+    Route::prefix('products')->namespace('Product')->group(static function () {
+        Route::post('/', CreateProductController::class)->name('v1.product.create');
+    });
+
     Route::prefix('blog')->namespace('Blog')->group(static function () {
         Route::post('/', CreateBlogController::class)->name('v1.blog.create');
         Route::post('/{id}', UpdateBlogController::class)->name('v1.blog.update');

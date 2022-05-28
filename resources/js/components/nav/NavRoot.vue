@@ -31,6 +31,13 @@
             :active="$route.name === 'blog'"
             ><i class="fa fa-book"></i> Blog</b-nav-item
           >
+          <b-nav-item
+            href="#"
+            v-if="$root.$featureIsEnabled('shop')"
+            @click="$router.push({ name: 'shop' })"
+            :active="$route.name === 'shop'"
+            ><i class="fa fa-shop"></i> Shop</b-nav-item
+          >
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->

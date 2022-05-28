@@ -13,6 +13,8 @@ import BlogEdit from '../components/blog/BlogEdit';
 import PrivacyPolicy from '../components/pages/PrivacyPolicy';
 import TermsAndConditions from '../components/pages/TermsAndConditions';
 
+import ShopRoot from '../components/shop/ShopRoot';
+
 export default {
   mode: 'history',
   routes: [
@@ -57,6 +59,12 @@ export default {
       path: '/profile/edit',
       component: ProfileEdit,
       meta: { requiresAuth: true },
+    },
+    {
+      name: 'shop',
+      path: '/shop',
+      component: ShopRoot,
+      meta: { requiresAuth: false },
     },
     {
       name: 'blog',
