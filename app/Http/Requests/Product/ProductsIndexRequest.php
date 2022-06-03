@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Product;
 
+use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductsIndexRequest extends FormRequest
@@ -11,10 +12,10 @@ class ProductsIndexRequest extends FormRequest
      *
      * @return bool
      */
-    // public function authorize()
-    // {
-    //     return false;
-    // }
+    public function authorize()
+    {
+        return true;
+    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -26,6 +27,23 @@ class ProductsIndexRequest extends FormRequest
         return [
             'id' => 'nullable|sometimes|integer|exists:products,id',
             'query' => 'nullable|sometimes|string|min:3',
+            'slug' => 'nullable|sometimes|string|exists:products,slug'
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation(): void
+    {
+        if ($this->slug) {
+            $product = Product::where('slug', $this->slug)->firstOrFail();
+            $this->merge([
+                'id' => $product->id,
+            ]);
+        }
+        
     }
 }

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-// import getAQuote from './get-a-quote/quote-store.js';
+import shop from './shop/shop-store.js';
 
 Vue.use(Vuex);
 
@@ -8,7 +8,7 @@ const debug = process.env.NODE_ENV !== 'production';
 
 export default new Vuex.Store({
   modules: {
-    // getAQuote,
+    shop,
   },
   strict: debug,
   state: {

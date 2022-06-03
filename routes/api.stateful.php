@@ -11,7 +11,7 @@ Route::prefix('v1')->group(static function () {
     })->name('v1.status');
 
     Route::prefix('products')->namespace('Product')->group(static function () {
-        Route::get('/', ProductsIndexController::class)->name('v1.product.index');
+        
         Route::post('/', CreateProductController::class)->name('v1.product.create');
         Route::post('/{id}', UpdateProductController::class)->name('v1.product.update');
         Route::delete('/{id}', DeleteProductController::class)->name('v1.product.delete');

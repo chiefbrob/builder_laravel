@@ -149,7 +149,7 @@
       },
     },
     created() {
-      console.log(this.$root.$featureIsEnabled('production'));
+      //console.log(this.$root.$featureIsEnabled('production'));
       this.$root.$on('sendMessage', (message, variant) => {
         this.sendMessage(message, variant);
       });

@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/v1/blog', Blog\GetBlogsController::class)->name('v1.blog.index');
 Route::post('/v1/contact', Contact\CreateContactController::class)->name('v1.contact.create');
+Route::get('/v1/products', Product\ProductsIndexController::class)->name('v1.product.index');

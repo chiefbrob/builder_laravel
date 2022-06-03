@@ -108,7 +108,7 @@
         }
         form.append('title', this.form.title);
         form.append('subtitle', this.form.subtitle);
-        form.append('contents', this.form.subtitle);
+        form.append('contents', this.form.contents);
         form.append('user_id', this.form.user_id);
         form.append('blog_category_id', this.form.blog_category_id);
 
