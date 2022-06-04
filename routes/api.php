@@ -18,6 +18,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/v1/blog', Blog\GetBlogsController::class)->name('v1.blog.index');
-Route::post('/v1/contact', Contact\CreateContactController::class)->name('v1.contact.create');
-Route::get('/v1/products', Product\ProductsIndexController::class)->name('v1.product.index');
+
+Route::prefix('v1')->group(static function () {
+    Route::get('/cart', Shop\GetShoppingCartController::class)->name('v1.cart');
+    Route::post('/cart', Shop\AddItemToCartController::class)->name('v1.cart.add');
+    Route::delete('/cart', Shop\RemoveItemFromCartController::class)->name('v1.cart.delete');
+    Route::delete('/cart/empty', Shop\EmptyCartController::class)->name('v1.cart.empty');
+    Route::get('/blog', Blog\GetBlogsController::class)->name('v1.blog.index');
+    Route::post('/contact', Contact\CreateContactController::class)->name('v1.contact.create');
+    Route::get('/products', Product\ProductsIndexController::class)->name('v1.product.index');
+});
