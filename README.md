@@ -2,6 +2,15 @@
 
 This is a template repository used to build Laravel Applications for chiefbrob/builder
 
+# Using Template
+
+Copy `.env.example` to `.env`
+Update `APP_NAME`, `APP_URL`
+Update `config/app.php`
+Update `public/manifest.json`
+Update `resources/js/store/index.js`
+Update Deploy Folder Notes
+
 # Local Setup
 
 Valet is required
