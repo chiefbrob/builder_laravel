@@ -41,6 +41,12 @@ class CreateProductControllerTest extends TestCase
         $product['price'] = 20000;
 
         $this->assertDatabaseHas('products', $product);
+
+        $this->assertDatabaseHas('product_variants', [
+            'product_id' => $product['id'],
+            'name' => $product['name'],
+            'quantity' => 1
+        ]);
         
 
         Storage::disk('local')

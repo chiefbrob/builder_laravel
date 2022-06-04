@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use App\PhotoManager;
 use Exception;
 use Illuminate\Http\Response;
@@ -23,6 +24,13 @@ class CreateProductController extends Controller
     {
         try {
             $product = Product::create($request->validated());
+
+            ProductVariant::create(
+                [
+                    'name' => $product->name,
+                    'product_id' => $product->id,
+                ]
+            );
             
             if ($request->hasFile('photo')) {
                 $photo = $request->file('photo');
