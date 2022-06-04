@@ -22,7 +22,8 @@ class ProductVariant extends Model
         'name',
         'description',
         'photo',
-        'quantity'
+        'quantity',
+        'product_size_id',
     ];
 
     protected $appends = [ 'variants'];
@@ -43,5 +44,15 @@ class ProductVariant extends Model
     public function getVariantsAttribute()
     {
         return ProductVariant::where('variant_id', $this->id)->get();
+    }
+
+    public function productSize(): BelongsTo
+    {
+        return $this->belongsTo(ProductSize::class)->withDefault(
+            [
+                'name' => 'Medium',
+                'slug' => 'M',
+            ]
+        );
     }
 }
