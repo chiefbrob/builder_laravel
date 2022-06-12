@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Session;
 
 class AddItemToCartController extends Controller
 {
-    public $cart;
     /**
      * Handle the incoming request.
      *

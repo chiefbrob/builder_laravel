@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use App\Casts\MoneyCast;
+use App\Models\Shop\Variants;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model
+class Product extends Variants
 {
     use HasFactory, SoftDeletes;
 

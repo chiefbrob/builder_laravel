@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Shop\Variants;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProductVariant extends Model
+class ProductVariant extends Variants
 {
     use HasFactory, SoftDeletes;
 
@@ -28,7 +28,7 @@ class ProductVariant extends Model
 
     protected $appends = [ 'variants'];
 
-    public function getParentAttribute() : Model
+    public function getParentAttribute() : Variants
     {
         if ($this->variant_id) {
             return ProductVariant::findOrFail($this->variant_id);
