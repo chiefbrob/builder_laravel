@@ -11,6 +11,21 @@ class Contact extends Model
 {
     use HasFactory, SoftDeletes;
 
+    const STATUS_PENDING = 'PENDING';
+
+    const STATUS_QUEUED = 'QUEUED';
+
+    const STATUS_IN_PROGRESS = 'IN_PROGRESS';
+
+    const STATUS_COMPLETE = 'COMPLETE';
+
+    const STATUSES = [
+        self::STATUS_PENDING,
+        self::STATUS_QUEUED,
+        self::STATUS_IN_PROGRESS,
+        self::STATUS_COMPLETE,
+    ];
+
     protected $fillable = [
         'title',
         'email',
