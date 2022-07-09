@@ -16,14 +16,17 @@ class PhotoManager
      * 
      */
     public static function savePhoto(
-        $photo, string $path = 'profile', $oldName = null
+        $photo, string $path = 'profile', $oldName = null, $resize = true, $width = 120, $height = 120
     ): string
     {
         $fileName = time(). rand(1,10000) . '.' . $photo->getClientOriginalExtension();
                 
 
         $img = Image::make($photo->getRealPath());
-        $img->resize(120, 120);
+        if ($resize) {
+            $img->resize($width, $height);
+        }
+        
 
         $img->stream();
 
