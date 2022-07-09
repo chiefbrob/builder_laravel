@@ -31,7 +31,8 @@ class CreateBlogController extends Controller
                 $blog->default_image =  PhotoManager::savePhoto(
                     $default_image,
                     'blog',
-                    $blog->default_image
+                    $blog->default_image,
+                    false
                 );
 
                 $blog->save();
