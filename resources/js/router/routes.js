@@ -11,6 +11,7 @@ import BlogSingle from '../components/blog/BlogSingle';
 import NewBlog from '../components/blog/NewBlog';
 import BlogEdit from '../components/blog/BlogEdit';
 import PrivacyPolicy from '../components/pages/PrivacyPolicy';
+import ContactRoot from '../components/pages/ContactRoot';
 import TermsAndConditions from '../components/pages/TermsAndConditions';
 
 import ShopRoot from '../components/shop/ShopRoot';
@@ -32,6 +33,12 @@ export default {
       path: '/home',
       component: HomeRoot,
       meta: { requiresAuth: true },
+    },
+    {
+      name: 'contact',
+      path: '/contact',
+      component: ContactRoot,
+      meta: { requiresAuth: false },
     },
     {
       name: 'admin',
