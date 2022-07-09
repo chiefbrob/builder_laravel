@@ -1,16 +1,16 @@
 <template>
   <div>
     <nav-root></nav-root>
-    <h1>Home</h1>
-    <div class="mb-5 pb-5">
-      Contents
+    <div class="row">
+      <my-contacts class="col-md-10 offset-md-1 py-4"></my-contacts>
     </div>
     <page-footer></page-footer>
   </div>
 </template>
 
 <script>
+  import MyContacts from '../contacts/MyContacts';
   export default {
-    components: {},
+    components: { MyContacts },
   };
 </script>

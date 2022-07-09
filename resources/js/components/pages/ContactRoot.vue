@@ -104,7 +104,12 @@
           We have received your message and will get back to you shortly. Thank you for your
           patience.
         </p>
-        <p><b-button variant="success" @click="submitted = false"> Send New Message</b-button></p>
+        <p>
+          <b-button variant="success" @click="submitted = false"> Send New Message</b-button>
+          <b-button class="text-white" variant="info" @click="$router.push({ name: 'home' })"
+            >View My Contacts</b-button
+          >
+        </p>
       </div>
     </div>
     <page-footer></page-footer>
