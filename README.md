@@ -6,6 +6,7 @@ This is a template repository used to build Laravel Applications for chiefbrob/b
 
 Copy `.env.example` to `.env`
 Update `APP_NAME`, `APP_URL`
+Update `MAIL_USERNAME` and  `MAIL_PASSWORD`
 Update `config/app.php`
 Update `public/manifest.json`
 Update `resources/js/store/index.js`
@@ -13,24 +14,22 @@ Update Deploy Folder Notes
 
 # Local Setup
 
+MySQL required
 Valet is required
 
-```bash
-cd ~/Sites
-valet park
-```
-
-OR
 
 ```bash
-valet link laravel-builder
+valet link builder_laravel
 ```
 
 THEN
 
 ```bash
-valet secure laravel-builder
+valet secure builder_laravel
+npm run hotssl
 ```
+
+View site on https://builder_laravel.test 
 
 # Pull changes to your repository
 
