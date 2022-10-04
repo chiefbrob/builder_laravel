@@ -3,12 +3,12 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class AdminGetUsersControllerTest extends TestCase
 {
     use RefreshDatabase;
+
     /**
      * A basic feature test example.
      *
@@ -23,14 +23,14 @@ class AdminGetUsersControllerTest extends TestCase
                 [
                     'id' => $this->user->id,
                     'name' => $this->user->name,
-                ]
+                ],
             ],
             'current_page' => 1,
             'last_page' => 1,
             'from' => 1,
             'to' => 1,
             'total' => 1,
-            'path' => "/admin/users"
+            'path' => '/admin/users',
         ])->assertJsonCount(1, 'data');
     }
 }

@@ -16,7 +16,6 @@ class UserDeactivateController extends Controller
      * Handle the incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * 
      * @return \Illuminate\Http\Response
      */
     public function __invoke(Request $request, $user_id)
@@ -26,14 +25,15 @@ class UserDeactivateController extends Controller
             if ($user->id === auth()->user()->id) {
                 Auth::logout();
                 $user->deactivated_at = now();
-                 return $user->save();
+
+                return $user->save();
             }
-            throw new Exception("User profile doesnt match", 1);
-            
+            throw new Exception('User profile doesnt match', 1);
         } catch (Exception $e) {
             Log::error($e);
+
             return response()->json([
-                'message' => 'Failed to delete user'
+                'message' => 'Failed to delete user',
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

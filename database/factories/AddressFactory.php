@@ -12,6 +12,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 class AddressFactory extends Factory
 {
     use WithFaker;
+
     /**
      * Define the model's default state.
      *

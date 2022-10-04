@@ -4,12 +4,12 @@ namespace Tests\Feature\Blog;
 
 use App\Models\Blog;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class BlogDeleteControllerTest extends TestCase
 {
     use RefreshDatabase;
+
     /**
      * A basic feature test example.
      *
@@ -22,8 +22,6 @@ class BlogDeleteControllerTest extends TestCase
         $this->get(route('v1.blog.index'))
             ->assertOk()->assertJsonCount(1, 'data');
         $this->delete(route('v1.blog.delete', ['id' => $blog->id]))->assertOk();
-
-        
 
         $this->assertDatabaseHas('blogs', [
             'id' => $blog->id,

@@ -14,20 +14,21 @@ abstract class TestCase extends BaseTestCase
 
     /**
      * Logs in a random user into the application.
-     * @param  array  $attributes
      *
+     * @param  array  $attributes
      * @return $this
      */
     public function actingAsRandomUser(array $attributes = [])
     {
         $this->user = User::factory()->create($attributes);
+
         return $this->actingAs($this->user);
     }
 
     /**
      * Logs in a admin into the application.
-     * @param  array  $attributes
      *
+     * @param  array  $attributes
      * @return $this
      */
     public function actingAsAdmin(array $attributes = [])
@@ -36,6 +37,7 @@ abstract class TestCase extends BaseTestCase
         $role = Role::firstOrCreate(['name' => 'admin']);
         $admin->assignRole($role);
         $this->user = $admin;
+
         return $this->actingAs($admin);
     }
 }

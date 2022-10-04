@@ -24,8 +24,9 @@ class AdminDeleteUserRequest extends FormRequest
     public function rules()
     {
         $user_id = auth()->user()->id;
+
         return [
-            'user_id' => sprintf('required|integer|exists:users,id|not_in:%s', $user_id)
+            'user_id' => sprintf('required|integer|exists:users,id|not_in:%s', $user_id),
         ];
     }
 }

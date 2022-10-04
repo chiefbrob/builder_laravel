@@ -18,7 +18,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::prefix('v1')->group(static function () {
     Route::get('/cart', Shop\GetShoppingCartController::class)->name('v1.cart');
     Route::post('/cart', Shop\AddItemToCartController::class)->name('v1.cart.add');

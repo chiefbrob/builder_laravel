@@ -25,7 +25,7 @@ class InvoiceFactory extends Factory
         $user = User::factory()->create();
         $address = Address::factory()->create(
             [
-                'user_id' => $user->id
+                'user_id' => $user->id,
             ]
         );
         $discount = rand(500, 1000);
@@ -57,6 +57,7 @@ class InvoiceFactory extends Factory
 
         $repo = new CartRepository();
         $cart = $repo->addToCart($variant1, rand(1, 4));
+
         return [
             'reference' => 'SHOP'.rand(10000, 1000000),
             'user_id' => $user->id,

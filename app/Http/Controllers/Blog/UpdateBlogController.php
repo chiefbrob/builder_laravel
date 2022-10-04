@@ -17,9 +17,7 @@ class UpdateBlogController extends Controller
      * Handle the incoming request.
      *
      * @param  \App\Http\Requests\Blog\UpdateBlogRequest  $request
-     * 
-     * @param int $id
-     * 
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function __invoke(UpdateBlogRequest $request, $id)
@@ -32,7 +30,7 @@ class UpdateBlogController extends Controller
             $blog->fill($validated);
             if ($request->hasFile('default_image')) {
                 $default_image = $request->file('default_image');
-                $blog->default_image =  PhotoManager::savePhoto(
+                $blog->default_image = PhotoManager::savePhoto(
                     $default_image,
                     'blog',
                     $blog->default_image,
@@ -41,12 +39,13 @@ class UpdateBlogController extends Controller
             }
             $blog->save();
             $blog->refresh();
-            return $blog;
 
+            return $blog;
         } catch (Exception $e) {
             Log::error($e);
+
             return response()->json([
-                'message' => 'Failed to update blog'
+                'message' => 'Failed to update blog',
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

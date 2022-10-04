@@ -17,7 +17,6 @@ class CreateContactController extends Controller
      * Handle the incoming request.
      *
      * @param  \App\Http\Requests\Contact\ContactRequest  $request
-     * 
      * @return \Illuminate\Http\Response
      */
     public function __invoke(ContactRequest $request)
@@ -29,21 +28,20 @@ class CreateContactController extends Controller
 
             if ($request->hasFile('default_image')) {
                 $default_image = $request->file('default_image');
-                $contact->default_image =  PhotoManager::savePhoto(
+                $contact->default_image = PhotoManager::savePhoto(
                     $default_image,
                     'contacts',
                     $contact->default_image
                 );
                 $contact->save();
-                
             }
 
             return $contact;
-
         } catch (Exception $e) {
             Log::error($e);
+
             return response()->json([
-                'message' => 'Failed to create contact'
+                'message' => 'Failed to create contact',
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

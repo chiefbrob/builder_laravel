@@ -18,8 +18,11 @@ class InvoiceState extends Model
     ];
 
     public const STATUS_PENDING = 'PENDING';
+
     public const STATUS_PAID = 'PAID';
+
     public const STATUS_COMPLETE = 'COMPLETE';
+
     public const STATUS_CANCELLED = 'CANCELLED';
 
     public const STATUSES = [

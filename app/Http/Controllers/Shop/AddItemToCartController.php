@@ -9,7 +9,6 @@ use App\Repositories\CartRepository;
 use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
 
 class AddItemToCartController extends Controller
 {
@@ -17,7 +16,6 @@ class AddItemToCartController extends Controller
      * Handle the incoming request.
      *
      * @param  \App\Http\Requests\Shop\AddItemToCartRequest  $request
-     * 
      * @return \Illuminate\Http\Response
      */
     public function __invoke(AddItemToCartRequest $request)
@@ -28,14 +26,14 @@ class AddItemToCartController extends Controller
 
             return response()->json(
                 [
-                    'cart' => $repo->addToCart($variant, $request->quantity)
+                    'cart' => $repo->addToCart($variant, $request->quantity),
                 ]
             );
-            
         } catch (Exception $e) {
             Log::error($e);
+
             return response()->json([
-                'message' => 'Failed to add product to cart'
+                'message' => 'Failed to add product to cart',
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

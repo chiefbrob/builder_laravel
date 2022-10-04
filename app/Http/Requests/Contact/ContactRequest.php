@@ -7,7 +7,6 @@ use Illuminate\Validation\Rule;
 
 class ContactRequest extends FormRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -17,10 +16,10 @@ class ContactRequest extends FormRequest
     {
         return [
             'title' => 'required|string|min:5',
-            'email' => [ 'nullable', 'email',
-                Rule::requiredIf(function() {
+            'email' => ['nullable', 'email',
+                Rule::requiredIf(function () {
                     return empty($this->request->get('user_id')) && empty($this->request->get('phone_number'));
-                })
+                }),
             ],
             'phone_number' => 'sometimes|nullable|string|min:11',
             'user_id' => 'sometimes|nullable|integer|exists:users,id',
@@ -39,9 +38,8 @@ class ContactRequest extends FormRequest
     {
         if (auth()->user()) {
             $this->merge([
-                'user_id' => auth()->user()->id
+                'user_id' => auth()->user()->id,
             ]);
         }
-        
     }
 }

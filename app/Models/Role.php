@@ -22,7 +22,7 @@ class Role extends Model
 
     /**
      * Relationship with UserRoles Model
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function user(): HasMany

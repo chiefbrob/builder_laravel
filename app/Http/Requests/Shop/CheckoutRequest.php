@@ -28,33 +28,33 @@ class CheckoutRequest extends FormRequest
                 'sometimes',
                 'nullable',
                 'integer',
-                'exists:users,id'
+                'exists:users,id',
             ],
             'address_id' => [
                 'sometimes',
                 'nullable',
                 'required_with:user_id',
                 'integer',
-                'exists:addresses,id'
+                'exists:addresses,id',
             ],
             'phone_number' => [
                 'sometimes',
                 'nullable',
                 'required_without:email,user_id',
-                'string'
+                'string',
             ],
             'email' => [
                 'sometimes',
                 'nullable',
                 'required_without:phone_number,user_id',
-                'email'
+                'email',
             ],
             'payment_method_id' => [
                 'required',
                 'integer',
                 'exists:payment_methods,id',
             ],
-            
+
         ];
     }
 
@@ -67,9 +67,8 @@ class CheckoutRequest extends FormRequest
     {
         if (auth()->user()) {
             $this->merge([
-                'user_id' => auth()->user()->id
+                'user_id' => auth()->user()->id,
             ]);
         }
-        
     }
 }

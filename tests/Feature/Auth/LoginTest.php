@@ -4,7 +4,6 @@ namespace Tests\Feature\Auth;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
@@ -49,12 +48,12 @@ class LoginTest extends TestCase
         $user = User::factory()->create([
             'password' => Hash::make('i-love-laravel'),
         ]);
-        
+
         $response = $this->from('/login')->post('/login', [
             'email' => $user->email,
             'password' => 'invalid-password',
         ]);
-        
+
         $response->assertRedirect('/login');
         $response->assertSessionHasErrors('email');
         $this->assertTrue(session()->hasOldInput('email'));
@@ -83,6 +82,5 @@ class LoginTest extends TestCase
         $user->refresh();
 
         $this->assertNull($user->deactivated_at);
-
     }
 }

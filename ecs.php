@@ -34,7 +34,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters->set('sets', ['psr12']);
 
-    $parameters->set('paths', [__DIR__ . '/app']);
+    $parameters->set('paths', [__DIR__.'/app']);
 
     $parameters->set('skip', [StrictComparisonFixer::class => null]);
 };

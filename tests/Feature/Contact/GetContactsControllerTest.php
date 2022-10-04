@@ -5,14 +5,13 @@ namespace Tests\Feature\Contact;
 use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class GetContactsControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    function setUp(): void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -26,7 +25,6 @@ class GetContactsControllerTest extends TestCase
                 'status' => Contact::STATUS_IN_PROGRESS,
             ]
         );
-
     }
 
     public function testAdminGetAllContacts()
@@ -35,36 +33,36 @@ class GetContactsControllerTest extends TestCase
         $this->post(route('v1.contact.create'), [
             'title' => 'Similar Error',
             'contents' => 'fix this too',
-            'url' => 'xim.bar'
+            'url' => 'xim.bar',
         ])->assertCreated();
 
         $this->get(route('v1.contact.index', [
-            'statuses' => ['PENDING','IN_PROGRESS']
+            'statuses' => ['PENDING', 'IN_PROGRESS'],
         ]))
             ->assertOk()
             ->assertJson([
                 'total' => 2,
                 'data' => [
                     [
-                        'title' => 'Similar Error'
+                        'title' => 'Similar Error',
                     ],
                     [
-                        'title' => 'foo title'
-                    ]
-                ]
+                        'title' => 'foo title',
+                    ],
+                ],
             ]);
 
         $this->get(route('v1.contact.index', [
-            'statuses' => ['IN_PROGRESS']
+            'statuses' => ['IN_PROGRESS'],
         ]))
             ->assertOk()
             ->assertJson([
                 'total' => 1,
                 'data' => [
                     [
-                        'title' => 'foo title'
-                    ]
-                ]
+                        'title' => 'foo title',
+                    ],
+                ],
             ]);
     }
 
@@ -72,18 +70,16 @@ class GetContactsControllerTest extends TestCase
     {
         $this->actingAsRandomUser();
 
-        
-
         $this->post(route('v1.contact.create'), [
             'title' => 'Eg Error',
             'contents' => 'fix this',
-            'url' => 'foo.bar'
+            'url' => 'foo.bar',
         ])->assertCreated();
 
         $this->post(route('v1.contact.create'), [
             'title' => 'Similar Error',
             'contents' => 'fix this too',
-            'url' => 'xim.bar'
+            'url' => 'xim.bar',
         ])->assertCreated();
 
         $this->get(route('v1.contact.index'))
@@ -92,12 +88,12 @@ class GetContactsControllerTest extends TestCase
                 'total' => 2,
                 'data' => [
                     [
-                        'title' => 'Similar Error'
+                        'title' => 'Similar Error',
                     ],
                     [
-                        'title' => 'Eg Error'
-                    ]
-                ]
+                        'title' => 'Eg Error',
+                    ],
+                ],
             ]);
     }
 }

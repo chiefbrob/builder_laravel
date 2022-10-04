@@ -26,13 +26,14 @@ class ProductVariant extends Variants
         'product_size_id',
     ];
 
-    protected $appends = [ 'variants'];
+    protected $appends = ['variants'];
 
-    public function getParentAttribute() : Variants
+    public function getParentAttribute(): Variants
     {
         if ($this->variant_id) {
             return ProductVariant::findOrFail($this->variant_id);
         }
+
         return $this->product;
     }
 

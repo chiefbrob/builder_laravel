@@ -24,7 +24,7 @@ class RemoveRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_role_id' => 'required|integer|exists:user_roles,id'
+            'user_role_id' => 'required|integer|exists:user_roles,id',
         ];
     }
 }

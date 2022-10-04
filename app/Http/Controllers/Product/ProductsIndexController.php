@@ -15,8 +15,7 @@ class ProductsIndexController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param  \App\Http\Requests\Product\ProductsIndexRequest $request 
-     * 
+     * @param  \App\Http\Requests\Product\ProductsIndexRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function __invoke(ProductsIndexRequest $request)
@@ -27,18 +26,19 @@ class ProductsIndexController extends Controller
             }
             if ($query = $request->get('query')) {
                 return Product::where('name', 'like', '%'.$query.'%')
-                    ->orWhere('description', 'like',  '%'.$query.'%')
+                    ->orWhere('description', 'like', '%'.$query.'%')
                     ->with('productVariants')
                     ->paginate();
             }
-            return Product::with('productVariants')->whereHas('productVariants', function($q){
+
+            return Product::with('productVariants')->whereHas('productVariants', function ($q) {
                 $q->where('quantity', '>', 0);
             })->paginate();
-
         } catch (Exception $e) {
             Log::error($e);
+
             return response()->json([
-                'message' => 'Failed to fetch products'
+                'message' => 'Failed to fetch products',
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

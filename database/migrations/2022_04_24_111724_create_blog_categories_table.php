@@ -23,7 +23,7 @@ class CreateBlogCategoriesTable extends Migration
 
         BlogCategory::create([
             'slug' => 'general',
-            'title' => 'General'
+            'title' => 'General',
         ]);
     }
 

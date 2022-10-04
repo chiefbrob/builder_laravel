@@ -27,7 +27,7 @@ class ProductsIndexRequest extends FormRequest
         return [
             'id' => 'nullable|sometimes|integer|exists:products,id',
             'query' => 'nullable|sometimes|string|min:3',
-            'slug' => 'nullable|sometimes|string|exists:products,slug'
+            'slug' => 'nullable|sometimes|string|exists:products,slug',
         ];
     }
 
@@ -44,6 +44,5 @@ class ProductsIndexRequest extends FormRequest
                 'id' => $product->id,
             ]);
         }
-        
     }
 }

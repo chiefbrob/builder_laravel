@@ -3,8 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class TestStatefulApi extends TestCase
@@ -18,6 +16,5 @@ class TestStatefulApi extends TestCase
     {
         $this->actingAs(User::factory()->create());
         $this->get(route('v1.status'))->assertOk()->assertJson(['status' => 'OK']);
-
     }
 }

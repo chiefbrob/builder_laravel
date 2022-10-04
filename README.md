@@ -55,3 +55,11 @@ docker-compose build
 Test Image
 
 `docker-compose up -d` and `docker-compose stop`
+
+## Fix Style
+
+```
+composer check-style
+composer fix-style
+/vendor/bin/pint
+```

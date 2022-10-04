@@ -5,12 +5,12 @@ namespace Tests\Feature\Product;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class DeleteProductControllerTest extends TestCase
 {
     use RefreshDatabase;
+
     /**
      * A basic feature test example.
      *
@@ -27,8 +27,6 @@ class DeleteProductControllerTest extends TestCase
         $this->get(route('v1.product.index'))
             ->assertOk()->assertJsonCount(1, 'data');
         $this->delete(route('v1.product.delete', ['id' => $product->id]))->assertOk();
-
-        
 
         $this->assertDatabaseHas('products', [
             'id' => $product->id,

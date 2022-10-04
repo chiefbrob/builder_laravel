@@ -19,13 +19,12 @@ class SetLocale
     {
         if (Session::has('locale')) {
             App::setLocale(Session::get('locale'));
-
         } elseif ($request->user()) {
             $locale = $request->user()->language;
             App::setLocale($locale);
             Session::put('locale', $locale);
         }
-        
+
         return $next($request);
     }
 }

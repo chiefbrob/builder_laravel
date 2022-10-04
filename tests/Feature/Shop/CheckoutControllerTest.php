@@ -7,28 +7,30 @@ use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\Shop\Variants;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class CheckoutControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    private $product1, $product2, $product3;
+    private $product1;
 
-    function setUp(): void
+    private $product2;
+
+    private $product3;
+
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->product1 = Product::factory()->create(['price' => 100]);
-        $this->createVariants($this->product1, ['A','B','C']);
-        
+        $this->createVariants($this->product1, ['A', 'B', 'C']);
+
         $this->product2 = Product::factory()->create(['price' => 500]);
-        $this->createVariants($this->product2, ['E','F','G','K']);
+        $this->createVariants($this->product2, ['E', 'F', 'G', 'K']);
 
         $this->product3 = Product::factory()->create(['price' => 850]);
         $this->createVariants($this->product1, ['X']);
-
     }
 
     private function createVariants(Variants $v, array $names)
@@ -52,10 +54,9 @@ class CheckoutControllerTest extends TestCase
                     ]
                 );
             }
-            
-            
         }
     }
+
     /**
      * A basic feature test example.
      *
@@ -66,7 +67,6 @@ class CheckoutControllerTest extends TestCase
         $variant1 = ProductVariant::inRandomOrder()->first();
 
         $originalQuantity = $variant1->quantity;
-
 
         $this->post(route('v1.cart.add'), [
             'product_variant_id' => $variant1->id,
@@ -80,7 +80,7 @@ class CheckoutControllerTest extends TestCase
                         'id' => $variant1->id,
                         'quantity' => 2,
                     ],
-                ]
+                ],
             ]
         );
 
@@ -90,24 +90,23 @@ class CheckoutControllerTest extends TestCase
             'payment_method_id' => PaymentMethod::inRandomOrder()->first()->id,
         ])->assertOk()->assertJson([
             'invoice' => [
-                'tax' => 0 
-            ]
+                'tax' => 0,
+            ],
         ]);
 
-        $invoice = $response->baseResponse->original; 
+        $invoice = $response->baseResponse->original;
         $variant1->refresh();
 
         $this->assertEquals($originalQuantity - 2, $variant1->quantity);
 
         $this->assertDatabaseHas('users', [
             'phone_number' => '254732938104',
-            'name' => 'Brian'
+            'name' => 'Brian',
         ]);
 
         $this->assertDatabaseHas('addresses', [
-            'first_name' => 'Brian'
+            'first_name' => 'Brian',
         ]);
-        
     }
 
     public function testAuthUserCanCheckout()
@@ -115,7 +114,7 @@ class CheckoutControllerTest extends TestCase
         $this->actingAsRandomUser();
 
         $variants = $this->product1->productVariants;
-       
+
         $variant1 = $variants[0];
         $variant2 = $variants[1];
 
@@ -143,7 +142,7 @@ class CheckoutControllerTest extends TestCase
                         'id' => $variant2->id,
                         'quantity' => 3,
                     ],
-                ]
+                ],
             ]
         );
 
@@ -151,8 +150,8 @@ class CheckoutControllerTest extends TestCase
             'payment_method_id' => PaymentMethod::inRandomOrder()->first()->id,
         ])->assertOk()->assertJson([
             'invoice' => [
-                'tax' => 0 
-            ]
+                'tax' => 0,
+            ],
         ]);
 
         $variant1->refresh();
@@ -160,7 +159,6 @@ class CheckoutControllerTest extends TestCase
 
         $this->assertEquals($originalQuantity1 - 2, $variant1->quantity);
         $this->assertEquals($originalQuantity2 - 3, $variant2->quantity);
-        
     }
 
     public function testPhoneNumberMatchedToAccount()
@@ -172,6 +170,4 @@ class CheckoutControllerTest extends TestCase
     {
         $this->markTestIncomplete('to be done');
     }
-
-    
 }

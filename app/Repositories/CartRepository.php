@@ -14,19 +14,20 @@ use Illuminate\Support\Str;
 class CartRepository
 {
     public $cart;
+
     private $reserved = false;
+
     private $invoice = null;
+
     private $request = null;
 
     public function __construct()
     {
         $this->cart = Session::get('cart', []);
     }
-    
 
     public function addToCart(ProductVariant $variant, int $quantity = 1): array
     {
-        
         $item = [
             'id' => $variant->id,
             'quantity' => $quantity,
@@ -42,11 +43,12 @@ class CartRepository
             array_push($newCart, $cartItem);
         }
 
-        if (!$added) {
+        if (! $added) {
             array_push($newCart, $item);
         }
         $this->cart = $newCart;
         Session::put('cart', $newCart);
+
         return $this->getCart();
     }
 
@@ -59,7 +61,6 @@ class CartRepository
     {
         $newCart = [];
         foreach ($this->cart as $cartItem) {
-            
             if ($cartItem['id'] === $variant->id) {
                 $newQuantity = $cartItem['quantity'] - $quantity;
                 if ($newQuantity > 0) {
@@ -69,11 +70,11 @@ class CartRepository
             } else {
                 array_push($newCart, $cartItem);
             }
-            
         }
-        
+
         $this->cart = $newCart;
         Session::put('cart', $newCart);
+
         return $this->getCart();
     }
 
@@ -81,6 +82,7 @@ class CartRepository
     {
         $this->cart = [];
         Session::put('cart', $this->cart);
+
         return $this->getCart();
     }
 
@@ -116,7 +118,7 @@ class CartRepository
         $this->request = $request;
         if ($this->reserveCartItems()) {
             if ($request->get('user_id')) {
-                $user = auth()->user(); 
+                $user = auth()->user();
                 if ($request->address_id) {
                     $address = Address::find($request->address_id);
                 } else {
@@ -131,17 +133,16 @@ class CartRepository
                         );
                     }
                 }
-                
             } else {
                 $email = $request->get('email');
                 $fname = $request->get('first_name');
                 $fname = explode(' ', $fname);
                 $fname = strtolower(implode('', $fname));
-                if (!$email) {
+                if (! $email) {
                     $url = env('APP_URL');
                     $domain = explode('//', $url);
                     $domain = $domain[1];
-                    
+
                     $email = $fname.rand(100, 1000000).'@'.$domain;
                 }
                 $pass = Str::random(16);
@@ -150,7 +151,7 @@ class CartRepository
                         'name' => $request->get('first_name'),
                         'email' => $email,
                         'phone_number' => $request->get('phone_number'),
-                        'password' => Hash::make($pass)
+                        'password' => Hash::make($pass),
                     ]
                 );
                 $address = Address::create(
@@ -173,6 +174,7 @@ class CartRepository
             ];
         } else {
             $this->releaseCartItems();
+
             return false;
         }
     }
@@ -190,17 +192,17 @@ class CartRepository
                 'shipping_cost' => 0,
                 'discount' => 0,
                 'grand_total' => $this->getGrandTotal(),
-                'payment_method_id' => $this->request->payment_method_id
+                'payment_method_id' => $this->request->payment_method_id,
             ]
         );
 
         if ($invoice->id) {
             $this->invoice = $invoice;
+
             return true;
         } else {
             return false;
         }
-
     }
 
     private function reserveCartItems(): bool
@@ -219,23 +221,24 @@ class CartRepository
             }
         }
 
-        if (!$canReserve) {
+        if (! $canReserve) {
             foreach ($reserved as $item) {
                 $variant = ProductVariant::find($item['id']);
                 $variant->quantity += $item['quantity'];
                 $variant->save();
             }
+
             return false;
-        } 
+        }
 
         $this->reserved = true;
+
         return true;
-        
     }
 
     private function releaseCartItems(): bool
     {
-        if (!$this->reserved) {
+        if (! $this->reserved) {
             return false;
         }
         foreach ($this->cart as $item) {
@@ -243,7 +246,7 @@ class CartRepository
             $variant->quantity += $item['quantity'];
             $variant->save();
         }
+
         return true;
     }
-
 }

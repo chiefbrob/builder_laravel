@@ -5,12 +5,12 @@ namespace Tests\Feature;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class UserRoleTest extends TestCase
 {
     use RefreshDatabase;
+
     /**
      * A basic feature test example.
      *
@@ -20,7 +20,7 @@ class UserRoleTest extends TestCase
     {
         $role = Role::create([
             'name' => 'driver',
-            'description' => 'Can Drive'
+            'description' => 'Can Drive',
         ]);
 
         $user = User::factory()->create();
@@ -35,10 +35,8 @@ class UserRoleTest extends TestCase
 
         $role2 = Role::create([
             'name' => 'rider',
-            'description' => 'Can Ride'
+            'description' => 'Can Ride',
         ]);
-
-        
 
         $this->assertEquals(['driver'], $user->rolesList);
 

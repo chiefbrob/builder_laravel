@@ -16,9 +16,7 @@ class UpdateProductController extends Controller
      * Handle the incoming request.
      *
      * @param  \App\Http\Requests\Product\UpdateProductRequest  $request
-     * 
-     * @param int $id
-     * 
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function __invoke(UpdateProductRequest $request, $id)
@@ -31,7 +29,7 @@ class UpdateProductController extends Controller
             $product->fill($validated);
             if ($request->hasFile('photo')) {
                 $photo = $request->file('photo');
-                $product->photo =  PhotoManager::savePhoto(
+                $product->photo = PhotoManager::savePhoto(
                     $photo,
                     'products',
                     $product->photo
@@ -41,12 +39,13 @@ class UpdateProductController extends Controller
             }
             $product->save();
             $product->refresh();
-            return $product;
 
+            return $product;
         } catch (Exception $e) {
             Log::error($e);
+
             return response()->json([
-                'message' => 'Failed to update product'
+                'message' => 'Failed to update product',
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

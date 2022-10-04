@@ -26,21 +26,21 @@ return new class extends Migration
         PaymentMethod::create(
             [
                 'name' => 'M-Pesa',
-                'slug' => 'mpesa'
+                'slug' => 'mpesa',
             ]
         );
 
         PaymentMethod::create(
             [
                 'name' => 'Cash',
-                'slug' => 'cash'
+                'slug' => 'cash',
             ]
         );
 
         PaymentMethod::create(
             [
                 'name' => 'Cash on Delivery',
-                'slug' => 'cash_on_delivery'
+                'slug' => 'cash_on_delivery',
             ]
         );
 
@@ -48,7 +48,7 @@ return new class extends Migration
             [
                 'name' => 'Paypal Gateway',
                 'slug' => 'paypal',
-                'enabled' => false
+                'enabled' => false,
             ]
         );
     }

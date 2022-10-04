@@ -16,22 +16,22 @@ class GetBlogsController extends Controller
      * Handle the incoming request.
      *
      * @param  \App\Http\Requests\Blog\GetBlogsRequest  $request
-     * 
      * @return \Illuminate\Http\Response
      */
     public function __invoke(GetBlogsRequest $request)
     {
         try {
-           // return $request->id;
+            // return $request->id;
             if ($request->id) {
                 return Blog::where('id', $request->id)->with('user')->with('blogCategory')->first();
             }
+
             return Blog::with('blogCategory')->with('user')->paginate();
-            
         } catch (Exception $e) {
             Log::error($e);
+
             return response()->json([
-                'message' => 'Failed to fetch blogs'
+                'message' => 'Failed to fetch blogs',
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

@@ -16,7 +16,6 @@ class CheckoutController extends Controller
      * Handle the incoming request.
      *
      * @param  \App\Http\Requests\Shop\CheckoutRequest  $request
-     * 
      * @return \Illuminate\Http\Response
      */
     public function __invoke(CheckoutRequest $request)
@@ -25,11 +24,11 @@ class CheckoutController extends Controller
             $repo = new CartRepository();
 
             return response()->json($repo->checkout($request));
-            
         } catch (Exception $e) {
             Log::error($e);
+
             return response()->json([
-                'message' => 'Failed to checkout'
+                'message' => 'Failed to checkout',
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

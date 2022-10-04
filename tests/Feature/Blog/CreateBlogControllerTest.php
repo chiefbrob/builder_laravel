@@ -2,10 +2,7 @@
 
 namespace Tests\Feature\Blog;
 
-use App\Models\BlogCategory;
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -14,12 +11,12 @@ class CreateBlogControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    function setUp(): void
+    public function setUp(): void
     {
         parent::setUp();
         $this->actingAsAdmin();
-
     }
+
     /**
      * A basic feature test example.
      *
@@ -30,7 +27,7 @@ class CreateBlogControllerTest extends TestCase
         Storage::fake('local');
         $response = $this->post(route('v1.blog.create'), [
             'title' => 'New Blog',
-            'subtitle'  => 'this is a new blog',
+            'subtitle' => 'this is a new blog',
             'user_id' => $this->user->id,
             'contents' => 'Contents of a special blog',
             'default_image' => UploadedFile::fake()->image('profile.jpg'),
@@ -43,9 +40,8 @@ class CreateBlogControllerTest extends TestCase
         unset($blog['updated_at']);
 
         $this->assertDatabaseHas('blogs', $blog);
-        
 
         Storage::disk('local')
-            ->assertExists("public/images/blog/".$blog['default_image']);
+            ->assertExists('public/images/blog/'.$blog['default_image']);
     }
 }

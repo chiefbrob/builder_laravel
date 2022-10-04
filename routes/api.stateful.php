@@ -6,19 +6,17 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(static function () {
     Route::get('/status', function (Request $request) {
         return response()->json([
-            'status' => 'OK'
+            'status' => 'OK',
         ]);
     })->name('v1.status');
 
     Route::prefix('products')->namespace('Product')->group(static function () {
-        
         Route::post('/', CreateProductController::class)->name('v1.product.create');
         Route::post('/{id}', UpdateProductController::class)->name('v1.product.update');
         Route::delete('/{id}', DeleteProductController::class)->name('v1.product.delete');
     });
 
     Route::prefix('contacts')->namespace('Contact')->group(static function () {
-        
         Route::get('/', GetContactsController::class)->name('v1.contact.index');
     });
 

@@ -3,7 +3,6 @@
 namespace Tests\Feature\Product;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -12,12 +11,12 @@ class CreateProductControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    function setUp(): void
+    public function setUp(): void
     {
         parent::setUp();
         $this->actingAsAdmin();
-
     }
+
     /**
      * A basic feature test example.
      *
@@ -28,7 +27,7 @@ class CreateProductControllerTest extends TestCase
         Storage::fake('local');
         $response = $this->post(route('v1.product.create'), [
             'name' => 'Fancy Dress',
-            'slug'  => 'fancy-dress',
+            'slug' => 'fancy-dress',
             'price' => 200,
             'description' => 'Details of a fancy dress',
             'photo' => UploadedFile::fake()->image('product.jpg'),
@@ -45,11 +44,10 @@ class CreateProductControllerTest extends TestCase
         $this->assertDatabaseHas('product_variants', [
             'product_id' => $product['id'],
             'name' => $product['name'],
-            'quantity' => 1
+            'quantity' => 1,
         ]);
-        
 
         Storage::disk('local')
-            ->assertExists("public/images/products/".$product['photo']);
+            ->assertExists('public/images/products/'.$product['photo']);
     }
 }

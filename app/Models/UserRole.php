@@ -20,10 +20,9 @@ class UserRole extends Model
         'role_id',
     ];
 
-
     /**
      * Relationship with User Model
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user(): BelongsTo
@@ -33,7 +32,7 @@ class UserRole extends Model
 
     /**
      * Relationship with Role Model
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function role(): BelongsTo

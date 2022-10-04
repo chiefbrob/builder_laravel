@@ -16,18 +16,19 @@ class AdminDeleteUserController extends Controller
      * Handle the incoming request.
      *
      * @param  \App\Http\Requests\Admin\Users\AdminDeleteUserRequest  $request
-     * 
      * @return \Illuminate\Http\Response
      */
     public function __invoke(AdminDeleteUserRequest $request)
     {
         try {
             $user = User::findOrFail($request->user_id);
+
             return $user->delete();
         } catch (Exception $e) {
             Log::error($e);
+
             return response()->json([
-                'message' => 'Failed to get users'
+                'message' => 'Failed to get users',
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

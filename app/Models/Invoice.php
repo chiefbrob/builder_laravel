@@ -22,7 +22,7 @@ class Invoice extends Model
         'discount',
         'grand_total',
         'status',
-        'payment_method_id'
+        'payment_method_id',
     ];
 
     /**
@@ -38,6 +38,4 @@ class Invoice extends Model
         'grand_total' => MoneyCast::class,
         'cart' => 'array',
     ];
-
-    
 }

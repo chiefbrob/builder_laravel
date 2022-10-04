@@ -4,12 +4,12 @@ namespace Tests\Feature\Blog;
 
 use App\Models\Blog;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class GetBlogsControllerTest extends TestCase
 {
     use RefreshDatabase;
+
     /**
      * A basic feature test example.
      *
@@ -22,7 +22,7 @@ class GetBlogsControllerTest extends TestCase
             ->assertJson(['data' => [
                 [
                     'id' => $blog->id,
-                ]
+                ],
             ]]);
 
         $response->assertStatus(200);
@@ -31,6 +31,5 @@ class GetBlogsControllerTest extends TestCase
             ->assertJson([
                 'id' => $blog->id,
             ]);
-
     }
 }

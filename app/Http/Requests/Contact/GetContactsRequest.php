@@ -26,8 +26,8 @@ class GetContactsRequest extends FormRequest
     public function rules()
     {
         return [
-            'statuses' => ['sometimes','nullable', 'array', 'min:1'],
-            'statuses.*' => Rule::in(Contact::STATUSES)
+            'statuses' => ['sometimes', 'nullable', 'array', 'min:1'],
+            'statuses.*' => Rule::in(Contact::STATUSES),
         ];
     }
 }

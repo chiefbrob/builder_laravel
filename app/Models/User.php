@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Traits\HasRoles;
 use App\Traits\CanBlog;
+use App\Traits\HasRoles;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -31,7 +31,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'details',
     ];
 
-    protected $appends = [ 'admin'];
+    protected $appends = ['admin'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -53,8 +53,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'details' => 'array',
     ];
 
-    public function isAdmin() {
+    public function isAdmin()
+    {
         $role = Role::where('name', 'admin')->firstOrCreate(['name' => 'admin']);
+
         return $this->hasRole($role) ? true : $this->email === 'brianobare@gmail.com';
     }
 

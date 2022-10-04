@@ -30,6 +30,5 @@ class UpdateProductRequest extends FormRequest
             'description' => 'required|string',
             'photo' => 'sometimes|nullable|image|mimes:jpeg,jpg|max:10000',
         ];
-        
     }
 }

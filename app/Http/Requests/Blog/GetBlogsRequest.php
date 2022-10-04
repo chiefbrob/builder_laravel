@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class GetBlogsRequest extends FormRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -15,7 +14,7 @@ class GetBlogsRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'sometimes|nullable|integer|exists:blogs,id'
+            'id' => 'sometimes|nullable|integer|exists:blogs,id',
         ];
     }
 }

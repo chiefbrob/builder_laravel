@@ -3,7 +3,6 @@
 namespace Tests\Feature\Contact;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -11,6 +10,7 @@ use Tests\TestCase;
 class CreateContactControllerTest extends TestCase
 {
     use RefreshDatabase;
+
     /**
      * A basic feature test example.
      *
@@ -22,14 +22,13 @@ class CreateContactControllerTest extends TestCase
             'title' => '403 Error',
             'email' => 'jack@foobar.com',
         ])->assertCreated()->assertJson([
-            'title' => '403 Error'
+            'title' => '403 Error',
         ]);
 
         $this->assertDatabaseHas('contacts', [
             'title' => '403 Error',
             'email' => 'jack@foobar.com',
         ]);
-
     }
 
     public function testCanContactWithPhone()
@@ -38,14 +37,13 @@ class CreateContactControllerTest extends TestCase
             'title' => '404 Error',
             'phone_number' => '254739231873',
         ])->assertCreated()->assertJson([
-            'title' => '404 Error'
+            'title' => '404 Error',
         ]);
 
         $this->assertDatabaseHas('contacts', [
             'title' => '404 Error',
             'phone_number' => '254739231873',
         ]);
-
     }
 
     public function testCanContactWhenLoggedIn()
@@ -54,19 +52,18 @@ class CreateContactControllerTest extends TestCase
         $this->post(route('v1.contact.create'), [
             'title' => '404 Error',
             'contents' => 'sample contact',
-            'url' => 'foo.bar'
+            'url' => 'foo.bar',
         ])->assertCreated()->assertJson([
             'title' => '404 Error',
             'contents' => 'sample contact',
-            'url' => 'foo.bar'
+            'url' => 'foo.bar',
         ]);
 
         $this->assertDatabaseHas('contacts', [
             'title' => '404 Error',
             'contents' => 'sample contact',
-            'url' => 'foo.bar'
+            'url' => 'foo.bar',
         ]);
-
     }
 
     public function testImageUpload()
@@ -76,10 +73,10 @@ class CreateContactControllerTest extends TestCase
         $response = $this->post(route('v1.contact.create'), [
             'title' => 'Img Error',
             'default_image' => UploadedFile::fake()->image('avatar.jpg'),
-            'phone_number' => '3442932932933'
+            'phone_number' => '3442932932933',
         ])->assertCreated()->assertJson([
             'title' => 'Img Error',
-            'phone_number' => '3442932932933'
+            'phone_number' => '3442932932933',
         ]);
 
         $contact = $response->baseResponse->original->toArray();
@@ -91,7 +88,6 @@ class CreateContactControllerTest extends TestCase
         ]);
 
         Storage::disk('local')
-            ->assertExists("public/images/contacts/".$contact['default_image']);
-
+            ->assertExists('public/images/contacts/'.$contact['default_image']);
     }
 }

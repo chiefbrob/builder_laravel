@@ -17,7 +17,6 @@ class CreateProductController extends Controller
      * Handle the incoming request.
      *
      * @param  \App\Http\Requests\Product\CreateProductRequest  $request
-     * 
      * @return \Illuminate\Http\Response
      */
     public function __invoke(CreateProductRequest $request)
@@ -31,10 +30,10 @@ class CreateProductController extends Controller
                     'product_id' => $product->id,
                 ]
             );
-            
+
             if ($request->hasFile('photo')) {
                 $photo = $request->file('photo');
-                $product->photo =  PhotoManager::savePhoto(
+                $product->photo = PhotoManager::savePhoto(
                     $photo,
                     'products',
                     $product->default_image
@@ -43,12 +42,13 @@ class CreateProductController extends Controller
                 $product->save();
             }
             $product->refresh();
+
             return $product;
-            
         } catch (Exception $e) {
             Log::error($e);
+
             return response()->json([
-                'message' => 'Failed to create product'
+                'message' => 'Failed to create product',
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

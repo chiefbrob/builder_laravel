@@ -1,13 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Mail\TestMail;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,13 +20,13 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
-
 Auth::routes(['verify' => true]);
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/test-mail', function (Request $request) {
     $email = $request->email ?? 'brianobare@gmail.com';
+
     return Mail::to($email)->send(new TestMail());
 });
 
@@ -33,7 +34,7 @@ Route::post('/language/{locale}', function ($locale) {
     if (! in_array($locale, ['en', 'fr', 'sw'])) {
         abort(400);
     }
- 
+
     App::setLocale($locale);
     Session::put('locale', $locale);
     if (auth()->user()) {
