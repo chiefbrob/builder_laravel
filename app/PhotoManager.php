@@ -39,4 +39,22 @@ class PhotoManager
 
         return null;
     }
+
+    /**
+     * Deletes a photo from a path
+     *
+     * @var string $folder Folder name of file to delete
+     *
+     * @var string $name Name of image to delete
+     *
+     * @return bool
+     */
+    public static function deletePhoto(string $folder = 'profiles', string $name = 'foo.jpg'): bool
+    {
+        $path = 'public/images/'.$folder . '/' . $name;
+        if (Storage::exists($path)) {
+            return Storage::delete($path);
+        }
+        return false;
+    }
 }

@@ -74,10 +74,26 @@ class UpdateBlogControllerTest extends TestCase
 
         $blog->refresh();
 
-        // dd([$blog->default_image, $oldImage]);
-
         Storage::disk('local')
             ->assertExists('public/images/blog/'.$blog->default_image);
         Storage::disk('local')->assertMissing("public/images/blog/$oldImage");
+
+        $this->post(
+            route(
+                'v1.blog.update',
+                ['id' => $blog->id]
+            ),
+            $data1
+        )->assertOk();
+
+        $oldImage = $blog->default_image;
+
+        $blog->refresh();
+
+        $this->assertNull($blog->default_image);
+
+        Storage::disk('local')
+            ->assertMissing('public/images/blog/'.$oldImage);
     }
+
 }

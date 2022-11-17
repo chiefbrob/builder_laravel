@@ -30,6 +30,7 @@ class UpdateBlogRequest extends FormRequest
             'contents' => 'required|string',
             'default_image' => 'sometimes|nullable|image|mimes:jpeg,jpg|max:2048',
             'blog_category_id' => 'required|integer|exists:blog_categories,id',
+            'remove_image' => 'sometimes|nullable|string|in:true'
         ];
     }
 }

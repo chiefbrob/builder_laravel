@@ -34,16 +34,33 @@
         </b-form-group>
         <field-error :solid="false" :errors="errors" field="subtitle"></field-error>
 
-        <b-form-group label="Photo:" label-cols-sm="2">
-          <b-form-file
-            @change="imageUpdated"
-            id="default-image"
+        <div>
+          <b-button
+            v-if="!removeImage && blog.default_image"
+            @click="removeImage = true"
             size="sm"
-            accept=".jpg, .jpeg"
-          ></b-form-file>
-        </b-form-group>
+            variant="danger"
+            ><i class="fa fa-times"></i> Remove Image</b-button
+          ><b-button v-if="removeImage" @click="removeImage = false" size="sm" variant="success"
+            ><i class="fa fa-check-circle"></i> Keep Current Image</b-button
+          >
+        </div>
 
-        <field-error :solid="false" :errors="errors" field="default_image"></field-error>
+        <div v-if="blog && blog.default_image && !removeImage" class="mb-2">
+          Blog has image. <br />
+        </div>
+        <div v-else>
+          <b-form-group label="Photo:" label-cols-sm="2">
+            <b-form-file
+              @change="imageUpdated"
+              id="default-image"
+              size="sm"
+              accept=".jpg, .jpeg"
+            ></b-form-file>
+          </b-form-group>
+
+          <field-error :solid="false" :errors="errors" field="default_image"></field-error>
+        </div>
 
         <b-form-group label="Contents:">
           <b-form-textarea
@@ -85,6 +102,7 @@
           default_image: null,
           blog_category_id: 1,
         },
+        removeImage: false,
       };
     },
     created() {
