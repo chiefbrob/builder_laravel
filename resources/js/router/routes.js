@@ -20,6 +20,7 @@ import EditProduct from '../components/shop/EditProduct';
 import ViewProduct from '../components/shop/ViewProduct';
 
 import RegisterUser from '../components/auth/RegisterUser';
+import LoginUser from '../components/auth/LoginUser';
 
 export default {
   mode: 'history',
@@ -28,6 +29,12 @@ export default {
       name: 'register',
       path: '/register',
       component: RegisterUser,
+      meta: { requiresAuth: false },
+    },
+    {
+      name: 'login',
+      path: '/login',
+      component: LoginUser,
       meta: { requiresAuth: false },
     },
     {

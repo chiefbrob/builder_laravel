@@ -114,9 +114,9 @@
 
             <b-dropdown-item href="#" @click="logout" v-if="user">Log Out</b-dropdown-item>
 
-            <b-dropdown-item href="/login" v-if="!user">Login</b-dropdown-item>
+            <b-dropdown-item to="login" v-if="!user">Login</b-dropdown-item>
 
-            <b-dropdown-item href="/register" v-if="!user">Register</b-dropdown-item>
+            <b-dropdown-item to="register" v-if="!user">Register</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>

@@ -16,7 +16,7 @@ class LoginTest extends TestCase
         $response = $this->get('/login');
 
         $response->assertSuccessful();
-        $response->assertViewIs('auth.login');
+        $response->assertViewIs('home');
     }
 
     public function testUserCannotViewLoginPageWhenLoggedIn()
