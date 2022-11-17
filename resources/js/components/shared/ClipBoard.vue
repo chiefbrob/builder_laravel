@@ -1,12 +1,19 @@
 <template>
-  <a href="#" v-on:click.prevent @success="copied" v-clipboard="content"
+  <b-button :variant="variant" href="#" v-on:click.prevent @success="copied" v-clipboard="content"
     >{{ content }} <i class="fa fa-clipboard"></i
-  ></a>
+  ></b-button>
 </template>
 
 <script>
   export default {
-    props: ['content'],
+    props: {
+      content: {
+        required: true,
+      },
+      variant: {
+        default: 'success',
+      },
+    },
     methods: {
       copied() {
         console.log('copied');
