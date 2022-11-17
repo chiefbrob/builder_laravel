@@ -1,7 +1,5 @@
 <template>
-
   <div class="">
-
     <b-alert
       v-model="message.show"
       class="position-fixed fixed-bottom m-0 rounded-0"
@@ -9,11 +7,10 @@
       :variant="message.variant"
       dismissible
     >
-       {{ message.text }}
+      {{ message.text }}
     </b-alert>
 
     <b-navbar toggleable="lg" type="dark" variant="info" class=" row">
-
       <b-navbar-brand
         class="pl-2"
         @click="$router.push({ name: 'welcome' })"
@@ -23,17 +20,14 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav class="pl-4">
-
         <b-navbar-nav>
-
           <b-nav-item
             href="#"
             @click="$router.push({ name: 'home' })"
             :active="$route.name === 'home'"
           >
-
             <i class="fa fa-tachometer"></i>
-             Home
+            Home
           </b-nav-item>
 
           <b-nav-item
@@ -41,9 +35,8 @@
             @click="$router.push({ name: 'blog' })"
             :active="$route.name === 'blog'"
           >
-
             <i class="fa fa-book"></i>
-             Blog
+            Blog
           </b-nav-item>
 
           <b-nav-item
@@ -52,33 +45,26 @@
             @click="$router.push({ name: 'shop' })"
             :active="$route.name === 'shop'"
           >
-
             <i class="fa fa-shop"></i>
-             Shop
+            Shop
           </b-nav-item>
-
         </b-navbar-nav>
 
         <b-navbar-nav>
-
           <b-nav-item
             href="#"
             @click="$router.push({ name: 'contact' })"
             :active="$route.name === 'contact'"
           >
-
             <i class="fa fa-phone"></i>
-             Contact
+            Contact
           </b-nav-item>
-
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
 
         <b-navbar-nav class="ml-auto">
-
           <b-nav-form @submit.prevent="formSubmitted">
-
             <b-form-input
               size="sm"
               class="mr-sm-2"
@@ -86,16 +72,14 @@
               placeholder="Search"
             ></b-form-input>
 
-            <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-
+            <b-button size="sm" variant="dark" class="my-2 my-sm-0" type="submit">Search</b-button>
           </b-nav-form>
 
           <b-nav-item-dropdown right>
-
             <template #button-content>
-
-              <i class="fa fa-language"></i>
-               {{ language }}
+              <b-button size="" variant="info" class="text-white"
+                ><i class="fa fa-language"></i> {{ language }}</b-button
+              >
             </template>
 
             <b-dropdown-item
@@ -105,33 +89,27 @@
               href="#"
               @click="setLocale(lang.short)"
             >
-               {{ lang.name }}
+              {{ lang.name }}
             </b-dropdown-item>
-
           </b-nav-item-dropdown>
 
           <b-nav-item-dropdown right>
-
             <template #button-content>
-
               <em>
-
                 <avatar style="display:inline; width: 2.5em"></avatar>
-
               </em>
-
             </template>
 
             <b-dropdown-item href="#" v-if="user" @click="$router.push({ name: 'profile' })">
-               My Profile
+              My Profile
             </b-dropdown-item>
 
             <b-dropdown-item href="#" v-if="user" @click="$router.push({ name: 'settings' })">
-               Settings
+              Settings
             </b-dropdown-item>
 
             <b-dropdown-item href="#" v-if="admin" @click="$router.push({ name: 'admin' })">
-               Admin Panel
+              Admin Panel
             </b-dropdown-item>
 
             <b-dropdown-item href="#" @click="logout" v-if="user">Log Out</b-dropdown-item>
@@ -139,17 +117,11 @@
             <b-dropdown-item href="/login" v-if="!user">Login</b-dropdown-item>
 
             <b-dropdown-item href="/register" v-if="!user">Register</b-dropdown-item>
-
           </b-nav-item-dropdown>
-
         </b-navbar-nav>
-
       </b-collapse>
-
     </b-navbar>
-
   </div>
-
 </template>
 
 <script>
@@ -279,4 +251,3 @@
     },
   };
 </script>
-
