@@ -93,8 +93,8 @@
             this.$root.$emit('loadUser');
             this.$root.$emit('sendMessage', 'Login Success', 'success');
             setTimeout(() => {
-              this.$router.push({ name: 'home' });
-            }, 5000);
+              window.location = '/home';
+            }, 1000);
           })
           .catch(({ response }) => {
             this.errors = response.data.errors;
