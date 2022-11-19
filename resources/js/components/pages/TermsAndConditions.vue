@@ -64,14 +64,6 @@
         </ul>
 
         <p>
-          This Agreement shall begin on the date hereof. Our Terms and Conditions were created with
-          the help of the
-          <a href="https://www.privacypolicies.com/blog/sample-terms-conditions-template/"
-            >Terms And Conditions Template</a
-          >.
-        </p>
-
-        <p>
           Parts of this website offer an opportunity for users to post and exchange opinions and
           information in certain areas of the website. Dabotap Means Tech does not filter, edit,
           publish or review Comments prior to their presence on the website. Comments do not reflect

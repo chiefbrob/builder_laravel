@@ -57,7 +57,7 @@ router.beforeEach((to, from, next) => {
         next({ name: 'welcome' });
       }
     } else {
-      window.location = '/login';
+      next({ name: 'login' });
     }
   } else if (auth?.requiresAuth !== true) {
     next();
@@ -65,7 +65,7 @@ router.beforeEach((to, from, next) => {
     if (window.User) {
       next();
     } else {
-      window.location = '/login';
+      next({ name: 'login' });
     }
   }
 });

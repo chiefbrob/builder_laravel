@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" href="/images/180.png">
 
 
-    <title>{{ config('app.name', 'LaravelTemplate') }}</title>
+    <title>{{ config('app.name', 'BuilderLaravel') }}</title>
 
 
     <!-- Fonts -->
@@ -21,7 +21,7 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-    
+
 </head>
 <body>
     <div id="app">

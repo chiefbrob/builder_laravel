@@ -8,7 +8,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="description" content="Template to base new applications from">
 
-        <title>{{ config('app.name', 'Builder') }}</title>
+        <title>{{ config('app.name', 'BuilderLaravel') }}</title>
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -17,7 +17,7 @@
         <link rel="apple-touch-icon" href="/images/180.png">
         <!-- Styles -->
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-        
+
     </head>
     <body>
         <div id="app"><router-view style="min-height: 100vh;"></router-view></div>
