@@ -36,7 +36,7 @@
 
         <div>
           <b-button
-            v-if="!removeImage && blog.default_image"
+            v-if="!removeImage && blog && blog.default_image"
             @click="removeImage = true"
             size="sm"
             variant="danger"
