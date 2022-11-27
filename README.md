@@ -1,12 +1,14 @@
-# builder_laravel
+# Laravel Builder Template
 
-This is a template repository used to build Laravel Applications for chiefbrob/builder
+This template allows you to quickly start building laravel applications from scratch.
 
 # Using Template
 
+Setup Environment
+
 Copy `.env.example` to `.env`
 Update `APP_NAME`, `APP_URL`
-Update `MAIL_USERNAME` and  `MAIL_PASSWORD`
+Update `MAIL_USERNAME` and `MAIL_PASSWORD`
 Update `config/app.php`
 Update `public/manifest.json`
 Update `resources/js/store/index.js`
@@ -16,7 +18,6 @@ Update Deploy Folder Notes
 
 MySQL required
 Valet is required
-
 
 ```bash
 valet link builder_laravel
@@ -29,7 +30,7 @@ valet secure builder_laravel
 npm run hotssl
 ```
 
-View site on https://builder_laravel.test 
+View site on https://builder_laravel.test
 
 # Pull changes to your repository
 
