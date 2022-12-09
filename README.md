@@ -2,6 +2,8 @@
 
 This template allows you to quickly start building laravel applications from scratch.
 
+[Demo](https://builder-laravel.on.chiefbrob.info/)
+
 # Using Template
 
 Setup Environment
