@@ -2,7 +2,21 @@
 
 This template allows you to quickly start building laravel applications from scratch.
 
-[Demo](https://builder-laravel.on.chiefbrob.info/)
+[View Demo](https://builder-laravel.on.chiefbrob.info)
+
+## Features
+
+- Full Authentication
+- Admin & User Sections
+- Blog
+- Feature Flags - control new features
+- Easy to deploy (Docker, VPS)
+- Contact, Terms & Conditions & Privacy policy pages
+- E-commerce shop
+- Language selector
+- Tests with PHPUnit and Jest
+- GraphQL
+- UI with [BootstrapVue](https://bootstrap-vue.org/)
 
 # Using Template
 
@@ -16,7 +30,7 @@ Update `public/manifest.json`
 Update `resources/js/store/index.js`
 Update Deploy Folder Notes
 
-# Local Setup
+## Local Setup
 
 MySQL required
 Valet is required
@@ -34,7 +48,7 @@ npm run hotssl
 
 View site on https://builder_laravel.test
 
-# Pull changes to your repository
+## Pull changes to your repository
 
 ```bash
 git remote add template git@github.com:chiefbrob/builder_laravel.git
@@ -42,7 +56,7 @@ git fetch template
 git rebase template/master
 ```
 
-# Run with docker-compose
+## Run with docker-compose
 
 Login Docker
 
