@@ -46,4 +46,8 @@ Route::post('/language/{locale}', function ($locale) {
     return redirect()->back();
 })->name('language-switcher');
 
+Route::get('/graphql', function (Request $request) {
+    return view('vendor/graphiql/index');
+});
+
 Route::get('/{any?}', [\App\Http\Controllers\HomeController::class, 'index'])->where('any', '.*')->name('home');
