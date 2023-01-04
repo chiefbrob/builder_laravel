@@ -22,6 +22,7 @@ This template allows you to quickly start building laravel applications from scr
 
 - Mpesa Payment Gateway
 - Search Website Content
+- Offline apps
 - Automation of deployment with Github
 
 # Using Template
