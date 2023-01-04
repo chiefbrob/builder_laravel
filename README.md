@@ -18,6 +18,12 @@ This template allows you to quickly start building laravel applications from scr
 - GraphQL
 - UI with [BootstrapVue](https://bootstrap-vue.org/)
 
+## Features WIP
+
+- Mpesa Payment Gateway
+- Search Website Content
+- Automation of deployment with Github
+
 # Using Template
 
 Setup Environment
