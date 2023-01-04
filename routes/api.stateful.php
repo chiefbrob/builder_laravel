@@ -32,6 +32,17 @@ Route::prefix('v1')->group(static function () {
     });
 
     Route::prefix('admin')->group(static function () {
+
+        Route::prefix('mpesa')->group(static function () {
+            Route::get('/balance', Admin\Mpesa\MpesaAccountBalanceRequestController::class)->name('v1.mpesa.balance');
+
+            Route::get('/balance-result', function (Request $request) {
+                \Log::info($request->all());
+            });
+
+            Route::get('/balance-result', Admin\Mpesa\MpesaAccountBalanceRequestController::class)->name('v1.mpesa.balance');
+        });
+
         Route::prefix('roles')->group(static function () {
             Route::post('/', Admin\Roles\CreateRoleController::class)->name('roles.create');
         });

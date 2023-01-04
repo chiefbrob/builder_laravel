@@ -19,6 +19,7 @@
     "laravel/ui": "^3.3",
     "mll-lab/laravel-graphiql": "^1.0",
     "nuwave/lighthouse": "^5.68",
+    "safaricom/mpesa": "^1.0",
     "spatie/laravel-backup": "^8.1"
   },
   "require-dev": {
