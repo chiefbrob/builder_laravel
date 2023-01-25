@@ -1,13 +1,9 @@
 <template>
-
   <div>
-
     <nav-root></nav-root>
 
     <div class="mb-5 pb-5 row">
-
       <div class="col-md-8 offset-md-2">
-
         <h4 class="pt-3">Create new account</h4>
 
         <form
@@ -17,11 +13,8 @@
           method="POST"
           v-if="!loading && !loaded"
         >
-
           <div class="col-md-12">
-
             <b-form-group id="input-group-1" label="Full Name: *" label-for="name">
-
               <b-form-input
                 id="name"
                 v-model="form.name"
@@ -29,13 +22,11 @@
                 required
                 :placeholder="`e.g. Walter Mongare`"
               ></b-form-input>
-
             </b-form-group>
 
             <field-error :solid="false" :errors="errors" field="name"></field-error>
 
             <b-form-group id="input-group-2" label="Email address: *" label-for="email">
-
               <b-form-input
                 id="email"
                 v-model="form.email"
@@ -43,7 +34,6 @@
                 required
                 placeholder="e.g. someone@somewhere.something"
               ></b-form-input>
-
             </b-form-group>
 
             <field-error :solid="false" :errors="errors" field="email"></field-error>
@@ -54,14 +44,12 @@
               label-for="password"
               description="at least 6 characters"
             >
-
               <b-form-input
                 id="password"
                 v-model="form.password"
                 type="password"
                 required
               ></b-form-input>
-
             </b-form-group>
 
             <field-error :solid="false" :errors="errors" field="password"></field-error>
@@ -72,14 +60,12 @@
               label-for="password_confirmation"
               description="same as above"
             >
-
               <b-form-input
                 id="password_confirmation"
                 v-model="form.password_confirmation"
                 type="password"
                 required
               ></b-form-input>
-
             </b-form-group>
 
             <field-error
@@ -89,45 +75,32 @@
             ></field-error>
 
             <p class="py-3">
-
-              <input type="submit" class="btn btn-success" text="Create Account" />
-
+              <b-button id="submit" @click="submitForm" variant="success">Create Account</b-button>
             </p>
-
           </div>
-
         </form>
 
         <div v-if="loading">
-
           <p>
-
             <i class="fa fa-spinner"></i>
-             Loading...
+            Loading...
           </p>
-
         </div>
 
         <div v-if="loaded">
-
           <p>
-             Welcome back.
+            Welcome back.
             <br />
 
             <i class="fa fa-spinner"></i>
-             Loading profile
+            Loading profile
           </p>
-
         </div>
-
       </div>
-
     </div>
 
     <page-footer></page-footer>
-
   </div>
-
 </template>
 
 <script>
@@ -172,4 +145,3 @@
     created() {},
   };
 </script>
-
