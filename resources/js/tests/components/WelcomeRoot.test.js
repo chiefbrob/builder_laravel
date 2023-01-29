@@ -1,26 +1,38 @@
-import { createLocalVue, mount } from '@vue/test-utils';
+import { createStore } from 'vuex';
+import { mount } from '@vue/test-utils';
 import WelcomeRoot from '@/components/WelcomeRoot.vue';
-import NavRoot from '@/components/nav/NavRoot.vue';
-import Vuex from 'vuex';
-import VueRouter from 'vue-router';
-import store from '@/store';
+// import NavRoot from '@/components/nav/NavRoot.vue';
+// import Vuex from 'vuex';
+// import VueRouter from 'vue-router';
+// import store from '@/store';
 
-const localVue = createLocalVue();
+// const localVue = createLocalVue();
 
-localVue.component('nav-root', NavRoot);
-localVue.use(Vuex);
-localVue.use(VueRouter);
+// localVue.component('nav-root', NavRoot);
+// localVue.use(Vuex);
+// localVue.use(VueRouter);
 
 describe('WelcomeRoot.vue', () => {
   let wrapper;
 
   beforeEach(() => {
-    const router = new VueRouter();
-    wrapper = mount(WelcomeRoot, {
-      localVue,
-      store,
-      router,
+    const store = createStore({
+      state() {
+        return { count: 1 };
+      },
     });
+
+    wrapper = mount(WelcomeRoot, {
+      global: {
+        plugins: [store],
+      },
+    });
+    // const router = new VueRouter();
+    // wrapper = mount(WelcomeRoot, {
+    //   localVue,
+    //   store,
+    //   router,
+    // });
   });
 
   afterEach(() => {

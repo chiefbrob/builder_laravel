@@ -1,28 +1,34 @@
-import { createLocalVue, mount } from "@vue/test-utils";
-import Foo from "../../components/Foo.vue";
+import { createStore } from 'vuex';
+import { mount } from '@vue/test-utils';
+import Foo from '../../components/Foo.vue';
+describe('Foo.vue', () => {
+  let wrapper;
 
-const localVue = createLocalVue();
-
-describe("Foo.vue", () => {
-    let wrapper;
-
-    beforeEach(() => {
-        wrapper = mount(Foo, {
-            localVue,
-        });
+  beforeEach(() => {
+    const store = createStore({
+      state() {
+        return { count: 1 };
+      },
     });
 
-    afterEach(() => {
-        wrapper = null;
-        jest.resetModules();
-        jest.clearAllMocks();
+    wrapper = mount(Foo, {
+      global: {
+        plugins: [store],
+      },
     });
+  });
 
-    test("is a vue component", () => {
-        expect(wrapper.vm).toBeTruthy();
-    });
+  afterEach(() => {
+    wrapper = null;
+    jest.resetModules();
+    jest.clearAllMocks();
+  });
 
-    test("it renders correctly", async () => {
-        expect(wrapper.text()).toBe("Foo");
-    });
+  test('is a vue component', () => {
+    expect(wrapper.vm).toBeTruthy();
+  });
+
+  test('it renders correctly', async () => {
+    expect(wrapper.text()).toBe('Foo');
+  });
 });

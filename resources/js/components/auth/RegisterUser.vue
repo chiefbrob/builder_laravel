@@ -1,7 +1,5 @@
 <template>
   <div>
-    <nav-root></nav-root>
-
     <div class="mb-5 pb-5 row">
       <div class="col-md-8 offset-md-2">
         <h4 class="pt-3">Create new account</h4>
@@ -75,7 +73,7 @@
             ></field-error>
 
             <p class="py-3">
-              <b-button id="submit" @click="submitForm" variant="success">Create Account</b-button>
+              <button id="submit" @click="submitForm" variant="success">Create Account</button>
             </p>
           </div>
         </form>
@@ -125,7 +123,7 @@
         this.loading = true;
         axios
           .post(`/register`, this.form)
-          .then(results => {
+          .then((results) => {
             this.loaded = true;
             this.$root.$emit('loadUser');
             this.$root.$emit('sendMessage', 'User Created', 'success');

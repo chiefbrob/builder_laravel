@@ -1,37 +1,27 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
-import '../sass/main.scss';
+import { createApp, configureCompat } from 'vue';
+import Multiselect from 'vue-multiselect';
 
-Vue.use(BootstrapVue);
-Vue.use(BootstrapVueIcons);
-import routes from './router/routes';
-import store from './store';
-import './spark-bootstrap.js';
-import VueClipboard from 'vue-clipboard2';
-VueClipboard.config.autoSetContainer = true;
-Vue.use(VueClipboard);
+// configureCompat({
+//   MODE: 3,
+// });
 
-Vue.use(VueRouter);
+import { createRouter } from './router';
+const router = createRouter();
 
-require('./filters');
+import { createStore } from './store';
+const store = createStore(router);
 
-Vue.mixin(require('./mixin'));
+// import '../sass/main.scss';
 
-require('./components');
+// import store from './store';
+// import './spark-bootstrap.js';
+import VueClipboard from 'vue3-clipboard';
+// VueClipboard.config.autoSetContainer = true;
+// Vue.use(VueClipboard);
 
-const originalPush = VueRouter.prototype.push;
-VueRouter.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch(err => {
-    if (err.name === 'NavigationDuplicated') {
-    } else {
-      console.log(err.includes('navigation guard'));
-      throw err;
-    }
-  });
-};
+// require('./filters');
 
-let router = new VueRouter(routes);
+// Vue.mixin(require('./mixin'));
 
 router.beforeEach((to, from, next) => {
   const auth = to.matched[0].meta;
@@ -56,16 +46,30 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-const app = new Vue({
-  el: '#app',
-  router: router,
-  store,
-  created() {
-    if (window.User) {
-      this.$store.commit('user', window.User);
-    }
-  },
+const app = createApp({});
+
+// // app.use(store);
+
+app.use(VueClipboard);
+
+import { shared } from './components/shared/index.js';
+
+shared.forEach((item) => {
+  app.component(item.name, require('./components/shared/' + item.path).default);
 });
 
+app.component('multiselect', Multiselect);
+
+app.component('nav-root', require('./components/nav/NavRoot').default);
+
+app.component('avatar', require('./components/home/ProfileImage').default);
+
+app.use(router);
+app.use(store);
+
+app.mount('#app');
+
 window.Vue = app;
-window.Bus = new Vue();
+window.Bus = createApp({});
+
+export default app;
