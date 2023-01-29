@@ -35,7 +35,6 @@
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
-    "bootstrap-vue": "^2.23.1",
     "jest-environment-jsdom": "^29.4.1",
     "moment": "^2.29.4",
     "numeral": "^2.0.6",
@@ -52,7 +51,7 @@
       "vue"
     ],
     "transform": {
-      ".*\\.(vue)$": "@vue/vue-jest",
+      ".*\\.(vue)$": "@vue/vue3-jest",
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
     },
     "moduleNameMapper": {

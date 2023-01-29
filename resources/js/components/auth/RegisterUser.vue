@@ -12,68 +12,52 @@
           v-if="!loading && !loaded"
         >
           <div class="col-md-12">
-            <b-form-group id="input-group-1" label="Full Name: *" label-for="name">
-              <b-form-input
-                id="name"
-                v-model="form.name"
+            <div class="mb-3">
+              <label for="name" class="form-label">Full Name: *</label>
+              <input
                 type="text"
-                required
-                :placeholder="`e.g. Walter Mongare`"
-              ></b-form-input>
-            </b-form-group>
+                v-model="form.name"
+                class="form-control"
+                id="name"
+                aria-describedby="basic-addon3"
+              />
+              <div class="form-text">e.g. Walter Mongare</div>
+            </div>
 
             <field-error :solid="false" :errors="errors" field="name"></field-error>
 
-            <b-form-group id="input-group-2" label="Email address: *" label-for="email">
-              <b-form-input
-                id="email"
-                v-model="form.email"
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
                 type="email"
-                required
-                placeholder="e.g. someone@somewhere.something"
-              ></b-form-input>
-            </b-form-group>
+                v-model="form.email"
+                class="form-control"
+                id="email"
+                aria-describedby="basic-addon3"
+              />
+              <div class="form-text">e.g. someone@somewhere.something</div>
+            </div>
 
             <field-error :solid="false" :errors="errors" field="email"></field-error>
 
-            <b-form-group
-              id="input-group-3"
-              label="Password: *"
-              label-for="password"
-              description="at least 6 characters"
-            >
-              <b-form-input
-                id="password"
-                v-model="form.password"
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
                 type="password"
-                required
-              ></b-form-input>
-            </b-form-group>
+                class="form-control"
+                v-model="form.password"
+                id="password"
+                aria-describedby="basic-addon3"
+              />
+              <div class="form-text">at least 6 characters</div>
+            </div>
 
             <field-error :solid="false" :errors="errors" field="password"></field-error>
 
-            <b-form-group
-              id="input-group-4"
-              label="Repeat Password: *"
-              label-for="password_confirmation"
-              description="same as above"
-            >
-              <b-form-input
-                id="password_confirmation"
-                v-model="form.password_confirmation"
-                type="password"
-                required
-              ></b-form-input>
-            </b-form-group>
-
-            <field-error
-              :solid="false"
-              :errors="errors"
-              field="password_confirmation"
-            ></field-error>
-
             <p class="py-3">
-              <button id="submit" @click="submitForm" variant="success">Create Account</button>
+              <button class="btn btn-sm btn-success" id="submit" @click="submitForm">
+                Create Account
+              </button>
             </p>
           </div>
         </form>
@@ -96,13 +80,13 @@
         </div>
       </div>
     </div>
-
-    <page-footer></page-footer>
   </div>
 </template>
 
 <script>
+  import FieldError from '../shared/FieldError';
   export default {
+    components: { FieldError },
     props: [],
     data() {
       return {
@@ -110,7 +94,6 @@
           name: null,
           email: null,
           password: null,
-          password_confirmation: null,
         },
         errors: [],
         loading: false,
@@ -126,14 +109,14 @@
           .then((results) => {
             this.loaded = true;
             this.$root.$emit('loadUser');
-            this.$root.$emit('sendMessage', 'User Created', 'success');
-            setTimeout(() => {
-              this.$router.push({ name: 'home' });
-            }, 5000);
+            // this.$root.$emit('sendMessage', 'User Created', 'success');
+            // setTimeout(() => {
+            //   this.$router.push({ name: 'home' });
+            // }, 5000);
           })
           .catch(({ response }) => {
             this.errors = response.data.errors;
-            this.$root.$emit('sendMessage', 'Failed to create user!');
+            // this.$root.$emit('sendMessage', 'Failed to create user!');
           })
           .finally(() => {
             this.loading = false;

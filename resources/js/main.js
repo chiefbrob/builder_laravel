@@ -1,5 +1,6 @@
 import { createApp, configureCompat } from 'vue';
 import Multiselect from 'vue-multiselect';
+import _ from 'lodash';
 
 // configureCompat({
 //   MODE: 3,
@@ -52,11 +53,11 @@ const app = createApp({});
 
 app.use(VueClipboard);
 
-import { shared } from './components/shared/index.js';
+// import { shared } from './components/shared/index.js';
 
-shared.forEach((item) => {
-  app.component(item.name, require('./components/shared/' + item.path).default);
-});
+// shared.forEach((item) => {
+//   app.component(item.name, require('./components/shared/' + item.path).default);
+// });
 
 app.component('multiselect', Multiselect);
 
@@ -71,5 +72,6 @@ app.mount('#app');
 
 window.Vue = app;
 window.Bus = createApp({});
+// window._ = require('lodash');
 
 export default app;

@@ -2,13 +2,14 @@ import { createStore } from 'vuex';
 import { mount } from '@vue/test-utils';
 // import { createLocalVue, mount } from '@vue/test-utils';
 import RegisterUser from '@/components/auth/RegisterUser';
-import Foo from '../../../components/Foo.vue';
+import _ from 'lodash';
 
 // import NavRoot from '@/components/nav/NavRoot.vue';
 // import Vuex from 'vuex';
 // import VueRouter from 'vue-router';
 // import store from '@/store';
 import axios from 'axios';
+import { shared } from '@/components/shared/index.js';
 
 // const localVue = createLocalVue();
 
@@ -46,6 +47,10 @@ describe('RegisterUser.vue', () => {
         plugins: [store],
       },
     });
+
+    // shared.forEach((item) => {
+    //   wrapper.component(item.name, require('@/components/shared/' + item.path + '.vue').default);
+    // });
   });
 
   afterEach(() => {
@@ -58,34 +63,30 @@ describe('RegisterUser.vue', () => {
     expect(wrapper.vm).toBeTruthy();
   });
 
-  //   test('it renders correctly', async () => {
-  //     expect(wrapper.text().includes('Create new account')).toBe(true);
-  //     const name = wrapper.find('input#name');
-  //     expect(name.exists()).toBe(true);
-  //     const email = wrapper.find('input#email');
-  //     expect(email.exists()).toBe(true);
-  //     const password = wrapper.find('input#password');
-  //     expect(password.exists()).toBe(true);
-  //     const password_confirmation = wrapper.find('input#password_confirmation');
-  //     expect(password_confirmation.exists()).toBe(true);
+  test('it renders correctly', async () => {
+    expect(wrapper.text().includes('Create new account')).toBe(true);
+    const name = wrapper.find('input#name');
+    expect(name.exists()).toBe(true);
+    const email = wrapper.find('input#email');
+    expect(email.exists()).toBe(true);
+    const password = wrapper.find('input#password');
+    expect(password.exists()).toBe(true);
 
-  //     await name.setValue('Peter Griffin');
-  //     await email.setValue('peter.griffin@email.com');
-  //     await password.setValue('password');
-  //     await password_confirmation.setValue('password');
+    await name.setValue('Peter Griffin');
+    await email.setValue('peter.griffin@email.com');
+    await password.setValue('password');
 
-  //     const submit = wrapper.find('#submit');
-  //     expect(submit.exists()).toBe(true);
+    const submit = wrapper.find('#submit');
+    expect(submit.exists()).toBe(true);
 
-  //     await submit.trigger('click');
+    await submit.trigger('click');
 
-  //     await wrapper.vm.$nextTick();
+    await wrapper.vm.$nextTick();
 
-  //     expect(axios.post).toHaveBeenCalledWith('/register', {
-  //       name: 'Peter Griffin',
-  //       email: 'peter.griffin@email.com',
-  //       password: 'password',
-  //       password_confirmation: 'password',
-  //     });
-  //   });
+    expect(axios.post).toHaveBeenCalledWith('/register', {
+      name: 'Peter Griffin',
+      email: 'peter.griffin@email.com',
+      password: 'password',
+    });
+  });
 });

@@ -14,14 +14,15 @@
 
 <script>
   export default {
-    props: {
-      errors: { type: Array | Object },
-      field: { type: String },
-      solid: { default: true, type: Boolean },
-    },
+    props: ['errors', 'field', 'solid'],
+    // props: {
+    //   errors: { type: Array | Object },
+    //   field: { type: String },
+    //   solid: { default: true, type: Boolean },
+    // },
     computed: {
       hasErrorsForField() {
-        return !_.isEmpty(this.errors) && this.errors[this.field] !== undefined;
+        return !window._.isEmpty(this.errors) && this.errors[this.field] !== undefined;
       },
     },
   };
