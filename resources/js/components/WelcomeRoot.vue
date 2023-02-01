@@ -1,5 +1,6 @@
 <template>
   <div>
+    <nav-root></nav-root>
     <div class="row py-5 mb-5">
       <div class="col-md-10 offset-md-1">
         <div class="jumbotron">
@@ -22,3 +23,12 @@
     </div>
   </div>
 </template>
+
+<script>
+  import NavRoot from './nav/NavRoot';
+  export default {
+    components: {
+      NavRoot,
+    },
+  };
+</script>

@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <b-alert
+    <!-- <b-alert
       v-model="message.show"
       class="position-fixed fixed-bottom m-0 rounded-0"
       style="z-index: 2000"
@@ -8,9 +8,17 @@
       dismissible
     >
       {{ message.text }}
-    </b-alert>
+    </b-alert> -->
 
-    <b-navbar toggleable="lg" type="dark" variant="info" class=" row">
+    <v-app-bar app color="white" style="z-index: 99">
+      <v-toolbar-title class="align-self-center spaces-logo">
+        <router-link to="/" aria-label="Hello page"> BUILDERLARAVEL </router-link>
+      </v-toolbar-title>
+
+      <v-hover> HKSJS </v-hover>
+    </v-app-bar>
+
+    <!-- <b-navbar toggleable="lg" type="dark" variant="info" class="row">
       <b-navbar-brand
         class="pl-2"
         @click="$router.push({ name: 'welcome' })"
@@ -61,7 +69,6 @@
           </b-nav-item>
         </b-navbar-nav>
 
-        <!-- Right aligned nav items -->
 
         <b-navbar-nav class="ml-auto">
           <b-nav-form @submit.prevent="formSubmitted">
@@ -96,7 +103,7 @@
           <b-nav-item-dropdown right>
             <template #button-content>
               <em>
-                <avatar style="display:inline; width: 2.5em"></avatar>
+                <avatar style="display: inline; width: 2.5em"></avatar>
               </em>
             </template>
 
@@ -120,7 +127,7 @@
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
-    </b-navbar>
+    </b-navbar> -->
   </div>
 </template>
 
@@ -156,7 +163,7 @@
     },
     computed: {
       user() {
-        return this.$store.getters.user;
+        //return this.$store.getters.user;
       },
       longName() {
         if (!this.user) {
@@ -164,7 +171,7 @@
         }
         let names = this.user.name.split(' ');
         let longN = null;
-        names.forEach(name => {
+        names.forEach((name) => {
           if (!longN || name.length > longN.length || name.length === longN.length) {
             longN = name;
           }
@@ -186,24 +193,24 @@
     },
     created() {
       //console.log(this.$root.$featureIsEnabled('production'));
-      this.$root.$on('sendMessage', (message, variant) => {
-        this.sendMessage(message, variant);
-      });
-      this.$root.$on('loadUser', (message, variant) => {
-        this.loadUser();
-      });
+      //   this.$root.$on('sendMessage', (message, variant) => {
+      //     this.sendMessage(message, variant);
+      //   });
+      //   this.$root.$on('loadUser', (message, variant) => {
+      //     this.loadUser();
+      //   });
     },
     methods: {
       setLocale(lang) {
         axios
           .post(`/language/${lang}`)
-          .then(results => {
+          .then((results) => {
             this.sendMessage('Language switched. Reloading...', 'success');
             setTimeout(() => {
               window.location.reload();
             }, 1200);
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
             this.sendMessage('Language switch Failed!', 'danger');
           });
@@ -214,10 +221,10 @@
         }
         axios
           .post(`/api/v1/search/`, this.form)
-          .then(results => {
+          .then((results) => {
             this.sendMessage('Profile updated', 'success');
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
             this.sendMessage('Search Failed!', 'danger');
           });
@@ -240,11 +247,11 @@
       loadUser() {
         axios
           .get('/api/v1/user')
-          .then(results => {
+          .then((results) => {
             this.$store.commit('user', results.data);
             window.User = results.data;
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
           });
       },

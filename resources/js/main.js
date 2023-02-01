@@ -2,6 +2,16 @@ import { createApp, configureCompat } from 'vue';
 import Multiselect from 'vue-multiselect';
 import _ from 'lodash';
 
+import 'vuetify/styles';
+import { createVuetify } from 'vuetify';
+import * as components from 'vuetify/components';
+import * as directives from 'vuetify/directives';
+
+const vuetify = createVuetify({
+  components,
+  directives,
+});
+
 // configureCompat({
 //   MODE: 3,
 // });
@@ -67,6 +77,7 @@ app.component('avatar', require('./components/home/ProfileImage').default);
 
 app.use(router);
 app.use(store);
+app.use(vuetify);
 
 app.mount('#app');
 
