@@ -13,7 +13,13 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'BuilderLaravel'),
+    'name' => env('APP_NAME'),
+    'description' => env(
+        'APP_DESCRIPTION',
+        'Template to base new applications from'
+    ),
+    'theme_color' => env('APP_THEME_COLOR', '#317EFB'),
+    'organization' => env('APP_ORGANIZATION', 'Dabotap Means Tech'),
 
     /*
     |--------------------------------------------------------------------------

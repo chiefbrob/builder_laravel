@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" href="/images/180.png">
 
 
-    <title>{{ config('app.name', 'BuilderLaravel') }}</title>
+    <title>{{ config('app.name') }}</title>
 
 
     <!-- Fonts -->

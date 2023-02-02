@@ -4,19 +4,22 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- CSRF Token -->
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta name="description" content="Template to base new applications from">
 
-        <title>{{ config('app.name', 'BuilderLaravel') }}</title>
-        <!-- Fonts -->
+
+        <title>{{ config('app.name') }}</title>
+
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="description" content="{{ config('app.description') }}">
+        <meta name="theme-color" content="{{ config('app.theme_color') }}"/>
+        {{-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'"> --}}
+        <meta name="application-name" content="{{ config('app.name') }}">
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
         <link rel="manifest" href="/manifest.json">
-        <meta name="theme-color" content="#317EFB"/>
         <link rel="apple-touch-icon" href="/images/180.png">
-        <!-- Styles -->
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+
+        @include('header-links')
 
     </head>
     <body>
@@ -32,10 +35,17 @@
         }
     </script>
     <script>
+        window.details = {
+            name:  '{{ config('app.name') }}',
+            description: '{{ config('app.description') }}',
+        };
         window.feature_flags = @json(\FriendsOfCat\LaravelFeatureFlags\FeatureFlagsForJavascript::get());
         window.User = @json(Auth::user());
         window.locale =  @json(\Illuminate\Support\Facades\App::currentLocale());
     </script>
+    <noscript>
+        JavaScript is Disabled.
+      </noscript>
     <script src="{{ mix('js/main.js') }}"></script>
     </body>
 </html>
