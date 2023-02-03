@@ -30,7 +30,6 @@ class RegisterTest extends TestCase
 
     public function testRegisterWithCorrectDetails()
     {
-        $this->markTestIncomplete('registration failing');
         $email = 'peter@somewhere.com';
 
         $response = $this->post('/register', [
@@ -38,18 +37,18 @@ class RegisterTest extends TestCase
             'email' => $email,
             'password' => 'password',
             'password_confirmation' => 'password'
-        ])->assertCreated();
+        ]);
 
         $this->assertDatabaseHas('users',
             [
                 'name' => 'Peter',
-                'email' => 'peter@gmail.com',
+                'email' => 'peter@somewhere.com',
             ]
         );
 
         $user = User::where('email', $email)->first();
 
-        $response->assertRedirect('/');
+        $response->assertRedirect('/home');
         $this->assertAuthenticatedAs($user);
     }
 
