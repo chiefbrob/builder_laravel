@@ -47,6 +47,7 @@ Route::prefix('v1')->group(static function () {
 
         Route::prefix('teams')->group(static function () {
             Route::post('/', Team\CreateTeamController::class)->name('v1.teams.create');
+            Route::post('/{id}', Team\UpdateTeamController::class)->name('v1.teams.update');
         });
     });
 });
