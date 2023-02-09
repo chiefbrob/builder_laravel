@@ -44,5 +44,9 @@ Route::prefix('v1')->group(static function () {
             Route::post('/', Admin\Roles\AddUserRoleController::class)->name('user-role.create');
             Route::delete('/', Admin\Roles\RemoveRoleController::class)->name('user-role.delete');
         });
+
+        Route::prefix('teams')->group(static function () {
+            Route::post('/', Team\CreateTeamController::class)->name('v1.teams.create');
+        });
     });
 });
