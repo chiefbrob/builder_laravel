@@ -87,3 +87,11 @@ composer check-style
 composer fix-style
 /vendor/bin/pint
 ```
+
+# Deploy with Docker
+
+```bash
+npm run production
+docker login
+docker-compose build
+```
