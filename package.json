@@ -20,7 +20,7 @@
     "babel-core": "^7.0.0-0",
     "babel-jest": "^27.2.1",
     "bootstrap": "^4.6.0",
-    "bootstrap-vue": "^2.21.2",
+    "bootstrap-vue": "^2.23.1",
     "jest": "^27.2.1",
     "jquery": "^3.6",
     "laravel-mix": "^6.0.6",
