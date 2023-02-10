@@ -25,6 +25,13 @@ class CreateTeamControllerTest extends TestCase
             ->assertCreated()->assertJson($team);
 
         $this->assertDatabaseHas('teams', $team);
+
+        $team = Team::where('name', 'Example')->first();
+
+        $this->assertDatabaseHas('team_users', [
+            'team_id' => $team->id,
+            'user_id' => $this->user->id,
+        ]);
     }
 
     public function testUserCannotCreateTeam()

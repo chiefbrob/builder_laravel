@@ -21,7 +21,11 @@ class CreateTeamController extends Controller
     public function __invoke(CreateTeamRequest $request)
     {
         try {
-            return Team::create($request->validated());
+            $team =  Team::create($request->validated());
+
+            $team->addUser($team->user);
+
+            return response()->json($team, Response::HTTP_CREATED);
         } catch (Exception $e) {
             Log::error($e);
 
