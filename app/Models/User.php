@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\CanBlog;
+use App\Traits\CanTeamUp;
 use App\Traits\HasRoles;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +15,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes, CanBlog;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes, CanBlog, CanTeamUp;
 
     /**
      * The attributes that are mass assignable.
