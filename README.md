@@ -20,6 +20,7 @@ This template allows you to quickly start building laravel applications from scr
 
 ## Features WIP
 
+- Tasks management
 - Mpesa Payment Gateway
 - Search Website Content
 - Offline apps
