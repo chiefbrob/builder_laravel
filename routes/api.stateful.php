@@ -31,6 +31,10 @@ Route::prefix('v1')->group(static function () {
         Route::delete('/{user_id}', User\UserDeactivateController::class)->name('v1.user.delete');
     });
 
+    Route::prefix('teams')->group(static function () {
+        Route::get('/{team_id}', Team\TeamIndexController::class)->name('v1.teams.index');
+    });
+
     Route::prefix('admin')->group(static function () {
         Route::prefix('roles')->group(static function () {
             Route::post('/', Admin\Roles\CreateRoleController::class)->name('roles.create');
