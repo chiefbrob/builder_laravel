@@ -8,6 +8,7 @@ use App\Models\Team;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class TeamIndexController extends Controller
@@ -19,12 +20,40 @@ class TeamIndexController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(TeamIndexRequest $request, Int $team_id)
+    public function __invoke(TeamIndexRequest $request)
     {
         try {
-            $team = Team::findOrFail($team_id);
-
+            $team_id = $request->team_id;
             $user = auth()->user();
+
+            if (!$team_id) {
+                $teams = Team::where('id', '>', 0);
+                if ($user->isAdmin()) {
+                    // return Team::orderBy('id', 'desc')->paginate();
+                } else {
+                    $sql = "SELECT team_id FROM team_users WHERE user_id = ".$user->id;
+                    $results = DB::select($sql);
+
+                    $myteams = [];
+
+
+                    foreach ($results as $result) {
+                        array_push($myteams, $result->team_id);
+                    }
+                    $teams->whereIn('id', $myteams);
+                }
+
+                $admin = $request->get('admin', null);
+
+                if ($admin) {
+                    $teams->where('user_id', auth()->id());
+                }
+
+                return $teams->orderBy('id', 'desc')->paginate();
+
+
+            }
+            $team = Team::findOrFail($team_id);
 
             if ($team->hasUser($user) || $user->isAdmin()) {
                 return $team;
