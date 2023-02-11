@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Task;
 use App\Models\Team;
 use App\Models\TeamUser;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -32,6 +33,22 @@ trait CanTeamUp
         }
 
         return $myteams;
+    }
+
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(Task::class);
+    }
+
+    public function assignments($status = null)
+    {
+        $tasks =  Task::where('assigned_to', $this->id);
+
+        if ($status) {
+            $tasks->where('status', $status);
+        }
+
+        return $tasks->orderBy('id', 'DESC')->paginate();
     }
 
 }
