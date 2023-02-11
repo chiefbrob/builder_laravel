@@ -76,4 +76,17 @@ class Team extends Model
         return false;
     }
 
+    public function getMembersIdsAttribute()
+    {
+        $sql = "SELECT user_id FROM team_users WHERE team_id = ".$this->id;
+        $results = DB::select($sql);
+
+        $membersIds = [];
+
+        foreach ($results as $result) {
+            array_push($membersIds, $result->user_id);
+        }
+        return $membersIds;
+    }
+
 }
