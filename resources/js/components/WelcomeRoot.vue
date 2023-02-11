@@ -23,6 +23,9 @@
           <p>
             <clipboard content="copy me" variant="dark"></clipboard>
           </p>
+          <p>
+            <phone-number></phone-number>
+          </p>
         </b-jumbotron>
       </div>
     </div>
