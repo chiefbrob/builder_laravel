@@ -28,19 +28,8 @@ class TeamIndexController extends Controller
 
             if (!$team_id) {
                 $teams = Team::where('id', '>', 0);
-                if ($user->isAdmin()) {
-                    // return Team::orderBy('id', 'desc')->paginate();
-                } else {
-                    $sql = "SELECT team_id FROM team_users WHERE user_id = ".$user->id;
-                    $results = DB::select($sql);
-
-                    $myteams = [];
-
-
-                    foreach ($results as $result) {
-                        array_push($myteams, $result->team_id);
-                    }
-                    $teams->whereIn('id', $myteams);
+                if (!$user->isAdmin()) {
+                    $teams->whereIn('id', $user->myTeamIds);
                 }
 
                 $admin = $request->get('admin', null);
