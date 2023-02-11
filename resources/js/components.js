@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Multiselect from 'vue-multiselect';
 
-Vue.component('clipboard', require('./components/shared/Clipboard').default);
+Vue.component('clipboard', require('./components/shared/ClipBoard').default);
 
 Vue.component('multiselect', Multiselect);
 
