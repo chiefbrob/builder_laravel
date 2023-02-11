@@ -25,6 +25,7 @@ class Task extends Model
         'user_id',
         'assigned_to',
         'status',
+        'task_id'
     ];
 
     public function team(): BelongsTo

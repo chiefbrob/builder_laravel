@@ -23,16 +23,11 @@ class CreateTaskController extends Controller
     public function __invoke(CreateTaskRequest $request)
     {
         try {
-            $team = Team::findOrFail($request->team_id);
-            $user = User::findOrFail(auth()->id());
+            $task = Task::create($request->validated());
+            return response()->json([
+                'data' => $task,
+            ], Response::HTTP_CREATED);
 
-            if ($team->hasUser($user)) {
-                $task = Task::create($request->validated());
-                return response()->json([
-                    'data' => $task,
-                ], Response::HTTP_CREATED);
-            }
-            throw new Exception("User doesn't exist in team", 1);
         } catch (Exception $e) {
             Log::error($e);
 

@@ -76,4 +76,30 @@ class Team extends Model
         return false;
     }
 
+    public function getMembersIdsAttribute()
+    {
+        $sql = "SELECT user_id FROM team_users WHERE team_id = ".$this->id;
+        $results = DB::select($sql);
+
+        $membersIds = [];
+
+        foreach ($results as $result) {
+            array_push($membersIds, $result->user_id);
+        }
+        return $membersIds;
+    }
+
+    public function getTasksIdsAttribute()
+    {
+        $sql = "SELECT id FROM tasks WHERE team_id = ".$this->id. " AND status  != '".Task::DONE ."' AND status != '". Task::CANCELLED . "'";
+        $results = DB::select($sql);
+
+        $tasksIds = [];
+
+        foreach ($results as $result) {
+            array_push($tasksIds, $result->id);
+        }
+        return $tasksIds;
+    }
+
 }
