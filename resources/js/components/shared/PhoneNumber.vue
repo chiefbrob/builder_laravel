@@ -8,7 +8,6 @@
         default-country-code="KE"
       />
       <field-error :solid="false" :errors="errors" field="phone_number"></field-error>
-      {{ phone_number }}
     </b-input-group>
   </div>
 </template>
