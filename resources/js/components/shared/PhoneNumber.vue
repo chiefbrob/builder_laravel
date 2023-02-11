@@ -1,61 +1,39 @@
 <template>
-    <div>
-        <b-input-group
-          
-        >
-        <template #prepend>
-            <b-form-select @input="updated" v-model="code" :options="prefixOptions"></b-form-select>
-      
-        </template>
-          <b-form-input
-            id="phone_number"
-            v-model="number"
-            type="number"
-            step="0"
-            :required="required"
-            :placeholder="`e.g. 712345678`"
-            @input="updated"
-          ></b-form-input>
-        </b-input-group>
-        <field-error :solid="false" :errors="errors" field="phone_number"></field-error>
-    </div>
+  <div>
+    <b-input-group>
+      <vue-phone-number-input
+        @update="updated"
+        no-flags
+        v-model="phone_number"
+        default-country-code="KE"
+      />
+      <field-error :solid="false" :errors="errors" field="phone_number"></field-error>
+      {{ phone_number }}
+    </b-input-group>
+  </div>
 </template>
 
 <script>
-export default {
+  export default {
     props: {
-        defaultNumber: {
-            required: false,
-            type: Number
-        },
-        errors: {
-            required: false,
-            default: ()=> []
-        },
-        required: {
-            required: false,
-            default: false
-        }
+      errors: {
+        required: false,
+        default: () => [],
+      },
+      required: {
+        required: false,
+        default: false,
+      },
     },
     data() {
-        return {
-            code: '254',
-            number: null,
-            prefixOptions: [
-                { value: 254, text: 'KE +254' },
-                { value: 243, text: 'DRC +243' },
-                { value: 250, text: 'RW +250' },
-                { value: 255, text: 'TZ +255' },
-                { value: 257, text: 'BU +257' },
-                { value: 256, text: 'UG +256' },
-                { value: 1, text: 'USA +1' },
-            ]
-        }
+      return {
+        phone_number: null,
+      };
     },
     methods: {
-        updated() {
-            this.$emit('updated', this.code + this.number);
-        }
-    }
-}
+      updated(phone) {
+        this.$emit('updated', phone);
+      },
+    },
+  };
 </script>
