@@ -32,7 +32,7 @@ Route::prefix('v1')->group(static function () {
     });
 
     Route::prefix('teams')->group(static function () {
-        Route::get('/{team_id}', Team\TeamIndexController::class)->name('v1.teams.index');
+        Route::get('/', Team\TeamIndexController::class)->name('v1.teams.index');
     });
 
     Route::prefix('admin')->group(static function () {

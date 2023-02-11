@@ -41,7 +41,7 @@ class TeamIndexControllerTest extends TestCase
         $this->assertCount(3, $team1->teamUsers);
         $this->assertCount(4, $team2->teamUsers);
 
-        $this->actingAs($user1)->get(route('v1.teams.index', $team1->id))
+        $this->actingAs($user1)->get(route('v1.teams.index', ['team_id' => $team1->id]))
             ->assertOk()
             ->assertjson(
                 [
@@ -72,10 +72,10 @@ class TeamIndexControllerTest extends TestCase
                 ]
             );
 
-        $this->actingAs($user5)->get(route('v1.teams.index', $team1->id))
+        $this->actingAs($user5)->get(route('v1.teams.index', ['team_id' => $team1->id]))
             ->assertUnprocessable();
 
-        $this->actingAsAdmin()->get(route('v1.teams.index', $team2->id))
+        $this->actingAsAdmin()->get(route('v1.teams.index', ['team_id' => $team2->id]))
             ->assertOk()
             ->assertjson(
                 [
@@ -107,4 +107,100 @@ class TeamIndexControllerTest extends TestCase
             );
 
     }
+
+    public function testGetListOfTeams()
+    {
+        $user = User::factory()->create();
+        $team1 = Team::factory()->create(
+            [
+                'user_id' => $user->id,
+            ]
+        );
+        $team2 = Team::factory()->create();
+
+        $user1 = User::factory()->create();
+
+        $team1->addUser($user);
+        $team1->addUser($user1);
+
+
+
+        $this->actingAs($user1)->get(route('v1.teams.index'))
+            ->assertOk()
+            ->assertJsonCount(1, 'data')
+            ->assertJson(
+                [
+                    'data' => [
+                        [
+                            'id' => $team1->id,
+                            'name' => $team1->name,
+                            'email' => $team1->email,
+                        ]
+                    ],
+                    'total' => 1
+                ]
+            );
+        $this->actingAs($user1)->get(route('v1.teams.index'))
+            ->assertOk()
+            ->assertJsonCount(1, 'data')
+            ->assertJson(
+                [
+                    'data' => [
+                        [
+                            'id' => $team1->id,
+                            'name' => $team1->name,
+                        ]
+                    ],
+                    'total' => 1
+                ]
+            );
+        $this->actingAsRandomUser()->get(route('v1.teams.index'))
+            ->assertOk()
+            ->assertJsonCount(0, 'data');
+
+        $this->actingAsAdmin()->get(route('v1.teams.index'))
+            ->assertOk()
+            ->assertJsonCount(2, 'data')
+            ->assertJson(
+                [
+                    'data' => [
+                        [
+                            'id' => $team2->id,
+                            'name' => $team2->name,
+                        ],
+                        [
+                            'id' => $team1->id,
+                            'name' => $team1->name,
+                        ]
+                    ],
+                    'total' => 2
+                ]
+            );
+
+        $this->actingAsAdmin()->get(route('v1.teams.index', ['admin' => true]))
+            ->assertOk()
+            ->assertJsonCount(0, 'data');
+
+
+        $this->actingAs($user)->get(route('v1.teams.index', ['admin' => true]))
+            ->assertOk()
+            ->assertJsonCount(1, 'data')
+            ->assertJson(
+                [
+                    'data' => [
+                        [
+                            'id' => $team1->id,
+                            'name' => $team1->name,
+                            'user_id' => $user->id
+                        ]
+                    ],
+                    'total' => 1
+                ]
+            );
+
+        $this->actingAs($user1)->get(route('v1.teams.index', ['admin' => true]))
+            ->assertOk()
+            ->assertJsonCount(0, 'data');
+    }
+
 }
