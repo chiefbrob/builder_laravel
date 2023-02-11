@@ -89,8 +89,6 @@ class CreateTaskControllerTest extends TestCase
     }
     public function testAssigningTask()
     {
-
-
         $this->actingAs($this->user0)->post(route('v1.tasks.create'), [
             'team_id' => $this->team->id,
             'title' => 'Work',
@@ -124,7 +122,7 @@ class CreateTaskControllerTest extends TestCase
             'title' => 'Again Again',
             'status' => Task::DONE,
             'assigned_to' => $this->user8->id,
-        ])->assertUnprocessable();
+        ])->assertRedirect();
 
 
         $this->assertDatabaseMissing('tasks', [
@@ -139,6 +137,49 @@ class CreateTaskControllerTest extends TestCase
 
     public function testCreateSubTask()
     {
+        $workTitle = 'Work123';
+        $workTitle2 = 'Work456';
+        $this->actingAs($this->user0)->post(route('v1.tasks.create'), [
+            'team_id' => $this->team->id,
+            'title' => $workTitle,
+            'status' => Task::OPEN,
+            'assigned_to' => $this->user7->id,
+        ])->assertCreated()->assertJson(
+            [
+                'data' => [
+                    'title' => $workTitle,
+                    'team_id' => $this->team->id,
+                ]
+            ]
+        );
+
+        $task = Task::where('title', $workTitle)->first();
+
+        $this->actingAs($this->user0)->post(route('v1.tasks.create'), [
+            'team_id' => $this->team->id,
+            'title' => $workTitle2,
+            'status' => Task::OPEN,
+            'assigned_to' => $this->user7->id,
+            'task_id' => $task->id
+        ])->assertCreated()->assertJson(
+            [
+                'data' => [
+                    'title' => $workTitle2,
+                    'team_id' => $this->team->id,
+                    'task_id' => $task->id
+                ]
+            ]
+        );
+
+        $this->assertDatabaseHas('tasks', [
+            'title' => $workTitle2,
+            'team_id' => $this->team->id,
+            'user_id' => $this->user0->id,
+            'task_id' => $task->id,
+            'status' => Task::OPEN,
+            'assigned_to' => $this->user7->id,
+        ]);
+
         //
     }
 }

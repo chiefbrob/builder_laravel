@@ -89,4 +89,17 @@ class Team extends Model
         return $membersIds;
     }
 
+    public function getTasksIdsAttribute()
+    {
+        $sql = "SELECT id FROM tasks WHERE team_id = ".$this->id. " AND status  != '".Task::DONE ."' AND status != '". Task::CANCELLED . "'";
+        $results = DB::select($sql);
+
+        $tasksIds = [];
+
+        foreach ($results as $result) {
+            array_push($tasksIds, $result->id);
+        }
+        return $tasksIds;
+    }
+
 }

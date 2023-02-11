@@ -37,6 +37,7 @@ class CreateTaskRequest extends FormRequest
             'description' => 'sometimes|nullable|string',
             'assigned_to' => 'sometimes|nullable|integer|exists:users,id|in:'.implode(",", $team->membersIds),
             'status' => 'sometimes|nullable|string|in:open,ready,doing,reviewing,done,cancelled',
+            'task_id' => 'sometimes|nullable|integer|in:'.implode(',', $team->tasksIds)
         ];
     }
 
