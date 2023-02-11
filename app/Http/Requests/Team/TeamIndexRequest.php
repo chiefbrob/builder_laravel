@@ -24,7 +24,7 @@ class TeamIndexRequest extends FormRequest
     public function rules()
     {
         return [
-            'team_id' => 'sometimes|nullable|exists:teams:id',
+            'team_id' => 'sometimes|nullable|exists:teams,id',
             'admin' => 'sometimes|nullable|boolean'
         ];
     }
