@@ -1,11 +1,6 @@
 import Vue from 'vue';
 import Multiselect from 'vue-multiselect';
 
-import VuePhoneNumberInput from 'vue-phone-number-input';
-import 'vue-phone-number-input/dist/vue-phone-number-input.css';
-
-Vue.component('vue-phone-number-input', VuePhoneNumberInput);
-
 Vue.component('clipboard', require('./components/shared/ClipBoard').default);
 
 Vue.component('multiselect', Multiselect);
