@@ -4,6 +4,7 @@ namespace Tests;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Models\UserRole;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -39,5 +40,17 @@ abstract class TestCase extends BaseTestCase
         $this->user = $admin;
 
         return $this->actingAs($admin);
+    }
+
+    public function assignRole(User $user, string $role)
+    {
+        $role = Role::firstOrCreate(['name' => $role]);
+        $userRole = UserRole::firstOrCreate(
+            [
+                'user_id' => $user->id,
+                'role_id' => $role->id
+            ]
+        );
+        return $userRole;
     }
 }

@@ -5,8 +5,20 @@
         {{ team.description }}
       </b-card-text>
       <b-card-text v-if="full">
-        <p>Team Members <b-button variant="link">New</b-button></p>
-        <div>
+        <p>Team Members <b-button variant="link" @click="addingUser = true">New</b-button></p>
+        <div v-if="addingUser">
+          <p class="my-4">
+            <b-form-group title="Select user">
+              <b-form-select v-model="newuser" :options="users"></b-form-select>
+              <field-error :solid="false" :errors="errors" field="user_id"></field-error>
+            </b-form-group>
+          </p>
+          <p>
+            <b-button v-if="!loading" @click="addUser" :disabled="!newuser">Add</b-button>
+            <span v-else><i class="fa fa-spinner"></i> Loading...</span>
+          </p>
+        </div>
+        <div v-else>
           <div v-for="(teamUser, index) in team.team_users" v-bind:key="index">
             <p>
               <profile-image style="width: 2em; float: left" :user="teamUser.user"></profile-image>
@@ -27,6 +39,15 @@
   export default {
     components: { ProfileImage },
     props: ['team', 'full'],
+    data() {
+      return {
+        addingUser: false,
+        users: [],
+        newuser: null,
+        loading: false,
+        errors: [],
+      };
+    },
     methods: {
       showTeam() {
         if (!this.full) {
@@ -38,6 +59,49 @@
           });
         }
       },
+      getUsers() {
+        this.loading = true;
+        axios
+          .get(`/api/v1/users`, {
+            params: {
+              team_id: this.team.id,
+            },
+          })
+          .then(results => {
+            this.users = results.data.data.map(user => {
+              return {
+                text: user.name + ' ' + user.email,
+                value: user.id,
+              };
+            });
+          })
+          .catch(error => {
+            this.$root.$emit('sendMessage', 'Failed to get users');
+          })
+          .finally(f => {
+            this.loading = false;
+          });
+      },
+      addUser() {
+        this.loading = true;
+        axios
+          .post(`/api/v1/admin/teams/${this.team.id}/users`, {
+            user_id: this.newuser,
+          })
+          .then(results => {
+            this.$root.$emit('sendMessage', 'User added to Team', 'success');
+          })
+          .catch(({ response }) => {
+            this.errors = response.data.errors;
+            this.$root.$emit('sendMessage', 'Failed to add user to Team');
+          })
+          .finally(f => {
+            this.loading = false;
+          });
+      },
+    },
+    created() {
+      this.getUsers();
     },
   };
 </script>

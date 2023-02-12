@@ -29,6 +29,7 @@ Route::prefix('v1')->group(static function () {
     Route::prefix('users')->group(static function () {
         Route::post('/{user_id}', UserProfileUpdateController::class)->name('v1.user.update');
         Route::delete('/{user_id}', User\UserDeactivateController::class)->name('v1.user.delete');
+        Route::get('/', User\UserIndexController::class)->name('v1.user.index');
     });
 
     Route::prefix('teams')->group(static function () {
