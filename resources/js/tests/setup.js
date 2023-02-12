@@ -10,3 +10,13 @@ Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.mixin(require('@/mixin'));
 require('@/components');
+
+import VuePhoneNumberInput from 'vue-phone-number-input';
+//import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+
+Vue.component('vue-phone-number-input', VuePhoneNumberInput);
+
+window.details = {
+  name: 'BuilderLaravel',
+  description: 'A foo app',
+};
