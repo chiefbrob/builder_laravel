@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Task;
+use App\Models\TaskStateChange;
 use App\Models\Team;
 use App\Models\TeamUser;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -49,6 +50,11 @@ trait CanTeamUp
         }
 
         return $tasks->orderBy('id', 'DESC')->paginate();
+    }
+
+    public function taskStateChanges(): HasMany
+    {
+        return $this->hasMany(TaskStateChange::class);
     }
 
 }
