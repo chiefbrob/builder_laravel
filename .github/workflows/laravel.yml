@@ -1,6 +1,6 @@
 # GitHub Action for Laravel with MySQL and Redis
 name: Testing Laravel with MySQL
-on: [push, pull_request]
+on: [push]
 jobs:
   laravel:
     name: Laravel (PHP ${{ matrix.php-versions }})
@@ -72,3 +72,7 @@ jobs:
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
           REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
+      - name: Check if the exit code was success and branch is master
+        if: success() && github.ref == 'refs/heads/master'
+        run: |
+          echo "Running additional steps for successful build on master branch..."
