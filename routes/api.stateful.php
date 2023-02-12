@@ -37,6 +37,7 @@ Route::prefix('v1')->group(static function () {
 
     Route::prefix('tasks')->group(static function () {
         Route::post('/', Task\CreateTaskController::class)->name('v1.tasks.create');
+        Route::get('/', Task\TaskIndexController::class)->name('v1.tasks.index');
     });
 
     Route::prefix('admin')->group(static function () {

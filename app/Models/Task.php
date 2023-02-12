@@ -18,6 +18,15 @@ class Task extends Model
     public const DONE = 'done';
     public const CANCELLED = 'cancelled';
 
+    public const STATUSES = [
+        self::OPEN,
+        self::READY,
+        self::DOING,
+        self::REVIEWING,
+        self::DONE,
+        self::CANCELLED,
+    ];
+
     protected $fillable = [
         'title',
         'description',
