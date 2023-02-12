@@ -41,6 +41,16 @@
 
           <b-nav-item
             href="#"
+            v-if="$root.$featureIsEnabled('teams')"
+            @click="$router.push({ name: 'teams' })"
+            :active="$route.name === 'teams'"
+          >
+            <i class="fa fa-users"></i>
+            Teams
+          </b-nav-item>
+
+          <b-nav-item
+            href="#"
             v-if="$root.$featureIsEnabled('shop')"
             @click="$router.push({ name: 'shop' })"
             :active="$route.name === 'shop'"
