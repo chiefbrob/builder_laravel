@@ -1,26 +1,30 @@
 <template>
   <div>
-    <b-table :fields="fields" :items="items">
-      <template #cell(actions)="data">
-        <b-button
-          variant="danger"
-          v-if="data.item.id !== user.id"
-          href="#"
-          @click="deleteUser(data.item)"
-        >
-          Delete
-        </b-button>
-        <span v-else>No Delete</span>
-      </template>
+    <div class="row">
+      <b-card class="col-md-3" v-for="(user, index) in items" v-bind:key="index">
+        <b-card-title>
+          {{ user.name }}
+        </b-card-title>
+        <b-card-sub-title>{{ user.email }}</b-card-sub-title>
 
-      <template #cell(created_at)="data">
-        <span> {{ data.item.created_at | relative }}</span>
-      </template>
+        <b-card-text> Registered: {{ user.created_at | relative }} </b-card-text>
 
-      <template #cell(verified_at)="data">
-        <span> {{ data.item.verified_at | relative }}</span>
-      </template>
-    </b-table>
+        <b-card-text>
+          Verified:
+          <b-button size="sm" variant="success" v-if="user.verified_at">{{
+            user.verified_at | relative
+          }}</b-button>
+
+          <b-button size="sm" v-else variant="warning">-unverified-</b-button>
+        </b-card-text>
+        <b-card-text v-if="user.id !== currentuser.id">
+          <b-button size="sm" variant="danger" href="#" @click="deleteUser(user)">
+            <i class="fa fa-trash"></i>
+          </b-button>
+        </b-card-text>
+      </b-card>
+    </div>
+
     <b-pagination
       @input="pageChanged"
       v-model="meta.currentPage"
@@ -58,7 +62,7 @@
       this.loadUsers();
     },
     computed: {
-      user() {
+      currentuser() {
         return this.$store.getters.user;
       },
     },

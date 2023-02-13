@@ -45,8 +45,8 @@ Update `APP_NAME`, `APP_URL`
 Update `MAIL_USERNAME` and `MAIL_PASSWORD`
 Update `config/app.php`
 Update `public/manifest.json`
-Update `resources/js/store/index.js`
-Update Deploy Folder Notes
+Update `resources/views/header-links.blade.php`
+Update deploy Folder Notes
 
 ## Local Setup
 

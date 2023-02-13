@@ -122,6 +122,14 @@
               Admin Panel
             </b-dropdown-item>
 
+            <b-dropdown-item href="#" v-if="admin" @click="$router.push({ name: 'style' })">
+              Style
+            </b-dropdown-item>
+
+            <b-dropdown-item href="/admin/feature_flags" v-if="admin">
+              Feature Flags
+            </b-dropdown-item>
+
             <b-dropdown-item href="#" @click="logout" v-if="user">Log Out</b-dropdown-item>
 
             <b-dropdown-item to="login" v-if="!user">Login</b-dropdown-item>

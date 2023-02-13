@@ -1,3 +1,20 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>{{ config('app.name') }}</title>
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<meta name="description" content="{{ config('app.description') }}">
+<meta name="theme-color" content="{{ config('app.theme_color') }}"/>
+{{-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'"> --}}
+<meta name="application-name" content="{{ config('app.name') }}">
+<link rel="dns-prefetch" href="//fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/images/180.png">
+<link href="{{ mix('css/app.css') }}" rel="stylesheet">
 <!-- Verify website ownership -->
 <meta name="google-site-verification" content="verification_token"><!-- Google Search Console -->
 <meta name="yandex-verification" content="verification_token"><!-- Yandex Webmasters -->
