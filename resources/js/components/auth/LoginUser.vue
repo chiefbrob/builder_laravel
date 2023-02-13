@@ -93,6 +93,11 @@
             this.$root.$emit('loadUser');
             this.$root.$emit('sendMessage', 'Login Success', 'success');
             setTimeout(() => {
+              let originalToPath = localStorage.getItem('original-to-path');
+              if (originalToPath) {
+                localStorage.removeItem('original-to-path');
+                return (window.location = originalToPath);
+              }
               window.location = '/home';
             }, 1000);
           })
