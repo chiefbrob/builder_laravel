@@ -26,6 +26,16 @@ This template allows you to quickly start building laravel applications from scr
 - Offline apps
 - Automation of deployment with Github
 
+## Adding Features
+
+You can easily create scaffolding for a new feature. i.e. Adding a new Resource like Contact
+
+```
+bash scaffold.sh Contact
+```
+
+This would create Controllers, Requests, TestFiles for both PHP & Vue and UI
+
 # Using Template
 
 Setup Environment
