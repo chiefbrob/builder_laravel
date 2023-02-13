@@ -1,9 +1,8 @@
 <template>
   <div>
-    <b-card :sub-title="team.created_at | relative">
-      <template #header>
-        <h4 class="mb-0" v-text="team.name" style="cursor: pointer" @click="showTeam"></h4>
-      </template>
+    <b-card>
+      <b-card-title v-text="team.name" style="cursor: pointer" @click="showTeam"></b-card-title>
+      <b-card-sub-title v-if="full"> {{ team.created_at | relative }} </b-card-sub-title>
       <b-card-text>
         {{ team.description }}
       </b-card-text>
@@ -54,6 +53,11 @@
         errors: [],
       };
     },
+    computed: {
+      user() {
+        return this.$store.getters.user;
+      },
+    },
     methods: {
       showTeam() {
         if (!this.full) {
@@ -76,26 +80,28 @@
 
       getUsers() {
         this.loading = true;
-        axios
-          .get(`/api/v1/users`, {
-            params: {
-              team_id: this.team.id,
-            },
-          })
-          .then(results => {
-            this.users = results.data.data.map(user => {
-              return {
-                text: user.name + ' ' + user.email,
-                value: user.id,
-              };
+        if (this.user.rolesList.includes('manager') || this.user.admin) {
+          axios
+            .get(`/api/v1/users`, {
+              params: {
+                team_id: this.team.id,
+              },
+            })
+            .then(results => {
+              this.users = results.data.data.map(user => {
+                return {
+                  text: user.name + ' ' + user.email,
+                  value: user.id,
+                };
+              });
+            })
+            .catch(error => {
+              this.$root.$emit('sendMessage', 'Failed to get users');
+            })
+            .finally(f => {
+              this.loading = false;
             });
-          })
-          .catch(error => {
-            this.$root.$emit('sendMessage', 'Failed to get users');
-          })
-          .finally(f => {
-            this.loading = false;
-          });
+        }
       },
       addUser() {
         this.loading = true;

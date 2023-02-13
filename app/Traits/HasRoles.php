@@ -55,6 +55,7 @@ trait HasRoles
      * Removes a role from user
      *
      * @param  \App\Models\Role  $role BeingRemoved
+     *
      * @return bool
      */
     public function removeRole(Role $role): bool

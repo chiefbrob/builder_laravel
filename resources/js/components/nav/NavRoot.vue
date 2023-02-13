@@ -43,7 +43,7 @@
             href="#"
             v-if="$root.$featureIsEnabled('teams')"
             @click="$router.push({ name: 'teams' })"
-            :active="$route.name === 'teams'"
+            :active="$route.name.includes('team') || $route.name.includes('task')"
           >
             <i class="fa fa-users"></i>
             Teams
