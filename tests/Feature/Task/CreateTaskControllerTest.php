@@ -75,7 +75,7 @@ class CreateTaskControllerTest extends TestCase
             'team_id' => $this->team->id,
             'title' => 'Do something else',
             'status' => Task::DONE
-        ])->assertRedirect();
+        ])->assertUnprocessable();
 
 
         $this->assertDatabaseMissing('tasks', [
@@ -122,7 +122,7 @@ class CreateTaskControllerTest extends TestCase
             'title' => 'Again Again',
             'status' => Task::DONE,
             'assigned_to' => $this->user8->id,
-        ])->assertRedirect();
+        ])->assertUnprocessable();
 
 
         $this->assertDatabaseMissing('tasks', [

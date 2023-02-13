@@ -1,28 +1,20 @@
 <template>
   <div>
-    <div class="row">
-      <team
-        class="col-md-3"
-        v-for="(team, index) in items"
-        :team="team"
-        :full="false"
-        v-bind:key="index"
-      >
-      </team>
-    </div>
+    <task v-for="(task, index) in items" :task="task" :full="false" v-bind:key="index"> </task>
     <div v-if="items.length === 0">
       <span v-if="loading"> <i class="fa fa-spinner"></i> Loading </span>
       <span v-else>
-        You are not a member of any team
+        No Tasks available
       </span>
     </div>
   </div>
 </template>
 
 <script>
-  import Team from './Team';
+  import Task from './Task';
   export default {
-    components: { Team },
+    components: { Task },
+    props: ['team'],
     data() {
       return {
         items: [],
@@ -33,12 +25,12 @@
       };
     },
     created() {
-      this.loadTeams();
+      this.loadTasks();
     },
     methods: {
-      loadTeams() {
+      loadTasks() {
         axios
-          .get(`/api/v1/teams/?page=${this.meta.currentPage}`)
+          .get(`/api/v1/tasks/?team_id=${this.team.id}&page=${this.meta.currentPage}`)
           .then(results => {
             this.items = results.data.data;
             this.meta.currentPage = results.data.current_page;
@@ -48,7 +40,7 @@
           })
           .catch(error => {
             console.log(error);
-            this.$root.$emit('sendMessage', 'Failed to teams');
+            this.$root.$emit('sendMessage', 'Failed to tasks');
           })
           .finally(f => {
             this.loading = false;

@@ -46,6 +46,8 @@ class TaskIndexControllerTest extends TestCase
             'status' => Task::OPEN
         ])->assertCreated();
 
+        $this->task1 = Task::where('title', 'Do something')->first();
+
         $this->actingAs($this->user0)->post(route('v1.tasks.create'), [
             'team_id' => $this->team['id'],
             'title' => 'Do something else',
@@ -137,6 +139,27 @@ class TaskIndexControllerTest extends TestCase
                         ]
                     ],
                     'total' => 1,
+                ]
+            );
+    }
+
+    public function testViewSingleTask()
+    {
+        $this->actingAs($this->user0)->get(
+            route(
+                'v1.tasks.index',
+                [
+                    'team_id' => $this->team->id,
+                    'status' => Task::READY,
+                    'task_id' => $this->task1->id,
+                ]
+            )
+        )
+            ->assertOk()
+            ->assertjson(
+                [
+                    'id' => $this->task1->id,
+                    'title' => 'Do something'
                 ]
             );
     }

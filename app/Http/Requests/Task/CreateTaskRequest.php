@@ -25,19 +25,15 @@ class CreateTaskRequest extends FormRequest
      */
     public function rules()
     {
-        $user = User::findOrFail(auth()->id());
-
-        $team = Team::findOrFail($this->team_id);
-
-
+        \Log::info($this->all());
         return [
             'title' => 'string|required',
             'user_id' => 'integer|required|exists:users,id',
-            'team_id' => 'integer|required|exists:teams,id|in:'.implode(",", $user->myTeamIds),
+            'team_id' => 'integer|required|exists:teams,id',
             'description' => 'sometimes|nullable|string',
-            'assigned_to' => 'sometimes|nullable|integer|exists:users,id|in:'.implode(",", $team->membersIds),
+            'assigned_to' => 'sometimes|nullable|integer|exists:users,id',
             'status' => 'sometimes|nullable|string|in:open,ready,doing,reviewing,done,cancelled',
-            'task_id' => 'sometimes|nullable|integer|in:'.implode(',', $team->tasksIds)
+            'task_id' => 'sometimes|nullable|integer'
         ];
     }
 

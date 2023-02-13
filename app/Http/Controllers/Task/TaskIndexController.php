@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Task;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Task\TaskIndexRequest;
 use App\Models\Task;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
@@ -22,7 +23,18 @@ class TaskIndexController extends Controller
     {
         try {
 
-            $tasks = Task::where('team_id', $request->team_id);
+            $user = User::findOrFail(auth()->id());
+
+            if (isset($request->task_id)) {
+                $task = Task::findOrFail($request->task_id);
+
+                if ($task->team->hasUser($user)) {
+                    return $task;
+                }
+                throw new Exception("Not Allowed", 1);
+            }
+
+            $tasks = Task::where('team_id', $request->team_id)->whereIn('team_id', $user->myTeamIds);
 
             if (isset($request->status)) {
                 $tasks->where('status', $request->status);

@@ -1,11 +1,17 @@
 <template>
   <div>
-    <b-card @click="showTeam" :title="team.name" :sub-title="team.created_at | relative">
+    <b-card :sub-title="team.created_at | relative">
+      <template #header>
+        <h4 class="mb-0" v-text="team.name" style="cursor: pointer" @click="showTeam"></h4>
+      </template>
       <b-card-text>
         {{ team.description }}
       </b-card-text>
       <b-card-text v-if="full">
-        <p>Team Members <b-button variant="link" @click="addingUser = true">New</b-button></p>
+        <p>
+          Team Members <b-button variant="link" @click="addingUser = true">New</b-button>
+          <b-button variant="link" @click="showTasks">Tasks</b-button>
+        </p>
         <div v-if="addingUser">
           <p class="my-4">
             <b-form-group title="Select user">
@@ -59,6 +65,15 @@
           });
         }
       },
+      showTasks() {
+        this.$router.push({
+          name: 'tasks',
+          params: {
+            team_id: this.team.id,
+          },
+        });
+      },
+
       getUsers() {
         this.loading = true;
         axios
