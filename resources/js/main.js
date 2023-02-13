@@ -33,7 +33,6 @@ VueRouter.prototype.push = function push(location) {
 let router = new VueRouter(routes);
 
 router.beforeEach((to, from, next) => {
-  //console.log(from, to);
   const auth = to.matched[0].meta;
   if (auth?.requiresAdmin === true) {
     if (window.User) {
@@ -43,6 +42,7 @@ router.beforeEach((to, from, next) => {
         next({ name: 'welcome' });
       }
     } else {
+      localStorage.setItem('original-to-path', to.path);
       next({ name: 'login' });
     }
   } else if (auth?.requiresAuth !== true) {
@@ -51,6 +51,7 @@ router.beforeEach((to, from, next) => {
     if (window.User) {
       next();
     } else {
+      localStorage.setItem('original-to-path', to.path);
       next({ name: 'login' });
     }
   }

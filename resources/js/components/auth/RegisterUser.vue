@@ -130,6 +130,11 @@
             this.$root.$emit('loadUser');
             this.$root.$emit('sendMessage', 'User Created', 'success');
             setTimeout(() => {
+              let originalToPath = localStorage.getItem('original-to-path');
+              if (originalToPath) {
+                localStorage.removeItem('original-to-path');
+                return (window.location = originalToPath);
+              }
               this.$router.push({ name: 'home' });
             }, 5000);
           })
