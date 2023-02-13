@@ -26,12 +26,11 @@ class TaskIndexRequest extends FormRequest
      */
     public function rules()
     {
-        $user = auth()->user();
-        $team = Team::findOrFail($this->team_id);
         return [
-            'team_id' => 'required|integer|exists:teams,id|in:'.implode(',', $user->myTeamIds),
+            'team_id' => 'required|integer|exists:teams,id',
             'status' => 'sometimes|nullable|string|in:'. implode(',', Task::STATUSES),
-            'assigned_to' => 'sometimes|nullable|integer|in:'. implode(',', $team->membersIds)
+            'assigned_to' => 'sometimes|nullable|integer',
+            'task_id' => 'sometimes|nullable|integer|exists:tasks,id'
         ];
     }
 }
