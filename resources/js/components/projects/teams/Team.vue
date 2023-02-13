@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card>
-      <b-card-title v-text="team.name" style="cursor: pointer" @click="showTeam"></b-card-title>
+      <b-card-title v-text="team.name" class="pointer" @click="showTeam"></b-card-title>
       <b-card-sub-title v-if="full"> {{ team.created_at | relative }} </b-card-sub-title>
       <b-card-text>
         {{ team.description }}

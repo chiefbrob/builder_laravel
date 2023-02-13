@@ -27,18 +27,13 @@ Vue.component('vue-phone-number-input', VuePhoneNumberInput);
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch(err => {
-    if (err.name === 'NavigationDuplicated') {
-    } else {
-      console.log(err.includes('navigation guard'));
-      throw err;
-    }
-  });
+  return originalPush.call(this, location).catch(err => {});
 };
 
 let router = new VueRouter(routes);
 
 router.beforeEach((to, from, next) => {
+  //console.log(from, to);
   const auth = to.matched[0].meta;
   if (auth?.requiresAdmin === true) {
     if (window.User) {

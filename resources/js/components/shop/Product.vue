@@ -3,9 +3,7 @@
     <b-card>
       <b-card-title>
         <div>
-          <span :style="full ? '' : 'cursor: pointer'" @click="viewProduct">{{
-            product.name
-          }}</span>
+          <span :class="full ? '' : 'pointer'" @click="viewProduct">{{ product.name }}</span>
           <span v-if="admin" class="float-right ">
             <b-button
               variant="info"
