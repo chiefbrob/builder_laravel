@@ -32,7 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'details',
     ];
 
-    protected $appends = ['admin'];
+    protected $appends = ['admin', 'rolesList'];
 
     /**
      * The attributes that should be hidden for serialization.

@@ -35,6 +35,11 @@
     created() {
       this.loadTeams();
     },
+    computed: {
+      user() {
+        return this.$store.getters.user;
+      },
+    },
     methods: {
       loadTeams() {
         axios

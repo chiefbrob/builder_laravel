@@ -2,10 +2,12 @@
   <div>
     <nav-root></nav-root>
     <div class="mb-5 mt-2 pb-5 row">
-      <team v-if="team" class="col-md-10 offset-md-1" :full="true" :team="team"></team>
-      <div v-else>
-        <span v-if="loading"><i class="fa fa-spinner"></i> Loading</span>
-        <span v-else>Failed to load Team</span>
+      <div class="col-md-10 offset-md-1">
+        <team v-if="team" :full="true" :team="team"></team>
+        <div v-else>
+          <span v-if="loading"><i class="fa fa-spinner"></i> Loading</span>
+          <span v-else>Failed to load Team</span>
+        </div>
       </div>
     </div>
     <page-footer></page-footer>

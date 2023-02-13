@@ -12,7 +12,7 @@
 
     <b-navbar toggleable="lg" type="dark" variant="info" class="row">
       <b-navbar-brand
-        class="pl-2"
+        class="pl-2 pointer"
         @click="$router.push({ name: 'welcome' })"
         v-text="$root.$store.state.config.name"
       ></b-navbar-brand>
@@ -43,7 +43,7 @@
             href="#"
             v-if="$root.$featureIsEnabled('teams')"
             @click="$router.push({ name: 'teams' })"
-            :active="$route.name === 'teams'"
+            :active="teamsActive"
           >
             <i class="fa fa-users"></i>
             Teams
@@ -165,6 +165,11 @@
       };
     },
     computed: {
+      teamsActive() {
+        return false;
+        let name = this.$route.name;
+        return name.includes('team') || name.includes('task');
+      },
       user() {
         return this.$store.getters.user;
       },

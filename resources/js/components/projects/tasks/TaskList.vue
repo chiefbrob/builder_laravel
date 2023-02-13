@@ -1,6 +1,15 @@
 <template>
   <div>
-    <task v-for="(task, index) in items" :task="task" :full="false" v-bind:key="index"> </task>
+    <div class="row">
+      <task
+        class="col-md-3"
+        v-for="(task, index) in items"
+        :task="task"
+        :full="false"
+        v-bind:key="index"
+      >
+      </task>
+    </div>
     <div v-if="items.length === 0">
       <span v-if="loading"> <i class="fa fa-spinner"></i> Loading </span>
       <span v-else>
