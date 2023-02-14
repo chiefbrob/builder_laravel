@@ -1,14 +1,37 @@
 <template>
   <div>
     <b-card>
-      <b-card-title v-text="team.name" class="pointer" @click="showTeam"></b-card-title>
+      <b-card-title class="pointer">
+        <span @click="showTeam">{{ team.name }}</span>
+
+        <b-button
+          size="sm"
+          variant="info"
+          v-if="manager"
+          @click="
+            $router.push({
+              name: 'team-edit',
+              params: {
+                team_id: team.id,
+              },
+            })
+          "
+          class="text-white float-right"
+          ><i class="fa fa-pen"></i
+        ></b-button>
+      </b-card-title>
       <b-card-sub-title v-if="full"> {{ team.created_at | relative }} </b-card-sub-title>
       <b-card-text>
         {{ team.description }}
       </b-card-text>
       <b-card-text v-if="full">
         <p>
-          Team Members <b-button variant="link" @click="addingUser = true">New</b-button>
+          <b-button
+            variant="link"
+            @click="showTeamMembers = !showTeamMembers"
+            v-text="showTeamMembers ? 'Hide Team Members' : 'Show Team Members'"
+          ></b-button>
+
           <b-button variant="link" @click="showTasks">Tasks</b-button>
         </p>
         <div v-if="addingUser">
@@ -23,7 +46,7 @@
             <span v-else><i class="fa fa-spinner"></i> Loading...</span>
           </p>
         </div>
-        <div v-else>
+        <div v-else-if="showTeamMembers">
           <div v-for="(teamUser, index) in team.team_users" v-bind:key="index">
             <p>
               <profile-image style="width: 2em; float: left" :user="teamUser.user"></profile-image>
@@ -33,6 +56,11 @@
               </span>
             </p>
           </div>
+          <div>
+            <b-button variant="link" @click="addingUser = true" v-if="users.length > 0"
+              >New Team Member</b-button
+            >
+          </div>
         </div>
       </b-card-text>
     </b-card>
@@ -41,8 +69,9 @@
 
 <script>
   import ProfileImage from '../../home/ProfileImage';
+  import TaskList from '../tasks/TaskList';
   export default {
-    components: { ProfileImage },
+    components: { ProfileImage, TaskList },
     props: ['team', 'full'],
     data() {
       return {
@@ -51,11 +80,15 @@
         newuser: null,
         loading: false,
         errors: [],
+        showTeamMembers: false,
       };
     },
     computed: {
       user() {
         return this.$store.getters.user;
+      },
+      manager() {
+        return this.user.rolesList.includes('manager');
       },
     },
     methods: {
@@ -80,7 +113,7 @@
 
       getUsers() {
         this.loading = true;
-        if (this.user.rolesList.includes('manager') || this.user.admin) {
+        if (this.manager) {
           axios
             .get(`/api/v1/users`, {
               params: {

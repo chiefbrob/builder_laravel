@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Team;
 
+use App\Models\Role;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -11,6 +12,20 @@ use Tests\TestCase;
 class RemoveUserFromTeamControllerTest extends TestCase
 {
     use RefreshDatabase;
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user0 = User::factory()->create();
+
+        $role = Role::firstOrCreate(['name' => 'manager']);
+
+
+        $this->actingAsAdmin()->post(route('user-role.create', [
+            'user_id' => $this->user0->id,
+            'role_id' => $role->id,
+        ]))->assertCreated();
+    }
     /**
      * A basic feature test example.
      *
@@ -18,7 +33,6 @@ class RemoveUserFromTeamControllerTest extends TestCase
      */
     public function testRemoveUserToTeam()
     {
-        $this->actingAsAdmin();
 
         Team::factory()->create();
         Team::factory()->create();
@@ -49,7 +63,7 @@ class RemoveUserFromTeamControllerTest extends TestCase
 
 
 
-        $this->delete(route('v1.teams.removeuser', $team->id), ['user_id' => $user->id])
+        $this->actingAs($this->user0)->delete(route('v1.teams.removeuser', $team->id), ['user_id' => $user->id])
             ->assertOk();
 
         $team->refresh();

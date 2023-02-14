@@ -4,7 +4,7 @@
     <div class="mb-5 pb-5 row">
       <div class="col-md-10 offset-md-1">
         <h4>Create Team</h4>
-        <team-form :url="url"></team-form>
+        <team-form @submit="submitted" :errors="errors"></team-form>
       </div>
     </div>
     <page-footer></page-footer>
@@ -18,11 +18,29 @@
     props: [],
     data() {
       return {
-        url: '/api/v1/admin/teams',
+        errors: [],
       };
     },
     computed: {},
-    methods: {},
+    methods: {
+      submitted(form) {
+        axios
+          .post('/api/v1/admin/teams', form)
+          .then(results => {
+            this.$root.$emit('sendMessage', 'Team created', 'success');
+            this.$router.push({
+              name: 'team-single',
+              params: {
+                id: results.data.id,
+              },
+            });
+          })
+          .catch(({ response }) => {
+            this.errors = response.data.errors;
+            this.$root.$emit('sendMessage', 'Failed to create team!');
+          });
+      },
+    },
     created() {},
   };
 </script>

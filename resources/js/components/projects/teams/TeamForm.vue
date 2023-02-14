@@ -32,13 +32,12 @@
       team: {
         required: false,
       },
-      url: {
+      errors: {
         required: true,
       },
     },
     data() {
       return {
-        errors: [],
         form: {
           name: null,
           email: null,
@@ -61,21 +60,7 @@
       },
 
       submitForm() {
-        axios
-          .post(this.url, this.form)
-          .then(results => {
-            this.$root.$emit('sendMessage', 'Team created', 'success');
-            this.$router.push({
-              name: 'team-single',
-              params: {
-                id: results.data.id,
-              },
-            });
-          })
-          .catch(({ response }) => {
-            this.errors = response.data.errors;
-            this.$root.$emit('sendMessage', 'Failed to create team!');
-          });
+        this.$emit('submit', this.form);
       },
     },
   };
