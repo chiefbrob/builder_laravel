@@ -534,16 +534,16 @@
         },
         {
             "name": "friendsofcat/laravel-feature-flag",
-            "version": "v4.1.2",
+            "version": "4.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/friendsofcat/laravel-feature-flag.git",
-                "reference": "1a03f10de6dc1f1c6c6fba2c1b607be32ee55554"
+                "reference": "218ec497929fa1bf11a0849fc1c40f0d178eb4d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/friendsofcat/laravel-feature-flag/zipball/1a03f10de6dc1f1c6c6fba2c1b607be32ee55554",
-                "reference": "1a03f10de6dc1f1c6c6fba2c1b607be32ee55554",
+                "url": "https://api.github.com/repos/friendsofcat/laravel-feature-flag/zipball/218ec497929fa1bf11a0849fc1c40f0d178eb4d5",
+                "reference": "218ec497929fa1bf11a0849fc1c40f0d178eb4d5",
                 "shasum": ""
             },
             "require": {
@@ -605,9 +605,9 @@
                 "toggles"
             ],
             "support": {
-                "source": "https://github.com/friendsofcat/laravel-feature-flag/tree/v4.1.2"
+                "source": "https://github.com/friendsofcat/laravel-feature-flag/tree/4.2.2"
             },
-            "time": "2022-03-21T12:51:22+00:00"
+            "time": "2023-02-01T19:48:30+00:00"
         },
         {
             "name": "fruitcake/laravel-cors",
