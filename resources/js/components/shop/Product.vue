@@ -90,7 +90,6 @@
             }, 3000);
           })
           .catch(error => {
-            //console.log(error);
             this.$root.$emit('sendMessage', 'Failed to delete product');
           });
       },

@@ -40,7 +40,7 @@
   export default {
     methods: {
       startDriving() {
-        console.log('Starting Driving');
+        //
       },
     },
   };

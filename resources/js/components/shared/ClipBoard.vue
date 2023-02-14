@@ -16,7 +16,7 @@
     },
     methods: {
       copied() {
-        console.log('copied');
+        this.$root.$emit('sendMessage', 'Copied to clipboard', 'success');
       },
     },
   };

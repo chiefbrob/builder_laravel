@@ -73,7 +73,6 @@
             this.meta.lastPage = results.data.last_page;
           })
           .catch(error => {
-            console.log(error);
             this.$root.$emit('sendMessage', 'Failed to blogs');
           });
       },

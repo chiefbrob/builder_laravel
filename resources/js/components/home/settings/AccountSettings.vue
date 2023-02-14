@@ -106,7 +106,6 @@
             }, 2000);
           })
           .catch(error => {
-            console.log(error);
             this.$root.$emit('sendMessage', 'Failed to deactivate account', 'danger');
           });
       },

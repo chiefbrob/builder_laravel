@@ -40,7 +40,6 @@
             });
           })
           .catch(({ response }) => {
-            console.log(response.data);
             this.errors = response.data.errors;
             this.$root.$emit('sendMessage', 'Failed to create role!');
           });

@@ -40,7 +40,6 @@
             this.product = results.data;
           })
           .catch(error => {
-            //console.log(error);
             this.$root.$emit('sendMessage', 'Failed to product');
           })
           .finally(f => {
