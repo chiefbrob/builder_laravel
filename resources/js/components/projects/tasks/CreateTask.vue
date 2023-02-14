@@ -47,7 +47,6 @@
           .post('/api/v1/tasks', form)
           .then(results => {
             this.$root.$emit('sendMessage', 'Task created', 'success');
-            console.log(results.data);
             this.$router.push({
               name: 'task-single',
               params: {
@@ -57,7 +56,6 @@
             });
           })
           .catch(({ response }) => {
-            console.log(response.data);
             this.errors = response.data.errors;
             this.$root.$emit('sendMessage', 'Failed to create task!');
           });

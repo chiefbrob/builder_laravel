@@ -24,7 +24,7 @@
     computed: {},
     methods: {
       createProduct(form) {
-        console.log('creating product', form);
+        //
       },
     },
     created() {},

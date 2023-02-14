@@ -216,8 +216,6 @@
       },
     },
     created() {
-      // console.log(this.$root.$store.state.config.name);
-      //console.log(this.$root.$featureIsEnabled('production'));
       this.$root.$on('sendMessage', (message, variant) => {
         this.sendMessage(message, variant);
       });
@@ -236,7 +234,6 @@
             }, 1200);
           })
           .catch(error => {
-            console.log(error);
             this.sendMessage('Language switch Failed!', 'danger');
           });
       },
@@ -250,7 +247,6 @@
             this.sendMessage('Profile updated', 'success');
           })
           .catch(error => {
-            console.log(error);
             this.sendMessage('Search Failed!', 'danger');
           });
       },
@@ -277,7 +273,7 @@
             window.User = results.data;
           })
           .catch(error => {
-            console.log(error);
+            this.$root.$emit('sendMessage', 'Failed Load User');
           });
       },
     },

@@ -77,7 +77,6 @@
             this.loadUsers();
           })
           .catch(error => {
-            console.log(error);
             this.$root.$emit('sendMessage', 'Failed Delete User');
           });
       },
@@ -96,7 +95,6 @@
             this.meta.lastPage = results.data.last_page;
           })
           .catch(error => {
-            console.log(error);
             this.$root.$emit('sendMessage', 'Failed to load Admin Users');
           });
       },
