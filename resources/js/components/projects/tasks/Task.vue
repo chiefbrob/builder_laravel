@@ -1,8 +1,9 @@
 <template>
   <div>
     <b-card @click="showTask">
-      <b-card-title style="curstor: pointer">{{ task.title }}</b-card-title>
-      <b-card-sub-title>{{ task.created_at | relative }}</b-card-sub-title>
+      <b-card-title class="pointer">{{ task.title }}</b-card-title>
+      <b-card-sub-title> {{ task.status }} </b-card-sub-title>
+      <b-card-text v-if="full"> Created: {{ task.created_at | relative }} </b-card-text>
       <b-card-text>
         {{ task.description }}
       </b-card-text>

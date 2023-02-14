@@ -57,12 +57,19 @@ class TaskStateChangeControllerTest extends TestCase
 
         $this->task2 = Task::where('title', 'Do something else')->first();
 
-        $this->actingAsAdmin()->post(route('v1.teams.create', ['name' => 'Another Team', 'email' => 'hello@team.mail']))
+        $this->user1 = User::factory()->create();
+
+        $this->actingAsAdmin()->post(route('user-role.create', [
+            'user_id' => $this->user1->id,
+            'role_id' => $role->id,
+        ]))->assertCreated();
+
+        $this->actingAs($this->user1)->post(route('v1.teams.create', ['name' => 'Another Team', 'email' => 'hello@team.mail']))
             ->assertCreated();
 
         $this->team2 = Team::where('name', 'Another Team')->first();
 
-        $this->actingAs($this->user)->post(route('v1.tasks.create'), [
+        $this->actingAs($this->user1)->post(route('v1.tasks.create'), [
             'team_id' => $this->team2->id,
             'title' => 'Work',
             'status' => Task::OPEN,
@@ -76,7 +83,7 @@ class TaskStateChangeControllerTest extends TestCase
     public function testUserCanChangeTaskState()
     {
         $newuser = User::factory()->create();
-        $this->post(
+        $this->actingAs($this->user0)->post(
             route('v1.teams.adduser', $this->team->id),
             ['user_id' => $newuser->id]
         )

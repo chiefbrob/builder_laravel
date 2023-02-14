@@ -17,7 +17,7 @@ class CreateTeamRequest extends FormRequest
     {
         $manager = Role::firstOrCreate(['name' => 'manager']);
         $user = User::findOrFail(auth()->id());
-        return $user->isAdmin() || $user->hasRole($manager);
+        return $user->hasRole($manager);
     }
 
     /**

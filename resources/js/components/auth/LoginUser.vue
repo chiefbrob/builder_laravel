@@ -3,7 +3,7 @@
     <nav-root></nav-root>
 
     <div class="mb-5 pb-5 row">
-      <div class="col-md-8 offset-md-2">
+      <div class="col-md-6 offset-md-3">
         <h4 class="pt-3">Login</h4>
 
         <form

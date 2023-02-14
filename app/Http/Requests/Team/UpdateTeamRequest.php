@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Team;
 
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateTeamRequest extends FormRequest
@@ -13,7 +15,9 @@ class UpdateTeamRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->isAdmin();
+        $manager = Role::firstOrCreate(['name' => 'manager']);
+        $user = User::findOrFail(auth()->id());
+        return $user->hasRole($manager);
     }
 
     /**

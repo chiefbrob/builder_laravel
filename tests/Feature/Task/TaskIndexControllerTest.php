@@ -55,12 +55,20 @@ class TaskIndexControllerTest extends TestCase
             'assigned_to' => $this->user0->id
         ])->assertCreated();
 
-        $this->actingAsAdmin()->post(route('v1.teams.create', ['name' => 'Another Team', 'email' => 'hello@team.mail']))
+        $this->user1 = User::factory()->create();
+
+        $this->actingAsAdmin()->post(route('user-role.create', [
+            'user_id' => $this->user1->id,
+            'role_id' => $role->id,
+        ]))->assertCreated();
+
+        $this->actingAs($this->user1)
+            ->post(route('v1.teams.create', ['name' => 'Another Team', 'email' => 'hello@team.mail']))
             ->assertCreated();
 
         $this->team2 = Team::where('name', 'Another Team')->first();
 
-        $this->actingAs($this->user)->post(route('v1.tasks.create'), [
+        $this->actingAs($this->user1)->post(route('v1.tasks.create'), [
             'team_id' => $this->team2->id,
             'title' => 'Work',
             'status' => Task::OPEN,
