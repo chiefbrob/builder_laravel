@@ -38,6 +38,8 @@ class Task extends Model
         'task_id'
     ];
 
+    protected $appends = ["openTasks"];
+
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
@@ -59,6 +61,11 @@ class Task extends Model
     public function taskStateChanges(): HasMany
     {
         return $this->hasMany(TaskStateChange::class);
+    }
+
+    public function getOpenTasksAttribute()
+    {
+        return Task::where('task_id', $this->id)->where('status', Task::OPEN)->get();
     }
 
 }

@@ -19,9 +19,23 @@
           class="text-white float-right"
           ><i class="fa fa-pen"></i
         ></b-button>
+        <b-button
+          @click="
+            $router.push({
+              name: 'new-task',
+              params: {
+                team_id: team.id,
+              },
+            })
+          "
+          class="float-right text-white"
+          size="sm"
+          variant="info"
+          ><i class="fa fa-plus"></i
+        ></b-button>
       </b-card-title>
       <b-card-sub-title v-if="full"> {{ team.created_at | relative }} </b-card-sub-title>
-      <b-card-text>
+      <b-card-text v-if="full">
         {{ team.description }}
       </b-card-text>
       <b-card-text v-if="full">
@@ -62,6 +76,9 @@
             >
           </div>
         </div>
+      </b-card-text>
+      <b-card-text v-if="full">
+        <task-list v-if="team" :team="team"></task-list>
       </b-card-text>
     </b-card>
   </div>

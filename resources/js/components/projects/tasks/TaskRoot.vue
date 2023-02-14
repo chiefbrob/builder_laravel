@@ -6,12 +6,12 @@
         <h4>
           <span v-if="team">{{ team.name }}</span> Tasks
           <b-button
-            @click="$router.push({ name: 'new-task' })"
+            @click="$router.push({ name: 'new-task', params: { team_id: team.id } })"
             class="float-right text-white"
             size="sm"
             variant="info"
-            >New Task</b-button
-          >
+            ><i class="fa fa-plus"></i
+          ></b-button>
         </h4>
         <task-list v-if="$root.$featureIsEnabled('teams') && team" :team="team"></task-list>
         <div v-else>Teams Not Enabled</div>

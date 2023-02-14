@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav-root></nav-root>
-    <div class="mb-5 pb-5 row">
+    <div class="mb-5 pb-5 mt-2 row">
       <div class="col-md-10 offset-md-1">
         <h4>
           <span v-if="team">{{ team.name }}</span> Create Task
@@ -29,6 +29,7 @@
     methods: {
       loadTeam() {
         this.team_id = this.$router.currentRoute.params.team_id;
+
         axios
           .get(`/api/v1/teams/?team_id=${this.team_id}`)
           .then(results => {
