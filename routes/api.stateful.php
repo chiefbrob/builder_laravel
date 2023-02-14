@@ -48,6 +48,7 @@ Route::prefix('v1')->group(static function () {
 
     Route::prefix('admin')->group(static function () {
         Route::prefix('roles')->group(static function () {
+            Route::get('/', Admin\Roles\GetRolesController::class)->name('v1.roles.index');
             Route::post('/', Admin\Roles\CreateRoleController::class)->name('roles.create');
         });
         Route::prefix('users')->group(static function () {

@@ -122,8 +122,16 @@
               Admin Panel
             </b-dropdown-item>
 
-            <b-dropdown-item href="#" v-if="admin" @click="$router.push({ name: 'style' })">
+            <b-dropdown-item
+              href="#"
+              v-if="admin || false"
+              @click="$router.push({ name: 'style' })"
+            >
               Style
+            </b-dropdown-item>
+
+            <b-dropdown-item href="#" v-if="admin" @click="$router.push({ name: 'roles' })">
+              Roles
             </b-dropdown-item>
 
             <b-dropdown-item href="/admin/feature_flags" v-if="admin">
