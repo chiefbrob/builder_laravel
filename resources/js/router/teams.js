@@ -50,4 +50,10 @@ export const teams = [
     component: TaskSingle,
     meta: { requiresAuth: true },
   },
+  {
+    name: 'new-subtask',
+    path: '/teams/:team_id/tasks/:task_id/create',
+    component: CreateTask,
+    meta: { requiresAuth: true },
+  },
 ];

@@ -34,7 +34,7 @@ class TaskIndexController extends Controller
                 throw new Exception("Not Allowed", 1);
             }
 
-            $tasks = Task::where('team_id', $request->team_id)->whereIn('team_id', $user->myTeamIds);
+            $tasks = Task::where('team_id', $request->team_id)->whereNull('task_id')->whereIn('team_id', $user->myTeamIds);
 
             if (isset($request->status)) {
                 $tasks->where('status', $request->status);

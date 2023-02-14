@@ -20,9 +20,7 @@
 </template>
 
 <script>
-  import Task from './Task';
   export default {
-    components: { Task },
     props: ['team'],
     data() {
       return {

@@ -55,6 +55,10 @@
       },
 
       submitForm() {
+        let task_id = this.$router.currentRoute.params.task_id;
+        if (task_id) {
+          this.form.task_id = task_id;
+        }
         this.$emit('submit', this.form);
       },
     },

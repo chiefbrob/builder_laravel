@@ -171,4 +171,49 @@ class TaskIndexControllerTest extends TestCase
                 ]
             );
     }
+
+    public function testTaskWithSubtasks()
+    {
+        $this->actingAs($this->user0)
+            ->post(route('v1.tasks.create'), [
+                'team_id' => $this->team->id,
+                'title' => 'Subtask',
+                'status' => Task::OPEN,
+                'task_id' => $this->task1->id
+            ])
+            ->assertCreated()->assertJson(
+                [
+                    'data' => [
+                        'title' => 'Subtask',
+                        'team_id' => $this->team->id,
+                        'user_id' => $this->user0->id,
+                        'status' => Task::OPEN,
+                        'task_id' => $this->task1->id
+                    ]
+                ]
+            );
+
+        $this->actingAs($this->user0)->get(
+            route(
+                'v1.tasks.index',
+                [
+                    'team_id' => $this->team->id,
+                    'status' => Task::READY,
+                    'task_id' => $this->task1->id,
+                ]
+            )
+        )
+            ->assertOk()
+            ->assertjson(
+                [
+                    'id' => $this->task1->id,
+                    'title' => 'Do something',
+                    'openTasks' => [
+                        [
+                            'title' => 'Subtask'
+                        ]
+                    ]
+                ]
+            );
+    }
 }

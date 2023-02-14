@@ -16,3 +16,5 @@ Vue.component('avatar', require('./components/home/ProfileImage').default);
 Vue.component('page-footer', require('./components/shared/Footer').default);
 
 Vue.component('phone-number', require('./components/shared/PhoneNumber').default);
+
+Vue.component('task', require('./components/projects/tasks/Task').default);
