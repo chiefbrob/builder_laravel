@@ -20,6 +20,8 @@
           ><i class="fa fa-pen"></i
         ></b-button>
         <b-button
+          v-b-popover.hover.top="'this will create a new task in Team ' + team.name"
+          title="Add Task"
           @click="
             $router.push({
               name: 'new-task',
@@ -40,11 +42,9 @@
       </b-card-text>
       <b-card-text v-if="full">
         <p>
-          <b-button
-            variant="link"
-            @click="showTeamMembers = !showTeamMembers"
-            v-text="showTeamMembers ? 'Hide Team Members' : 'Show Team Members'"
-          ></b-button>
+          <b-button variant="link" @click="showTeamMembers = !showTeamMembers">
+            {{ showTeamMembers ? 'Hide Team Members' : 'Show Team Members' }}
+          </b-button>
 
           <b-button variant="link" @click="showTasks">Tasks</b-button>
         </p>

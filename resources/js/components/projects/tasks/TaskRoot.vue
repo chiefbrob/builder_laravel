@@ -9,6 +9,8 @@
             @click="$router.push({ name: 'new-task', params: { team_id: team.id } })"
             class="float-right text-white"
             size="sm"
+            v-b-popover.hover.top="'this will create a new task in  ' + teamName"
+            title="Add Task"
             variant="info"
             ><i class="fa fa-plus"></i
           ></b-button>
@@ -36,6 +38,12 @@
     computed: {
       user() {
         return this.$store.getters.user;
+      },
+      teamName() {
+        if (this.team) {
+          return this.team.name;
+        }
+        return ' the Team';
       },
     },
     methods: {
