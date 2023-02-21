@@ -1,0 +1,17 @@
+export const admin = {
+  id: 1,
+  name: 'John Gary',
+  email: 'someone@gmail.com',
+  email_verified_at: null,
+  created_at: '2023-02-03T08:27:28.000000Z',
+  updated_at: '2023-02-03T08:27:28.000000Z',
+  deleted_at: null,
+  phone_number: null,
+  phone_number_verified_at: null,
+  photo: null,
+  details: null,
+  deactivated_at: null,
+  language: 'en',
+  admin: true,
+  rolesList: [],
+};

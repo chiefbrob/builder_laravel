@@ -4,7 +4,6 @@ import NavRoot from '@/components/nav/NavRoot.vue';
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import store from '@/store';
-import axios from 'axios';
 
 const localVue = createLocalVue();
 
@@ -16,8 +15,6 @@ let MockAdapter = require('axios-mock-adapter');
 let axiosMock = new MockAdapter(axios);
 
 axios.post = jest.fn().mockImplementation(() => Promise.resolve());
-
-window.axios = axios;
 
 describe('RegisterUser.vue', () => {
   let wrapper;

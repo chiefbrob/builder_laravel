@@ -89,7 +89,7 @@
 
         <div v-if="loaded">
           <p>
-            Welcome back.
+            Welcome
             <br />
 
             <i class="fa fa-spinner"></i>

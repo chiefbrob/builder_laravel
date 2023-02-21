@@ -25,7 +25,6 @@ Auth::routes(['verify' => true]);
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/test-mail', function (Request $request) {
-
     $email = $request->email ??  config('app.email');
 
     $sent =  Mail::to($email)->send(new TestMail());
