@@ -1,11 +1,13 @@
 <template>
-  <b-form-select
-    multiple="multiple"
+  <multiselect
+    :close-on-select="false"
+    :searchable="true"
+    :multiple="true"
     v-model="selectedStates"
     :options="taskStates"
-    :select-size="4"
     @input="updated"
-  ></b-form-select>
+    placeholder="Select state"
+  ></multiselect>
 </template>
 
 <script>
@@ -23,14 +25,7 @@
     },
     computed: {
       taskStates() {
-        let states = ['OPEN', 'READY', 'DOING', 'REVIEWING', 'DONE', 'CANCELLED'];
-
-        return states.map(state => {
-          return {
-            value: state,
-            text: state,
-          };
-        });
+        return ['OPEN', 'READY', 'DOING', 'REVIEWING', 'DONE', 'CANCELLED'];
       },
     },
     methods: {
