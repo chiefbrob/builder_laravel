@@ -9,11 +9,17 @@
             @click="$router.push({ name: 'new-task', params: { team_id: team.id } })"
             class="float-right text-white"
             size="sm"
+            v-b-popover.hover.top="'this will create a new task in  ' + teamName"
+            title="Add Task"
             variant="info"
             ><i class="fa fa-plus"></i
           ></b-button>
         </h4>
-        <task-list v-if="$root.$featureIsEnabled('teams') && team" :team="team"></task-list>
+        <task-list
+          :full="true"
+          v-if="$root.$featureIsEnabled('teams') && team"
+          :team="team"
+        ></task-list>
         <div v-else>Teams Not Enabled</div>
       </div>
     </div>
@@ -36,6 +42,12 @@
     computed: {
       user() {
         return this.$store.getters.user;
+      },
+      teamName() {
+        if (this.team) {
+          return this.team.name;
+        }
+        return ' the Team';
       },
     },
     methods: {

@@ -4,7 +4,13 @@
       <b-card-title>
         <span @click="showTask" class="pointer"> {{ task.title }} </span>
 
-        <b-button @click="addSubtask" class="float-right text-white" size="sm" variant="info"
+        <b-button
+          v-b-popover.hover.top="'this will create a sub-task of ' + task.title"
+          title="Add Sub-Task"
+          @click="addSubtask"
+          class="float-right text-white"
+          size="sm"
+          variant="info"
           ><i class="fa fa-plus"></i
         ></b-button>
       </b-card-title>
