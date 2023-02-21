@@ -14,6 +14,15 @@ class TaskIndexControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    private Team $team;
+
+    private User $user0;
+    private User $user1;
+
+    private Task $task1;
+
+    private Team $team2;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -28,17 +37,17 @@ class TaskIndexControllerTest extends TestCase
             'role_id' => $role->id,
         ]))->assertCreated();
 
-        $this->team = [
+        $team = [
             'name' => 'Example Team1',
             'email' => 'team-1@teams.com',
             'description' => 'a Bar team'
         ];
 
 
-        $this->actingAs($this->user0)->post(route('v1.teams.create', $this->team))
-            ->assertCreated()->assertJson($this->team);
+        $this->actingAs($this->user0)->post(route('v1.teams.create', $team))
+            ->assertCreated()->assertJson($team);
 
-        $this->team = Team::where('name', $this->team['name'])->first();
+        $this->team = Team::where('name', $team['name'])->first();
 
         $this->actingAs($this->user0)->post(route('v1.tasks.create'), [
             'team_id' => $this->team['id'],
@@ -74,7 +83,6 @@ class TaskIndexControllerTest extends TestCase
             'status' => Task::OPEN,
 
         ])->assertCreated();
-
     }
 
     public function testUserCanViewTasksByProject()
@@ -97,8 +105,6 @@ class TaskIndexControllerTest extends TestCase
                     'total' => 2,
                 ]
             );
-
-
     }
 
     public function testUserCanFilterByTaskStatus()
@@ -108,7 +114,7 @@ class TaskIndexControllerTest extends TestCase
                 'v1.tasks.index',
                 [
                     'team_id' => $this->team->id,
-                    'status' => Task::READY
+                    'status' => [Task::READY]
                 ]
             )
         )
@@ -124,6 +130,44 @@ class TaskIndexControllerTest extends TestCase
                     'total' => 1,
                 ]
             );
+
+        $this->actingAs($this->user0)->post(
+            route('v1.tasks.create'),
+            [
+                'team_id' => $this->team['id'],
+                'title' => 'Do something unique',
+                'status' => Task::CANCELLED
+            ]
+        )->assertCreated();
+
+
+
+        $this->actingAs($this->user0)->get(
+            route(
+                'v1.tasks.index',
+                [
+                    'team_id' => $this->team->id,
+                    'status' => [Task::READY, TASK::OPEN]
+                ]
+            )
+        )
+                ->assertOk()
+                ->assertJsonCount(2, 'data')
+                ->assertjson(
+                    [
+                        'data' => [
+                            [
+                                'title' => 'Do something else',
+                                'status' => Task::READY
+                            ],
+                            [
+                                'title' => 'Do something',
+                                'status' => Task::OPEN
+                            ]
+                        ],
+                        'total' => 2,
+                    ]
+                );
     }
 
     public function testViewTasksAssignedToUser()
@@ -158,7 +202,6 @@ class TaskIndexControllerTest extends TestCase
                 'v1.tasks.index',
                 [
                     'team_id' => $this->team->id,
-                    'status' => Task::READY,
                     'task_id' => $this->task1->id,
                 ]
             )
@@ -198,7 +241,7 @@ class TaskIndexControllerTest extends TestCase
                 'v1.tasks.index',
                 [
                     'team_id' => $this->team->id,
-                    'status' => Task::READY,
+                    'status' => [Task::READY],
                     'task_id' => $this->task1->id,
                 ]
             )

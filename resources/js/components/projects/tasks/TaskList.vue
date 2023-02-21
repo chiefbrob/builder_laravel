@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="row py-1" v-if="full">
+      <task-state-selector @updated="statusUpdated" class="col-md-3"></task-state-selector>
+    </div>
     <div class="row">
       <task
         class="col-md-3"
@@ -10,6 +13,7 @@
       >
       </task>
     </div>
+
     <div v-if="items.length === 0">
       <span v-if="loading"> <i class="fa fa-spinner"></i> Loading </span>
       <span v-else>
@@ -20,11 +24,26 @@
 </template>
 
 <script>
+  import TaskStateSelector from './TaskStateSelector';
   export default {
-    props: ['team'],
+    components: { TaskStateSelector },
+    props: {
+      team: {
+        type: Object,
+        required: true,
+      },
+      full: {
+        type: Boolean,
+        default: false,
+      },
+    },
     data() {
       return {
         items: [],
+        form: {
+          status: ['OPEN'],
+          team_id: this.team.id,
+        },
         loading: true,
         meta: {
           currentPage: 1,
@@ -35,9 +54,15 @@
       this.loadTasks();
     },
     methods: {
+      statusUpdated(data) {
+        this.form.status = data;
+        this.loadTasks();
+      },
       loadTasks() {
+        this.loading = true;
+        this.form.page = this.meta.currentPage;
         axios
-          .get(`/api/v1/tasks/?team_id=${this.team.id}&page=${this.meta.currentPage}`)
+          .get(`/api/v1/tasks/`, { params: this.form })
           .then(results => {
             this.items = results.data.data;
             this.meta.currentPage = results.data.current_page;

@@ -182,7 +182,6 @@
     },
     computed: {
       teamsActive() {
-        return false;
         let name = this.$route.name;
         return name.includes('team') || name.includes('task');
       },

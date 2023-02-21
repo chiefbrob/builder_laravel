@@ -15,7 +15,11 @@
             ><i class="fa fa-plus"></i
           ></b-button>
         </h4>
-        <task-list v-if="$root.$featureIsEnabled('teams') && team" :team="team"></task-list>
+        <task-list
+          :full="true"
+          v-if="$root.$featureIsEnabled('teams') && team"
+          :team="team"
+        ></task-list>
         <div v-else>Teams Not Enabled</div>
       </div>
     </div>

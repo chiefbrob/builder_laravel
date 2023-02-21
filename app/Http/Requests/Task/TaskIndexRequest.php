@@ -28,7 +28,8 @@ class TaskIndexRequest extends FormRequest
     {
         return [
             'team_id' => 'required|integer|exists:teams,id',
-            'status' => 'sometimes|nullable|string|in:'. implode(',', Task::STATUSES),
+            'status' => 'sometimes|nullable|array',
+            'status.*' => 'sometimes|nullable|string',
             'assigned_to' => 'sometimes|nullable|integer',
             'task_id' => 'sometimes|nullable|integer|exists:tasks,id'
         ];

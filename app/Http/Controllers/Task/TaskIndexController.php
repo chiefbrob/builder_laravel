@@ -22,7 +22,6 @@ class TaskIndexController extends Controller
     public function __invoke(TaskIndexRequest $request)
     {
         try {
-
             $user = User::findOrFail(auth()->id());
 
             if (isset($request->task_id)) {
@@ -37,7 +36,7 @@ class TaskIndexController extends Controller
             $tasks = Task::where('team_id', $request->team_id)->whereNull('task_id')->whereIn('team_id', $user->myTeamIds);
 
             if (isset($request->status)) {
-                $tasks->where('status', $request->status);
+                $tasks->whereIn('status', $request->status);
             }
 
             if (isset($request->assigned_to)) {
@@ -46,7 +45,6 @@ class TaskIndexController extends Controller
 
             return $tasks->orderBy($request->get('orderBy', 'id'), $request->get('orderDirection', 'DESC'))
                 ->paginate();
-
         } catch (Exception $e) {
             Log::error($e);
 
