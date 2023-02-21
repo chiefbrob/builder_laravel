@@ -122,10 +122,22 @@
         <p><strong>Contact Us</strong></p>
         <p>
           If you have any questions or suggestions about our Privacy Policy, do not hesitate to
-          contact us at brianobare@gmail.com.
+          contact us at
+          <a :href="`mailto:${email}`"> {{ email }}</a
+          >.
         </p>
       </div>
     </div>
     <page-footer></page-footer>
   </div>
 </template>
+
+<script>
+  export default {
+    data() {
+      return {
+        email: this.$root.$store.state.config.email,
+      };
+    },
+  };
+</script>

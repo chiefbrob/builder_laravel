@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav-root></nav-root>
-    <div class="row py-5 mb-5">
+    <div class="row mt-1">
       <div
         class="col-md-10 offset-md-1
       "

@@ -166,10 +166,10 @@ return [
         'notifiable' => \Spatie\Backup\Notifications\Notifiable::class,
 
         'mail' => [
-            'to' => 'brianobare@gmail.com',
+            'to' => env('CONTACT_EMAIL', 'email@example.com'),
 
             'from' => [
-                'address' => env('MAIL_FROM_ADDRESS', 'builder@chiefbrob.info'),
+                'address' => env('MAIL_FROM_ADDRESS', 'email@example.com'),
                 'name' => env('MAIL_FROM_NAME', 'Laravel Builder'),
             ],
         ],
@@ -204,7 +204,7 @@ return [
      */
     'monitor_backups' => [
         [
-            'name' => env('APP_NAME', 'laravel-builder'),
+            'name' => env('APP_NAME', 'BuilderLaravel'),
             'disks' => ['local'],
             'health_checks' => [
                 \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumAgeInDays::class => 1,

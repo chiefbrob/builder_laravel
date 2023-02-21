@@ -15,14 +15,15 @@ class CreateRoleControllerTest extends TestCase
      *
      * @return void
      */
-    public function testRoles()
+    public function testAdminCreateRoles()
     {
-        $user = User::factory()->create(['email' => 'brianobare@gmail.com']);
-        $this->actingAS($user);
-        $this->assertEquals(true, $user->isAdmin());
+        $user = User::factory()->create(['email' => 'foobar@example.com']);
+        $this->actingAsAdmin();
+        $this->assertEquals(false, $user->isAdmin());
         $this->assertDatabaseHas('roles', [
             'name' => 'admin',
         ]);
+
 
         $this->post(route('roles.create', [
             'name' => 'test',

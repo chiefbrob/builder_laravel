@@ -20,6 +20,7 @@ return [
     ),
     'theme_color' => env('APP_THEME_COLOR', '#317EFB'),
     'organization' => env('APP_ORGANIZATION', 'Dabotap Means Tech'),
+    'email' => env('CONTACT_EMAIL', 'email@example.com'),
 
     /*
     |--------------------------------------------------------------------------

@@ -15,8 +15,7 @@ export default new Vuex.Store({
     user: null,
     loading: false,
     config: {
-      name: window.details.name,
-      url: process.env.APP_URL,
+      ...window.details,
     },
   },
   getters: {

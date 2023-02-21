@@ -58,7 +58,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $role = Role::where('name', 'admin')->firstOrCreate(['name' => 'admin']);
 
-        return $this->hasRole($role) ? true : $this->email === 'brianobare@gmail.com';
+        return $this->hasRole($role) ? true : $this->email === config('app.email');
     }
 
     public function getAdminAttribute()
