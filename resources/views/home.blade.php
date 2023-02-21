@@ -22,6 +22,8 @@
         window.details = {
             name:  '{{ config('app.name') }}',
             description: '{{ config('app.description') }}',
+            url: '{{ config('app.url') }}',
+            email: '{{ config('app.email') }}',
         };
         window.feature_flags = @json(\FriendsOfCat\LaravelFeatureFlags\FeatureFlagsForJavascript::get());
         window.User = @json(Auth::user());

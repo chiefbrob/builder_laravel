@@ -25,9 +25,14 @@ Auth::routes(['verify' => true]);
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/test-mail', function (Request $request) {
-    $email = $request->email ?? 'brianobare@gmail.com';
 
-    return Mail::to($email)->send(new TestMail());
+    $email = $request->email ??  config('app.email');
+
+    $sent =  Mail::to($email)->send(new TestMail());
+
+    return response(
+        ['status' => $sent ? 'success' : 'fail'],
+    );
 });
 
 Route::post('/language/{locale}', function ($locale) {
