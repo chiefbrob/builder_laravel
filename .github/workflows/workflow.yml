@@ -2,7 +2,7 @@
 name: Testing Laravel with MySQL
 on: [push]
 jobs:
-  laravel:
+  backend:
     name: Laravel (PHP ${{ matrix.php-versions }})
     runs-on: ubuntu-latest
     env:
@@ -72,10 +72,23 @@ jobs:
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
           REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
+
+  frontend:
+    name: "Test Front end"
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: NPM Install
         run: npm i && npm run production
       - name: Test Frontend
         run: npm test
+
+  deploy:
+    name: "Deploy to staging if master"
+    runs-on: ubuntu-22.04
+    needs: [frontend, backend]
+    steps:
       - name: Check if the exit code was success and branch is master
         if: success() && github.ref == 'refs/heads/master'
         run: |
