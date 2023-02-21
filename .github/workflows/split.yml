@@ -2,8 +2,9 @@
 name: Testing Laravel with MySQL
 on: [push]
 jobs:
-  initial_setup:
-    name: Setup (PHP ${{ matrix.php-versions }})
+  backend:
+    name: Laravel (PHP ${{ matrix.php-versions }})
+    runs-on: ubuntu-latest
     env:
       DB_DATABASE: test
       DB_USERNAME: root
@@ -12,18 +13,6 @@ jobs:
       CACHE_DRIVER: redis
       QUEUE_CONNECTION: redis
       SESSION_DRIVER: redis
-    runs-on: ubuntu-22.04
-    strategy:
-      fail-fast: false
-      matrix:
-        php-versions: ["8.0"]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-  backend:
-    name: "Laravel tests"
-    needs: initial_setup
-    runs-on: ubuntu-22.04
     services:
       mysql:
         image: mysql:5.7
@@ -39,8 +28,13 @@ jobs:
         ports:
           - 6379/tcp
         options: --health-cmd="redis-cli ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
+    strategy:
+      fail-fast: false
+      matrix:
+        php-versions: ["8.0"]
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2 #https://github.com/shivammathur/setup-php
         with:
@@ -78,12 +72,21 @@ jobs:
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
           REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
+      - name: NPM Install
+        run: npm i && npm run production
+      - name: Test Frontend
+        run: npm test
+      - name: Check if the exit code was success and branch is master
+        if: success() && github.ref == 'refs/heads/master'
+        run: |
+          echo "Running additional steps for successful build on master branch..."
 
   frontend:
-    name: "Front end"
-    needs: initial_setup
+    name: "Test Front end"
     runs-on: ubuntu-22.04
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: NPM Install
         run: npm i && npm run production
       - name: Test Frontend
