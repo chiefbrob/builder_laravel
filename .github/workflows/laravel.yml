@@ -72,6 +72,10 @@ jobs:
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
           REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
+      - name: NPM Install
+        run: npm i && npm run production
+      - name: Test Frontend
+        run: npm test
       - name: Check if the exit code was success and branch is master
         if: success() && github.ref == 'refs/heads/master'
         run: |
