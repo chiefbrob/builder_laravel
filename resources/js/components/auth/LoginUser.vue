@@ -14,13 +14,7 @@
         >
           <div class="col-md-12">
             <b-form-group id="input-group-2" label="Email address: *" label-for="email">
-              <b-form-input
-                id="email"
-                v-model="form.email"
-                type="email"
-                required
-                placeholder="e.g. someone@somewhere.something"
-              ></b-form-input>
+              <b-form-input id="email" v-model="form.email" type="email" required></b-form-input>
             </b-form-group>
 
             <field-error :solid="false" :errors="errors" field="email"></field-error>
