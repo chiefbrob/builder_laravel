@@ -72,14 +72,6 @@ jobs:
         env:
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
           REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
-      - name: NPM Install
-        run: npm i && npm run production
-      - name: Test Frontend
-        run: npm test
-      - name: Check if the exit code was success and branch is master
-        if: success() && github.ref == 'refs/heads/master'
-        run: |
-          echo "Running additional steps for successful build on master branch..."
 
   frontend:
     name: "Test Front end"
@@ -91,3 +83,13 @@ jobs:
         run: npm i && npm run production
       - name: Test Frontend
         run: npm test
+
+  deploy:
+    name: "Deploy to staging if master"
+    runs-on: ubuntu-22.04
+    needs: [frontend, backend]
+    steps:
+      - name: Check if the exit code was success and branch is master
+        if: success() && github.ref == 'refs/heads/master'
+        run: |
+          echo "Running additional steps for successful build on master branch..."
