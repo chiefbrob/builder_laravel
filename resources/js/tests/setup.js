@@ -2,6 +2,7 @@ import Vue from 'vue';
 import lodash from 'lodash';
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 import VueClipboard from 'vue-clipboard2';
+import 'intersection-observer';
 
 Vue.use(VueClipboard);
 global._ = lodash;
