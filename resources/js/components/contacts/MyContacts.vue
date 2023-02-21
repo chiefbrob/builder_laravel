@@ -16,6 +16,7 @@
       </div>
       <div v-if="meta.total > 0">
         <b-pagination
+          id="contact-pages"
           @input="pageChanged"
           v-model="meta.currentPage"
           v-if="meta.lastPage > 1"
