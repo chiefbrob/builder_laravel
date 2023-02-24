@@ -17,6 +17,46 @@
         v-text="$root.$store.state.config.name"
       ></b-navbar-brand>
 
+      <span>
+        <b-nav-item-dropdown style="list-style-type: none; float: right">
+          <template #button-content>
+            <em>
+              <avatar style="display: inline; width: 2.5em"></avatar>
+            </em>
+          </template>
+
+          <b-dropdown-item href="#" v-if="user" @click="$router.push({ name: 'profile' })">
+            My Profile
+          </b-dropdown-item>
+
+          <b-dropdown-item href="#" v-if="user" @click="$router.push({ name: 'settings' })">
+            Settings
+          </b-dropdown-item>
+
+          <b-dropdown-item href="#" v-if="admin" @click="$router.push({ name: 'admin' })">
+            Admin Panel
+          </b-dropdown-item>
+
+          <b-dropdown-item href="#" v-if="admin || false" @click="$router.push({ name: 'style' })">
+            Style
+          </b-dropdown-item>
+
+          <b-dropdown-item href="#" v-if="admin" @click="$router.push({ name: 'roles' })">
+            Roles
+          </b-dropdown-item>
+
+          <b-dropdown-item href="/admin/feature_flags" v-if="admin">
+            Feature Flags
+          </b-dropdown-item>
+
+          <b-dropdown-item href="#" @click="logout" v-if="user">Log Out</b-dropdown-item>
+
+          <b-dropdown-item to="login" v-if="!user">Login</b-dropdown-item>
+
+          <b-dropdown-item to="register" v-if="!user">Register</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </span>
+
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav class="pl-4">
@@ -101,48 +141,6 @@
             >
               {{ lang.name }}
             </b-dropdown-item>
-          </b-nav-item-dropdown>
-
-          <b-nav-item-dropdown right>
-            <template #button-content>
-              <em>
-                <avatar style="display: inline; width: 2.5em"></avatar>
-              </em>
-            </template>
-
-            <b-dropdown-item href="#" v-if="user" @click="$router.push({ name: 'profile' })">
-              My Profile
-            </b-dropdown-item>
-
-            <b-dropdown-item href="#" v-if="user" @click="$router.push({ name: 'settings' })">
-              Settings
-            </b-dropdown-item>
-
-            <b-dropdown-item href="#" v-if="admin" @click="$router.push({ name: 'admin' })">
-              Admin Panel
-            </b-dropdown-item>
-
-            <b-dropdown-item
-              href="#"
-              v-if="admin || false"
-              @click="$router.push({ name: 'style' })"
-            >
-              Style
-            </b-dropdown-item>
-
-            <b-dropdown-item href="#" v-if="admin" @click="$router.push({ name: 'roles' })">
-              Roles
-            </b-dropdown-item>
-
-            <b-dropdown-item href="/admin/feature_flags" v-if="admin">
-              Feature Flags
-            </b-dropdown-item>
-
-            <b-dropdown-item href="#" @click="logout" v-if="user">Log Out</b-dropdown-item>
-
-            <b-dropdown-item to="login" v-if="!user">Login</b-dropdown-item>
-
-            <b-dropdown-item to="register" v-if="!user">Register</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
