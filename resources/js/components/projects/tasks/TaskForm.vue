@@ -49,7 +49,7 @@
     methods: {
       setDefaults() {
         if (this.task) {
-          this.form.title = this.teak.title;
+          this.form.title = this.task.title;
           this.form.description = this.task.description;
         }
       },

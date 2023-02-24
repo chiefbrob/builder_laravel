@@ -31,7 +31,10 @@
             <field-error :solid="false" :errors="errors" field="password"></field-error>
 
             <p class="py-3">
-              <input type="submit" class="btn btn-success" text="Login" />
+              <input type="submit" id="loginbtn" class="btn btn-success" text="Login" />
+              <b-button variant="link" @click="$router.push({ name: 'register' })"
+                >Create Account</b-button
+              >
               <a class="float-right" href="/password/reset">Reset Password</a>
             </p>
           </div>
@@ -66,10 +69,8 @@
     data() {
       return {
         form: {
-          name: null,
           email: null,
           password: null,
-          password_confirmation: null,
         },
         errors: [],
         loading: false,

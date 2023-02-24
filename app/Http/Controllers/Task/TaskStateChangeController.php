@@ -20,11 +20,10 @@ class TaskStateChangeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(TaskStateChangeRequest $request)
+    public function __invoke(TaskStateChangeRequest $request, $task_id)
     {
         try {
-
-            $task = Task::findOrFail($request->task_id);
+            $task = Task::findOrFail($task_id);
 
             $user = User::findOrFail(auth()->id());
 
@@ -39,7 +38,6 @@ class TaskStateChangeController extends Controller
                     if (!$task->team->hasUser($assignee)) {
                         throw new Exception("Assignee Not Member of Team", 2);
                     }
-
                 }
 
                 $task->fill($request->validated());
@@ -61,7 +59,6 @@ class TaskStateChangeController extends Controller
             }
 
             throw new Exception("Not allowed", 1);
-
         } catch (Exception $e) {
             Log::error($e);
 

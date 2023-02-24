@@ -6,7 +6,7 @@
 
         <b-button
           size="sm"
-          variant="info"
+          variant="success"
           v-if="manager"
           @click="
             $router.push({
@@ -56,8 +56,10 @@
             </b-form-group>
           </p>
           <p>
-            <b-button v-if="!loading" @click="addUser" :disabled="!newuser">Add</b-button>
+            <b-button v-if="!loading" @click="addTeamMember" :disabled="!newuser">Add</b-button>
+
             <span v-else><i class="fa fa-spinner"></i> Loading...</span>
+            <b-button variant="danger" @click="addingUser = false">Cancel</b-button>
           </p>
         </div>
         <div v-else-if="showTeamMembers">
@@ -66,7 +68,7 @@
               <profile-image style="width: 2em; float: left" :user="teamUser.user"></profile-image>
               <span class="ml-2 "
                 >{{ teamUser.user.name }}
-                <b v-if="team.user_id === teamUser.user.id">(admin)</b>
+                <b v-if="team.user_id === teamUser.user.id">(manager)</b>
               </span>
             </p>
           </div>
@@ -153,10 +155,10 @@
             });
         }
       },
-      addUser() {
+      addTeamMember() {
         this.loading = true;
         axios
-          .post(`/api/v1/admin/teams/${this.team.id}/users`, {
+          .post(`/api/v1/teams/${this.team.id}/users`, {
             user_id: this.newuser,
           })
           .then(results => {
