@@ -25,7 +25,7 @@ class TaskStateChangeRequest extends FormRequest
     public function rules()
     {
         return [
-            'task_id' => 'required|integer|exists:tasks,id',
+            'task_id' => 'sometimes|nullable|integer|exists:tasks,id',
             'status' => 'sometimes|nullable|string|in:'. implode(',', Task::STATUSES),
             'assigned_to' => 'sometimes|nullable|integer|exists:users,id',
             'comments' => 'sometimes|nullable|string',

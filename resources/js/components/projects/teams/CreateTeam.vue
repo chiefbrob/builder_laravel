@@ -25,7 +25,7 @@
     methods: {
       submitted(form) {
         axios
-          .post('/api/v1/admin/teams', form)
+          .post('/api/v1/teams', form)
           .then(results => {
             this.$root.$emit('sendMessage', 'Team created', 'success');
             this.$router.push({

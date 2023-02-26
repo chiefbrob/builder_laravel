@@ -6,6 +6,7 @@ import TeamEdit from '../components/projects/teams/TeamEdit';
 import TaskRoot from '../components/projects/tasks/TaskRoot';
 import CreateTask from '../components/projects/tasks/CreateTask';
 import TaskSingle from '../components/projects/tasks/TaskSingle';
+import TaskEdit from '../components/projects/tasks/TaskEdit';
 
 export const teams = [
   {
@@ -48,6 +49,12 @@ export const teams = [
     name: 'task-single',
     path: '/teams/:team_id/tasks/:task_id',
     component: TaskSingle,
+    meta: { requiresAuth: true },
+  },
+  {
+    name: 'task-edit',
+    path: '/teams/:team_id/tasks/:task_id/edit',
+    component: TaskEdit,
     meta: { requiresAuth: true },
   },
   {

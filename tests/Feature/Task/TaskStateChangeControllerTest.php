@@ -77,7 +77,6 @@ class TaskStateChangeControllerTest extends TestCase
         ])->assertCreated();
 
         $this->task3 = Task::where('title', 'Work')->first();
-
     }
 
     public function testUserCanChangeTaskState()
@@ -93,15 +92,18 @@ class TaskStateChangeControllerTest extends TestCase
             route(
                 'v1.tasks.update',
                 [
-                    'title' => 'Work99',
-                    'description' => 'loremp ipsum',
                     'task_id' => $this->task1->id,
-                    'user_id' => $this->user0->id,
-                    'status' => Task::READY,
-                    'notes' => 'Week 22 Work',
-                    'assigned_to' => $newuser->id,
                 ]
-            )
+            ),
+            [
+                'title' => 'Work99',
+                'description' => 'loremp ipsum',
+                'task_id' => $this->task1->id,
+                'user_id' => $this->user0->id,
+                'status' => Task::READY,
+                'notes' => 'Week 22 Work',
+                'assigned_to' => $newuser->id,
+            ]
         )
             ->assertOk()
             ->assertjson(
@@ -114,22 +116,22 @@ class TaskStateChangeControllerTest extends TestCase
                 ]
             );
 
-            $this->assertDatabaseHas('tasks', [
-                'title' => 'Work99',
-                'description' => 'loremp ipsum',
-                'task_id' => $this->task1->id,
-                'assigned_to' => $newuser->id,
-                'status' => Task::READY,
-                'assigned_to' => $newuser->id,
-            ]);
+        $this->assertDatabaseHas('tasks', [
+            'title' => 'Work99',
+            'description' => 'loremp ipsum',
+            'task_id' => $this->task1->id,
+            'assigned_to' => $newuser->id,
+            'status' => Task::READY,
+            'assigned_to' => $newuser->id,
+        ]);
 
-            $this->assertDatabaseHas('task_state_changes', [
-                'task_id' => $this->task1->id,
-                'user_id' => $this->user0->id,
-                'new_status' => Task::READY,
-                'old_status' => Task::OPEN,
-                'notes' => 'Week 22 Work',
-            ]);
+        $this->assertDatabaseHas('task_state_changes', [
+            'task_id' => $this->task1->id,
+            'user_id' => $this->user0->id,
+            'new_status' => Task::READY,
+            'old_status' => Task::OPEN,
+            'notes' => 'Week 22 Work',
+        ]);
     }
 
     public function testOnlyTeamMembersCanAssigned()
@@ -139,15 +141,18 @@ class TaskStateChangeControllerTest extends TestCase
             route(
                 'v1.tasks.update',
                 [
-                    'title' => 'Work99',
-                    'description' => 'loremp ipsum',
                     'task_id' => $this->task1->id,
-                    'user_id' => $this->user0->id,
-                    'status' => Task::READY,
-                    'notes' => 'Week 22 Work',
-                    'assigned_to' => $newuser->id,
                 ]
-            )
+            ),
+            [
+                'title' => 'Work99',
+                'description' => 'loremp ipsum',
+                'task_id' => $this->task1->id,
+                'user_id' => $this->user0->id,
+                'status' => Task::READY,
+                'notes' => 'Week 22 Work',
+                'assigned_to' => $newuser->id,
+            ]
         )
             ->assertUnprocessable()
             ->assertJson(["message" => "Failed to update task"]);
@@ -159,6 +164,5 @@ class TaskStateChangeControllerTest extends TestCase
             'old_status' => Task::OPEN,
             'notes' => 'Week 22 Work',
         ]);
-
     }
 }
