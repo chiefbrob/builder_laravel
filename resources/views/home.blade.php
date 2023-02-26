@@ -7,7 +7,7 @@
 
     </head>
     <body>
-        <div id="app"><router-view style="min-height: 100vh;"></router-view></div>
+        <div id="app" style="overflow: hidden"><router-view style="min-height: 100vh;"></router-view></div>
         @include('modals.session-expired')
     <script>
         // Check that service workers are supported
