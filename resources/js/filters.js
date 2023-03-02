@@ -29,6 +29,14 @@ Vue.filter('datetime', value => {
     .format('MMMM Do, YYYY h:mm A');
 });
 
+Vue.filter('shortform', value => {
+  let len = 14;
+  if (value.length > len) {
+    return value.substr(0, len) + '...';
+  }
+  return value;
+});
+
 /**
  * Format the given date into a relative time.
  */

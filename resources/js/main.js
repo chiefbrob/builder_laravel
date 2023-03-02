@@ -10,6 +10,7 @@ import store from './store';
 import './spark-bootstrap.js';
 import VueClipboard from 'vue-clipboard2';
 VueClipboard.config.autoSetContainer = true;
+
 Vue.use(VueClipboard);
 
 Vue.use(VueRouter);

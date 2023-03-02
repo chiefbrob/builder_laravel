@@ -2,12 +2,15 @@
   <div>
     <b-card class="bg-gradient-primary">
       <b-card-title>
-        <span @click="showTask" class="pointer">{{ task.title }}</span>
+        <span @click="showTask" class="pointer">
+          <span v-if="full">{{ task.title }}</span>
+          <span v-else>{{ task.title | shortform }}</span>
+        </span>
 
         <b-badge :variant="taskStatusVariant(task.status)"> {{ task.status }} </b-badge>
 
         <b-button
-          v-b-popover.hover.top="'this will create a sub-task of ' + task.title"
+          v-b-popover.hover.top="'create a sub-task of ' + task.title"
           title="Add Sub-Task"
           @click="addSubtask"
           class="float-right text-white"
@@ -57,7 +60,7 @@
               >{{ subtask.title }}
 
               <b-button
-                v-b-popover.hover.top="'this will create a sub-task of ' + subtask.title"
+                v-b-popover.hover.top="'create a sub-task of ' + subtask.title"
                 title="Add Sub-Task"
                 @click="addSubtask(subtask)"
                 class="float-right text-white"
@@ -72,14 +75,43 @@
           </b-card>
         </div>
       </div>
-      <div class=" py-2" v-if="!full && !showSubtasks && task.openTasks">
+      <div class=" py-2" v-if="!full && !showSubtasks && task.openTasks.length > 0">
         <p>
           Subtasks:
           <span v-for="(t, i) in task.openTasks" v-bind:key="i">
-            <a :href="`/teams/${task.team_id}/tasks/${t.id}`" v-if="i < 3">
-              {{ t.title }}
-            </a>
-            <a v-if="i === 3" :href="`/teams/${task.team_id}/tasks/${task.id}`">...</a>
+            <b-button
+              v-if="i < 3"
+              variant="link"
+              class="p-0 m-0"
+              @click="
+                $router.push({
+                  name: 'task-single',
+                  params: {
+                    team_id: task.team_id,
+                    task_id: t.id,
+                    task_slug: $root.$slugify(t.title),
+                  },
+                })
+              "
+              >{{ t.title | shortform }}
+            </b-button>
+
+            <b-button
+              v-if="i === 3"
+              variant="link"
+              class="p-0 m-0"
+              @click="
+                $router.push({
+                  name: 'task-single',
+                  params: {
+                    team_id: task.team_id,
+                    task_id: task.id,
+                    task_slug: $root.$slugify(task.title),
+                  },
+                })
+              "
+              >{{ task.openTasks.length - i }} more
+            </b-button>
           </span>
         </p>
       </div>
@@ -149,6 +181,7 @@
             params: {
               task_id: this.task.id,
               team_id: this.task.team_id,
+              task_slug: this.$root.$slugify(this.task.title),
             },
           });
         }

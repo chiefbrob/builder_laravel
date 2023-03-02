@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <team
-        class="col-md-3"
+        class="col-md-4"
         v-for="(team, index) in items"
         :team="team"
         :full="false"

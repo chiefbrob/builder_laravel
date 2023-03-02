@@ -40,7 +40,11 @@ class TaskStateChangeController extends Controller
                     }
                 }
 
-                $task->fill($request->validated());
+                $validated = $request->validated();
+
+                unset($validated['task_id']);
+
+                $task->fill($validated);
                 $task->save();
 
                 if ($oldStatus !== $task->status) {

@@ -18,7 +18,7 @@
       ></b-navbar-brand>
 
       <span>
-        <b-nav-item-dropdown style="list-style-type: none; float: right">
+        <b-nav-item-dropdown right style="list-style-type: none;">
           <template #button-content>
             <em>
               <avatar style="display: inline; width: 2.5em"></avatar>

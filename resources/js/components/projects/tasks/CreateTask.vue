@@ -47,11 +47,14 @@
           .post('/api/v1/tasks', form)
           .then(results => {
             this.$root.$emit('sendMessage', 'Task created', 'success');
+
+            let task = results.data.data;
             this.$router.push({
               name: 'task-single',
               params: {
-                task_id: results.data.data.id,
-                team_id: this.team.id,
+                task_id: task.id,
+                team_id: task.team_id,
+                task_slug: this.$root.$slugify(task.title),
               },
             });
           })
