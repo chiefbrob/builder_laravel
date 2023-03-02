@@ -2,7 +2,10 @@
   <div>
     <b-card>
       <b-card-title class="pointer">
-        <span @click="showTeam">{{ team.name }}</span>
+        <span @click="showTeam">
+          <span v-if="full">{{ team.name }}</span>
+          <span v-else>{{ team.name | shortform }}</span>
+        </span>
 
         <b-button
           size="sm"
@@ -20,7 +23,7 @@
           ><i class="fa fa-pen"></i
         ></b-button>
         <b-button
-          v-b-popover.hover.top="'this will create a new task in Team ' + team.name"
+          v-b-popover.hover.top="'create a new task in Team ' + team.name"
           title="Add Task"
           @click="
             $router.push({

@@ -119,7 +119,7 @@ class TaskStateChangeControllerTest extends TestCase
         $this->assertDatabaseHas('tasks', [
             'title' => 'Work99',
             'description' => 'loremp ipsum',
-            'task_id' => $this->task1->id,
+            'id' => $this->task1->id,
             'assigned_to' => $newuser->id,
             'status' => Task::READY,
             'assigned_to' => $newuser->id,

@@ -22,9 +22,9 @@ class UpdateTeamController extends Controller
     {
         try {
             $team = Team::findOrFail($team_id);
-             $team->fill($request->validated());
-             $team->save();
-             return $team;
+            $team->fill($request->validated());
+            $team->save();
+            return $team;
         } catch (Exception $e) {
             Log::error($e);
 

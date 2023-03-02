@@ -47,7 +47,7 @@ export const teams = [
   },
   {
     name: 'task-single',
-    path: '/teams/:team_id/tasks/:task_id',
+    path: '/teams/:team_id/tasks/:task_id/:task_slug',
     component: TaskSingle,
     meta: { requiresAuth: true },
   },

@@ -63,6 +63,7 @@
               params: {
                 task_id: results.data.data.id,
                 team_id: this.team.id,
+                task_slug: this.$root.$slugify(results.data.data.title),
               },
             });
           })
