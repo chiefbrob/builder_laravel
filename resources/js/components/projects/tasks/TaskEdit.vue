@@ -38,7 +38,6 @@
       loadTask() {
         this.team_id = this.$route.params.team_id;
         this.task_id = this.$route.params.task_id;
-        console.log(this.task_id, this.team_id);
         axios
           .get(`/api/v1/tasks/?task_id=${this.task_id}&team_id=${this.team_id}`)
           .then(results => {
@@ -57,7 +56,7 @@
         axios
           .put(`/api/v1/tasks/${this.task.id}`, form)
           .then(results => {
-            this.$root.$emit('sendMessage', 'Task created', 'success');
+            this.$root.$emit('sendMessage', 'Task updated', 'success');
             this.$router.push({
               name: 'task-single',
               params: {

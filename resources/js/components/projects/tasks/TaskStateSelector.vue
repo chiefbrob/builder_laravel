@@ -20,7 +20,7 @@
     },
     data() {
       return {
-        selectedStates: ['OPEN'],
+        selectedStates: ['OPEN', 'READY', 'DOING'],
       };
     },
     computed: {

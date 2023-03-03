@@ -53,7 +53,7 @@ export const teams = [
   },
   {
     name: 'task-edit',
-    path: '/teams/:team_id/tasks/:task_id/edit',
+    path: '/teams/:team_id/tasks/:task_id/:task_slug/edit',
     component: TaskEdit,
     meta: { requiresAuth: true },
   },

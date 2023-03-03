@@ -31,7 +31,7 @@
             <field-error :solid="false" :errors="errors" field="password"></field-error>
 
             <p class="py-3">
-              <input type="submit" id="loginbtn" class="btn btn-success" text="Login" />
+              <input type="submit" id="loginbtn" class="btn btn-success" value="Login" />
               <b-button variant="link" @click="$router.push({ name: 'register' })"
                 >Create Account</b-button
               >

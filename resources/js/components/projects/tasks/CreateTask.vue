@@ -46,17 +46,36 @@
         axios
           .post('/api/v1/tasks', form)
           .then(results => {
-            this.$root.$emit('sendMessage', 'Task created', 'success');
-
             let task = results.data.data;
-            this.$router.push({
-              name: 'task-single',
-              params: {
-                task_id: task.id,
-                team_id: task.team_id,
-                task_slug: this.$root.$slugify(task.title),
-              },
-            });
+            this.$root.$emit('sendMessage', 'Task ' + task.title + ' created', 'success');
+
+            if (form.another === 'accepted') {
+              if (form.task_id) {
+                this.$router.push({
+                  name: 'new-subtask',
+                  params: {
+                    task_id: form.task_id,
+                    team_id: this.team.id,
+                  },
+                });
+              } else {
+                this.$router.push({
+                  name: 'new-task',
+                  params: {
+                    team_id: this.team.id,
+                  },
+                });
+              }
+            } else {
+              this.$router.push({
+                name: 'task-single',
+                params: {
+                  task_id: task.id,
+                  team_id: task.team_id,
+                  task_slug: this.$root.$slugify(task.title),
+                },
+              });
+            }
           })
           .catch(({ response }) => {
             this.errors = response.data.errors;

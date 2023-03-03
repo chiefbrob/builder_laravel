@@ -3,7 +3,7 @@
     <nav-root></nav-root>
     <div class="mb-5 pb-5 mt-2 row">
       <div class="col-md-10 offset-md-1">
-        <task v-if="task" class="" :full="true" :task="task"></task>
+        <task v-if="task" @taskUpdated="taskUpdated" class="" :full="true" :task="task"></task>
         <div v-else>
           <span v-if="loading"><i class="fa fa-spinner"></i> Loading</span>
           <span v-else>Failed to load Task</span>
@@ -43,6 +43,9 @@
           .finally(f => {
             this.loading = false;
           });
+      },
+      taskUpdated(task) {
+        this.task = task;
       },
     },
     created() {

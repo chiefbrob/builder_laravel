@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row py-1" v-if="full">
-      <task-state-selector @updated="statusUpdated" class="col-md-3"></task-state-selector>
+      <task-state-selector @updated="statusUpdated" class="col-md-6"></task-state-selector>
     </div>
     <div class="row">
       <task

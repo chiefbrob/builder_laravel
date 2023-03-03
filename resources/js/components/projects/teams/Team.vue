@@ -10,6 +10,8 @@
         <b-button
           size="sm"
           variant="success"
+          v-b-popover.hover.top="'Change team name details'"
+          title="Edit Team"
           v-if="manager"
           @click="
             $router.push({
@@ -23,7 +25,7 @@
           ><i class="fa fa-pen"></i
         ></b-button>
         <b-button
-          v-b-popover.hover.top="'create a new task in Team ' + team.name"
+          v-b-popover.hover.top="'Create a New Task in Team ' + team.name"
           title="Add Task"
           @click="
             $router.push({

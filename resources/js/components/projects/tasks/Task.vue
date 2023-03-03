@@ -6,18 +6,33 @@
           <span v-if="full">{{ task.title }}</span>
           <span v-else>{{ task.title | shortform }}</span>
         </span>
+        <b-badge class="float-right" :variant="taskStatusVariant(task.status)">
+          {{ task.status }}
+        </b-badge>
+      </b-card-title>
 
-        <b-badge :variant="taskStatusVariant(task.status)"> {{ task.status }} </b-badge>
-
+      <b-card-sub-title v-if="full" class="row">
+        <div class="col-md-4">
+          <task-assignee-change
+            :members="task.team.team_users"
+            @taskUpdated="taskUpdated"
+            :task="task"
+          ></task-assignee-change>
+        </div>
+        <div class="col-md-4">
+          <task-status-change @taskUpdated="taskUpdated" :task="task"></task-status-change>
+        </div>
+      </b-card-sub-title>
+      <b-card-text :class="full ? 'py-2' : ''">
         <b-button
           v-b-popover.hover.top="'create a sub-task of ' + task.title"
           title="Add Sub-Task"
-          @click="addSubtask"
-          class="float-right text-white"
+          @click="addSubtask(task)"
+          class="text-white"
           size="sm"
           variant="info"
         >
-          <b-icon icon="plus"></b-icon>
+          <b-icon icon="plus"></b-icon> Add Subtask
         </b-button>
         <b-button
           size="sm"
@@ -28,22 +43,14 @@
               params: {
                 team_id: task.team_id,
                 task_id: task.id,
+                task_slug: $root.$slugify(task.title),
               },
             })
           "
-          class="text-white float-right"
-          ><i class="fa fa-pen"></i
-        ></b-button>
-      </b-card-title>
-      <b-card-sub-title v-if="full" class="row">
-        <b-input-group prepend="Assignee" class="col-md-4">
-          <b-form-select
-            v-model="assignee"
-            :options="users"
-            @input="assigneeChanged"
-          ></b-form-select>
-        </b-input-group>
-      </b-card-sub-title>
+          class="text-white"
+          ><i class="fa fa-pen"></i> Edit</b-button
+        >
+      </b-card-text>
       <b-card-text v-if="full">Created: {{ task.created_at | relative }}</b-card-text>
       <b-card-text v-if="full">{{ task.description }}</b-card-text>
       <b-form-checkbox
@@ -55,9 +62,13 @@
       >
       <div class="container py-2" v-if="full && showSubtasks && task.openTasks">
         <div class="row">
-          <b-card class="col-md-3" v-for="(subtask, i) in task.openTasks" v-bind:key="i">
+          <b-card class="col-md-4" v-for="(subtask, i) in task.openTasks" v-bind:key="i">
             <b-card-title class="pointer" @click="showSubTask(subtask)"
-              >{{ subtask.title }}
+              >{{ subtask.title | shortform }}
+
+              <b-badge class="float-right" :variant="taskStatusVariant(subtask.status)">
+                {{ subtask.status }}
+              </b-badge>
 
               <b-button
                 v-b-popover.hover.top="'create a sub-task of ' + subtask.title"
@@ -79,37 +90,11 @@
         <p>
           Subtasks:
           <span v-for="(t, i) in task.openTasks" v-bind:key="i">
-            <b-button
-              v-if="i < 3"
-              variant="link"
-              class="p-0 m-0"
-              @click="
-                $router.push({
-                  name: 'task-single',
-                  params: {
-                    team_id: task.team_id,
-                    task_id: t.id,
-                    task_slug: $root.$slugify(t.title),
-                  },
-                })
-              "
+            <b-button v-if="i < 3" variant="link" class="p-0 m-0" @click="openTask(t)"
               >{{ t.title | shortform }}
             </b-button>
 
-            <b-button
-              v-if="i === 3"
-              variant="link"
-              class="p-0 m-0"
-              @click="
-                $router.push({
-                  name: 'task-single',
-                  params: {
-                    team_id: task.team_id,
-                    task_id: task.id,
-                    task_slug: $root.$slugify(task.title),
-                  },
-                })
-              "
+            <b-button v-if="i === 3" variant="link" class="p-0 m-0" @click="openTask(task)"
               >{{ task.openTasks.length - i }} more
             </b-button>
           </span>
@@ -120,37 +105,29 @@
 </template>
 
 <script>
+  import TaskAssigneeChange from './TaskAssigneeChange';
+  import TaskStatusChange from './TaskStatusChange';
   export default {
     props: ['task', 'full'],
+    components: { TaskAssigneeChange, TaskStatusChange },
     data() {
       return {
         loading: false,
         errors: [],
-        assignee: this.task.assigned_to,
+
         showSubtasks: this.full,
       };
     },
-    computed: {
-      users() {
-        let u = this.task.team?.team_users.map(teamUser => {
-          return {
-            value: teamUser.user.id,
-            text: teamUser.user.name,
-          };
-        });
-        u.unshift({ value: null, text: 'Select Assignee', disabled: true });
-        return u;
-      },
-    },
+    computed: {},
     methods: {
       taskStatusVariant(status) {
         switch (status) {
           case 'open':
-            return 'danger';
+            return 'light';
             break;
 
           case 'ready':
-            return 'light';
+            return 'danger';
             break;
 
           case 'doing':
@@ -176,14 +153,7 @@
       },
       showTask() {
         if (!this.full) {
-          this.$router.push({
-            name: 'task-single',
-            params: {
-              task_id: this.task.id,
-              team_id: this.task.team_id,
-              task_slug: this.$root.$slugify(this.task.title),
-            },
-          });
+          this.openTask(this.task);
         }
       },
       addSubtask(task = null) {
@@ -196,24 +166,22 @@
           params: { team_id: this.task.team_id, task_id: focusTask.id },
         });
       },
-      assigneeChanged(data) {
-        let form = {
-          ...this.task,
-          assigned_to: data,
-        };
-        axios
-          .put(`/api/v1/tasks/${this.task.id}`, form)
-          .then(results => {
-            this.$root.$emit('sendMessage', 'Task Assigned', 'success');
-            window.location.reload();
-          })
-          .catch(({ response }) => {
-            this.errors = response.data.errors;
-            this.$root.$emit('sendMessage', 'Failed to assign task!');
-          });
-      },
+
       showSubTask(subtask) {
-        return (window.location = `/teams/${subtask.team_id}/tasks/${subtask.id}`);
+        this.openTask(subtask);
+      },
+      openTask(task) {
+        this.$router.push({
+          name: 'task-single',
+          params: {
+            task_id: task.id,
+            team_id: task.team_id,
+            task_slug: this.$root.$slugify(task.title),
+          },
+        });
+      },
+      taskUpdated(task) {
+        this.$emit('taskUpdated', task);
       },
     },
   };

@@ -13,6 +13,32 @@
 
         <field-error :solid="false" :errors="errors" field="description"></field-error>
 
+        <b-form-group label="Assignee:">
+          <task-assignee-change
+            :members="team.team_users"
+            :task="task"
+            @assigneeChanged="assigneeChanged"
+          ></task-assignee-change>
+        </b-form-group>
+
+        <b-form-group label="Status:">
+          <task-status-change :task="task" @statusChange="statusChanged"></task-status-change>
+        </b-form-group>
+
+        <p>
+          <b-form-checkbox
+            v-if="!task"
+            class="float: right"
+            id="checkbox-1"
+            v-model="form.another"
+            name="another"
+            value="accepted"
+            unchecked-value="not_accepted"
+          >
+            Create and Create another
+          </b-form-checkbox>
+        </p>
+
         <p class="py-3">
           <input type="submit" class="btn btn-success" text="Submit" />
         </p>
@@ -22,7 +48,10 @@
 </template>
 
 <script>
+  import TaskAssigneeChange from './TaskAssigneeChange';
+  import TaskStatusChange from './TaskStatusChange';
   export default {
+    components: { TaskAssigneeChange, TaskStatusChange },
     props: {
       task: {
         required: false,
@@ -40,6 +69,7 @@
           title: null,
           description: null,
           team_id: this.team.id,
+          another: 'not_accepted',
         },
       };
     },
@@ -53,6 +83,19 @@
           this.form.description = this.task.description;
         }
       },
+      reset() {
+        this.form.title = null;
+        this.form.description = null;
+      },
+      taskUpdated(task) {
+        this.$emit('taskUpdated', task);
+      },
+      assigneeChanged(assignee) {
+        this.form.assigned_to = assignee;
+      },
+      statusChanged(status) {
+        this.form.status = status;
+      },
 
       submitForm() {
         let task_id = this.$router.currentRoute.params.task_id;
@@ -60,6 +103,7 @@
           this.form.task_id = task_id;
         }
         this.$emit('submit', this.form);
+        this.reset();
       },
     },
   };

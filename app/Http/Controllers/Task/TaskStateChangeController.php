@@ -54,7 +54,7 @@ class TaskStateChangeController extends Controller
                             'user_id' => $user->id,
                             'new_status' => $task->status,
                             'old_status' => $oldStatus,
-                            'notes' => $request->get('notes', null),
+                            'notes' => $request->get('notes', 'status change'),
                         ]
                     );
                 }

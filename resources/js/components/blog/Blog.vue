@@ -1,6 +1,11 @@
 <template>
   <div style="">
-    <b-card :sub-title="full ? blog.subtitle : null" style="">
+    <b-card
+      @click="showBlog"
+      :class="!full ? 'cursor: pointer' : ''"
+      :sub-title="full ? blog.subtitle : null"
+      style=""
+    >
       <b-card-title>
         <div>
           {{ blog.title }}
@@ -18,18 +23,6 @@
       <b-card-text v-if="full">
         {{ blog.contents }}
       </b-card-text>
-
-      <p>
-        <b-button
-          style="color: white"
-          variant="info"
-          size="sm"
-          class="mr-4"
-          v-if="!full"
-          @click="showBlog"
-          >Read More</b-button
-        >{{ blog.blog_category.title }}
-      </p>
     </b-card>
   </div>
 </template>
