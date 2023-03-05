@@ -4,6 +4,10 @@ This template allows you to quickly start building laravel applications from scr
 
 [View Demo](https://builder-laravel.on.chiefbrob.info)
 
+[Hire Me](https://www.fiverr.com/share/xPWA7a)
+
+[Buy me Coffee](https://www.buymeacoffee.com/chiefbrob)
+
 ## Features
 
 - Full Authentication
