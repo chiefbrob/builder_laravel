@@ -2,6 +2,7 @@
   <div>
     <div class="row py-1" v-if="full">
       <task-state-selector @updated="statusUpdated" class="col-md-6"></task-state-selector>
+      <task-period-selector @updated="periodUpdated" class="col-md-3"></task-period-selector>
     </div>
     <div class="row">
       <task
@@ -25,8 +26,9 @@
 
 <script>
   import TaskStateSelector from './TaskStateSelector';
+  import TaskPeriodSelector from './TaskPeriodSelector';
   export default {
-    components: { TaskStateSelector },
+    components: { TaskStateSelector, TaskPeriodSelector },
     props: {
       team: {
         type: Object,
@@ -76,6 +78,9 @@
           .finally(f => {
             this.loading = false;
           });
+      },
+      periodUpdated(period) {
+        console.log(period);
       },
     },
   };
