@@ -18,7 +18,7 @@
     "laravel/tinker": "^2.5",
     "laravel/ui": "^3.3",
     "mll-lab/laravel-graphiql": "^1.0",
-    "nuwave/lighthouse": "^5.68",
+    "nuwave/lighthouse": "^6.5",
     "spatie/laravel-backup": "^8.1"
   },
   "require-dev": {
