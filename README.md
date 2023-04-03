@@ -2,7 +2,7 @@
 
 This template allows you to quickly start building laravel applications from scratch.
 
-[View Demo](https://builder-laravel.on.chiefbrob.info)
+[Demo not available](#)
 
 [Hire Me](https://www.fiverr.com/share/xPWA7a)
 
