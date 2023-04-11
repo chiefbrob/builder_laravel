@@ -1,6 +1,6 @@
-# Laravel Builder Template
+# Laravel 10 Template
 
-This template allows you to quickly start building laravel applications from scratch.
+This template allows you to quickly start building laravel applications from scratch. php 8.1
 
 [Demo not available](#)
 
