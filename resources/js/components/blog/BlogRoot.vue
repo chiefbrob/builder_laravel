@@ -1,7 +1,5 @@
 <template>
   <div>
-    <nav-root></nav-root>
-
     <div class="mb-5 pb-5 row">
       <div class="col-md-8 offset-md-2 pt-4 row">
         <div class="col-md-12">
@@ -31,7 +29,6 @@
         </div>
       </div>
     </div>
-    <page-footer></page-footer>
   </div>
 </template>
 

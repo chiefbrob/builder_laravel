@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-root></nav-root>
     <div class="mb-5 pb-5 row" v-if="!submitted">
       <div class="col-md-8 offset-md-2 py-4">
         <b-progress :max="max" show-progress animated>
@@ -112,7 +111,6 @@
         </p>
       </div>
     </div>
-    <page-footer></page-footer>
   </div>
 </template>
 

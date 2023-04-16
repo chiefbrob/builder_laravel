@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-root></nav-root>
     {{ $store.state.user }}
   </div>
 </template>

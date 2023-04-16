@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-root></nav-root>
     <div class="mb-5 pb-5">
       <div class="col-md-10 offset-md-1">
         <h2><strong>Terms and Conditions</strong></h2>
@@ -263,7 +262,6 @@
         </p>
       </div>
     </div>
-    <page-footer></page-footer>
   </div>
 </template>
 

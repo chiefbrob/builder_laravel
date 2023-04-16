@@ -53,6 +53,7 @@ export const system = [
   },
   {
     path: '*',
+    name: '404',
     component: Error404,
   },
 ];

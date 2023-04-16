@@ -1,7 +1,5 @@
 <template>
   <div>
-    <nav-root></nav-root>
-
     <div class="row mb-5 py-5">
       <b-card no-body class="overflow-hidden col-md-6 offset-md-3 py-2 ">
         <b-row no-gutters>
@@ -31,8 +29,6 @@
         </b-row>
       </b-card>
     </div>
-
-    <page-footer></page-footer>
   </div>
 </template>
 

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-root></nav-root>
     <b-card tag="article" class="col-md-4 offset-md-4 py-5 ">
       <b-card-title>
         <b-button

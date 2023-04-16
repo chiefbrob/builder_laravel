@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-root></nav-root>
     <div class="mb-5 pb-5 row">
       <div class="col-md-10 offset-md-1">
         <h4 class="py-3">
@@ -9,7 +8,6 @@
         <product-form url="/api/v1/products"></product-form>
       </div>
     </div>
-    <page-footer></page-footer>
   </div>
 </template>
 

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-root></nav-root>
     <b-row class="mb-5 pb-5">
       <b-col md="6" offset="3">
         <b-card
@@ -20,7 +19,6 @@
         </b-card>
       </b-col>
     </b-row>
-    <page-footer></page-footer>
   </div>
 </template>
 

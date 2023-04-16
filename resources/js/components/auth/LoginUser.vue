@@ -1,7 +1,5 @@
 <template>
   <div>
-    <nav-root></nav-root>
-
     <div class="mb-5 pb-5 row">
       <div class="col-md-6 offset-md-3">
         <h4 class="pt-3">Login</h4>
@@ -58,8 +56,6 @@
         </div>
       </div>
     </div>
-
-    <page-footer></page-footer>
   </div>
 </template>
 

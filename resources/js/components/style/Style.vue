@@ -1,7 +1,5 @@
 <template>
   <div>
-    <nav-root></nav-root>
-
     <div class="row">
       <div class="col-md-10 offset-md-1">
         <file-uploader class="mb-5 pb-5"></file-uploader>
@@ -9,7 +7,6 @@
         <div class="col-md-4">Phone: {{ phone_number }}</div>
       </div>
     </div>
-    <page-footer></page-footer>
   </div>
 </template>
 

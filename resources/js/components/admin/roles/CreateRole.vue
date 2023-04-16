@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-root></nav-root>
     <div class="mb-5 pb-5 row">
       <div class="col-md-10 offset-md-1">
         <h4>
@@ -9,7 +8,6 @@
         <role-form :errors="errors" @submit="createRole"></role-form>
       </div>
     </div>
-    <page-footer></page-footer>
   </div>
 </template>
 

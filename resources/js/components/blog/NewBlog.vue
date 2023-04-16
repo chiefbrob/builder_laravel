@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-root></nav-root>
     <div class="mb-5 pb-5 row">
       <div class="col-md-8 offset-md-2 pt-4">
         <h4>
@@ -12,8 +11,6 @@
         <blog-form url="/api/v1/blog"></blog-form>
       </div>
     </div>
-
-    <page-footer></page-footer>
   </div>
 </template>
 

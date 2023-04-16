@@ -7,7 +7,12 @@
 
     </head>
     <body>
-        <div id="app" style="overflow: hidden"><router-view :key="$route.path" style="min-height: 100vh;"></router-view></div>
+        <div id="app" style="overflow: hidden">
+            <nav-root></nav-root>
+            <router-view :key="$route.path"></router-view>
+            <hr style="margin-top: 5em;">
+            <page-footer></page-footer>
+        </div>
         @include('modals.session-expired')
     <script>
         // Check that service workers are supported

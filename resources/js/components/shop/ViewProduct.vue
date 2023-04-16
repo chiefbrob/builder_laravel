@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-root></nav-root>
     <div class="mb-5 pb-5 row">
       <div class="col-md-10 offset-md-1">
         <div class="row py-4">
@@ -10,7 +9,6 @@
         <p v-if="!loading && !product"></p>
       </div>
     </div>
-    <page-footer></page-footer>
   </div>
 </template>
 

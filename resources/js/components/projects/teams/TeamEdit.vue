@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-root></nav-root>
     <div class="mb-5 mt-2 pb-5 mt-2 row">
       <div class="col-md-10 offset-md-1">
         <h4>
@@ -10,7 +9,6 @@
         <team-form :team="team" v-if="team" @submit="submitted" :errors="errors"></team-form>
       </div>
     </div>
-    <page-footer></page-footer>
   </div>
 </template>
 

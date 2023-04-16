@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-root></nav-root>
     <div class="mb-5 mt-2 pb-5 row">
       <div class="col-md-10 offset-md-1">
         <team v-if="team" :full="true" :team="team"></team>
@@ -10,7 +9,6 @@
         </div>
       </div>
     </div>
-    <page-footer></page-footer>
   </div>
 </template>
 

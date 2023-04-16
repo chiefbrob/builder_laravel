@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-root></nav-root>
     <div class="mb-5 pb-5 row">
       <div class="col-md-8 offset-md-2 pt-4">
         <h4>
@@ -15,8 +14,6 @@
         <h4 v-if="loading"><i class="fa fa-spinner"></i> Loading</h4>
       </div>
     </div>
-
-    <page-footer></page-footer>
   </div>
 </template>
 
