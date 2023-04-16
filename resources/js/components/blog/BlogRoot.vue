@@ -17,6 +17,10 @@
         <div class="col-md-4 " v-for="item in items" v-bind:key="item.id">
           <blog-item :blog="item"></blog-item>
         </div>
+        <div class="col-md-12" v-if="items.length === 0">
+          <p v-if="!loading">No items to display</p>
+          <p v-else><i class="fa fa-spinner"></i> Loading...</p>
+        </div>
         <div class="col-md-10 offset-md-1">
           <b-pagination
             @input="pageChanged"
@@ -41,6 +45,7 @@
     data() {
       return {
         items: [],
+        loading: true,
         meta: {
           currentPage: 1,
         },
@@ -71,6 +76,9 @@
           })
           .catch(error => {
             this.$root.$emit('sendMessage', 'Failed to blogs');
+          })
+          .finally(f => {
+            this.loading = false;
           });
       },
     },
