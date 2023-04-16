@@ -10,7 +10,8 @@
         <div id="app" style="overflow: hidden">
             <nav-root></nav-root>
             <router-view :key="$route.path"></router-view>
-            <hr style="margin-top: 5em;">
+            <hr style="margin-top: 5em; border: 1px solid transparent;
+            height: 0px;">
             <page-footer></page-footer>
         </div>
         @include('modals.session-expired')
