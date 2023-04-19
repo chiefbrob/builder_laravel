@@ -27,7 +27,6 @@
     computed: {},
     methods: {
       loadRole() {
-        console.log('loading role');
         this.role_id = this.$route.params.role_id;
         axios
           .get(`/api/v1/admin/roles/?role_id=${this.role_id}`)

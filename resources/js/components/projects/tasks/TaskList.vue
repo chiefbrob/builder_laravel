@@ -85,7 +85,6 @@
           });
       },
       usersUpdated(data) {
-        console.log(data);
         this.form.assigned_to = data.map(user => {
           return user.id;
         });
