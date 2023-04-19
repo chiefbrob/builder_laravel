@@ -53,7 +53,7 @@
 
           <b-button variant="link" @click="showTasks">Tasks</b-button>
         </p>
-        <div v-if="addingUser">
+        <div v-if="addingUser && showTeamMembers">
           <p class="my-4">
             <b-form-group title="Select user">
               <b-form-select v-model="newuser" :options="users"></b-form-select>
@@ -61,10 +61,12 @@
             </b-form-group>
           </p>
           <p>
-            <b-button v-if="!loading" @click="addTeamMember" :disabled="!newuser">Add</b-button>
+            <b-button size="sm" v-if="!loading" @click="addTeamMember" :disabled="!newuser"
+              >Add</b-button
+            >
 
             <span v-else><i class="fa fa-spinner"></i> Loading...</span>
-            <b-button variant="danger" @click="addingUser = false">Cancel</b-button>
+            <b-button size="sm" variant="danger" @click="addingUser = false">Cancel</b-button>
           </p>
         </div>
         <div v-else-if="showTeamMembers">
@@ -86,6 +88,13 @@
       </b-card-text>
       <b-card-text v-if="full">
         <task-list v-if="team" :team="team"></task-list>
+      </b-card-text>
+      <b-card-text v-if="!full">
+        <p>
+          Created: {{ team.created_at | relative }} <br />
+          {{ team.team_users.length }} User<span v-if="team.team_users.length !== 1">s</span>
+        </p>
+        <b-button variant="info" class="text-white" size="sm" @click="showTeam">View</b-button>
       </b-card-text>
     </b-card>
   </div>
@@ -168,6 +177,7 @@
           })
           .then(results => {
             this.$root.$emit('sendMessage', 'User added to Team', 'success');
+            window.location.reload();
           })
           .catch(({ response }) => {
             this.errors = response.data.errors;
