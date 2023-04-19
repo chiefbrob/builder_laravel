@@ -95,6 +95,7 @@
           {{ team.team_users.length }} User<span v-if="team.team_users.length !== 1">s</span>
         </p>
         <b-button variant="info" class="text-white" size="sm" @click="showTeam">View</b-button>
+        <b-button variant="dark" size="sm" @click="showTasks">Tasks</b-button>
       </b-card-text>
     </b-card>
   </div>

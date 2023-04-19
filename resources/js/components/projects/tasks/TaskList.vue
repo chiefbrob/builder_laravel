@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="row py-1" v-if="full">
-      <task-state-selector @updated="statusUpdated" class="col-md-6"></task-state-selector>
+      <task-state-selector class="col-md-4" @updated="statusUpdated"></task-state-selector>
+      <team-user-selector
+        class="col-md-4"
+        :team="team"
+        @updated="usersUpdated"
+      ></team-user-selector>
     </div>
     <div class="row">
       <task
@@ -24,9 +29,10 @@
 </template>
 
 <script>
+  import TeamUserSelector from '../teams/TeamUserSelector';
   import TaskStateSelector from './TaskStateSelector';
   export default {
-    components: { TaskStateSelector },
+    components: { TaskStateSelector, TeamUserSelector },
     props: {
       team: {
         type: Object,
@@ -43,6 +49,7 @@
         form: {
           status: ['OPEN'],
           team_id: this.team.id,
+          assigned_to: null,
         },
         loading: true,
         meta: {
@@ -76,6 +83,13 @@
           .finally(f => {
             this.loading = false;
           });
+      },
+      usersUpdated(data) {
+        console.log(data);
+        this.form.assigned_to = data.map(user => {
+          return user.id;
+        });
+        this.loadTasks();
       },
     },
   };

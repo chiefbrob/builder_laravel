@@ -30,7 +30,8 @@ class TaskIndexRequest extends FormRequest
             'team_id' => 'required|integer|exists:teams,id',
             'status' => 'sometimes|nullable|array',
             'status.*' => 'sometimes|nullable|string',
-            'assigned_to' => 'sometimes|nullable|integer',
+            'assigned_to' => 'sometimes|nullable|array',
+            'assigned_to.*' => ['required', 'integer', 'exists:users,id'],
             'task_id' => 'sometimes|nullable|integer|exists:tasks,id'
         ];
     }

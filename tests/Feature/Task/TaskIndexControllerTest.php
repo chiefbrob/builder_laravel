@@ -177,7 +177,7 @@ class TaskIndexControllerTest extends TestCase
                 'v1.tasks.index',
                 [
                     'team_id' => $this->team->id,
-                    'assigned_to' => $this->user0->id
+                    'assigned_to' => [$this->user0->id]
                 ]
             )
         )
