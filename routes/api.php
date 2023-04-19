@@ -27,4 +27,5 @@ Route::prefix('v1')->group(static function () {
     Route::get('/blog', Blog\GetBlogsController::class)->name('v1.blog.index');
     Route::post('/contact', Contact\CreateContactController::class)->name('v1.contact.create');
     Route::get('/products', Product\ProductsIndexController::class)->name('v1.product.index');
+    Route::post('/search', Search\SearchController::class)->name('v1.search');
 });
