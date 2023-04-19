@@ -7,6 +7,7 @@ import AdminDashboard from '../components/admin/AdminDashboard';
 import Style from '../components/style/Style';
 import ContactRoot from '../components/pages/ContactRoot';
 import HomeRoot from '../components/home/HomeRoot';
+import SearchResults from '../components/search/SearchResults';
 
 export const system = [
   {
@@ -49,6 +50,12 @@ export const system = [
     name: 'privacy-policy',
     path: '/privacy-policy',
     component: PrivacyPolicy,
+    meta: { requiresAuth: false },
+  },
+  {
+    name: 'search',
+    path: '/search',
+    component: SearchResults,
     meta: { requiresAuth: false },
   },
   {

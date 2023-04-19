@@ -238,14 +238,12 @@
         if (!this.formComplete) {
           return;
         }
-        axios
-          .post(`/api/v1/search/`, this.form)
-          .then(results => {
-            this.sendMessage('Profile updated', 'success');
-          })
-          .catch(error => {
-            this.sendMessage('Search Failed!', 'danger');
-          });
+        this.$router.push('/search?query=' + this.form.query);
+
+        if (this.$route.name === 'search') {
+          return this.$root.$emit('search', this.form.query);
+        }
+        return;
       },
       logout() {
         localStorage.clear();
