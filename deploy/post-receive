@@ -1,15 +1,21 @@
 #!/bin/sh
 
-git --work-tree=/var/www/on/builder_laravel --git-dir=/var/repo/on/builder_laravel checkout -f
-chown -R :www-data /var/www/on/builder_laravel
-chmod -R 777 /var/www/on/builder_laravel
+# Stop the queue worker
+php /var/www/on/builder-laravel/artisan queue:work --stop-when-empty
 
-cd /var/www/on/builder_laravel
+git --work-tree=/var/www/on/builder-laravel --git-dir=/var/repo/on/builder-laravel checkout -f
+cd /var/www/on/builder-laravel
 
-composer install --no-dev
+chown -R www-data:www-data .
+chmod -R 775 storage bootstrap/cache
+
+COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev
 php artisan migrate --force
-npm i
-npm run production
+npm ci && npm run production
 
-chown -R :www-data /var/www/on/builder_laravel
-chmod -R 777 /var/www/on/builder_laravel
+chown -R www-data:www-data .
+chmod -R 775 storage bootstrap/cache
+
+
+# Restart the queue worker (run this command in the background or as a separate process)
+nohup php /var/www/on/builder-laravel/artisan queue:work > /dev/null 2>&1 &

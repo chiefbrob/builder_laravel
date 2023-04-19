@@ -20,13 +20,16 @@
             larger container.
           </p>
           <p>
+            <b-button variant="light" href="https://github.com/chiefbrob/builder_laravel">
+              <i class="fa-brands fa-github"></i> Edit on GitHub</b-button
+            >
             <clipboard content="copy me" variant="dark"></clipboard>
           </p>
-          <p>
-            <phone-number></phone-number>
-          </p>
+          <p>Login as Admin using <u>test@chiefbrob.info</u> and password <u>password</u></p>
         </b-jumbotron>
       </div>
     </div>
   </div>
 </template>
+
+<script></script>

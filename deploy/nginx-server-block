@@ -2,7 +2,7 @@ server {
     listen 80;
     #listen [::]:80 default_server ipv6only=on;
 
-    root /var/www/on/builder_laravel/public;
+    root /var/www/on/builder-laravel/public;
     index index.php index.html index.htm index.nginx-debian.html;
 
     server_name builder-laravel.on.chiefbrob.info;
