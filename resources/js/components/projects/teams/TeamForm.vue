@@ -13,10 +13,10 @@
         <field-error :solid="false" :errors="errors" field="email"></field-error>
 
         <b-form-group label="Description:">
-          <b-form-textarea id="textarea" v-model="form.contents" rows="5"></b-form-textarea>
+          <b-form-textarea id="textarea" v-model="form.description" rows="5"></b-form-textarea>
         </b-form-group>
 
-        <field-error :solid="false" :errors="errors" field="contents"></field-error>
+        <field-error :solid="false" :errors="errors" field="description"></field-error>
 
         <p class="py-3">
           <input type="submit" class="btn btn-success" text="Submit" />

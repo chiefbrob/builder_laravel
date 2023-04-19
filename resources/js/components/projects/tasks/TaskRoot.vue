@@ -3,7 +3,7 @@
     <div class="mb-5 pb-5 mt-2 row">
       <div class="col-md-10 offset-md-1">
         <h4>
-          <span v-if="team">{{ team.name }}</span> Tasks
+          <span v-if="team">{{ team.name }}</span>
           <b-button
             @click="$router.push({ name: 'new-task', params: { team_id: team.id } })"
             class="float-right text-white"
