@@ -93,7 +93,7 @@
             href="#"
             v-if="$root.$featureIsEnabled('shop')"
             @click="$router.push({ name: 'shop' })"
-            :active="$route.name === 'shop'"
+            :active="$route.name.includes('shop') || $route.name.includes('product')"
           >
             <i class="fa fa-shop"></i>
             Shop
