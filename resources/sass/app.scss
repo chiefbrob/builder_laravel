@@ -14,4 +14,9 @@
   cursor: pointer;
 }
 
+.black-bkg {
+  background-color: black;
+  background: rgba(0, 0, 0, 0.5);
+}
+
 @import url('vue-multiselect/dist/vue-multiselect.min.css');

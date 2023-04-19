@@ -1,28 +1,40 @@
 <template>
   <div style="">
-    <b-card
-      @click="showBlog"
-      :class="!full ? 'cursor: pointer' : ''"
-      :sub-title="full ? blog.subtitle : null"
-      style=""
-    >
+    <b-card :sub-title="blog.subtitle" style="" v-if="full">
       <b-card-title>
         <div>
           {{ blog.title }}
-          <span v-if="full && admin" class="float-right ">
+          <span v-if="admin" class="float-right ">
             <b-button variant="info" @click="editBlog"
               ><i class="fa fa-pen text-white"></i
             ></b-button>
             <b-button variant="danger" @click="deleteBlog"><i class="fa fa-trash"></i></b-button>
           </span>
           <br />
-          <small v-if="full"> {{ blog.user.name }} - {{ blog.created_at | relative }}</small>
+          <small> {{ blog.user.name }} - {{ blog.created_at | relative }}</small>
         </div>
       </b-card-title>
       <b-card-img :src="imageSrc" :class="full ? 'py-4' : 'py-2'" :alt="blog.title"></b-card-img>
-      <b-card-text v-if="full">
+      <b-card-text>
         {{ blog.contents }}
       </b-card-text>
+    </b-card>
+    <b-card
+      v-if="!full"
+      :overlay="true"
+      @click="showBlog"
+      class="pointer"
+      :img-src="imageSrc"
+      border-variant="light"
+      text-variant="light"
+      bg-variant="info"
+    >
+      <b-card-title>
+        <span class="black-bkg">{{ blog.title }}</span></b-card-title
+      >
+      <b-card-text>
+        <b-button variant="info" class="text-white" size="sm">View Blog</b-button></b-card-text
+      >
     </b-card>
   </div>
 </template>

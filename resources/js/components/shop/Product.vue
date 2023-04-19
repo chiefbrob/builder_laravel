@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-card>
+    <b-card v-if="full">
       <b-card-title>
         <div>
           <span :class="full ? '' : 'pointer'" @click="viewProduct">{{ product.name }}</span>
@@ -43,6 +43,25 @@
           >
         </p></b-card-text
       >
+    </b-card>
+    <b-card
+      :overlay="true"
+      @click="viewProduct"
+      class="pointer"
+      :img-src="`/storage/images/products/${product.photo}`"
+      border-variant="light"
+      text-variant="light"
+      bg-variant="info"
+      v-else
+    >
+      <b-card-title>
+        <span class="black-bkg">{{ product.name }}</span>
+      </b-card-title>
+      <b-card-text>
+        <span class="black-bkg"> {{ product.price | currency }} </span>
+        <br />
+        <b-button size="sm" variant="info" class="text-white">View</b-button>
+      </b-card-text>
     </b-card>
   </div>
 </template>
