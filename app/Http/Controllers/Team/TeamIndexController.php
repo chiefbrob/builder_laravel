@@ -38,7 +38,7 @@ class TeamIndexController extends Controller
                     $teams->where('user_id', auth()->id());
                 }
 
-                return $teams->orderBy('id', 'desc')->paginate();
+                return $teams->orderBy('name')->paginate();
 
 
             }

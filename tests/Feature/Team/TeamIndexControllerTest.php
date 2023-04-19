@@ -113,10 +113,13 @@ class TeamIndexControllerTest extends TestCase
         $user = User::factory()->create();
         $team1 = Team::factory()->create(
             [
+                'name' => 'mnlop',
                 'user_id' => $user->id,
             ]
         );
-        $team2 = Team::factory()->create();
+        $team2 = Team::factory()->create([
+            'name' => 'abcdef'
+        ]);
 
         $user1 = User::factory()->create();
 
