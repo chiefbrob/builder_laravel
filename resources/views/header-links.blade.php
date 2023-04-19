@@ -11,7 +11,6 @@
 {{-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'"> --}}
 <meta name="application-name" content="{{ config('app.name') }}">
 <link rel="dns-prefetch" href="//fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 <link rel="manifest" href="/manifest.json">
 <link rel="apple-touch-icon" href="/images/180.png">
 <link href="{{ mix('css/app.css') }}" rel="stylesheet">
