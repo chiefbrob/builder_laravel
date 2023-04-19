@@ -2,7 +2,7 @@
   <div>
     <div class="mb-5 pb-5 mt-2 row">
       <div class="col-md-10 offset-md-1">
-        <role v-if="role" class="" :full="true" :role="role"></role>
+        <role @roleUpdated="loadRole" v-if="role" class="" :full="true" :role="role"></role>
         <div v-else>
           <span v-if="loading"><i class="fa fa-spinner"></i> Loading</span>
           <span v-else>Failed to load Role</span>
@@ -27,6 +27,7 @@
     computed: {},
     methods: {
       loadRole() {
+        console.log('loading role');
         this.role_id = this.$route.params.role_id;
         axios
           .get(`/api/v1/admin/roles/?role_id=${this.role_id}`)

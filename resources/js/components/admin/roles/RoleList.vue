@@ -7,6 +7,7 @@
         :role="role"
         :full="false"
         v-bind:key="index"
+        @roleUpdated="loadRoles"
       >
       </role>
     </div>

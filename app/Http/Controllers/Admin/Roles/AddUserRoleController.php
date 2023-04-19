@@ -19,6 +19,13 @@ class AddUserRoleController extends Controller
     public function __invoke(AddUserRoleRequest $request)
     {
         try {
+            $userRole = UserRole::where('role_id', $request->role_id)
+                ->where('user_id', $request->user_id)
+                ->first();
+
+            if ($userRole) {
+                throw new Exception("User has role assigned");
+            }
             $userRole = UserRole::create($request->validated());
 
             return response()->json($userRole, Response::HTTP_CREATED);

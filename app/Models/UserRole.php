@@ -20,6 +20,8 @@ class UserRole extends Model
         'role_id',
     ];
 
+    protected $with = ['user'];
+
     /**
      * Relationship with User Model
      *

@@ -20,13 +20,15 @@ class Role extends Model
         'description',
     ];
 
+    protected $with = ['userRoles'];
+
     /**
      * Relationship with UserRoles Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function user(): HasMany
+    public function userRoles(): HasMany
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(UserRole::class);
     }
 }
