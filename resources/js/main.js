@@ -36,12 +36,7 @@ let router = new VueRouter(routes);
 router.beforeEach((to, from, next) => {
   const auth = to.matched[0].meta;
 
-  if (
-    auth?.requiresAuth === true ||
-    auth?.requiresDriver === true ||
-    auth?.requiresVerifiedDriver == true ||
-    auth?.requiresAdmin === true
-  ) {
+  if (auth?.requiresAuth === true || auth?.requiresAdmin === true) {
     if (!window.User) {
       localStorage.setItem('original-to-path', to.path);
       next({ name: 'login' });

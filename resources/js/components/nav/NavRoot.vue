@@ -51,9 +51,9 @@
 
           <b-dropdown-item href="#" @click="logout" v-if="user">Log Out</b-dropdown-item>
 
-          <b-dropdown-item to="login" v-if="!user">Login</b-dropdown-item>
+          <b-dropdown-item to="/login" v-if="!user">Login</b-dropdown-item>
 
-          <b-dropdown-item to="register" v-if="!user">Register</b-dropdown-item>
+          <b-dropdown-item to="/register" v-if="!user">Register</b-dropdown-item>
         </b-nav-item-dropdown>
       </span>
 
@@ -125,7 +125,7 @@
             <b-button size="sm" variant="dark" class="my-2 my-sm-0" type="submit">Search</b-button>
           </b-nav-form>
 
-          <b-nav-item-dropdown right>
+          <b-nav-item-dropdown v-if="$root.$featureIsEnabled('languages')" right>
             <template #button-content>
               <b-button size="" variant="info" class="text-white"
                 ><i class="fa fa-language"></i> {{ language }}</b-button

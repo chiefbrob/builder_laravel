@@ -17,18 +17,27 @@ This template allows you to quickly start building laravel applications from scr
 - Easy to deploy (Docker, VPS)
 - Contact, Terms & Conditions & Privacy policy pages
 - E-commerce shop
-- Language selector
 - Tests with PHPUnit and Jest
 - GraphQL
 - UI with [BootstrapVue](https://bootstrap-vue.org/)
+- Tasks management
+- Search Website Content
 
 ## Features WIP
 
-- Tasks management
+- Language selector
 - Mpesa Payment Gateway
-- Search Website Content
 - Offline apps
 - Automation of deployment with Github
+
+## Available Feature Flags
+
+Enable features `https://laravel.test/admin/feature_flags`
+
+- shop
+- blog
+- languages
+- teams
 
 ## Adding Features
 
