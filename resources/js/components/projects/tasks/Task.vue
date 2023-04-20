@@ -54,21 +54,17 @@
       <b-card-text v-if="full">Created: {{ task.created_at | relative }}</b-card-text>
       <b-card-text v-if="full">{{ task.description }}</b-card-text>
       <b-form-checkbox
-        v-if="full && task.openTasks && task.openTasks.length > 0"
+        v-if="full && task.subTasks && task.subTasks.length > 0"
         v-model="showSubtasks"
         class="ml-3 my-2"
         switch
         >Show subtasks</b-form-checkbox
       >
-      <div class="container py-2" v-if="full && showSubtasks && task.openTasks">
+      <div class="container py-2" v-if="full && showSubtasks && task.subTasks">
         <div class="row">
-          <b-card class="col-md-4" v-for="(subtask, i) in task.openTasks" v-bind:key="i">
+          <b-card class="col-md-4" v-for="(subtask, i) in task.subTasks" v-bind:key="i">
             <b-card-title class="pointer" @click="showSubTask(subtask)"
               >{{ subtask.title | shortform }}
-
-              <b-badge class="float-right" :variant="taskStatusVariant(subtask.status)">
-                {{ subtask.status }}
-              </b-badge>
 
               <b-button
                 v-b-popover.hover.top="'create a sub-task of ' + subtask.title"
@@ -81,8 +77,12 @@
                 <b-icon icon="plus"></b-icon>
               </b-button>
             </b-card-title>
-            <b-card-sub-title>Created: {{ subtask.created_at | relative }}</b-card-sub-title>
-            <b-card-text>{{ subtask.status }}</b-card-text>
+            <b-card-text>
+              {{ subtask.created_at | relative }}
+              <b-badge :variant="taskStatusVariant(subtask.status)">
+                {{ subtask.status }}
+              </b-badge>
+            </b-card-text>
           </b-card>
         </div>
       </div>
@@ -114,7 +114,6 @@
       return {
         loading: false,
         errors: [],
-
         showSubtasks: this.full,
       };
     },

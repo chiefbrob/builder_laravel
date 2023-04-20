@@ -40,7 +40,7 @@ class Task extends Model
         'shortcode'
     ];
 
-    protected $appends = ["openTasks"];
+    protected $appends = ["openTasks", "subTasks"];
 
     public function team(): BelongsTo
     {
@@ -68,6 +68,11 @@ class Task extends Model
     public function getOpenTasksAttribute()
     {
         return Task::where('task_id', $this->id)->where('status', Task::OPEN)->get();
+    }
+
+    public function getSubTasksAttribute()
+    {
+        return Task::where('task_id', $this->id)->get();
     }
 
 }
