@@ -4,7 +4,7 @@
       <b-card-title>
         <div>
           {{ blog.title }}
-          <span v-if="admin" class="float-right ">
+          <span v-if="user && user.admin" class="float-right ">
             <b-button variant="info" @click="editBlog"
               ><i class="fa fa-pen text-white"></i
             ></b-button>
@@ -49,8 +49,11 @@
           return '/images/blog.png';
         }
       },
+      user() {
+        return this.$store.getters.user;
+      },
       admin() {
-        return this.$store.getters.user.admin;
+        return this.user ? this.user.admin : false;
       },
     },
     props: {

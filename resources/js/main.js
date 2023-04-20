@@ -35,25 +35,38 @@ let router = new VueRouter(routes);
 
 router.beforeEach((to, from, next) => {
   const auth = to.matched[0].meta;
-  if (auth?.requiresAdmin === true) {
-    if (window.User) {
-      if (window.User.admin) {
+
+  if (
+    auth?.requiresAuth === true ||
+    auth?.requiresDriver === true ||
+    auth?.requiresVerifiedDriver == true ||
+    auth?.requiresAdmin === true
+  ) {
+    if (!window.User) {
+      localStorage.setItem('original-to-path', to.path);
+      next({ name: 'login' });
+    } else {
+      if (auth?.requiresAuth === true) {
+        next();
+      }
+
+      if (auth?.requiresAdmin === true) {
+        if (window.User.admin) {
+          next();
+        } else {
+          next({ name: 'welcome' });
+        }
+      }
+    }
+  } else {
+    if (auth?.requiresGuest === true) {
+      if (!window.User) {
         next();
       } else {
-        next({ name: 'welcome' });
+        next({ name: 'home' });
       }
     } else {
-      localStorage.setItem('original-to-path', to.path);
-      next({ name: 'login' });
-    }
-  } else if (auth?.requiresAuth !== true) {
-    next();
-  } else {
-    if (window.User) {
       next();
-    } else {
-      localStorage.setItem('original-to-path', to.path);
-      next({ name: 'login' });
     }
   }
 });
