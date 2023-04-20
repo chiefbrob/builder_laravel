@@ -18,6 +18,17 @@
 
         <field-error :solid="false" :errors="errors" field="description"></field-error>
 
+        <b-form-group id="input-group-1" label="Shortcode: *" label-for="name">
+          <b-form-input
+            :disabled="!!team.shortcode"
+            id="shortcode"
+            v-model="form.shortcode"
+            type="text"
+            required
+          ></b-form-input>
+        </b-form-group>
+        <field-error :solid="false" :errors="errors" field="shortcode"></field-error>
+
         <p class="py-3">
           <input type="submit" class="btn btn-success" text="Submit" />
         </p>
@@ -42,6 +53,7 @@
           name: null,
           email: null,
           description: null,
+          shortcode: null,
         },
       };
     },
@@ -54,12 +66,16 @@
           this.form.name = this.team.name;
           this.form.email = this.team.email;
           this.form.description = this.team.description;
+          this.form.shortcode = this.team.shortcode;
         } else {
           this.form.email = this.$store.getters.user.email;
         }
       },
 
       submitForm() {
+        if (this.team.shortcode) {
+          delete this.form.shortcode;
+        }
         this.$emit('submit', this.form);
       },
     },

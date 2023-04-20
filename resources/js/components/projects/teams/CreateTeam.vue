@@ -29,7 +29,7 @@
             this.$router.push({
               name: 'team-single',
               params: {
-                id: results.data.id,
+                team_id: results.data.id,
               },
             });
           })

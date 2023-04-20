@@ -27,7 +27,7 @@
     computed: {},
     methods: {
       loadTeam() {
-        this.team_id = this.$router.currentRoute.params.id;
+        this.team_id = this.$router.currentRoute.params.team_id;
         axios
           .get(`/api/v1/teams/?team_id=${this.team_id}`)
           .then(results => {

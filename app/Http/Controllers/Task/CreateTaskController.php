@@ -33,6 +33,10 @@ class CreateTaskController extends Controller
                     }
                 }
                 $task = Task::create($request->validated());
+                if ($task->team->shortcode) {
+                    $task->shortcode = $task->team->shortcode . '-' . $task->id;
+                    $task->save();
+                }
                 return response()->json([
                     'data' => $task,
                 ], Response::HTTP_CREATED);

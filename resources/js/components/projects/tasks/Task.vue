@@ -118,6 +118,7 @@
         showSubtasks: this.full,
       };
     },
+
     computed: {},
     methods: {
       taskStatusVariant(status) {

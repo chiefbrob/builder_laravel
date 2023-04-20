@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Task extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
 
     public const OPEN = 'open';
     public const READY = 'ready';
@@ -35,7 +36,8 @@ class Task extends Model
         'user_id',
         'assigned_to',
         'status',
-        'task_id'
+        'task_id',
+        'shortcode'
     ];
 
     protected $appends = ["openTasks"];

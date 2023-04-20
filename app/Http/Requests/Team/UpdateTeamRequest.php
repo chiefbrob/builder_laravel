@@ -31,6 +31,7 @@ class UpdateTeamRequest extends FormRequest
             'name' => 'required|string|min:3|max:20',
             'email' => 'required|email',
             'description' => 'nullable|string',
+            'shortcode' => ['sometimes', 'nullable', 'string', 'min:3', 'max:7', 'unique:teams,shortcode']
         ];
 
     }

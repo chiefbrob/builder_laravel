@@ -31,7 +31,8 @@ class CreateTeamRequest extends FormRequest
             'name' => 'required|string|min:3|max:20',
             'email' => 'required|email|unique:teams,email',
             'description' => 'nullable|string',
-            'user_id' => 'required|integer|exists:users,id'
+            'user_id' => 'required|integer|exists:users,id',
+            'shortcode' => ['sometimes', 'nullable', 'string', 'min:3', 'max:7', 'unique:teams,shortcode']
         ];
     }
 

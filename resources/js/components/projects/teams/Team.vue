@@ -3,7 +3,10 @@
     <b-card>
       <b-card-title class="pointer">
         <span @click="showTeam">
-          <span v-if="full">{{ team.name }}</span>
+          <span v-if="full">
+            <span v-if="team.shortcode">[{{ team.shortcode }}]</span>
+            {{ team.name }}
+          </span>
           <span v-else>{{ team.name | shortform }}</span>
         </span>
 
@@ -131,7 +134,7 @@
           this.$router.push({
             name: 'team-single',
             params: {
-              id: this.team.id,
+              team_id: this.team.id,
             },
           });
         }

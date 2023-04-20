@@ -24,6 +24,7 @@ class TeamIndexController extends Controller
     {
         try {
             $team_id = $request->team_id;
+            $shortcode = $request->shortcode;
             $user = auth()->user();
 
             if (!$team_id) {
@@ -42,7 +43,12 @@ class TeamIndexController extends Controller
 
 
             }
-            $team = Team::findOrFail($team_id);
+            if ($shortcode) {
+                $team = Team::where('shortcode', $shortcode)->firstOrFail();
+            } else {
+                $team = Team::findOrFail($team_id);
+            }
+
 
             if ($team->hasUser($user) || $user->isAdmin()) {
                 return $team;

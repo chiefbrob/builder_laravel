@@ -23,7 +23,7 @@ export const teams = [
   },
   {
     name: 'team-single',
-    path: '/teams/:id',
+    path: '/teams/:team_id',
     component: TeamSingle,
     meta: { requiresAuth: true },
   },

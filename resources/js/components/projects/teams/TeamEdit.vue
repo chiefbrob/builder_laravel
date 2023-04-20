@@ -3,7 +3,7 @@
     <div class="mb-5 mt-2 pb-5 mt-2 row">
       <div class="col-md-10 offset-md-1">
         <h4>
-          Edit Team <span v-if="team">{{ team.name }}</span>
+          <i class="fa fa-pen"></i> <span v-if="team">{{ team.name }}</span>
           <span v-else><i class="fa fa-spinner"></i></span>
         </h4>
         <team-form :team="team" v-if="team" @submit="submitted" :errors="errors"></team-form>
@@ -47,7 +47,7 @@
             this.$router.push({
               name: 'team-single',
               params: {
-                id: results.data.id,
+                team_id: results.data.id,
               },
             });
           })

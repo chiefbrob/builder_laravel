@@ -25,7 +25,8 @@ class TeamIndexRequest extends FormRequest
     {
         return [
             'team_id' => 'sometimes|nullable|exists:teams,id',
-            'admin' => 'sometimes|nullable|boolean'
+            'admin' => 'sometimes|nullable|boolean',
+            'shortcode' => 'sometimes|nullable|string|min:3|max:7|exists:teams,shortcode'
         ];
     }
 }

@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\DB;
 
 class Team extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -22,7 +23,8 @@ class Team extends Model
         'name',
         'email',
         'description',
-        'user_id'
+        'user_id',
+        'shortcode'
     ];
 
     protected $with = ['teamUsers'];

@@ -13,6 +13,14 @@ class CreateTaskControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    private Team $team;
+    private Team $team2;
+    private User $user0;
+    private User $user1;
+    private User $user2;
+    private User $user7;
+    private User $user8;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -33,6 +41,9 @@ class CreateTaskControllerTest extends TestCase
         $this->team->addUser($this->user7);
 
         $this->user8 = User::factory()->create();
+
+        $this->team2 = Team::factory()->create(['shortcode' => 'BAR']);
+        $this->team2->addUser($this->user8);
     }
 
     /**
@@ -66,6 +77,33 @@ class CreateTaskControllerTest extends TestCase
             'status' => Task::OPEN,
         ]);
 
+    }
+
+    public function testShortcode()
+    {
+        $response = $this->actingAs($this->user8)->post(route('v1.tasks.create'), [
+            'team_id' => $this->team2->id,
+            'title' => 'Do crazy',
+            'status' => Task::DONE
+        ])->assertCreated()->assertJson(
+            [
+                'data' => [
+                    'title' => 'Do crazy',
+                    'team_id' => $this->team2->id,
+                    'user_id' => $this->user8->id,
+                    'status' => Task::DONE
+                ]
+            ]
+        );
+
+
+        $this->assertDatabaseHas('tasks', [
+            'title' => 'Do crazy',
+            'team_id' => $this->team2->id,
+            'user_id' => $this->user8->id,
+            'status' => Task::DONE,
+            'shortcode' => 'BAR-'.$response['data']['id']
+        ]);
     }
 
     public function testCannotCreateTaskIfNotTeamMember()
