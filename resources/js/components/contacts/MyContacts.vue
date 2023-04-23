@@ -1,6 +1,11 @@
 <template>
   <div>
-    <h4>My Contacts</h4>
+    <h4>
+      My Contacts
+    </h4>
+    <div class="row pb-2">
+      <contact-state-selector class="col-md-4" @updated="stateUpdated"></contact-state-selector>
+    </div>
     <div>
       <p v-if="loading"><i class="fa fa-spinner"></i> Loading</p>
       <b-card-group columns v-else>
@@ -31,13 +36,15 @@
 
 <script>
   import Contact from './Contact.vue';
+  import ContactStateSelector from './ContactStateSelector';
   export default {
-    components: { Contact },
+    components: { Contact, ContactStateSelector },
     data() {
       return {
         variants: ['light', 'dark'],
         items: [],
         loading: true,
+        statuses: [],
         meta: {
           currentPage: 1,
           total: 0,
@@ -59,7 +66,12 @@
       loadContacts() {
         this.loading = true;
         axios
-          .get(`/api/v1/contacts/?page=${this.meta.currentPage}`)
+          .get(`/api/v1/contacts/`, {
+            params: {
+              statuses: this.statuses,
+              page: this.meta.currentPage,
+            },
+          })
           .then(results => {
             this.items = results.data.data;
             this.meta.currentPage = results.data.current_page;
@@ -73,6 +85,10 @@
           .finally(f => {
             this.loading = false;
           });
+      },
+      stateUpdated(statuses) {
+        this.statuses = statuses;
+        this.loadContacts();
       },
     },
   };

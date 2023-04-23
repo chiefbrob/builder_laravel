@@ -13,7 +13,7 @@
         </b-form-group>
         <field-error :solid="false" :errors="errors" field="email"></field-error>
 
-        <b-form-group id="input-group-4" label="Phone Number: *" label-for="phone_number">
+        <b-form-group id="input-group-4" label="Phone Number:" label-for="phone_number">
           <b-form-input
             id="phone_number"
             v-model="form.phone_number"
@@ -28,7 +28,7 @@
         </b-form-group>
         <field-error :solid="false" :errors="errors" field="title"></field-error>
 
-        <b-form-group id="input-group-3" label="Message: *" label-for="message">
+        <b-form-group id="input-group-3" label="Message:" label-for="message">
           <b-form-textarea id="message" v-model="form.contents" required></b-form-textarea>
         </b-form-group>
         <field-error :solid="false" :errors="errors" field="contents"></field-error>
@@ -124,6 +124,10 @@
           });
       },
     },
-    created() {},
+    created() {
+      if (window.User) {
+        this.form.email = window.User.email;
+      }
+    },
   };
 </script>

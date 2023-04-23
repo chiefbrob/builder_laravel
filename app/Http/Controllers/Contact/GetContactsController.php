@@ -20,9 +20,15 @@ class GetContactsController extends Controller
     public function __invoke(GetContactsRequest $request)
     {
         try {
-            $statuses = $request->get('statuses') ?? [Contact::STATUS_PENDING];
+            $contacts = Contact::query();
+            $statuses = $request->get('statuses');
 
-            $contacts = Contact::whereIn('status', $statuses);
+
+            if ($statuses) {
+                $contacts = Contact::whereIn('status', $statuses);
+            }
+
+
             if (! auth()->user()->isAdmin()) {
                 $contacts->where('user_id', auth()->id());
             }

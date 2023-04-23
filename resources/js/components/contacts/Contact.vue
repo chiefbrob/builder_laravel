@@ -7,7 +7,7 @@
       >
     </b-card-title>
     <b-card-sub-title v-if="admin">
-      <a :href="`tel:+${contact.phone_number}`"
+      <a v-if="contact.phone_number" :href="`tel:+${contact.phone_number}`"
         ><i class="fa fa-phone"> +{{ contact.phone_number }}</i></a
       >
       <br />
