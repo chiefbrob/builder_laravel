@@ -105,7 +105,6 @@
           .post(`/register`, this.form)
           .then(results => {
             this.loaded = true;
-            this.$root.$emit('loadUser');
             this.$root.$emit('sendMessage', 'User Created', 'success');
             setTimeout(() => {
               let originalToPath = localStorage.getItem('original-to-path');
@@ -113,7 +112,8 @@
                 localStorage.removeItem('original-to-path');
                 return (window.location = originalToPath);
               }
-              this.$router.push({ name: 'home' });
+              window.location = '/home';
+              //this.$router.push({ name: 'home' });
             }, 5000);
           })
           .catch(({ response }) => {
