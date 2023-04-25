@@ -3,14 +3,14 @@
     <div class="row mb-5 py-5">
       <b-card no-body class="overflow-hidden col-md-6 offset-md-3 py-2 ">
         <b-row no-gutters>
-          <b-col md="6">
+          <b-col md="4">
             <b-card-img
               :src="$store.getters.avatarUrl"
               :alt="$store.state.user.name"
               class="rounded-0"
             ></b-card-img>
           </b-col>
-          <b-col md="6">
+          <b-col md="4">
             <b-card-body :title="$store.state.user.name">
               <b-card-text>
                 <p>
@@ -19,7 +19,10 @@
                   You created this account <b>{{ $store.state.user.created_at | relative }}</b>
                 </p>
                 <p>
-                  <b-button @click="$router.push({ name: 'profile-edit' })" variant="primary"
+                  <b-button
+                    size="sm"
+                    @click="$router.push({ name: 'profile-edit' })"
+                    variant="primary"
                     >Edit Profile</b-button
                   >
                 </p>

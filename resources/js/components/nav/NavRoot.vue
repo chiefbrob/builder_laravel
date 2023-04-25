@@ -33,22 +33,6 @@
             Settings
           </b-dropdown-item>
 
-          <b-dropdown-item href="#" v-if="admin" @click="$router.push({ name: 'admin' })">
-            Admin Panel
-          </b-dropdown-item>
-
-          <b-dropdown-item href="#" v-if="admin || false" @click="$router.push({ name: 'style' })">
-            Style
-          </b-dropdown-item>
-
-          <b-dropdown-item href="#" v-if="admin" @click="$router.push({ name: 'roles' })">
-            Roles
-          </b-dropdown-item>
-
-          <b-dropdown-item href="/admin/feature_flags" v-if="admin">
-            Feature Flags
-          </b-dropdown-item>
-
           <b-dropdown-item href="#" @click="logout" v-if="user">Log Out</b-dropdown-item>
 
           <b-dropdown-item to="/login" v-if="!user">Login</b-dropdown-item>
@@ -69,6 +53,26 @@
             <i class="fa fa-tachometer"></i>
             Home
           </b-nav-item>
+
+          <b-nav-item-dropdown v-if="admin" :active="false">
+            <template #text><i class="fa fa-lock"></i> Admin</template>
+
+            <b-dropdown-item class="option" @click="$router.push({ name: 'admin.users' })">
+              <i class="fa fa-users"></i> Users</b-dropdown-item
+            >
+
+            <b-dropdown-item href="#" @click="$router.push({ name: 'style' })">
+              <i class="fa fa-star"></i> Style
+            </b-dropdown-item>
+
+            <b-dropdown-item href="#" @click="$router.push({ name: 'roles' })">
+              <i class="fa fa-tasks"></i> Roles
+            </b-dropdown-item>
+
+            <b-dropdown-item href="/admin/feature_flags">
+              <i class="fa fa-key"></i> Feature Flags
+            </b-dropdown-item>
+          </b-nav-item-dropdown>
 
           <b-nav-item
             href="#"

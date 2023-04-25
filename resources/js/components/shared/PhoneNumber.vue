@@ -5,6 +5,8 @@
         @update="updated"
         no-flags
         v-model="phone_number"
+        :preferred-countries="['KE', 'UG', 'TZ', 'RW', 'CD', 'BI', 'ZA']"
+        style="width: 100%; z-index: 100;"
         default-country-code="KE"
       />
       <field-error :solid="false" :errors="errors" field="phone_number"></field-error>
@@ -23,15 +25,21 @@
         required: false,
         default: false,
       },
+      number: {
+        required: false,
+        default: null,
+      },
     },
     data() {
       return {
-        phone_number: null,
+        phone_number: this.number,
       };
     },
     methods: {
       updated(phone) {
-        this.$emit('updated', phone);
+        if (phone.isValid) {
+          this.$emit('updated', phone);
+        }
       },
     },
   };

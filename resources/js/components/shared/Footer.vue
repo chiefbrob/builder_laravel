@@ -1,6 +1,6 @@
 <template>
   <!-- Footer -->
-  <footer id="footer" class="page-footer font-small cyan darken-3">
+  <footer id="footer" class="page-footer font-small cyan darken-3" style="z-index: 150">
     <!-- Footer Elements -->
     <div class="container">
       <!-- Grid row-->

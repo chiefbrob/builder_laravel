@@ -1,14 +1,6 @@
 <template>
   <div>
     <b-card tag="article" class="col-md-4 offset-md-4 py-5 ">
-      <b-card-title>
-        <b-button
-          variant="dark"
-          class="fa fa-arrow-left"
-          @click="$router.push({ name: 'profile' })"
-        ></b-button>
-        Edit Profile
-      </b-card-title>
       <b-card-text>
         <form
           class="py-3 row"
@@ -42,14 +34,9 @@
               label="Phone Number: *"
               label-for="phone_number"
               description="Your active phone number"
+              style="width: 100%"
             >
-              <b-form-input
-                id="phone_number"
-                v-model="form.phone_number"
-                type="number"
-                required
-                :placeholder="`Enter your phone i.e. ${user.phone_number}`"
-              ></b-form-input>
+              <phone-number @updated="newPhoneNumber" :number="user.phone_number"></phone-number>
             </b-form-group>
             <field-error :solid="false" :errors="errors" field="phone_number"></field-error>
 
@@ -68,7 +55,7 @@
             <p class="py-3">
               <input
                 type="submit"
-                class="btn btn-success"
+                class="btn btn-success btn-sm"
                 text="Update Profile"
                 :disabled="form.name === null || form.name.length < 3"
               />
@@ -114,6 +101,8 @@
         form.append('phone_number', this.form.phone_number);
         form.append('name', this.form.name);
 
+        this.errors = [];
+
         axios
           .post(`/api/v1/users/${this.user.id}`, form, {
             headers: { 'Content-Type': 'multipart/form-data' },
@@ -126,6 +115,9 @@
             this.errors = response.data.errors;
             this.$root.$emit('sendMessage', 'Profile update failed!');
           });
+      },
+      newPhoneNumber(number) {
+        this.form.phone_number = number.countryCallingCode + number.nationalNumber;
       },
     },
   };
