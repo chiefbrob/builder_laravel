@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="container">
     <div class="mb-5 pb-5 row">
-      <div class="col-md-6 offset-md-3">
+      <div class="col-md-4 offset-md-4">
         <h4 class="pt-3">Login</h4>
 
         <form
@@ -29,11 +29,15 @@
             <field-error :solid="false" :errors="errors" field="password"></field-error>
 
             <p class="py-3">
-              <input type="submit" id="loginbtn" class="btn btn-success" value="Login" />
-              <b-button variant="link" @click="$router.push({ name: 'register' })"
+              <input type="submit" id="loginbtn" class="btn btn-success btn-sm" value="Login" />
+              <b-button
+                class="float-right"
+                size="sm"
+                variant="link"
+                @click="$router.push({ name: 'register' })"
                 >Create Account</b-button
               >
-              <a class="float-right" href="/password/reset">Reset Password</a>
+              <b-button size="sm" variant="link" href="/password/reset">Reset</b-button>
             </p>
           </div>
         </form>

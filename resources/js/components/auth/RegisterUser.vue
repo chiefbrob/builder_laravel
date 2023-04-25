@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="container">
     <div class="mb-5 pb-5 row">
-      <div class="col-md-8 offset-md-2">
+      <div class="col-md-4 offset-md-4">
         <h4 class="pt-3">Create new account</h4>
 
         <form
@@ -35,27 +35,11 @@
 
             <field-error :solid="false" :errors="errors" field="password"></field-error>
 
-            <b-form-group
-              id="input-group-4"
-              label="Repeat Password: *"
-              label-for="password_confirmation"
-            >
-              <b-form-input
-                id="password_confirmation"
-                v-model="form.password_confirmation"
-                type="password"
-                required
-              ></b-form-input>
-            </b-form-group>
-
-            <field-error
-              :solid="false"
-              :errors="errors"
-              field="password_confirmation"
-            ></field-error>
-
             <p class="py-3">
-              <b-button id="submit" @click="submitForm" variant="success">Create Account</b-button>
+              <b-button id="submit" size="sm" @click="submitForm" variant="success"
+                >Create Account</b-button
+              >
+              <b-button to="/login" size="sm" variant="link" class="float-right">Login</b-button>
             </p>
           </div>
         </form>
@@ -101,6 +85,7 @@
     methods: {
       submitForm() {
         this.loading = true;
+        this.form.password_confirmation = this.form.password;
         axios
           .post(`/register`, this.form)
           .then(results => {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mb-5 pb-5 row" v-if="!submitted">
-      <div class="col-md-8 offset-md-2 py-4">
+      <div class="col-md-4 offset-md-4 py-4">
         <h4>Contact</h4>
         <b-form-group class="pt-3" id="input-group-1" label="Name: *" label-for="name">
           <b-form-input id="name" v-model="form.name" type="text" required></b-form-input>
@@ -33,7 +33,7 @@
         </b-form-group>
         <field-error :solid="false" :errors="errors" field="contents"></field-error>
         <p class="py-2">
-          <b-button v-if="!loading" variant="info" @click="submit" class="text-white"
+          <b-button size="sm" v-if="!loading" variant="info" @click="submit" class="text-white"
             >Send</b-button
           >
           <i v-else class="fa fa-spinner"></i>
