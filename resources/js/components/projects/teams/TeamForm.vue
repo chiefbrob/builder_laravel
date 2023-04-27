@@ -20,7 +20,7 @@
 
         <b-form-group id="input-group-1" label="Shortcode: *" label-for="name">
           <b-form-input
-            :disabled="!!team.shortcode"
+            :disabled="team && team.shortcode"
             id="shortcode"
             v-model="form.shortcode"
             type="text"
@@ -30,7 +30,7 @@
         <field-error :solid="false" :errors="errors" field="shortcode"></field-error>
 
         <p class="py-3">
-          <input type="submit" class="btn btn-success" text="Submit" />
+          <input type="submit" class="btn btn-success btn-sm" text="Submit" />
         </p>
       </div>
     </form>
@@ -73,7 +73,7 @@
       },
 
       submitForm() {
-        if (this.team.shortcode) {
+        if (this.team && this.team.shortcode) {
           delete this.form.shortcode;
         }
         this.$emit('submit', this.form);

@@ -94,8 +94,10 @@
       </b-card-text>
       <b-card-text v-if="!full">
         <p>
-          Created: {{ team.created_at | relative }} <br />
-          {{ team.team_users.length }} User<span v-if="team.team_users.length !== 1">s</span>
+          {{ team.created_at | relative }} | {{ team.team_users.length }} User<span
+            v-if="team.team_users.length !== 1"
+            >s</span
+          >
         </p>
         <b-button variant="info" class="text-white" size="sm" @click="showTeam">View</b-button>
         <b-button variant="dark" size="sm" @click="showTasks">Tasks</b-button>

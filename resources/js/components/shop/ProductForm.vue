@@ -74,7 +74,7 @@
         <field-error :solid="false" :errors="errors" field="description"></field-error>
 
         <p class="py-3">
-          <input type="submit" class="btn btn-success" text="Submit" />
+          <input type="submit" class="btn btn-success btn-sm" text="Submit" />
         </p>
       </div>
     </form>

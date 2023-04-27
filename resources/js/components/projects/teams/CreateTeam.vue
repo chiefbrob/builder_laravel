@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <div class="mb-5 pb-5 row">
-      <div class="col-md-10 offset-md-1">
+  <div class="container">
+    <div class="mb-5 pb-5 row py-2">
+      <div class="col-md-4 offset-md-4">
         <h4>Create Team</h4>
         <team-form @submit="submitted" :errors="errors"></team-form>
       </div>

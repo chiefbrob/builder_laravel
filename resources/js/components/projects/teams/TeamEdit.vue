@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mb-5 mt-2 pb-5 mt-2 row">
-      <div class="col-md-10 offset-md-1">
+      <div class="col-md-4 offset-md-4">
         <h4>
           <i class="fa fa-pen"></i> <span v-if="team">{{ team.name }}</span>
           <span v-else><i class="fa fa-spinner"></i></span>

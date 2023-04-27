@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="mb-5 pb-5 row">
-      <div class="col-md-10 offset-md-1">
+      <div class="col-md-4 offset-md-4">
         <h4 class="py-3">
-          <i class="fa fa-arrow-left" @click="$router.push({ name: 'shop' })"></i> Create Product
+          Create Product
         </h4>
         <product-form url="/api/v1/products"></product-form>
       </div>
