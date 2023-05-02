@@ -104,6 +104,16 @@ Test Image
 
 `docker-compose up -d` and `docker-compose stop`
 
+## Testing
+
+There are PHP Tests in the root `tests` folder and JavaScript Tests in `resources/js/tests`
+
+To debug Backend tests, you need to install xdebug.
+
+To debug Frontend tests using Jest on VSCode, select node.js then run script tdd.
+
+With these you can add breakpoints and stop compiler to view variables
+
 ## Fix Style
 
 ```
