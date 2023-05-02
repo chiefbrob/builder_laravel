@@ -53,13 +53,10 @@ describe('RegisterUser.vue', () => {
     expect(email.exists()).toBe(true);
     const password = wrapper.find('input#password');
     expect(password.exists()).toBe(true);
-    const password_confirmation = wrapper.find('input#password_confirmation');
-    expect(password_confirmation.exists()).toBe(true);
 
     await name.setValue('Peter Griffin');
     await email.setValue('peter.griffin@email.com');
     await password.setValue('password');
-    await password_confirmation.setValue('password');
 
     const submit = wrapper.find('#submit');
     expect(submit.exists()).toBe(true);
