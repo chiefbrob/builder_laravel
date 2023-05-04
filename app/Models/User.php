@@ -15,7 +15,13 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes, CanBlog, CanTeamUp;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+    use HasRoles;
+    use SoftDeletes;
+    use CanBlog;
+    use CanTeamUp;
 
     /**
      * The attributes that are mass assignable.
@@ -30,6 +36,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'photo',
         'language',
         'details',
+        'team_id',
     ];
 
     protected $appends = ['admin', 'rolesList'];

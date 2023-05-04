@@ -13,19 +13,8 @@
             <avatar></avatar>
           </div>
           <div class="col-md-12">
-            <b-form-group
-              id="input-group-1"
-              label="Name: *"
-              label-for="name"
-              description="Your full name."
-            >
-              <b-form-input
-                id="name"
-                v-model="form.name"
-                type="text"
-                required
-                :placeholder="`Enter your name i.e. ${user.name}`"
-              ></b-form-input>
+            <b-form-group id="input-group-1" label="Name: *" label-for="name">
+              <b-form-input id="name" v-model="form.name" type="text" required></b-form-input>
             </b-form-group>
             <field-error :solid="false" :errors="errors" field="name"></field-error>
 
@@ -33,7 +22,6 @@
               id="input-group-2"
               label="Phone Number: *"
               label-for="phone_number"
-              description="Your active phone number"
               style="width: 100%"
             >
               <phone-number @updated="newPhoneNumber" :number="user.phone_number"></phone-number>
@@ -51,6 +39,10 @@
             </b-form-group>
 
             <field-error :solid="false" :errors="errors" field="image"></field-error>
+
+            <b-form-group label="Active Team" v-if="$root.$featureIsEnabled('teams') && user">
+              <b-form-select :options="teamOptions" v-model="form.team_id"></b-form-select>
+            </b-form-group>
 
             <p class="py-3">
               <input
@@ -76,7 +68,9 @@
           name: null,
           phone_number: null,
           photo: null,
+          team_id: null,
         },
+        teams: [],
         errors: [],
       };
     },
@@ -84,10 +78,22 @@
       user() {
         return this.$store.state.user;
       },
+      teamOptions() {
+        return this.teams.map(team => {
+          return {
+            value: team.id,
+            text: team.name,
+          };
+        });
+      },
+    },
+    created() {
+      this.loadTeams();
     },
     mounted() {
       this.form.name = this.user.name;
       this.form.phone_number = this.user.phone_number;
+      this.form.team_id = this.user.team_id;
     },
     methods: {
       imageUpdated(img) {
@@ -100,6 +106,7 @@
         }
         form.append('phone_number', this.form.phone_number);
         form.append('name', this.form.name);
+        form.append('team_id', this.form.team_id);
 
         this.errors = [];
 
@@ -118,6 +125,19 @@
       },
       newPhoneNumber(number) {
         this.form.phone_number = number.countryCallingCode + number.nationalNumber;
+      },
+      loadTeams() {
+        axios
+          .get(`/api/v1/teams/?page=1`)
+          .then(results => {
+            this.teams = results.data.data;
+          })
+          .catch(error => {
+            this.$root.$emit('sendMessage', 'Failed to teams');
+          })
+          .finally(f => {
+            this.loading = false;
+          });
       },
     },
   };

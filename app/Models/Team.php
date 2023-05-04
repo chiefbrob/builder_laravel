@@ -50,6 +50,10 @@ class Team extends Model
                 'team_id' => $this->id
             ]
         );
+        if (!$user->team_id) {
+            $user->team_id = $this->id;
+            $user->save();
+        }
         return true;
     }
 

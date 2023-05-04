@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -60,7 +61,8 @@ class UserProfileUpdateControllerTest extends TestCase
         $oldPic = $this->user->photo;
 
         $this->post(
-            route('v1.user.update', ['user_id' => $this->user->id]), [
+            route('v1.user.update', ['user_id' => $this->user->id]),
+            [
                 'name' => 'Makori3',
                 'phone_number' => 7891234,
                 'photo' => UploadedFile::fake()->image('profile.jpeg'),
@@ -82,5 +84,50 @@ class UserProfileUpdateControllerTest extends TestCase
         ]);
 
         Storage::disk('local')->assertMissing("public/images/profile/$oldPic");
+    }
+
+    public function testChangeActiveTeam()
+    {
+        $this->actingAsRandomUser();
+
+        $team1 = Team::factory()->create();
+        $team2 = Team::factory()->create();
+
+        $team1->addUser($this->user);
+        $team2->addUser($this->user);
+
+        $this->user->refresh();
+
+        $this->assertEquals($team1->id, $this->user->team_id);
+
+        $this->post(route('v1.user.update', ['user_id' => $this->user->id]), [
+            'name' => 'Makori',
+            'phone_number' => 47293823832,
+            'team_id' => $team2->id
+        ])->assertOk()
+            ->assertJson([
+                'name' => 'Makori',
+                'phone_number' => 47293823832,
+                'team_id' => $team2->id
+            ]);
+
+        $this->assertDatabaseHas('users', [
+            'name' => 'Makori',
+            'phone_number' => 47293823832,
+            'team_id' => $team2->id
+        ]);
+
+        $team3 = Team::factory()->create();
+        $this->post(route('v1.user.update', ['user_id' => $this->user->id]), [
+            'name' => 'Makori',
+            'phone_number' => 47293823832,
+            'team_id' => $team3->id
+        ])->assertUnprocessable();
+
+        $this->assertDatabaseMissing('users', [
+            'name' => 'Makori',
+            'phone_number' => 47293823832,
+            'team_id' => $team3->id
+        ]);
     }
 }

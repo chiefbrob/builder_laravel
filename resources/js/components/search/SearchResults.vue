@@ -80,7 +80,6 @@
           .post(`/api/v1/search/`, this.form)
           .then(results => {
             this.results = results.data;
-            console.log(results);
           })
           .catch(error => {
             // this.$root.$emit('sendMessage', `Search for '${this.form.query}' Failed!`, 'danger');
