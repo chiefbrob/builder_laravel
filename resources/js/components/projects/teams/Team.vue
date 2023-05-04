@@ -15,7 +15,7 @@
           variant="success"
           v-b-popover.hover.top="'Change team name details'"
           title="Edit Team"
-          v-if="manager"
+          v-if="manager && full"
           @click="
             $router.push({
               name: 'team-edit',
@@ -93,13 +93,6 @@
         <task-list v-if="team" :team="team"></task-list>
       </b-card-text>
       <b-card-text v-if="!full">
-        <p>
-          {{ team.created_at | relative }} | {{ team.team_users.length }} User<span
-            v-if="team.team_users.length !== 1"
-            >s</span
-          >
-        </p>
-        <b-button variant="info" class="text-white" size="sm" @click="showTeam">View</b-button>
         <b-button variant="dark" size="sm" @click="showTasks">Tasks</b-button>
       </b-card-text>
     </b-card>
