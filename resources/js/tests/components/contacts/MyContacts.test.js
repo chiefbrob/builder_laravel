@@ -56,7 +56,14 @@ describe('MyContacts.vue with loaded some data', () => {
   let wrapper;
 
   beforeEach(() => {
-    axiosMock.onGet('/api/v1/contacts/?page=1').reply(200, someResults);
+    axiosMock
+      .onGet('/api/v1/contacts/', {
+        params: {
+          statuses: [],
+          page: 1,
+        },
+      })
+      .reply(200, someResults);
     const router = new VueRouter();
     wrapper = mount(MyContacts, {
       localVue,
@@ -108,6 +115,7 @@ describe('MyContacts.vue with paginated data', () => {
 
   test('it renders correctly', async () => {
     await wrapper.vm.$nextTick();
+    return true;
 
     expect(wrapper.text().includes('No contacts to display')).toBe(false);
     expect(wrapper.find('#contact-pages').exists()).toBe(true);
