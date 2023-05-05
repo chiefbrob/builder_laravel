@@ -6,6 +6,7 @@ import WelcomeRoot from '../components/WelcomeRoot';
 import AdminDashboard from '../components/admin/AdminDashboard';
 import Style from '../components/style/Style';
 import ContactRoot from '../components/pages/ContactRoot';
+import ContactsRoot from '../components/contacts/ContactsRoot';
 import HomeRoot from '../components/home/HomeRoot';
 import SearchResults from '../components/search/SearchResults';
 
@@ -27,6 +28,12 @@ export const system = [
     path: '/contact',
     component: ContactRoot,
     meta: { requiresAuth: false },
+  },
+  {
+    name: 'contacts',
+    path: '/contacts',
+    component: ContactsRoot,
+    meta: { requiresAuth: true },
   },
   {
     name: 'admin',

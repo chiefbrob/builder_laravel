@@ -25,6 +25,9 @@
                     variant="primary"
                     >Edit Profile</b-button
                   >
+                  <b-button size="sm" variant="dark" @click="$router.push({ name: 'contacts' })"
+                    >My Contacts</b-button
+                  >
                 </p>
               </b-card-text>
             </b-card-body>
