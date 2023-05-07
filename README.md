@@ -16,7 +16,6 @@ This template allows you to quickly start building laravel applications from scr
 - Feature Flags - control new features
 - Easy to deploy (Docker, VPS)
 - Contact, Terms & Conditions & Privacy policy pages
-- E-commerce shop
 - Tests with PHPUnit and Jest
 - GraphQL
 - UI with [BootstrapVue](https://bootstrap-vue.org/)
@@ -25,10 +24,11 @@ This template allows you to quickly start building laravel applications from scr
 
 ## Features WIP
 
-- Language selector
+- E-commerce shop
 - Mpesa Payment Gateway
-- Offline apps
 - Automation of deployment with Github
+- Language selector
+- Offline apps
 
 ## Available Feature Flags
 
