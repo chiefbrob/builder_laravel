@@ -29,6 +29,7 @@ This template allows you to quickly start building laravel applications from scr
 - Mpesa Payment Gateway
 - Offline apps
 - Automation of deployment with Github
+- Vite & Vue 3
 
 ## Available Feature Flags
 
