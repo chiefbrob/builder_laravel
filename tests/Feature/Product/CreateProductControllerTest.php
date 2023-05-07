@@ -30,6 +30,7 @@ class CreateProductControllerTest extends TestCase
             'slug' => 'fancy-dress',
             'price' => 200,
             'description' => 'Details of a fancy dress',
+            'long_description' => 'A very very long description',
             'photo' => UploadedFile::fake()->image('product.jpg'),
         ])->assertCreated();
 

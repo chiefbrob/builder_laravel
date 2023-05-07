@@ -1,68 +1,44 @@
 <template>
   <div>
-    <b-card v-if="full">
-      <b-card-title>
-        <div>
-          <span :class="full ? '' : 'pointer'" @click="viewProduct">{{ product.name }}</span>
-          <span v-if="admin" class="float-right ">
-            <b-button
-              variant="info"
-              @click="$router.push({ name: 'edit-product', params: { slug: product.slug } })"
-              size="sm"
-              ><i class="fa fa-pen text-white"></i
-            ></b-button>
-            <b-button size="sm" variant="danger" v-if="full" @click="deleteProduct"
-              ><i class="fa fa-trash"></i
-            ></b-button>
-          </span>
-          <br />
-          <small v-if="full"> {{ product.created_at | relative }}</small>
-        </div>
-      </b-card-title>
-
-      <b-card-text v-if="full">
-        <p>{{ product.description }}</p>
-      </b-card-text>
-
-      <div class="row">
-        <img
-          :class="full ? 'col-md-3' : 'col-md-12'"
-          v-if="product.photo"
-          @click="viewProduct"
-          :style="full ? '' : 'cursor: pointer'"
-          :src="`/storage/images/products/${product.photo}`"
-          :alt="product.name"
-        />
-      </div>
-
-      <b-card-text
-        ><p class="my-3">
-          <span class="float-right">{{ price }}</span>
-          <b-button href="#" size="sm" variant="dark"
-            ><i class="fa fa-shopping-cart"></i> Add to Cart</b-button
-          >
-        </p></b-card-text
-      >
-    </b-card>
     <b-card
       :overlay="true"
-      @click="viewProduct"
-      class="pointer"
       :img-src="`/storage/images/products/${product.photo}`"
       border-variant="light"
       text-variant="light"
       bg-variant="info"
-      v-else
     >
       <b-card-title>
-        <span class="black-bkg">{{ product.name }}</span>
+        <span :class="full ? '' : 'pointer black-bkg'" @click="viewProduct">{{
+          product.name
+        }}</span>
       </b-card-title>
-      <b-card-text>
-        <span class="black-bkg"> {{ product.price | currency }} </span>
-        <br />
-        <b-button size="sm" variant="info" class="text-white">View</b-button>
+      <b-card-sub-title v-if="admin">
+        <b-button
+          variant="info"
+          @click="$router.push({ name: 'edit-product', params: { slug: product.slug } })"
+          size="sm"
+          ><i class="fa fa-pen text-white"></i
+        ></b-button>
+        <b-button size="sm" variant="danger" @click="deleteProduct"
+          ><i class="fa fa-trash"></i
+        ></b-button>
+      </b-card-sub-title>
+      <b-card-text class="py-2">
+        <b-button href="#" size="sm" variant="dark"
+          ><i class="fa fa-shopping-cart"></i> Add to Cart</b-button
+        >
+        <span class="black-bkg float-right"> {{ product.price | kes }} </span>
+      </b-card-text>
+
+      <b-card-text v-if="full">
+        <p>
+          <span class="black-bkg">{{ product.description }}</span>
+        </p>
       </b-card-text>
     </b-card>
+    <div v-if="full">
+      {{ product.long_description }}
+    </div>
   </div>
 </template>
 
@@ -89,7 +65,7 @@
         return this.user && this.user.admin;
       },
       price() {
-        return 'Ksh ' + this.product.price;
+        return this.product.price;
       },
     },
     methods: {

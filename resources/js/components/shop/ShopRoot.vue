@@ -2,7 +2,7 @@
   <div>
     <div class="mb-5 pb-5 row">
       <div class="col-md-10 offset-md-1">
-        <h4 class="py-3">
+        <h4 class="pt-1">
           Shop
           <b-button
             v-if="admin"

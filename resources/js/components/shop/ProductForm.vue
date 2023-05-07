@@ -51,7 +51,7 @@
         </b-form-group>
         <field-error :solid="false" :errors="errors" field="price"></field-error>
 
-        <b-form-group label="Photo:" label-cols-sm="2">
+        <b-form-group label="Photo: *" label-cols-sm="2">
           <b-form-file
             @change="imageUpdated"
             id="photo"
@@ -62,16 +62,22 @@
 
         <field-error :solid="false" :errors="errors" field="photo"></field-error>
 
-        <b-form-group label="Description:">
+        <b-form-group label="Brief Description: *">
+          <b-form-textarea id="description" v-model="form.description" rows="2"></b-form-textarea>
+        </b-form-group>
+
+        <field-error :solid="false" :errors="errors" field="description"></field-error>
+
+        <b-form-group label="Full Description:">
           <b-form-textarea
-            id="description"
-            v-model="form.description"
+            id="long_description"
+            v-model="form.long_description"
             placeholder="Describe product completely..."
             rows="5"
           ></b-form-textarea>
         </b-form-group>
 
-        <field-error :solid="false" :errors="errors" field="description"></field-error>
+        <field-error :solid="false" :errors="errors" field="long_description"></field-error>
 
         <p class="py-3">
           <input type="submit" class="btn btn-success btn-sm" text="Submit" />
@@ -100,6 +106,7 @@
           price: null,
           description: null,
           photo: null,
+          long_description: null,
         },
         errors: [],
       };
@@ -126,6 +133,7 @@
         form.append('slug', this.form.slug);
         form.append('price', this.form.price);
         form.append('description', this.form.description);
+        form.append('long_description', this.form.long_description);
 
         axios
           .post(this.url, form, {

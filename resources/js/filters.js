@@ -178,6 +178,10 @@ Vue.filter('formatNumber', function(value) {
   return numeral(value).format('0,0');
 });
 
+Vue.filter('kes', function(value) {
+  return 'KES ' + numeral(value).format('0,0');
+});
+
 Vue.filter('formatDateTime', (date, defaultValue = null) => {
   if (!date) {
     return defaultValue;
