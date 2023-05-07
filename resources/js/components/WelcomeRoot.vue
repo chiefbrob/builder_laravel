@@ -25,7 +25,7 @@
             >
             <clipboard content="copy me" variant="dark"></clipboard>
           </p>
-          <p>Login as Admin using <u>test@chiefbrob.info</u> and password <u>password</u></p>
+          <p>Login as Admin using <u>test</u> and password <u>password</u></p>
         </b-jumbotron>
       </div>
     </div>
