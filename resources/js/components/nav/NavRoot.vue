@@ -26,7 +26,7 @@
           </template>
 
           <b-dropdown-item href="#" v-if="user" @click="$router.push({ name: 'profile' })">
-            {{ user.name }}
+            @{{ user.username }}
           </b-dropdown-item>
 
           <b-dropdown-item href="#" v-if="user" @click="$router.push({ name: 'settings' })">

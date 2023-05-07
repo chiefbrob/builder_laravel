@@ -11,11 +11,16 @@
           v-if="!loading && !loaded"
         >
           <div class="col-md-12">
-            <b-form-group id="input-group-2" label="Email address: *" label-for="email">
-              <b-form-input id="email" v-model="form.email" type="email" required></b-form-input>
+            <b-form-group id="input-group-2" label="Username: *" label-for="username">
+              <b-form-input
+                id="username"
+                v-model="form.username"
+                type="text"
+                required
+              ></b-form-input>
             </b-form-group>
 
-            <field-error :solid="false" :errors="errors" field="email"></field-error>
+            <field-error :solid="false" :errors="errors" field="username"></field-error>
 
             <b-form-group id="input-group-3" label="Password: *" label-for="password">
               <b-form-input
@@ -29,7 +34,9 @@
             <field-error :solid="false" :errors="errors" field="password"></field-error>
 
             <p class="py-3">
-              <input type="submit" id="loginbtn" class="btn btn-success btn-sm" value="Login" />
+              <b-button id="loginbtn" size="sm" @click="submitForm" variant="success"
+                >Login</b-button
+              >
               <b-button
                 class="float-right"
                 size="sm"
@@ -69,7 +76,7 @@
     data() {
       return {
         form: {
-          email: null,
+          username: null,
           password: null,
         },
         errors: [],

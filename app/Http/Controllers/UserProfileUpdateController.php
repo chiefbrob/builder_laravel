@@ -25,6 +25,13 @@ class UserProfileUpdateController extends Controller
             if ($request->phone_number !== $user->phone_number) {
                 $user->phone_number_verified_at = null;
             }
+            if ($request->username && $request->username !== $user->username) {
+                $s = User::where('username', $request->username)->first();
+                if ($s) {
+                    throw new Exception("Username already in use");
+                }
+                $user->username = $request->username;
+            }
             $user->name = $request->name;
             $user->phone_number = $request->phone_number;
             if ($request->team_id) {

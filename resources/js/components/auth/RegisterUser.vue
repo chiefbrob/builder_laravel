@@ -24,6 +24,17 @@
 
             <field-error :solid="false" :errors="errors" field="email"></field-error>
 
+            <b-form-group id="input-group-2" label="Username: *" label-for="username">
+              <b-form-input
+                id="username"
+                v-model="form.username"
+                type="text"
+                required
+              ></b-form-input>
+            </b-form-group>
+
+            <field-error :solid="false" :errors="errors" field="username"></field-error>
+
             <b-form-group id="input-group-3" label="Password: *" label-for="password">
               <b-form-input
                 id="password"
@@ -72,6 +83,7 @@
       return {
         form: {
           name: null,
+          username: null,
           email: null,
           password: null,
           password_confirmation: null,
@@ -99,7 +111,7 @@
               }
               window.location = '/home';
               //this.$router.push({ name: 'home' });
-            }, 5000);
+            }, 1000);
           })
           .catch(({ response }) => {
             this.errors = response.data.errors;

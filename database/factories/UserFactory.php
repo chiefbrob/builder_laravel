@@ -22,8 +22,14 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $name = $this->faker->name();
+        $username = strtolower(
+            preg_replace('/[^a-zA-Z0-9]+/', '', $name)
+        ).rand(1000, 9999);
+
         return [
             'name' => $this->faker->name(),
+            'username' => $username,
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

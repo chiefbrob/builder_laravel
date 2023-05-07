@@ -146,9 +146,17 @@ class CartRepository
                     $email = $fname.rand(100, 1000000).'@'.$domain;
                 }
                 $pass = Str::random(16);
+
+                $name = $request->get('first_name');
+
+                $username = strtolower(
+                    preg_replace('/[^a-zA-Z0-9]+/', '', $name)
+                ).rand(1000, 9999);
+
                 $user = User::create(
                     [
                         'name' => $request->get('first_name'),
+                        'username' => $username,
                         'email' => $email,
                         'phone_number' => $request->get('phone_number'),
                         'password' => Hash::make($pass),
