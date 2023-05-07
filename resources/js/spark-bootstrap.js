@@ -15,18 +15,18 @@ if (token) {
 
 window.moment.locale('en');
 
-// window.axios.interceptors.response.use(
-//   function(response) {
-//     return response;
-//   },
-//   function(error) {
-//     switch (error?.response?.status) {
-//       case 401:
-//         window.axios.get('/logout');
-//         $('#modal-session-expired').modal('show');
-//         break;
-//     }
+window.axios.interceptors.response.use(
+  function(response) {
+    return response;
+  },
+  function(error) {
+    switch (error?.response?.status) {
+      case 401:
+        window.axios.get('/logout');
+        $('#modal-session-expired').modal('show');
+        break;
+    }
 
-//     return Promise.reject(error);
-//   },
-// );
+    return Promise.reject(error);
+  },
+);

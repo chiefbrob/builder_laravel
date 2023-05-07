@@ -18,6 +18,11 @@
             </b-form-group>
             <field-error :solid="false" :errors="errors" field="name"></field-error>
 
+            <b-form-group id="input-group-3" label="username: *" label-for="username">
+              <b-form-input id="username" v-model="form.username" type="text"></b-form-input>
+            </b-form-group>
+            <field-error :solid="false" :errors="errors" field="username"></field-error>
+
             <b-form-group
               id="input-group-2"
               label="Phone Number: *"
@@ -69,6 +74,7 @@
           phone_number: null,
           photo: null,
           team_id: null,
+          username: null,
         },
         teams: [],
         errors: [],
@@ -94,6 +100,7 @@
       this.form.name = this.user.name;
       this.form.phone_number = this.user.phone_number;
       this.form.team_id = this.user.team_id;
+      this.form.username = this.user.username;
     },
     methods: {
       imageUpdated(img) {
@@ -107,6 +114,7 @@
         form.append('phone_number', this.form.phone_number);
         form.append('name', this.form.name);
         form.append('team_id', this.form.team_id);
+        form.append('username', this.form.username);
 
         this.errors = [];
 

@@ -46,6 +46,11 @@ class LoginController extends Controller
         return view('home');
     }
 
+    public function username()
+    {
+        return 'username';
+    }
+
     /**
      * The user has been authenticated.
      *
