@@ -7,6 +7,7 @@ use App\Models\Address;
 use App\Models\Invoice;
 use App\Models\ProductVariant;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -37,6 +38,9 @@ class CartRepository
         foreach ($this->cart as $cartItem) {
             if ($cartItem['id'] === $variant->id) {
                 $newTotal = $cartItem['quantity'] + $quantity;
+                if ($newTotal > $variant->quantity) {
+                    throw new Exception("No more items available");
+                }
                 $cartItem['quantity'] = $newTotal;
                 $added = true;
             }
@@ -44,6 +48,9 @@ class CartRepository
         }
 
         if (! $added) {
+            if ($quantity > $variant->quantity) {
+                throw new Exception("Item in short supply");
+            }
             array_push($newCart, $item);
         }
         $this->cart = $newCart;

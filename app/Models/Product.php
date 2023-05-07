@@ -31,6 +31,8 @@ class Product extends Variants
         'price' => MoneyCast::class,
     ];
 
+    protected $with = ['productVariants'];
+
     public function productVariants(): HasMany
     {
         return $this->hasMany(ProductVariant::class);

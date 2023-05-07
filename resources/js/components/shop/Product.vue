@@ -8,7 +8,7 @@
       bg-variant="info"
     >
       <b-card-title>
-        <span :class="full ? '' : 'pointer black-bkg'" @click="viewProduct">{{
+        <span :class="full ? '' : 'pointer'" class="black-bkg" @click="viewProduct">{{
           product.name
         }}</span>
       </b-card-title>
@@ -23,11 +23,18 @@
           ><i class="fa fa-trash"></i
         ></b-button>
       </b-card-sub-title>
-      <b-card-text class="py-2">
-        <b-button href="#" size="sm" variant="dark"
-          ><i class="fa fa-shopping-cart"></i> Add to Cart</b-button
-        >
-        <span class="black-bkg float-right"> {{ product.price | kes }} </span>
+      <b-card-text class="py-2 black-bkg">
+        <p class="px-2">
+          <b-button
+            v-if="product.product_variants.length === 1"
+            href="#"
+            size="sm"
+            variant="light"
+            @click="addToCart"
+            ><i class="fa fa-shopping-cart"></i> Add to Cart</b-button
+          >
+          <span class=" float-right"> {{ product.price | kes }} </span>
+        </p>
       </b-card-text>
 
       <b-card-text v-if="full">
@@ -36,7 +43,13 @@
         </p>
       </b-card-text>
     </b-card>
-    <div v-if="full">
+    <div v-if="product.product_variants.length > 1">
+      <div v-for="variant in product.product_variants" v-bind:key="variant.id">
+        {{ variant }}
+      </div>
+    </div>
+    <div v-if="full" class="text-justify">
+      <h5>Description</h5>
       {{ product.long_description }}
     </div>
   </div>
@@ -86,6 +99,19 @@
           })
           .catch(error => {
             this.$root.$emit('sendMessage', 'Failed to delete product');
+          });
+      },
+      addToCart() {
+        axios
+          .post(`/api/v1/cart`, {
+            product_variant_id: this.product.product_variants[0].id,
+            quantity: 1,
+          })
+          .then(results => {
+            this.$root.$emit('sendMessage', 'Product Added to Cart', 'success');
+          })
+          .catch(error => {
+            this.$root.$emit('sendMessage', 'Failed to add product to cart');
           });
       },
     },

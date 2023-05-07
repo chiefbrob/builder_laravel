@@ -11,6 +11,22 @@ class AddItemToCartControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    private Product $product;
+    private ProductVariant $variant;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->product = Product::factory()->create();
+        $this->variant = ProductVariant::create([
+            'product_id' => $this->product->id,
+            'name' => 'variant 1',
+            'quantity' => 3,
+        ]);
+
+    }
+
     /**
      * A basic feature test example.
      *
@@ -18,12 +34,7 @@ class AddItemToCartControllerTest extends TestCase
      */
     public function testAddProductToCart()
     {
-        $product = Product::factory()->create();
-        $variant = ProductVariant::create([
-            'product_id' => $product->id,
-            'name' => 'variant 1',
-            'quantity' => 3,
-        ]);
+
         $this->get(route('v1.cart'))->assertOk()->assertJson([
 
             'cart' => [],
@@ -31,13 +42,13 @@ class AddItemToCartControllerTest extends TestCase
         ]);
 
         $this->post(route('v1.cart.add'), [
-            'product_variant_id' => $variant->id,
+            'product_variant_id' => $this->variant->id,
             'quantity' => 2,
         ])->assertOk()->assertJson([
 
             'cart' => [
                 [
-                    'id' => $variant->id,
+                    'id' => $this->variant->id,
                     'quantity' => 2,
                 ],
             ],
@@ -48,7 +59,7 @@ class AddItemToCartControllerTest extends TestCase
 
             'cart' => [
                 [
-                    'id' => $variant->id,
+                    'id' => $this->variant->id,
                     'quantity' => 2,
                 ],
             ],
@@ -56,13 +67,13 @@ class AddItemToCartControllerTest extends TestCase
         ]);
 
         $this->delete(route('v1.cart.delete'), [
-            'product_variant_id' => $variant->id,
+            'product_variant_id' => $this->variant->id,
             'quantity' => 1,
         ])->assertOk()->assertJson([
 
             'cart' => [
                 [
-                    'id' => $variant->id,
+                    'id' => $this->variant->id,
                     'quantity' => 1,
                 ],
             ],
@@ -70,7 +81,7 @@ class AddItemToCartControllerTest extends TestCase
         ]);
 
         $this->delete(route('v1.cart.delete'), [
-            'product_variant_id' => $variant->id,
+            'product_variant_id' => $this->variant->id,
             'quantity' => 1,
         ])->assertOk()->assertJson([
 
@@ -79,13 +90,13 @@ class AddItemToCartControllerTest extends TestCase
         ]);
 
         $this->post(route('v1.cart.add'), [
-            'product_variant_id' => $variant->id,
+            'product_variant_id' => $this->variant->id,
             'quantity' => 2,
         ])->assertOk()->assertJson([
 
             'cart' => [
                 [
-                    'id' => $variant->id,
+                    'id' => $this->variant->id,
                     'quantity' => 2,
                 ],
             ],
@@ -96,7 +107,7 @@ class AddItemToCartControllerTest extends TestCase
 
             'cart' => [
                 [
-                    'id' => $variant->id,
+                    'id' => $this->variant->id,
                     'quantity' => 2,
                 ],
             ],
@@ -114,5 +125,13 @@ class AddItemToCartControllerTest extends TestCase
             'cart' => [],
 
         ]);
+    }
+
+    public function testCantAddMoreThanAvailableToCart()
+    {
+        $this->post(route('v1.cart.add'), [
+            'product_variant_id' => $this->variant->id,
+            'quantity' => 6,
+        ])->assertUnprocessable();
     }
 }
