@@ -102,6 +102,16 @@
             <i class="fa fa-shop"></i>
             Shop
           </b-nav-item>
+
+          <b-nav-item
+            href="#"
+            v-if="$root.$featureIsEnabled('shop')"
+            @click="$router.push({ name: 'cart' })"
+            :active="$route.name.includes('cart') || $route.name.includes('checkout')"
+          >
+            <i class="fa fa-shopping-cart"></i>
+            Checkout
+          </b-nav-item>
         </b-navbar-nav>
 
         <b-navbar-nav>

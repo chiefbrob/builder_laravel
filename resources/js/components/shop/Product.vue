@@ -80,6 +80,9 @@
       price() {
         return this.product.price;
       },
+      variant() {
+        return this.product.product_variants[0];
+      },
     },
     methods: {
       viewProduct() {
@@ -102,9 +105,10 @@
           });
       },
       addToCart() {
+        this.addToOfflineCart(1);
         axios
           .post(`/api/v1/cart`, {
-            product_variant_id: this.product.product_variants[0].id,
+            product_variant_id: this.variant.id,
             quantity: 1,
           })
           .then(results => {
@@ -113,6 +117,32 @@
           .catch(error => {
             this.$root.$emit('sendMessage', 'Failed to add product to cart');
           });
+      },
+      addToOfflineCart(quantity) {
+        let offlineCart = JSON.parse(localStorage.getItem('cart'));
+
+        if (offlineCart) {
+          let newOfflineCart = [];
+          for (let index = 0; index < offlineCart.length; index++) {
+            const offlineCartItem = offlineCart[index];
+
+            if (offlineCartItem.id === this.variant.id) {
+              let newTotal = offlineCartItem.quantity + quantity;
+              if (newTotal <= this.variant.quantity) {
+                offlineCartItem.quantity = newTotal;
+                return;
+              }
+            }
+            newOfflineCart.push(offlineCartItem);
+          }
+          localStorage.setItem('cart', JSON.stringify(newOfflineCart));
+        } else {
+          let cart = {
+            id: this.variant.id,
+            quantity: quantity,
+          };
+          localStorage.setItem('cart', JSON.stringify(cart));
+        }
       },
     },
   };
