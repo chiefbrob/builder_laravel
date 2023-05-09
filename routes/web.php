@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Middleware\AdminMiddleware;
 use App\Mail\TestMail;
 use App\Models\Task;
 use App\Models\User;
@@ -53,6 +54,6 @@ Route::post('/language/{locale}', function ($locale) {
 
 Route::get('/graphql', function (Request $request) {
     return view('vendor/graphiql/index');
-});
+})->middleware(AdminMiddleware::class)->name('v1.graphql-web');
 
 Route::get('/{any?}', [\App\Http\Controllers\HomeController::class, 'index'])->where('any', '.*')->name('home');
