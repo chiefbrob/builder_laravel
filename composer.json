@@ -16,6 +16,7 @@
     "laravel/sanctum": "^3.2",
     "laravel/tinker": "^2.5",
     "laravel/ui": "^4.2",
+    "livewire/livewire": "^2.12",
     "mll-lab/laravel-graphiql": "^1.0",
     "nuwave/lighthouse": "^6.6",
     "spatie/laravel-backup": "^8.1"
