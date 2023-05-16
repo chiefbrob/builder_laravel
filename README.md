@@ -2,11 +2,16 @@
 
 This template allows you to quickly start building laravel applications from scratch. php 8.1
 
-[Demo](https://builder-laravel.on.chiefbrob.info)
+[Demo](https://builder-laravel.on.chiefbrob.info) | [Hire Me](https://www.fiverr.com/share/xPWA7a) | [Buy me Coffee](https://www.buymeacoffee.com/chiefbrob)
 
-[Hire Me](https://www.fiverr.com/share/xPWA7a)
+### In Use
 
-[Buy me Coffee](https://www.buymeacoffee.com/chiefbrob)
+[Means](https://means.dabotap.com)  - Transport Platform
+
+[Ifanye](https://ifanye.dabotap.com) - Tasks & Team work
+
+[Starred Repos](http://starredrepos.on.chiefbrob.info/) - Fetch your Github Starred Repositories **opensource**
+
 
 ## Features
 
