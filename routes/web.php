@@ -54,4 +54,11 @@ Route::get('/graphql', function (Request $request) {
     return view('vendor/graphiql/index');
 })->middleware('admin')->name('v1.graphql-web');
 
+
+Route::get('/profile/clients', function (Request $request) {
+    return view('clients', [
+        'clients' => $request->user()->clients
+    ]);
+})->middleware(['auth'])->name('profile.clients');
+
 Route::get('/{any?}', [\App\Http\Controllers\HomeController::class, 'index'])->where('any', '.*')->name('home');

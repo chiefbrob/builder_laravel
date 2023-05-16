@@ -6,12 +6,11 @@ This template allows you to quickly start building laravel applications from scr
 
 ### In Use
 
-[Means](https://means.dabotap.com)  - Transport Platform
+[Means](https://means.dabotap.com) - Transport Platform
 
 [Ifanye](https://ifanye.dabotap.com) - Tasks & Team work
 
 [Starred Repos](http://starredrepos.on.chiefbrob.info/) - Fetch your Github Starred Repositories **opensource**
-
 
 ## Features
 
@@ -92,6 +91,10 @@ git remote add template git@github.com:chiefbrob/builder_laravel.git
 git fetch template
 git rebase template/master
 ```
+
+## Deploying
+
+Refer to [deploy/README.md](deploy/README.md)
 
 ## Run with docker-compose
 
