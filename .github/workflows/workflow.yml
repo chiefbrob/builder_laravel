@@ -93,4 +93,3 @@ jobs:
         if: success() && github.ref == 'refs/heads/master'
         run: |
           echo "Running additional steps for successful build on master branch..."
-          ls
