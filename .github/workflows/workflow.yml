@@ -93,12 +93,3 @@ jobs:
         if: success() && github.ref == 'refs/heads/master'
         run: |
           echo "Running additional steps for successful build on master branch..."
-      - name: Deploy to production
-        uses: appleboy/ssh-action@v0.1.10
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
-            ls -al
