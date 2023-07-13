@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Login;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -72,5 +73,9 @@ class LoginController extends Controller
             App::setLocale($locale);
             Session::put('locale', $locale);
         }
+        Login::create([
+            'user_id' => $user->id,
+            'ipv4' => $request->ip(),
+        ]);
     }
 }
