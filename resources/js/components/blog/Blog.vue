@@ -33,8 +33,8 @@
         <span class="black-bkg">{{ blog.title }}</span></b-card-title
       >
       <b-card-text>
-        <b-button variant="info" class="text-white" size="sm">View Blog</b-button></b-card-text
-      >
+        <span>{{ blog.created_at | relative }}</span>
+      </b-card-text>
     </b-card>
   </div>
 </template>

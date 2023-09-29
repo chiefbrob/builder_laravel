@@ -9,6 +9,7 @@
               v-if="admin"
               class="float-right text-white"
               variant="info"
+              size="sm"
               @click="$router.push({ name: 'blog-new' })"
               ><i class="fa fa-pen"></i> New</b-button
             >

@@ -46,7 +46,13 @@
             <field-error :solid="false" :errors="errors" field="image"></field-error>
 
             <b-form-group label="Active Team" v-if="$root.$featureIsEnabled('teams') && user">
-              <b-form-select :options="teamOptions" v-model="form.team_id"></b-form-select>
+              <b-form-select
+                v-if="teamOptions.length > 0"
+                :options="teamOptions"
+                v-model="form.team_id"
+              ></b-form-select>
+              There are no Teams.
+              <b-button to="/teams/create" size="sm" variant="link">Create Team</b-button>
             </b-form-group>
 
             <p class="py-3">
