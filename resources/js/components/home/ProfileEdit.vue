@@ -113,7 +113,10 @@
         }
         form.append('phone_number', this.form.phone_number);
         form.append('name', this.form.name);
-        form.append('team_id', this.form.team_id);
+        if (this.form.team_id) {
+          form.append('team_id', this.form.team_id);
+        }
+
         form.append('username', this.form.username);
 
         this.errors = [];
