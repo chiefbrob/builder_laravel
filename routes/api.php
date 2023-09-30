@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,4 +29,19 @@ Route::prefix('v1')->group(static function () {
     Route::post('/contact', Contact\CreateContactController::class)->name('v1.contact.create');
     Route::get('/products', Product\ProductsIndexController::class)->name('v1.product.index');
     Route::post('/search', Search\SearchController::class)->name('v1.search');
+});
+
+Route::prefix('v2')->group(static function () {
+    Route::get('/', function (Request $request) {
+        return response()->json(['message' => 'Status Ok',], Response::HTTP_OK);
+    })->name('v2.status');
+
+    Route::post('/login', v2\Auth\V2LoginController::class)->name('v2.login');
+
+    Route::middleware(['auth:api'])->group(function () {
+        Route::get('/user', function (Request $request) {
+            return auth()->user();
+        })->name('v2.user');
+        Route::post('/logout', v2\Auth\V2LogoutController::class)->name('v2.logout');
+    });
 });
