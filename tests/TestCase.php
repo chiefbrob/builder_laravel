@@ -5,6 +5,7 @@ namespace Tests;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\UserRole;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -52,5 +53,26 @@ abstract class TestCase extends BaseTestCase
             ]
         );
         return $userRole;
+    }
+
+    public function roundUpToAny($n, $x=5)
+    {
+        return (ceil($n)%$x === 0) ? ceil($n) : round(($n+$x/2)/$x)*$x;
+    }
+
+    public function actingAsRandomApiUser(array $attributes = [])
+    {
+        $this->user = User::factory()->create($attributes);
+
+
+        $tokenResult = $this->user->createToken('Personal Access Token');
+
+        $token = $tokenResult->token;
+
+        $token->expires_at = Carbon::now()->addWeeks(4);
+
+        $token->save();
+
+        $this->withHeader('Authorization', 'Bearer ' . $tokenResult->accessToken);
     }
 }
