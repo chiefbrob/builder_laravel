@@ -6,10 +6,12 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\UserRole;
 use Carbon\Carbon;
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
+    use LazilyRefreshDatabase;
     use CreatesApplication;
 
     public $user;

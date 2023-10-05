@@ -2,51 +2,29 @@
   <div>
     <form class="py-3 row" enctype="multipart/form-data" @submit.prevent="submitForm" method="POST">
       <div class="col-md-12">
-        <b-form-group
-          id="input-group-1"
-          label="Name: *"
-          label-for="name"
-          description="Product name in full."
-        >
+        <b-form-group id="input-group-1" label="Name: *" label-for="name">
           <b-form-input
             id="name"
             v-model="form.name"
             type="text"
+            @keyup="createSlug"
             required
-            :placeholder="`e.g. Green Fancy Dress`"
           ></b-form-input>
         </b-form-group>
         <field-error :solid="false" :errors="errors" field="name"></field-error>
 
-        <b-form-group
-          id="input-group-2"
-          label="Slug: *"
-          label-for="slug"
-          description="Lowercase, No spaces SKU"
-        >
-          <b-form-input
-            id="slug"
-            v-model="form.slug"
-            type="text"
-            required
-            :placeholder="`e.g. green-fancy-dress`"
-          ></b-form-input>
+        <b-form-group id="input-group-2" label="Slug: *" label-for="slug">
+          <b-form-input id="slug" v-model="form.slug" type="text" required></b-form-input>
         </b-form-group>
         <field-error :solid="false" :errors="errors" field="slug"></field-error>
 
-        <b-form-group
-          id="input-group-3"
-          label="Price: *"
-          label-for="price"
-          description="Amount in KES (Kenyan Shilling)"
-        >
+        <b-form-group id="input-group-3" label="Price: *" label-for="price">
           <b-form-input
             id="price"
             v-model="form.price"
             type="number"
             step="0"
             required
-            :placeholder="`e.g. 500`"
           ></b-form-input>
         </b-form-group>
         <field-error :solid="false" :errors="errors" field="price"></field-error>
@@ -72,7 +50,6 @@
           <b-form-textarea
             id="long_description"
             v-model="form.long_description"
-            placeholder="Describe product completely..."
             rows="5"
           ></b-form-textarea>
         </b-form-group>
@@ -154,6 +131,12 @@
             this.errors = response.data.errors;
             this.$root.$emit('sendMessage', 'Failed to update blog!');
           });
+      },
+      createSlug() {
+        this.form.slug = this.form.name
+          .toLowerCase()
+          .split(' ')
+          .join('-');
       },
     },
   };
