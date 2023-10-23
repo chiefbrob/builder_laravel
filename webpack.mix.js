@@ -19,6 +19,12 @@ if (process.env.MIX_HOT_HTTPS) {
 }
 
 mix
+  .options({
+    hmrOptions: {
+      host: appUrl.hostname,
+      port: 8081,
+    },
+  })
   .js('resources/js/app.js', 'public/js')
   .vue()
   .js('resources/js/main.js', 'public/js')

@@ -3,8 +3,6 @@ import Error404 from '../components/errors/Error404';
 import PrivacyPolicy from '../components/pages/PrivacyPolicy';
 import TermsAndConditions from '../components/pages/TermsAndConditions';
 import WelcomeRoot from '../components/WelcomeRoot';
-import AdminDashboard from '../components/admin/AdminDashboard';
-import Style from '../components/style/Style';
 import ContactRoot from '../components/pages/ContactRoot';
 import ContactsRoot from '../components/contacts/ContactsRoot';
 import HomeRoot from '../components/home/HomeRoot';
@@ -34,18 +32,6 @@ export const system = [
     path: '/contacts',
     component: ContactsRoot,
     meta: { requiresAuth: true },
-  },
-  {
-    name: 'admin',
-    path: '/admin',
-    component: AdminDashboard,
-    meta: { requiresAdmin: true },
-  },
-  {
-    name: 'style',
-    path: '/style',
-    component: Style,
-    meta: { requiresAdmin: true },
   },
   {
     name: 'terms',

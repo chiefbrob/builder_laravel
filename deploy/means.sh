@@ -50,8 +50,8 @@ EOF
 chmod +x post-receive
 mysql
 CREATE DATABASE builder_laravel;
-CREATE USER 'builder_laravel'@'%' IDENTIFIED BY 'Kenya1sHome!';
-GRANT ALL PRIVILEGES ON builder_laravel.* TO 'builder_laravel'@'%';
+CREATE USER 'clutchbagskenya'@'%' IDENTIFIED BY 'KenyYhd4887&9!';
+GRANT ALL PRIVILEGES ON clutchbagskenya.* TO 'clutchbagskenya'@'%';
 FLUSH PRIVILEGES;
 exit;
 

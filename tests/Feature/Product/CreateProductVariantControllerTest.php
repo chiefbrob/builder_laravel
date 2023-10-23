@@ -10,17 +10,61 @@ use Tests\TestCase;
 
 class CreateProductVariantControllerTest extends TestCase
 {
+    public Product $product;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->actingAsAdmin();
+        $this->product = Product::factory()->create();
+    }
+
+    private function createProductVariant()
+    {
+        return $this->post(
+            route(
+                'v1.product-variant.create', 
+                [
+                    'product_id' => $this->product->id,
+                    'name' => 'variant-2',
+                    'description' => 'details on variant 2',
+                    'quantity' => 200,
+                ]
+            )
+        );
+    }
+
     public function testCreateProductVariant(): void
     {
-        $this->actingAsAdmin();
+        $this->createProductVariant()
+            ->assertCreated()
+            ->assertJson(
+                [
+                    'product_id' => $this->product->id,
+                    'name' => 'variant-2',
+                    'description' => 'details on variant 2',
+                    'quantity' => 200,
+                ]
+            );
 
-        $product = Product::factory()->create();
+        $this->assertDatabaseHas(
+            'product_variants', 
+            [
+                'product_id' => $this->product->id,
+                'name' => 'variant-2',
+                'description' => 'details on variant 2',
+                'quantity' => 200,
+            ]
+        );
+    }
 
+    public function testCreateVariantOfProductVariant(): void
+    {
         $this->post(
             route(
                 'v1.product-variant.create', 
                 [
-                    'product_id' => $product->id,
+                    'product_id' => $this->product->id,
                     'name' => 'variant-2',
                     'description' => 'details on variant 2',
                     'quantity' => 200,
@@ -28,19 +72,19 @@ class CreateProductVariantControllerTest extends TestCase
             )
         )
             ->assertCreated()
-            ->assertJson([
-                
-                'product_id' => $product->id,
-                'name' => 'variant-2',
-                'description' => 'details on variant 2',
-                'quantity' => 200,
-                
-            ]);
+            ->assertJson(
+                [
+                    'product_id' => $this->product->id,
+                    'name' => 'variant-2',
+                    'description' => 'details on variant 2',
+                    'quantity' => 200,
+                ]
+            );
 
         $this->assertDatabaseHas(
             'product_variants', 
             [
-                'product_id' => $product->id,
+                'product_id' => $this->product->id,
                 'name' => 'variant-2',
                 'description' => 'details on variant 2',
                 'quantity' => 200,
