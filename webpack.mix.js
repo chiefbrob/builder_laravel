@@ -22,7 +22,7 @@ mix
   .options({
     hmrOptions: {
       host: appUrl.hostname,
-      port: 8081,
+      port: Math.floor(Math.random() * 1000) + 7999,
     },
   })
   .js('resources/js/app.js', 'public/js')
