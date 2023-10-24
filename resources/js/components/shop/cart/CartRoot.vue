@@ -8,12 +8,14 @@
             ><i class="fa fa-trash-can"></i
           ></b-button>
         </h4>
+        <p>IDS: {{ productIds }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import store from '../../../store';
   export default {
     props: [],
     data() {
@@ -21,17 +23,9 @@
     },
     computed: {
       productIds() {
-        console.log(this.$root.cart);
-        const p = this.$root.cart.map(cart => {
-          return product.id;
-        });
-        console.log(p);
-        return p;
+        return store.state.shop.form.cart;
       },
     },
     methods: {},
-    created() {
-      console.log(this.productIds);
-    },
   };
 </script>

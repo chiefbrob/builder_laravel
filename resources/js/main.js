@@ -92,29 +92,9 @@ const app = new Vue({
           this.$root.$emit('sendMessage', 'Failed to load Cart');
         })
         .finally(f => {
-          this.loadOfflineCart();
+          //
         });
     },
-    loadOfflineCart() {
-      let offlineCart = JSON.parse(localStorage.getItem('cart'));
-      if (offlineCart) {
-        for (let index = 0; index < offlineCart.length; index++) {
-          const offlineCartItem = offlineCart[index];
-
-          let onlineCart = this.cart;
-
-          for (let j = 0; j < onlineCart.length; j++) {
-            const onlineCartItem = onlineCart[j];
-            if (onlineCartItem.id === offlineCartItem.id) {
-              if (onlineCartItem.quantity !== offlineCart.quantity) {
-                //cart update time
-              }
-            }
-          }
-        }
-      }
-    },
-    setCart(cart) {},
   },
 });
 
