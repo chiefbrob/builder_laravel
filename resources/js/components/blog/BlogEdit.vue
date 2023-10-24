@@ -2,14 +2,7 @@
   <div>
     <div class="mb-5 pb-5 row">
       <div class="col-md-8 offset-md-2 pt-4">
-        <h4>
-          <b-button
-            variant="dark"
-            @click="$router.push({ name: 'blog-single', params: { id: blog.id } })"
-            ><i class="fa fa-arrow-left"></i
-          ></b-button>
-          Edit Blog
-        </h4>
+        <h4><i class="fa fa-pen"></i> Edit Blog</h4>
         <blog-form v-if="blog" :url="`/api/v1/blog/${blog_id}`" :blog="blog"></blog-form>
         <h4 v-if="loading"><i class="fa fa-spinner"></i> Loading</h4>
       </div>
