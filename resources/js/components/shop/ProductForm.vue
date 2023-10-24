@@ -40,18 +40,24 @@
 
         <field-error :solid="false" :errors="errors" field="photo"></field-error>
 
-        <b-form-group label="Brief Description: *">
-          <b-form-textarea id="description" v-model="form.description" rows="2"></b-form-textarea>
+        <b-form-group label="Brief: *">
+          <b-form-textarea
+            id="description"
+            maxlength="200"
+            v-model="form.description"
+            rows="2"
+          ></b-form-textarea>
         </b-form-group>
 
         <field-error :solid="false" :errors="errors" field="description"></field-error>
 
-        <b-form-group label="Full Description:">
-          <b-form-textarea
-            id="long_description"
-            v-model="form.long_description"
-            rows="5"
-          ></b-form-textarea>
+        <div
+          id="long-description"
+          style="height: 15em"
+          v-html="product ? product.long_description : ''"
+        ></div>
+        <b-form-group label="Full Description:" v-if="false">
+          <b-form-textarea v-model="form.long_description" rows="5"></b-form-textarea>
         </b-form-group>
 
         <field-error :solid="false" :errors="errors" field="long_description"></field-error>
@@ -65,6 +71,7 @@
 </template>
 
 <script>
+  import Quill from 'quill';
   export default {
     props: {
       url: {
@@ -86,12 +93,25 @@
           long_description: null,
         },
         errors: [],
+        editor: null,
       };
     },
     created() {
       this.loadProduct();
     },
     methods: {
+      createEditor() {
+        const options = {
+          debug: 'warn',
+          modules: {
+            // toolbar: '#toolbar',
+          },
+          placeholder: 'Long Description',
+          readOnly: false,
+          theme: 'snow',
+        };
+        this.editor = new Quill('#long-description', options);
+      },
       loadProduct() {
         if (this.product) {
           delete this.product.photo;
@@ -110,8 +130,16 @@
         form.append('slug', this.form.slug);
         form.append('price', this.form.price);
         form.append('description', this.form.description);
-        form.append('long_description', this.form.long_description);
 
+        var QuillDeltaToHtmlConverter = require('quill-delta-to-html').QuillDeltaToHtmlConverter;
+
+        var cfg = {};
+        let delta = this.editor.getContents();
+        console.log(delta);
+        var converter = new QuillDeltaToHtmlConverter(delta.ops, cfg);
+        var html = converter.convert();
+
+        form.append('long_description', html);
         axios
           .post(this.url, form, {
             headers: { 'Content-Type': 'multipart/form-data' },
@@ -138,6 +166,9 @@
           .split(' ')
           .join('-');
       },
+    },
+    mounted() {
+      this.createEditor();
     },
   };
 </script>
