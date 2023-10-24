@@ -39,9 +39,7 @@
         {{ variant }}
       </div>
     </div>
-    <div v-if="full" class="text-justify">
-      {{ product.long_description }}
-    </div>
+    <div v-if="full" class="text-justify" v-html="product.long_description"></div>
   </div>
 </template>
 
