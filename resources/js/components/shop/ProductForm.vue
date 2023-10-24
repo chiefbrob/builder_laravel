@@ -18,16 +18,32 @@
         </b-form-group>
         <field-error :solid="false" :errors="errors" field="slug"></field-error>
 
-        <b-form-group id="input-group-3" label="Price: *" label-for="price">
-          <b-form-input
-            id="price"
-            v-model="form.price"
-            type="number"
-            step="0"
-            required
-          ></b-form-input>
-        </b-form-group>
-        <field-error :solid="false" :errors="errors" field="price"></field-error>
+        <div class="row">
+          <div class="col-md-6">
+            <b-form-group id="input-group-3" label="Price: *" label-for="price">
+              <b-form-input
+                id="price"
+                v-model="form.price"
+                type="number"
+                step="0"
+                required
+              ></b-form-input>
+            </b-form-group>
+            <field-error :solid="false" :errors="errors" field="price"></field-error>
+          </div>
+          <div class="col-md-6">
+            <b-form-group id="input-group-6" label="Quantity: *" label-for="quantity">
+              <b-form-input
+                id="quantity"
+                v-model="form.quantity"
+                type="number"
+                step="0"
+                required
+              ></b-form-input>
+            </b-form-group>
+            <field-error :solid="false" :errors="errors" field="quantity"></field-error>
+          </div>
+        </div>
 
         <b-form-group label="Photo: *" label-cols-sm="2">
           <b-form-file
@@ -60,7 +76,26 @@
 
         <p class="py-3">
           <input type="submit" class="btn btn-success btn-sm" text="Submit" />
+          <b-button
+            v-if="product"
+            v-b-modal.add-product-variant
+            variant="link"
+            size="sm"
+            class=" float-right"
+            >Add Variant</b-button
+          >
         </p>
+
+        <b-modal
+          no-close-on-backdrop
+          no-close-on-esc
+          hide-footer
+          id="add-product-variant"
+          title="Add Variation"
+          v-if="product"
+        >
+          <product-variant-form :product="product"></product-variant-form>
+        </b-modal>
       </div>
     </form>
   </div>
@@ -68,8 +103,9 @@
 
 <script>
   import TextEditor from '../shared/TextEditor';
+  import ProductVariantForm from './products/ProductVariantForm';
   export default {
-    components: { TextEditor },
+    components: { ProductVariantForm, TextEditor },
     props: {
       url: {
         type: String,
@@ -88,6 +124,7 @@
           description: null,
           photo: null,
           long_description: null,
+          quantity: 1,
         },
         errors: [],
         editor: null,
@@ -101,6 +138,9 @@
         if (this.product) {
           delete this.product.photo;
           this.form = { ...this.product };
+          if (this.product.product_variants.length === 1) {
+            this.form.quantity = this.product.product_variants[0].quantity;
+          }
         }
       },
       imageUpdated(img) {
