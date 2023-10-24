@@ -32,6 +32,8 @@ class CartRepository
         $item = [
             'id' => $variant->id,
             'quantity' => $quantity,
+            'product' => $variant->product,
+            'product_variant' => $variant
         ];
         $added = false;
         $newCart = [];

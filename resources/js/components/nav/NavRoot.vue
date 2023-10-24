@@ -107,10 +107,10 @@
             href="#"
             v-if="$root.$featureIsEnabled('shop')"
             @click="$router.push({ name: 'cart' })"
-            :active="$route.name.includes('cart') || $route.name.includes('checkout')"
+            :active="$route.name.includes('cart')"
           >
             <i class="fa fa-shopping-cart"></i>
-            Checkout
+            Cart
           </b-nav-item>
         </b-navbar-nav>
 

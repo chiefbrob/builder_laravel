@@ -19,12 +19,6 @@ if (process.env.MIX_HOT_HTTPS) {
 }
 
 mix
-  .options({
-    hmrOptions: {
-      host: appUrl.hostname,
-      port: Math.floor(Math.random() * 1000) + 7999,
-    },
-  })
   .js('resources/js/app.js', 'public/js')
   .vue()
   .js('resources/js/main.js', 'public/js')
