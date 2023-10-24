@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <product
-        class="col-md-3"
+        class="col-md-4"
         v-for="product in products"
         v-bind:key="product.id"
         :full="false"
