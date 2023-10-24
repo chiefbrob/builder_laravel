@@ -32,7 +32,10 @@ class UpdateProductController extends Controller
                 $product->photo = PhotoManager::savePhoto(
                     $photo,
                     'products',
-                    $product->photo
+                    $product->photo,
+                    true,
+                    800,
+                    600
                 );
 
                 $product->save();

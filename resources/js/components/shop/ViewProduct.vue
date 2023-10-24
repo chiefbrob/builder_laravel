@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="mb-5 pb-5 row">
-      <div class="col-md-6 offset-md-3">
+      <div class="col-md-12">
         <div class="row">
-          <product class="col-md-8 offset-md-2" v-if="product" :product="product"></product>
+          <product class="col-md-6 offset-md-3" v-if="product" :product="product"></product>
         </div>
         <p v-if="loading"><i class="fa fa-spinner"></i> Loading</p>
         <p v-if="!loading && !product"></p>

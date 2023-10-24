@@ -1,29 +1,15 @@
 <template>
   <div>
-    <b-card
-      :overlay="true"
-      :img-src="`/storage/images/products/${product.photo}`"
-      border-variant="light"
-      text-variant="light"
-      bg-variant="info"
-    >
+    <b-card style="padding: 0;" border-variant="light" text-variant="light" bg-variant="info">
       <b-card-title>
-        <span :class="full ? '' : 'pointer'" class="black-bkg" @click="viewProduct">{{
+        <span :class="full ? '' : 'pointer'" class="p-2" @click="viewProduct">{{
           product.name
         }}</span>
       </b-card-title>
-      <b-card-sub-title v-if="admin">
-        <b-button
-          variant="info"
-          @click="$router.push({ name: 'edit-product', params: { slug: product.slug } })"
-          size="sm"
-          ><i class="fa fa-pen text-white"></i
-        ></b-button>
-        <b-button size="sm" variant="danger" @click="deleteProduct"
-          ><i class="fa fa-trash"></i
-        ></b-button>
-      </b-card-sub-title>
-      <b-card-text class="py-2 black-bkg">
+      <b-card-text @click="viewProduct">
+        <product-slideshow :product="product" :full="full"></product-slideshow>
+      </b-card-text>
+      <b-card-text class="py-2">
         <p class="px-2">
           <b-button
             v-if="product.product_variants.length === 1"
@@ -33,13 +19,18 @@
             @click="addToCart"
             ><i class="fa fa-shopping-cart"></i> Add to Cart</b-button
           >
+          <span v-if="admin">
+            <b-button
+              variant="dark"
+              @click="$router.push({ name: 'edit-product', params: { slug: product.slug } })"
+              size="sm"
+              ><i class="fa fa-pen text-white"></i
+            ></b-button>
+            <b-button size="sm" variant="danger" @click="deleteProduct"
+              ><i class="fa fa-trash"></i
+            ></b-button>
+          </span>
           <span class=" float-right"> {{ product.price | kes }} </span>
-        </p>
-      </b-card-text>
-
-      <b-card-text v-if="full">
-        <p>
-          <span class="black-bkg">{{ product.description }}</span>
         </p>
       </b-card-text>
     </b-card>
@@ -49,7 +40,6 @@
       </div>
     </div>
     <div v-if="full" class="text-justify">
-      <h5>Description</h5>
       {{ product.long_description }}
     </div>
   </div>
@@ -57,7 +47,9 @@
 
 <script>
   import { mapState } from 'vuex';
+  import ProductSlideshow from './products/ProductSlideshow';
   export default {
+    components: { ProductSlideshow },
     props: {
       product: {
         required: true,
@@ -147,3 +139,9 @@
     },
   };
 </script>
+
+<style scoped>
+  .card-body {
+    padding: 0;
+  }
+</style>
