@@ -51,14 +51,10 @@
 
         <field-error :solid="false" :errors="errors" field="description"></field-error>
 
-        <div
-          id="long-description"
-          style="height: 15em"
-          v-html="product ? product.long_description : ''"
-        ></div>
-        <b-form-group label="Full Description:" v-if="false">
-          <b-form-textarea v-model="form.long_description" rows="5"></b-form-textarea>
-        </b-form-group>
+        <text-editor
+          :contents="product ? product.long_description : ''"
+          @contentsUpdated="longDescriptionUpdated"
+        ></text-editor>
 
         <field-error :solid="false" :errors="errors" field="long_description"></field-error>
 
@@ -71,8 +67,9 @@
 </template>
 
 <script>
-  import Quill from 'quill';
+  import TextEditor from '../shared/TextEditor';
   export default {
+    components: { TextEditor },
     props: {
       url: {
         type: String,
@@ -100,18 +97,6 @@
       this.loadProduct();
     },
     methods: {
-      createEditor() {
-        const options = {
-          debug: 'warn',
-          modules: {
-            // toolbar: '#toolbar',
-          },
-          placeholder: 'Long Description',
-          readOnly: false,
-          theme: 'snow',
-        };
-        this.editor = new Quill('#long-description', options);
-      },
       loadProduct() {
         if (this.product) {
           delete this.product.photo;
@@ -131,15 +116,7 @@
         form.append('price', this.form.price);
         form.append('description', this.form.description);
 
-        var QuillDeltaToHtmlConverter = require('quill-delta-to-html').QuillDeltaToHtmlConverter;
-
-        var cfg = {};
-        let delta = this.editor.getContents();
-        console.log(delta);
-        var converter = new QuillDeltaToHtmlConverter(delta.ops, cfg);
-        var html = converter.convert();
-
-        form.append('long_description', html);
+        form.append('long_description', this.form.long_description);
         axios
           .post(this.url, form, {
             headers: { 'Content-Type': 'multipart/form-data' },
@@ -166,9 +143,9 @@
           .split(' ')
           .join('-');
       },
-    },
-    mounted() {
-      this.createEditor();
+      longDescriptionUpdated(html) {
+        this.form.long_description = html;
+      },
     },
   };
 </script>

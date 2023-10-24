@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mb-5 py-5 row">
-      <div class="col-md-10 offset-md-1">
+      <div class="col-md-6 offset-md-3">
         <div v-if="loading"><i class="fa fa-spinner"></i> Loading</div>
         <div v-else>
           <blog :blog="blog" :full="true"></blog>

@@ -29,7 +29,9 @@ class CreateBlogController extends Controller
                     $default_image,
                     'blog',
                     $blog->default_image,
-                    false
+                    true,
+                    800,
+                    600
                 );
 
                 $blog->save();

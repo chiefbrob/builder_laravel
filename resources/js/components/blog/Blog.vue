@@ -5,23 +5,22 @@
         <div>
           {{ blog.title }}
           <span v-if="user && user.admin" class="float-right ">
-            <b-button variant="info" @click="editBlog"
+            <b-button size="sm" variant="info" @click="editBlog"
               ><i class="fa fa-pen text-white"></i
             ></b-button>
-            <b-button variant="danger" @click="deleteBlog"><i class="fa fa-trash"></i></b-button>
+            <b-button size="sm" variant="danger" @click="deleteBlog"
+              ><i class="fa fa-trash"></i
+            ></b-button>
           </span>
           <br />
           <small> {{ blog.user.name }} - {{ blog.created_at | relative }}</small>
         </div>
       </b-card-title>
       <b-card-img :src="imageSrc" :class="full ? 'py-4' : 'py-2'" :alt="blog.title"></b-card-img>
-      <b-card-text>
-        {{ blog.contents }}
-      </b-card-text>
+      <b-card-text> <div v-html="blog.contents"></div> </b-card-text>
     </b-card>
     <b-card
       v-if="!full"
-      :overlay="true"
       @click="showBlog"
       class="pointer"
       :img-src="imageSrc"
@@ -30,7 +29,7 @@
       bg-variant="info"
     >
       <b-card-title>
-        <span class="black-bkg">{{ blog.title }}</span></b-card-title
+        <span>{{ blog.title }}</span></b-card-title
       >
       <b-card-text>
         <span>{{ blog.created_at | relative }}</span>

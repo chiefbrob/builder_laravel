@@ -11,11 +11,11 @@
               variant="info"
               size="sm"
               @click="$router.push({ name: 'blog-new' })"
-              ><i class="fa fa-pen"></i> New</b-button
-            >
+              ><i class="fa fa-plus"></i>
+            </b-button>
           </h4>
         </div>
-        <div class="col-md-3 " v-for="item in items" v-bind:key="item.id">
+        <div class="col-md-4 " v-for="item in items" v-bind:key="item.id">
           <blog-item :blog="item"></blog-item>
         </div>
         <div class="col-md-12" v-if="items.length === 0">
