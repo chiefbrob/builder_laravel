@@ -48,7 +48,7 @@
         form: {
           name: null,
           description: null,
-          quantity: null,
+          quantity: 1,
           photo: null,
         },
       };

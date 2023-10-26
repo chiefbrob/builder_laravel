@@ -11,12 +11,7 @@
       </b-card-text>
       <b-card-text class="py-2">
         <p class="px-2">
-          <b-button
-            v-if="product.product_variants.length === 1"
-            href="#"
-            size="sm"
-            variant="light"
-            @click="addToCart"
+          <b-button href="#" size="sm" variant="light" @click="addToCart"
             ><i class="fa fa-shopping-cart"></i> Add to Cart</b-button
           >
           <span v-if="admin">
@@ -34,10 +29,13 @@
         </p>
       </b-card-text>
     </b-card>
-    <div v-if="product.product_variants.length > 1">
-      <div v-for="variant in product.product_variants" v-bind:key="variant.id">
-        {{ variant }}
-      </div>
+    <div v-if="product.product_variants.length > 1 && full">
+      <h5>Variants</h5>
+      <b-list-group>
+        <b-list-group-item v-for="(variant, i) in product.product_variants" :key="i">
+          <product-variant :variant="variant" :product="product"></product-variant>
+        </b-list-group-item>
+      </b-list-group>
     </div>
     <div v-if="full" class="text-justify" v-html="product.long_description"></div>
   </div>
@@ -45,9 +43,10 @@
 
 <script>
   import { mapState } from 'vuex';
+  import ProductVariant from './products/ProductVariant';
   import ProductSlideshow from './products/ProductSlideshow';
   export default {
-    components: { ProductSlideshow },
+    components: { ProductSlideshow, ProductVariant },
     props: {
       product: {
         required: true,
