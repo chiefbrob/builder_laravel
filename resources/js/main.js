@@ -36,6 +36,18 @@ let router = new VueRouter(routes);
 router.beforeEach((to, from, next) => {
   const auth = to.matched[0].meta;
 
+  const toAuth = to.name === 'register' || to.name === 'login';
+  const fromAuth = from.name === 'register' || from.name === 'login';
+  const originalTo = localStorage.getItem('original-to-path');
+
+  if (toAuth) {
+    if (!fromAuth) {
+      if (originalTo === null) {
+        localStorage.setItem('original-to-path', from.path);
+      }
+    }
+  }
+
   if (auth?.requiresAuth === true || auth?.requiresAdmin === true) {
     if (!window.User) {
       localStorage.setItem('original-to-path', to.path);
