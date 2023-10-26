@@ -31,7 +31,7 @@
             </b-form-group>
             <field-error :solid="false" :errors="errors" field="price"></field-error>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6" v-if="product && product.product_variants.length === 1">
             <b-form-group id="input-group-6" label="Quantity: *" label-for="quantity">
               <b-form-input
                 id="quantity"
@@ -94,8 +94,15 @@
           title="Add Variation"
           v-if="product"
         >
-          <product-variant-form :product="product"></product-variant-form>
+          <product-variant-form
+            :product="product"
+            :errors="variantErrors"
+            @submitted="createProductVariant"
+          ></product-variant-form>
         </b-modal>
+
+        <h5>Variants</h5>
+        <edit-product-variants v-if="product" :product="product"></edit-product-variants>
       </div>
     </form>
   </div>
@@ -103,9 +110,10 @@
 
 <script>
   import TextEditor from '../shared/TextEditor';
+  import EditProductVariants from './products/EditProductVariants';
   import ProductVariantForm from './products/ProductVariantForm';
   export default {
-    components: { ProductVariantForm, TextEditor },
+    components: { EditProductVariants, ProductVariantForm, TextEditor },
     props: {
       url: {
         type: String,
@@ -127,6 +135,7 @@
           quantity: 1,
         },
         errors: [],
+        variantErrors: [],
         editor: null,
       };
     },
@@ -162,7 +171,7 @@
             headers: { 'Content-Type': 'multipart/form-data' },
           })
           .then(results => {
-            this.$root.$emit('sendMessage', 'Blog updated', 'success');
+            this.$root.$emit('sendMessage', 'Product updated', 'success');
             setTimeout(() => {
               this.$router.push({
                 name: 'view-product',
@@ -174,7 +183,7 @@
           })
           .catch(({ response }) => {
             this.errors = response.data.errors;
-            this.$root.$emit('sendMessage', 'Failed to update blog!');
+            this.$root.$emit('sendMessage', 'Failed to update product!');
           });
       },
       createSlug() {
@@ -185,6 +194,27 @@
       },
       longDescriptionUpdated(html) {
         this.form.long_description = html;
+      },
+      createProductVariant(submitted) {
+        let form = new FormData();
+        if (submitted.photo) {
+          form.append('photo', submitted.photo);
+        }
+        form.append('name', submitted.name);
+        form.append('quantity', submitted.quantity);
+        form.append('description', submitted.description);
+
+        axios
+          .post(`/api/v1/products/${this.product.id}/product-variants`, form, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+          })
+          .then(results => {
+            this.$root.$emit('sendMessage', 'Product Variant Created', 'success');
+          })
+          .catch(({ response }) => {
+            this.variantErrors = response.data.errors;
+            this.$root.$emit('sendMessage', 'Failed to create product variant!');
+          });
       },
     },
   };
