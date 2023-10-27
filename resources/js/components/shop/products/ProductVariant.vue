@@ -61,7 +61,28 @@
       },
     },
     methods: {
-      updateProductVariant() {},
+      updateProductVariant(submitted) {
+        let form = new FormData();
+        if (submitted.photo) {
+          form.append('photo', submitted.photo);
+        }
+        form.append('name', submitted.name);
+        form.append('quantity', submitted.quantity);
+        form.append('description', submitted.description);
+
+        axios
+          .post(`/api/v1/products/${this.product.id}/product-variants/${this.variant.id}`, form, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+          })
+          .then(results => {
+            this.$root.$emit('sendMessage', 'Product variant updated', 'success');
+            this.$emit('updated', results.data);
+          })
+          .catch(({ response }) => {
+            this.variantErrors = response.data.errors;
+            this.$root.$emit('sendMessage', 'Failed to update product variant!');
+          });
+      },
     },
   };
 </script>
