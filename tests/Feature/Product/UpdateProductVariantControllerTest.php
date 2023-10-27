@@ -32,7 +32,7 @@ class UpdateProductVariantControllerTest extends TestCase
     public function testAdminCanUpdateProductVariant(): void
     {
         $oldpic = $this->variant->photo;
-        $this->put(
+        $this->post(
             route(
                 'v1.product-variant.update', [
                     'product_id' => $this->variant->product->id,

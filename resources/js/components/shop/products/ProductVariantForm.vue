@@ -6,7 +6,7 @@
       </b-form-group>
       <field-error :solid="false" :errors="errors" field="name"></field-error>
 
-      <b-form-group id="input-group-2" label="Quantity: *" label-for="quantity">
+      <b-form-group id="input-group-2" label="Quantity: *" label-for="variant-quantity">
         <b-form-input
           id="variant-quantity"
           v-model="form.quantity"

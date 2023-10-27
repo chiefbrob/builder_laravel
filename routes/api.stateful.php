@@ -24,7 +24,7 @@ Route::prefix('v1')->group(static function () {
             CreateProductVariantController::class
         )->name('v1.product-variant.create');
 
-        Route::put(
+        Route::post(
             '/{product_id}/product-variants/{product_variant_id}/', 
             UpdateProductVariantController::class
         )->name('v1.product-variant.update');
