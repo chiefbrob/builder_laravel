@@ -3,7 +3,11 @@
     <div class="mb-5 pb-5 row">
       <div class="col-md-6 offset-md-3">
         <b-card v-if="product" :title="product.name">
-          <product-form :url="`/api/v1/products/${product.id}`" :product="product"></product-form>
+          <product-form
+            @variantAdded="loadProduct"
+            :url="`/api/v1/products/${product.id}`"
+            :product="product"
+          ></product-form>
         </b-card>
         <p v-if="loading"><i class="fa fa-spinner"></i> Loading</p>
         <p v-if="!loading && !product">Nothing to display</p>

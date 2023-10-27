@@ -18,31 +18,28 @@
         </b-form-group>
         <field-error :solid="false" :errors="errors" field="slug"></field-error>
 
-        <div class="row">
-          <div class="col-md-6">
-            <b-form-group id="input-group-3" label="Price: *" label-for="price">
-              <b-form-input
-                id="price"
-                v-model="form.price"
-                type="number"
-                step="0"
-                required
-              ></b-form-input>
-            </b-form-group>
-            <field-error :solid="false" :errors="errors" field="price"></field-error>
-          </div>
-          <div class="col-md-6" v-if="product && product.product_variants.length === 1">
-            <b-form-group id="input-group-6" label="Quantity: *" label-for="quantity">
-              <b-form-input
-                id="quantity"
-                v-model="form.quantity"
-                type="number"
-                step="0"
-                required
-              ></b-form-input>
-            </b-form-group>
-            <field-error :solid="false" :errors="errors" field="quantity"></field-error>
-          </div>
+        <b-form-group id="input-group-3" label="Price: *" label-for="price">
+          <b-form-input
+            id="price"
+            v-model="form.price"
+            type="number"
+            step="0"
+            required
+          ></b-form-input>
+        </b-form-group>
+        <field-error :solid="false" :errors="errors" field="price"></field-error>
+
+        <div v-if="product && product.product_variants.length === 1">
+          <b-form-group id="input-group-6" label="Quantity: *" label-for="quantity">
+            <b-form-input
+              id="quantity"
+              v-model="form.quantity"
+              type="number"
+              step="0"
+              required
+            ></b-form-input>
+          </b-form-group>
+          <field-error :solid="false" :errors="errors" field="quantity"></field-error>
         </div>
 
         <b-form-group label="Photo: *" label-cols-sm="2">
@@ -91,6 +88,7 @@
           no-close-on-esc
           hide-footer
           id="add-product-variant"
+          ref="add-product-variant"
           title="Add Variation"
           v-if="product"
         >
@@ -210,6 +208,8 @@
           })
           .then(results => {
             this.$root.$emit('sendMessage', 'Product Variant Created', 'success');
+            this.$refs['add-product-variant'].hide();
+            this.$emit('variantAdded', results.data);
           })
           .catch(({ response }) => {
             this.variantErrors = response.data.errors;
