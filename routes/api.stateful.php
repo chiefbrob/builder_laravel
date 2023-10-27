@@ -23,6 +23,11 @@ Route::prefix('v1')->group(static function () {
             '/{product_id}/product-variants', 
             CreateProductVariantController::class
         )->name('v1.product-variant.create');
+
+        Route::put(
+            '/{product_id}/product-variants/{product_variant_id}/', 
+            UpdateProductVariantController::class
+        )->name('v1.product-variant.update');
     });
 
     Route::prefix('contacts')->namespace('Contact')->group(static function () {
