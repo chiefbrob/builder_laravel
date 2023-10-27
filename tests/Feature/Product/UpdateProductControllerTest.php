@@ -10,7 +10,6 @@ use Tests\TestCase;
 
 class UpdateProductControllerTest extends TestCase
 {
-    use RefreshDatabase;
 
     public function setUp(): void
     {
