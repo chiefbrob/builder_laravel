@@ -26,6 +26,16 @@
       <h1 v-if="full">{{ i % 2 == 0 ? make : model }}</h1>
     </b-carousel-slide> -->
 
+    <b-carousel-slide
+      v-for="variant in variantWithImages"
+      :key="variant.id"
+      :img-src="`/storage/images/product-variants/${variant.photo}`"
+    >
+      <p>
+        <span class="black-bkg px-2">{{ variant.name }}</span>
+      </p>
+    </b-carousel-slide>
+
     <b-carousel-slide img-src="/images/shop/for-sale-image.jpg"> </b-carousel-slide>
   </b-carousel>
 </template>
@@ -52,6 +62,11 @@
         return this.product.photo
           ? `/storage/images/products/${this.product.photo}`
           : '/images/shop/for-sale-image.jpg';
+      },
+      variantWithImages() {
+        return this.product.product_variants.filter(variant => {
+          return variant.photo !== null;
+        });
       },
     },
     methods: {
