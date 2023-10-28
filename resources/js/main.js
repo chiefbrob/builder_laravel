@@ -99,9 +99,10 @@ const app = new Vue({
         .get(`/api/v1/cart`)
         .then(results => {
           this.cart = results.data.cart;
+          store.commit('shop/updateCart', this.cart);
         })
         .catch(error => {
-          this.$root.$emit('sendMessage', 'Failed to load Cart');
+          //   this.$root.$emit('sendMessage', 'Failed to load Cart');
         })
         .finally(f => {
           //
