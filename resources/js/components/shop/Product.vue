@@ -11,7 +11,14 @@
       </b-card-text>
       <b-card-text class="py-2">
         <p class="px-2">
-          <b-button href="#" size="sm" variant="light" @click="addToCart"
+          <b-button
+            href="#"
+            size="sm"
+            variant="light"
+            @click="addToCart"
+            v-b-modal="
+              product.product_variants.length > 1 ? `cart-select-product-variant-${product.id}` : ''
+            "
             ><i class="fa fa-shopping-cart"></i> Add to Cart</b-button
           >
           <span v-if="admin">
@@ -38,6 +45,52 @@
       </b-list-group>
     </div>
     <div v-if="full" class="text-justify" v-html="product.long_description"></div>
+
+    <div>
+      <b-modal
+        hide-footer
+        no-close-on-backdrop
+        :ref="`cart-select-product-variant-${product.id}`"
+        :id="`cart-select-product-variant-${product.id}`"
+        title="Add to Cart"
+      >
+        <p class="my-4">
+          {{ product.name }}
+          <span class="float-right">{{ product.price | kes }}</span>
+        </p>
+
+        <multiselect
+          :close-on-select="true"
+          track-by="id"
+          :searchable="true"
+          :multiple="false"
+          v-model="selectedVariant"
+          @input="variantSelected"
+          :options="product.product_variants"
+          placeholder="Select Product Variant"
+          :custom-label="variantName"
+          :allow-empty="false"
+        ></multiselect>
+
+        <b-form-group label="Quantity">
+          <multiselect
+            :close-on-select="true"
+            :searchable="true"
+            :disabled="!selectedVariant"
+            :multiple="false"
+            v-model="selectedQuantity"
+            :options="availableQuantity"
+            :allow-empty="false"
+          ></multiselect>
+        </b-form-group>
+
+        <p class="mt-3">
+          <b-button :disabled="!selectedVariant" size="sm" variant="dark" @click="addVariantToCart"
+            ><i class="fa fa-shopping-cart"></i> Add to Cart</b-button
+          >
+        </p>
+      </b-modal>
+    </div>
   </div>
 </template>
 
@@ -55,6 +108,13 @@
         default: true,
         required: false,
       },
+    },
+    data() {
+      return {
+        selectedVariant: null,
+        selectedQuantity: null,
+        availableQuantity: [],
+      };
     },
     computed: {
       ...mapState({
@@ -94,44 +154,38 @@
           });
       },
       addToCart() {
-        this.addToOfflineCart(1);
+        if (this.product.product_variants.length > 1) {
+          return;
+        }
+        this.addToCartFn(this.variant.id, 1);
+      },
+      addVariantToCart() {
+        this.addToCartFn(this.selectedVariant.id, this.selectedQuantity);
+      },
+      addToCartFn(variant_id, quantity = 1) {
         axios
           .post(`/api/v1/cart`, {
-            product_variant_id: this.variant.id,
-            quantity: 1,
+            product_variant_id: variant_id,
+            quantity: quantity,
           })
           .then(results => {
             this.$root.$emit('sendMessage', 'Product Added to Cart', 'success');
+            this.$refs[`cart-select-product-variant-${product.id}`].hide();
           })
           .catch(error => {
-            this.$root.$emit('sendMessage', 'Failed to add product to cart');
+            let dm = 'Failed to add to Cart';
+            this.$root.$emit('sendMessage', dm);
           });
       },
-      addToOfflineCart(quantity) {
-        let offlineCart = JSON.parse(localStorage.getItem('cart'));
-
-        if (offlineCart) {
-          let newOfflineCart = [];
-          for (let index = 0; index < offlineCart.length; index++) {
-            const offlineCartItem = offlineCart[index];
-
-            if (offlineCartItem.id === this.variant.id) {
-              let newTotal = offlineCartItem.quantity + quantity;
-              if (newTotal <= this.variant.quantity) {
-                offlineCartItem.quantity = newTotal;
-                return;
-              }
-            }
-            newOfflineCart.push(offlineCartItem);
-          }
-          localStorage.setItem('cart', JSON.stringify(newOfflineCart));
-        } else {
-          let cart = {
-            id: this.variant.id,
-            quantity: quantity,
-          };
-          localStorage.setItem('cart', JSON.stringify(cart));
+      variantName(variant) {
+        return variant.name;
+      },
+      variantSelected(variant) {
+        let arr = [];
+        for (let index = 1; index < variant.quantity; index++) {
+          arr[arr.length] = index;
         }
+        this.availableQuantity = arr;
       },
     },
   };
