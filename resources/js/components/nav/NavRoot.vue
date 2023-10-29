@@ -111,6 +111,9 @@
           >
             <i class="fa fa-shopping-cart"></i>
             Cart
+            <span v-if="shop.form.cart && shop.form.cart.length > 0"
+              >({{ shop.form.cart.length }})</span
+            >
           </b-nav-item>
         </b-navbar-nav>
 
@@ -163,6 +166,8 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
+
   export default {
     data() {
       return {
@@ -193,6 +198,9 @@
       };
     },
     computed: {
+      ...mapState({
+        shop: state => state.shop,
+      }),
       teamsActive() {
         let name = this.$route.name;
         return name.includes('team') || name.includes('task');

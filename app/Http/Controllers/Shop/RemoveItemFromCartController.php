@@ -33,7 +33,7 @@ class RemoveItemFromCartController extends Controller
             Log::error($e);
 
             return response()->json([
-                'message' => 'Failed to add remove item from cart',
+                'message' => 'Failed to remove item(s) from cart',
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
