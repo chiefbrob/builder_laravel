@@ -165,6 +165,7 @@
             setTimeout(() => {
               this.$router.push({ name: 'shop' });
             }, 3000);
+            this.$emit('updated');
           })
           .catch(error => {
             this.$root.$emit('sendMessage', 'Failed to delete product');

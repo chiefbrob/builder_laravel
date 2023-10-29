@@ -22,7 +22,7 @@ class ShopProductsIndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'deleted' => ['sometimes', 'nullable', 'boolean']
+            'deleted' => ['sometimes', 'nullable', 'string', 'in:true,false']
         ];
     }
 }

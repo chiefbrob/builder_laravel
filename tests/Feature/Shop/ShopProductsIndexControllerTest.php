@@ -27,7 +27,8 @@ class ShopProductsIndexControllerTest extends TestCase
      */
     public function testAdminCanGetAllProducts(): void
     {
-        $this->get(route('v1.shop.products.index', ['deleted' => true]))->assertOk()
+        $this->get(route('v1.shop.products.index', ['deleted' => 'true']))
+            ->assertOk()
             ->assertJsonCount(2, 'data')
             ->assertJson([
                 'data' => [
