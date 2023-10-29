@@ -92,9 +92,6 @@ const app = new Vue({
       this.$store.commit('user', window.User);
     }
     this.loadCart();
-    this.$root.$on('loadCart', () => {
-      this.loadCart();
-    });
   },
   methods: {
     loadCart() {
