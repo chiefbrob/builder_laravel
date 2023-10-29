@@ -105,7 +105,7 @@
 
           <b-nav-item
             href="#"
-            v-if="$root.$featureIsEnabled('shop')"
+            v-if="$root.$featureIsEnabled('shop') && shop.form.cart && shop.form.cart.length > 0"
             @click="$router.push({ name: 'cart' })"
             :active="$route.name.includes('cart')"
           >
