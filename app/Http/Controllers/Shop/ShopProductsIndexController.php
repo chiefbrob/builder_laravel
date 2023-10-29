@@ -18,7 +18,7 @@ class ShopProductsIndexController extends Controller
     {
         try {
             $products = Product::query();
-            if ($request->deleted) {
+            if ($request->deleted && $request->deleted === 'true') {
                 $products->withTrashed();
             }
             return $products->with('productVariants')

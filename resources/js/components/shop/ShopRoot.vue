@@ -25,7 +25,9 @@
     components: { ProductsList },
     props: [],
     data() {
-      return {};
+      return {
+        deleted: 'not_accepted',
+      };
     },
     computed: {
       user() {
