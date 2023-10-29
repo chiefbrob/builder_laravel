@@ -169,7 +169,7 @@
             quantity: quantity,
           })
           .then(results => {
-            this.$root.$emit('sendMessage', 'Product Added to Cart', 'success');
+            this.$root.$emit('sendMessage', 'Added to Cart', 'success');
             this.$refs[`cart-select-product-variant-${this.product.id}`].hide();
             this.$store.commit('shop/updateCart', results.data.cart);
           })
@@ -183,10 +183,13 @@
       },
       variantSelected(variant) {
         let arr = [];
-        for (let index = 1; index < variant.quantity; index++) {
+        for (let index = 1; index <= variant.quantity; index++) {
           arr[arr.length] = index;
         }
         this.availableQuantity = arr;
+        if (this.availableQuantity.length === 1) {
+          this.selectedQuantity = this.availableQuantity[0];
+        }
       },
     },
   };
