@@ -14,6 +14,13 @@ Route::prefix('v1')->group(static function () {
         return auth()->user();
     })->middleware('auth')->name('v1.user');
 
+    Route::prefix('shop/products')->namespace('Shop')->group(
+        static function () {
+            Route::get('/', ShopProductsIndexController::class)
+                ->name('v1.shop.products.index');
+        }
+    );
+
     Route::prefix('products')->namespace('Product')->group(static function () {
         Route::post('/', CreateProductController::class)->name('v1.product.create');
         Route::post('/{id}', UpdateProductController::class)->name('v1.product.update');
