@@ -170,7 +170,8 @@
           })
           .then(results => {
             this.$root.$emit('sendMessage', 'Product Added to Cart', 'success');
-            this.$refs[`cart-select-product-variant-${product.id}`].hide();
+            this.$refs[`cart-select-product-variant-${this.product.id}`].hide();
+            this.$store.commit('shop/updateCart', results.data.cart);
           })
           .catch(error => {
             let dm = 'Failed to add to Cart';

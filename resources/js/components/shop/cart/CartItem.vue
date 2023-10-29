@@ -29,6 +29,7 @@
           ><i class="fa fa-trash-can"></i
         ></b-button></p
     ></b-card-text>
+    <b-card-footer>{{ item.product.name }} <br />{{ item.product.price | kes }}</b-card-footer>
   </b-card>
 </template>
 
