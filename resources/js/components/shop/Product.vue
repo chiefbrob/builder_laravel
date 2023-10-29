@@ -66,7 +66,7 @@
           :multiple="false"
           v-model="selectedVariant"
           @input="variantSelected"
-          :options="product.product_variants"
+          :options="availableVariants"
           placeholder="Select Product Variant"
           :custom-label="variantName"
           :allow-empty="false"
@@ -132,6 +132,23 @@
       variant() {
         return this.product.product_variants[0];
       },
+      availableVariants() {
+        return this.product.product_variants.filter(variant => {
+          let addedToCart = false;
+          let cartCount = 0;
+          let fromCart = this.shop.form.cart.filter(item => {
+            return item.id === variant.id;
+          });
+          if (fromCart.length > 0) {
+            addedToCart = true;
+            cartCount = fromCart[0].quantity;
+          }
+          if (addedToCart && cartCount === variant.quantity) {
+            return false;
+          }
+          return true;
+        });
+      },
     },
     methods: {
       viewProduct() {
@@ -183,7 +200,17 @@
       },
       variantSelected(variant) {
         let arr = [];
-        for (let index = 1; index <= variant.quantity; index++) {
+        let quantity = variant.quantity;
+
+        let fromCart = this.shop.form.cart.filter(item => {
+          return item.id === variant.id;
+        });
+
+        if (fromCart.length > 0) {
+          quantity -= fromCart[0].quantity;
+        }
+
+        for (let index = 1; index <= quantity; index++) {
           arr[arr.length] = index;
         }
         this.availableQuantity = arr;
