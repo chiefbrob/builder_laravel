@@ -20,7 +20,14 @@
             v-b-modal="
               product.product_variants.length > 1 ? `cart-select-product-variant-${product.id}` : ''
             "
-            ><i class="fa fa-shopping-cart"></i> Add to Cart</b-button
+            ><i class="fa fa-shopping-cart"></i>
+          </b-button>
+          <b-button
+            v-if="product.product_variants.length > 1"
+            size="sm"
+            variant="success"
+            @click="showVariants"
+            ><i class="fa fa-list"></i> {{ product.product_variants.length }}</b-button
           >
           <span v-if="admin">
             <b-button
@@ -40,14 +47,6 @@
         </p>
       </b-card-text>
     </b-card>
-    <div v-if="product.product_variants.length > 1 && full">
-      <h5>Variants</h5>
-      <b-list-group>
-        <b-list-group-item v-for="(variant, i) in product.product_variants" :key="i">
-          <product-variant :variant="variant" :product="product"></product-variant>
-        </b-list-group-item>
-      </b-list-group>
-    </div>
     <div v-if="full" class="text-justify" v-html="product.long_description"></div>
 
     <div>
@@ -90,8 +89,8 @@
 
         <p class="mt-3">
           <b-button :disabled="!selectedVariant" size="sm" variant="dark" @click="addVariantToCart"
-            ><i class="fa fa-shopping-cart"></i> Add to Cart</b-button
-          >
+            ><i class="fa fa-shopping-cart"></i
+          ></b-button>
         </p>
       </b-modal>
     </div>
@@ -155,6 +154,9 @@
       },
     },
     methods: {
+      showVariants() {
+        this.$router.push({ name: 'view-product-variants', params: { slug: this.product.slug } });
+      },
       viewProduct() {
         if (!this.full) {
           this.$store.commit('shop/updateProduct', this.product);

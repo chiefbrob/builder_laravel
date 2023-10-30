@@ -1,42 +1,50 @@
 <template>
   <div>
-    <div class="mb-5 pb-5 row">
+    <div class=" row">
       <div class="col-md-12">
         <div class="row">
-          <div class="col-md-6 offset-md-3 mt-1">
-            <shop-bread-crumb class="p-1 mt-1" :product="product" v-if="product"></shop-bread-crumb>
+          <div class="col-md-6 offset-md-3" v-if="product">
+            <shop-bread-crumb
+              class="p-1 mt-1"
+              :product="product"
+              :variant="variant"
+              v-if="product && variant"
+              page="variant"
+            ></shop-bread-crumb>
+            <product-variant :variant="variant" :product="product"></product-variant>
           </div>
-          <product
-            class="col-md-6 offset-md-3"
-            v-if="product"
-            :product="product"
-            @updated="loadProduct"
-          ></product>
         </div>
-        <p v-if="loading"><i class="fa fa-spinner"></i> Loading</p>
-        <p v-if="!loading && !product"></p>
+        <div class="col-md-6 offset-md-3" v-if="loading">
+          <p><i class="fa fa-spinner"></i> Loading</p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import ShopBreadCrumb from './nav/ShopBreadCrumb.vue';
-  import Product from './Product';
+  import ProductVariant from './ProductVariant';
+  import ShopBreadCrumb from '../nav/ShopBreadCrumb.vue';
   import { mapState } from 'vuex';
   export default {
     props: [],
-    components: { Product, ShopBreadCrumb },
+    components: { ProductVariant, ShopBreadCrumb },
     data() {
       return {
         loading: true,
         product: null,
+        variant_id: this.$route.params.variant_id,
       };
     },
     computed: {
       ...mapState({
         shop: state => state.shop,
       }),
+      variant() {
+        return this.product.product_variants.filter(variant => {
+          return variant.id === parseInt(this.variant_id);
+        })[0];
+      },
     },
     methods: {
       loadProduct() {
@@ -45,6 +53,7 @@
           .get(`/api/v1/products/?slug=${slug}`)
           .then(results => {
             this.product = results.data;
+            this.setupVariant();
           })
           .catch(error => {
             this.$root.$emit('sendMessage', 'Failed to product');
@@ -53,11 +62,13 @@
             this.loading = false;
           });
       },
+      setupVariant() {},
     },
     created() {
       if (this.shop.product) {
         this.product = this.shop.product;
         this.loading = false;
+        this.setupVariant();
       } else {
         this.loadProduct();
       }

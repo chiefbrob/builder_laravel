@@ -3,6 +3,8 @@ import CreateProduct from '../components/shop/CreateProduct';
 import EditProduct from '../components/shop/EditProduct';
 import ViewProduct from '../components/shop/ViewProduct';
 import CartRoot from '../components/shop/cart/CartRoot';
+import ProductVariantSingle from '../components/shop/products/ProductVariantSingle';
+import ProductVariantsRoot from '../components/shop/products/ProductVariantsRoot';
 
 export const shop = [
   {
@@ -21,6 +23,18 @@ export const shop = [
     name: 'view-product',
     path: '/shop/products/:slug',
     component: ViewProduct,
+    meta: { requiresAuth: false },
+  },
+  {
+    name: 'view-product-variants',
+    path: '/shop/products/:slug/variants',
+    component: ProductVariantsRoot,
+    meta: { requiresAuth: false },
+  },
+  {
+    name: 'view-product-variant',
+    path: '/shop/products/:slug/variants/:variant_id',
+    component: ProductVariantSingle,
     meta: { requiresAuth: false },
   },
   {

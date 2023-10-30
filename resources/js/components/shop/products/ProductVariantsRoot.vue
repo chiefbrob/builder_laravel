@@ -1,32 +1,41 @@
 <template>
   <div>
-    <div class="mb-5 pb-5 row">
+    <div class=" row">
       <div class="col-md-12">
         <div class="row">
-          <div class="col-md-6 offset-md-3 mt-1">
-            <shop-bread-crumb class="p-1 mt-1" :product="product" v-if="product"></shop-bread-crumb>
+          <div class="col-md-6 offset-md-3">
+            <shop-bread-crumb
+              class="p-1 mt-1"
+              :product="product"
+              v-if="product"
+              page="variants"
+            ></shop-bread-crumb>
           </div>
-          <product
-            class="col-md-6 offset-md-3"
-            v-if="product"
-            :product="product"
-            @updated="loadProduct"
-          ></product>
+          <div class="col-md-6 offset-md-3 row" v-if="product">
+            <product-variant
+              class="col-md-4"
+              v-for="(variant, i) in product.product_variants"
+              :key="i"
+              :variant="variant"
+              :product="product"
+            ></product-variant>
+          </div>
         </div>
-        <p v-if="loading"><i class="fa fa-spinner"></i> Loading</p>
-        <p v-if="!loading && !product"></p>
+        <div class="col-md-6 offset-md-3" v-if="loading">
+          <p><i class="fa fa-spinner"></i> Loading</p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import ShopBreadCrumb from './nav/ShopBreadCrumb.vue';
-  import Product from './Product';
+  import ShopBreadCrumb from '../nav/ShopBreadCrumb.vue';
+  import ProductVariant from './ProductVariant';
   import { mapState } from 'vuex';
   export default {
     props: [],
-    components: { Product, ShopBreadCrumb },
+    components: { ProductVariant, ShopBreadCrumb },
     data() {
       return {
         loading: true,

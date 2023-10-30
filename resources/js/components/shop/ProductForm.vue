@@ -99,7 +99,7 @@
           ></product-variant-form>
         </b-modal>
 
-        <h5>Variants</h5>
+        <h5 v-if="product">Variants</h5>
         <edit-product-variants v-if="product" :product="product"></edit-product-variants>
       </div>
     </form>
