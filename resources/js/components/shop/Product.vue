@@ -52,7 +52,6 @@
     <div>
       <b-modal
         hide-footer
-        no-close-on-backdrop
         :ref="`cart-select-product-variant-${product.id}`"
         :id="`cart-select-product-variant-${product.id}`"
         title="Add to Cart"
@@ -147,6 +146,9 @@
             cartCount = fromCart[0].quantity;
           }
           if (addedToCart && cartCount === variant.quantity) {
+            return false;
+          }
+          if (variant.quantity === 0) {
             return false;
           }
           return true;

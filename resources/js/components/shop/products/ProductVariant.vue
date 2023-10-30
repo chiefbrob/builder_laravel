@@ -1,15 +1,25 @@
 <template>
   <b-card class="p-0">
-    <b-card-text class="p-0 m-0 pointer" @click="showVariant">{{ variant.name }}</b-card-text>
+    <b-card-text class="p-0 m-0 pointer" @click="showVariant"
+      ><b>{{ variant.name }}</b></b-card-text
+    >
     <b-card-body class="p-0 m-0">
+      <b-button :disabled="loading" @click="addToCart" variant="link" size="sm"
+        ><i class="fa fa-shopping-cart"></i
+      ></b-button>
       <b-button
+        :disabled="loading"
         v-b-modal="`edit-product-variant-${variant.id}`"
         v-if="admin"
-        class="float-right text-white"
+        class=""
         size="sm"
-        variant="info"
+        variant="link"
         ><i class="fa fa-pen"></i
       ></b-button>
+      <b-button :disabled="loading" v-if="admin && false" size="sm" variant="link"
+        ><i class="fa fa-trash-can"></i
+      ></b-button>
+
       <b-modal
         no-close-on-backdrop
         no-close-on-esc
@@ -30,6 +40,9 @@
       v-if="variant.photo"
       :src="`/storage/images/product-variants/${variant.photo}`"
     ></b-card-img>
+    <b-card-footer v-if="full">
+      <b>{{ variant.quantity }}</b> available
+    </b-card-footer>
   </b-card>
 </template>
 
@@ -44,10 +57,15 @@
       product: {
         required: true,
       },
+      full: {
+        default: true,
+      },
     },
     data() {
       return {
         variantErrors: [],
+        quantity: 1,
+        loading: false,
       };
     },
     computed: {
@@ -56,6 +74,9 @@
       },
       admin() {
         return this.user && this.user.admin;
+      },
+      url() {
+        return window.location;
       },
     },
     methods: {
@@ -69,6 +90,7 @@
         });
       },
       updateProductVariant(submitted) {
+        this.loading = true;
         let form = new FormData();
         if (submitted.photo) {
           form.append('photo', submitted.photo);
@@ -88,6 +110,28 @@
           .catch(({ response }) => {
             this.variantErrors = response.data.errors;
             this.$root.$emit('sendMessage', 'Failed to update product variant!');
+          })
+          .finally(f => {
+            this.loading = false;
+          });
+      },
+      addToCart() {
+        this.loading = true;
+        axios
+          .post(`/api/v1/cart`, {
+            product_variant_id: this.variant.id,
+            quantity: this.quantity,
+          })
+          .then(results => {
+            this.$root.$emit('sendMessage', 'Variant added to Cart', 'success');
+            this.$store.commit('shop/updateCart', results.data.cart);
+          })
+          .catch(error => {
+            let dm = 'Failed to add variant to Cart';
+            this.$root.$emit('sendMessage', dm);
+          })
+          .finally(f => {
+            this.loading = false;
           });
       },
     },

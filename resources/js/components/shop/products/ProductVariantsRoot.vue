@@ -13,8 +13,8 @@
           </div>
           <div class="col-md-6 offset-md-3 row" v-if="product">
             <product-variant
-              class="col-md-4"
-              v-for="(variant, i) in product.product_variants"
+              class="col-md-6"
+              v-for="(variant, i) in variants"
               :key="i"
               :variant="variant"
               :product="product"
@@ -46,6 +46,20 @@
       ...mapState({
         shop: state => state.shop,
       }),
+      user() {
+        return this.$store.getters.user;
+      },
+      admin() {
+        return this.user && this.user.admin;
+      },
+      variants() {
+        if (this.admin) {
+          return this.product.product_variants;
+        }
+        return this.product.product_variants.filter(variant => {
+          return variant.quantity > 0;
+        });
+      },
     },
     methods: {
       loadProduct() {
