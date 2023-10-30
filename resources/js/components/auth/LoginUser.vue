@@ -14,6 +14,7 @@
             <b-form-group id="input-group-2" label="Username: *" label-for="username">
               <b-form-input
                 id="username"
+                name="username"
                 v-model="form.username"
                 type="text"
                 required
@@ -25,6 +26,7 @@
             <b-form-group id="input-group-3" label="Password: *" label-for="password">
               <b-form-input
                 id="password"
+                name="password"
                 v-model="form.password"
                 type="password"
                 required
@@ -34,17 +36,26 @@
             <field-error :solid="false" :errors="errors" field="password"></field-error>
 
             <p class="py-3">
-              <b-button id="loginbtn" size="sm" @click="submitForm" variant="success"
+              <b-button
+                id="loginbtn"
+                size="sm"
+                :disabled="loginDisabled"
+                @click="submitForm"
+                variant="success"
                 >Login</b-button
               >
               <b-button
                 class="float-right"
                 size="sm"
                 variant="link"
+                v-if="!loading"
                 @click="$router.push({ name: 'register' })"
                 >Create Account</b-button
               >
-              <b-button size="sm" variant="link" href="/password/reset">Reset</b-button>
+              <b-button size="sm" variant="link" v-if="!loading" href="/password/reset"
+                >Reset</b-button
+              >
+              <span v-if="loading"><i class="fa fa-spinner"></i> Loading...</span>
             </p>
           </div>
         </form>
@@ -84,7 +95,11 @@
         loaded: false,
       };
     },
-    computed: {},
+    computed: {
+      loginDisabled() {
+        return !this.form.password || this.form.password.length < 8 || this.loading;
+      },
+    },
     methods: {
       submitForm() {
         this.loading = true;
