@@ -14,6 +14,7 @@
           <b-button
             href="#"
             size="sm"
+            v-if="!product.deleted_at"
             variant="light"
             @click="addToCart"
             v-b-modal="
@@ -28,8 +29,11 @@
               size="sm"
               ><i class="fa fa-pen text-white"></i
             ></b-button>
-            <b-button size="sm" variant="danger" @click="deleteProduct"
+            <b-button size="sm" variant="danger" v-if="!product.deleted_at" @click="deleteProduct"
               ><i class="fa fa-trash"></i
+            ></b-button>
+            <b-button size="sm" variant="success" v-if="product.deleted_at" @click="restoreProduct"
+              ><i class="fa fa-recycle"></i
             ></b-button>
           </span>
           <span class=" float-right"> {{ product.price | kes }} </span>
@@ -156,6 +160,17 @@
           this.$store.commit('shop/updateProduct', this.product);
           this.$router.push({ name: 'view-product', params: { slug: this.product.slug } });
         }
+      },
+      restoreProduct() {
+        axios
+          .patch(`/api/v1/products/${this.product.id}`)
+          .then(results => {
+            this.$root.$emit('sendMessage', 'Product Restored', 'success');
+            this.$emit('updated');
+          })
+          .catch(error => {
+            this.$root.$emit('sendMessage', 'Failed to restore product');
+          });
       },
       deleteProduct() {
         axios
