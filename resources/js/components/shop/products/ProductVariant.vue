@@ -16,14 +16,27 @@
         variant="link"
         ><i class="fa fa-pen"></i
       ></b-button>
-      <b-button :disabled="loading" v-if="admin && false" size="sm" variant="link"
+      <b-button
+        :disabled="loading"
+        @click="deleteVariant"
+        v-if="admin && !variant.deleted_at"
+        size="sm"
+        variant="link"
         ><i class="fa fa-trash-can"></i
       ></b-button>
 
+      <b-button
+        :disabled="loading"
+        @click="restoreVariant"
+        v-if="admin && variant.deleted_at"
+        size="sm"
+        variant="link"
+        ><i class="fa fa-recycle"></i
+      ></b-button>
+
       <b-modal
-        no-close-on-backdrop
-        no-close-on-esc
         hide-footer
+        :ref="`edit-product-variant-${variant.id}`"
         :id="`edit-product-variant-${variant.id}`"
         title="Edit Variant"
         v-if="product && admin"
@@ -80,6 +93,8 @@
       },
     },
     methods: {
+      deleteVariant() {},
+      restoreVariant() {},
       showVariant() {
         this.$router.push({
           name: 'view-product-variant',
@@ -105,6 +120,7 @@
           })
           .then(results => {
             this.$root.$emit('sendMessage', 'Product variant updated', 'success');
+            this.$refs[`edit-product-variant-${this.variant.id}`].hide();
             this.$emit('updated', results.data);
           })
           .catch(({ response }) => {

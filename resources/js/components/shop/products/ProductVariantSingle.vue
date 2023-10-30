@@ -11,7 +11,11 @@
               v-if="product && variant"
               page="variant"
             ></shop-bread-crumb>
-            <product-variant :variant="variant" :product="product"></product-variant>
+            <product-variant
+              @updated="loadProduct"
+              :variant="variant"
+              :product="product"
+            ></product-variant>
           </div>
         </div>
         <div class="col-md-6 offset-md-3" v-if="loading">
@@ -53,7 +57,6 @@
           .get(`/api/v1/products/?slug=${slug}`)
           .then(results => {
             this.product = results.data;
-            this.setupVariant();
           })
           .catch(error => {
             this.$root.$emit('sendMessage', 'Failed to product');
@@ -62,13 +65,11 @@
             this.loading = false;
           });
       },
-      setupVariant() {},
     },
     created() {
       if (this.shop.product) {
         this.product = this.shop.product;
         this.loading = false;
-        this.setupVariant();
       } else {
         this.loadProduct();
       }

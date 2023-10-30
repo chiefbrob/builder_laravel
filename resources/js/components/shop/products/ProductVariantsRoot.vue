@@ -15,6 +15,7 @@
             <product-variant
               class="col-md-6"
               v-for="(variant, i) in variants"
+              @updated="loadProduct"
               :key="i"
               :variant="variant"
               :product="product"
