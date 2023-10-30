@@ -23,8 +23,13 @@ Route::prefix('v1')->group(static function () {
 
     Route::prefix('products')->namespace('Product')->group(static function () {
         Route::post('/', CreateProductController::class)->name('v1.product.create');
-        Route::post('/{id}', UpdateProductController::class)->name('v1.product.update');
-        Route::delete('/{id}', DeleteProductController::class)->name('v1.product.delete');
+        Route::post('/{id}', UpdateProductController::class)
+            ->name('v1.product.update');
+        Route::delete('/{id}', DeleteProductController::class)
+            ->name('v1.product.delete');
+
+        Route::patch('/{product_id}', RestoreProductController::class)
+            ->name('v1.product.restore');
 
         Route::post(
             '/{product_id}/product-variants', 
