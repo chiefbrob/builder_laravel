@@ -1,5 +1,5 @@
 <template>
-  <b-card class="p-0">
+  <b-card>
     <b-card-text class="p-0 m-0 pointer" @click="showVariant"
       ><b>{{ variant.name }}</b></b-card-text
     >
@@ -53,7 +53,10 @@
       v-if="variant.photo"
       :src="`/storage/images/product-variants/${variant.photo}`"
     ></b-card-img>
-    <b-card-footer v-if="full">
+    <b-card-text v-if="full">
+      <div class="mt-2" v-html="variant.description"></div>
+    </b-card-text>
+    <b-card-footer>
       <b>{{ variant.quantity }}</b> available
     </b-card-footer>
   </b-card>
