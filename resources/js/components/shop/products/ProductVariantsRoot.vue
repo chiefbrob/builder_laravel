@@ -11,15 +11,18 @@
               page="variants"
             ></shop-bread-crumb>
           </div>
-          <div class="col-md-6 offset-md-3 row" v-if="product">
-            <product-variant
-              class="col-md-6"
-              v-for="(variant, i) in variants"
-              @updated="loadProduct"
-              :key="i"
-              :variant="variant"
-              :product="product"
-            ></product-variant>
+          <div class="col-md-6 offset-md-3" v-if="product">
+            <div class="row">
+              <product-variant
+                class="col-md-6"
+                v-for="(variant, i) in variants"
+                @updated="loadProduct"
+                :key="i"
+                :variant="variant"
+                :product="product"
+                :full="false"
+              ></product-variant>
+            </div>
           </div>
         </div>
         <div class="col-md-6 offset-md-3" v-if="loading">
