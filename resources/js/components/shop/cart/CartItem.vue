@@ -18,22 +18,35 @@
 
     <b-card-text class="pt-1">
       <p>
-        <b-button v-if="item.quantity > 1" size="sm" variant="info" class="text-white py-0"
+        <b-button
+          @click="removeSingleItem"
+          :disabled="loading || item.quantity === 1"
+          size="sm"
+          variant="info"
+          class="text-white py-0"
           >-
         </b-button>
         {{ item.quantity }}
         <b-button
           size="sm"
           variant="info"
-          v-if="item.product_variant.quantity > 1"
           class="text-white py-0"
+          @click="addItemToCart"
           :disabled="
-            item.quantity === item.product_variant.quantity || item.product_variant.quantity === 0
+            item.quantity === item.product_variant.quantity ||
+              item.product_variant.quantity === 0 ||
+              loading ||
+              item.product_variant.quantity === 1
           "
           >+
         </b-button>
         <b-badge :variant="badgeVariant" class="text-white">{{ badgeText }}</b-badge>
-        <b-button class="float-right py-0" variant="danger" size="sm"
+        <b-button
+          :disabled="loading"
+          @click="removeAllItem"
+          class="float-right py-0"
+          variant="danger"
+          size="sm"
           ><i class="fa fa-trash-can"></i
         ></b-button></p
     ></b-card-text>
@@ -48,6 +61,11 @@
       item: {
         required: true,
       },
+    },
+    data() {
+      return {
+        loading: false,
+      };
     },
     computed: {
       badgeVariant() {
@@ -99,6 +117,52 @@
             variant_id: this.item.id,
           },
         });
+      },
+      removeItem(count = 1) {
+        this.loading = true;
+        const name = this.item.product_variant.name;
+        const id = this.item.id;
+        axios
+          .delete(`/api/v1/cart/`, { params: { product_variant_id: id, quantity: count } })
+          .then(results => {
+            const msg = `${count} of ${name} removed from cart`;
+            this.$store.commit('shop/updateCart', results.data.cart);
+            this.$root.$emit('sendMessage', msg, 'success');
+          })
+          .catch(error => {
+            this.$root.$emit('sendMessage', `Failed to remove ${name} from cart`);
+          })
+          .finally(f => {
+            this.loading = false;
+          });
+      },
+      removeSingleItem() {
+        this.removeItem();
+      },
+      removeAllItem() {
+        this.removeItem(this.item.quantity);
+      },
+      addItemToCart() {
+        const id = this.item.id;
+        const quantity = 1;
+        const name = this.item.product_variant.name;
+        this.loading = true;
+        axios
+          .post(`/api/v1/cart`, {
+            product_variant_id: id,
+            quantity: quantity,
+          })
+          .then(results => {
+            this.$root.$emit('sendMessage', `Added ${name} to Cart`, 'success');
+            this.$store.commit('shop/updateCart', results.data.cart);
+          })
+          .catch(error => {
+            let dm = `Failed to add ${name} to Cart`;
+            this.$root.$emit('sendMessage', dm);
+          })
+          .finally(f => {
+            this.loading = false;
+          });
       },
     },
   };
