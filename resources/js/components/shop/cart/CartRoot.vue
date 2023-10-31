@@ -68,9 +68,10 @@
     methods: {
       emptyCart() {
         axios
-          .delete(`/api/v1/cart`)
+          .delete(`/api/v1/cart/empty`)
           .then(results => {
             this.$root.$emit('sendMessage', 'Cart Empty', 'success');
+            this.$store.commit('shop/updateCart', []);
           })
           .catch(error => {
             this.$root.$emit('sendMessage', 'Failed to Empty Cart');
