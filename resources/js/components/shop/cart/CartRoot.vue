@@ -22,12 +22,13 @@
           ></b-button>
         </h4>
         <div class="row">
-          <cart-item
-            v-for="cartItem in cartItems"
-            :key="cartItem.id"
-            :item="cartItem"
-            class="col-md-4"
-          ></cart-item>
+          <div class="col-md-4">
+            <cart-item
+              v-for="cartItem in cartItems"
+              :key="cartItem.id"
+              :item="cartItem"
+            ></cart-item>
+          </div>
           <div v-if="cartItems === null" class="col-md-6">
             <p><i class="fa fa-spinner"></i> Loading...</p>
           </div>

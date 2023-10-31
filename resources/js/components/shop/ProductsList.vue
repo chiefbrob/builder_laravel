@@ -1,7 +1,16 @@
 <template>
   <div>
-    <div class="row">
+    <div class="row mt-1">
       <div class="col-md-12">
+        <input
+          v-if="$featureIsEnabled('search-shop')"
+          type="text"
+          class="form-control"
+          name="search-shop"
+          placeholder="Search shop"
+        />
+        <span class="ml-2">Shop</span>
+
         <b-form-checkbox
           id="checkbox-1"
           v-model="deleted"
@@ -14,6 +23,14 @@
         >
           <i class="fa fa-trash-can"></i>
         </b-form-checkbox>
+        <b-button
+          v-if="admin"
+          variant="success"
+          @click="$router.push({ name: 'create-product' })"
+          size="sm"
+          class="py-0 float-right mr-2"
+          ><i class="fa fa-plus"></i> Add Item</b-button
+        >
       </div>
       <product
         class="col-md-4"

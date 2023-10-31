@@ -6,6 +6,7 @@
     </b-card-text>
 
     <b-card-img
+      style=""
       class="pointer"
       @click="showVariant"
       :src="
