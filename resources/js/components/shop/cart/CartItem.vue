@@ -84,20 +84,20 @@
         }
       },
       badgeText() {
-        switch (this.item.product_variant.quantity) {
-          case 0:
-            return 'out of stock';
-            break;
-          case 1:
-            return 'last one!';
-          case 2:
-          case 3:
-            return 'less than 3 left';
-
-          default:
-            return `over ${this.item.product_variant.quantity - 1} available`;
-            break;
+        const quantity = this.item.product_variant.quantity;
+        if (quantity === 0) {
+          return 'out of stock';
         }
+        if (quantity === 1) {
+          return 'last one!';
+        }
+        if (quantity <= 3) {
+          return 'almost 3 left';
+        }
+        if (quantity >= 20) {
+          return 'over 19 in stock';
+        }
+        return `over ${quantity - 1} in stock`;
       },
     },
     methods: {

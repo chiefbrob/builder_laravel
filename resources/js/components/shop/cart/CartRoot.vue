@@ -9,6 +9,7 @@
             v-if="cartItems && cartItems.length > 0"
             size="sm"
             variant="info"
+            @click="checkout"
             class="float-right text-white mr-2"
             ><i class="fa fa-shopping-cart"></i> Checkout</b-button
           >
@@ -41,6 +42,16 @@
               >
             </p>
           </div>
+          <div v-if="cartItems && cartItems.length > 0" class="mt-3 col-md-12">
+            <h4>
+              Totals: <u>{{ totals | kes }}</u>
+            </h4>
+            <p>
+              <b-button @click="checkout" size="sm" variant="info" class=" text-white mr-2"
+                ><i class="fa fa-shopping-cart"></i> Proceed to Checkout</b-button
+              >
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -60,6 +71,16 @@
       cartItems() {
         return store.state.shop.form.cart;
       },
+      totals() {
+        if (this.cartItems && this.cartItems.length > 0) {
+          let total = 0;
+          this.cartItems.forEach(item => {
+            total += item.quantity * item.product.price;
+          });
+          return total;
+        }
+        return 0;
+      },
     },
     methods: {
       emptyCart() {
@@ -72,6 +93,9 @@
           .catch(error => {
             this.$root.$emit('sendMessage', 'Failed to Empty Cart');
           });
+      },
+      checkout() {
+        console.log('checking out');
       },
     },
     mounted() {},
