@@ -126,65 +126,80 @@ class CartRepository
     {
         $this->request = $request;
         if ($this->reserveCartItems()) {
-            if ($request->get('user_id')) {
-                $user = auth()->user();
-                if ($request->address_id) {
-                    $address = Address::find($request->address_id);
-                } else {
-                    if (count($user->addresses) > 0) {
-                        $address = $user->addresses[0];
+            try {
+                if ($request->get('user_id')) {
+                    $user = auth()->user();
+                    if ($request->address_id) {
+                        $address = Address::find($request->address_id);
                     } else {
-                        $address = Address::create(
+                        if (count($user->addresses) > 0) {
+                            $address = $user->addresses[0];
+                        } else {
+                            $address = Address::create(
+                                [
+                                    'first_name' => $user->name,
+                                    'user_id' => $user->id,
+                                ]
+                            );
+                        }
+                    }
+                } else {
+                    $email = $request->get('email');
+                    $fname = $request->get('first_name');
+                    $fname = explode(' ', $fname);
+                    $fname = strtolower(implode('', $fname));
+                    if (! $email) {
+                        $url = env('APP_URL');
+                        $domain = explode('//', $url);
+                        $domain = $domain[1];
+    
+                        $email = $fname.rand(100, 1000000).'@'.$domain;
+                    }
+                    $pass = Str::random(16);
+    
+                    $name = $request->get('first_name');
+    
+                    $username = strtolower(
+                        preg_replace('/[^a-zA-Z0-9]+/', '', $name)
+                    ).rand(1000, 9999);
+
+                    $user = User::where('email', $email)
+                        ->orWhere('phone_number', $request->phone_number)
+                        ->first();
+
+                    if (!$user) {
+                        $user = User::create(
                             [
-                                'first_name' => $user->name,
-                                'user_id' => $user->id,
+                                'name' => $request->get('first_name'),
+                                'username' => $username,
+                                'email' => $email,
+                                'phone_number' => $request->get('phone_number'),
+                                'password' => Hash::make($pass),
                             ]
                         );
                     }
+    
+                    
+                    $address = Address::create(
+                        [
+                            'first_name' => $request->get('first_name'),
+                            'user_id' => $user->id,
+                        ]
+                    );
+    
+                    $address->fill($request->validated());
+                    $address->save();
                 }
-            } else {
-                $email = $request->get('email');
-                $fname = $request->get('first_name');
-                $fname = explode(' ', $fname);
-                $fname = strtolower(implode('', $fname));
-                if (! $email) {
-                    $url = env('APP_URL');
-                    $domain = explode('//', $url);
-                    $domain = $domain[1];
-
-                    $email = $fname.rand(100, 1000000).'@'.$domain;
-                }
-                $pass = Str::random(16);
-
-                $name = $request->get('first_name');
-
-                $username = strtolower(
-                    preg_replace('/[^a-zA-Z0-9]+/', '', $name)
-                ).rand(1000, 9999);
-
-                $user = User::create(
-                    [
-                        'name' => $request->get('first_name'),
-                        'username' => $username,
-                        'email' => $email,
-                        'phone_number' => $request->get('phone_number'),
-                        'password' => Hash::make($pass),
-                    ]
-                );
-                $address = Address::create(
-                    [
-                        'first_name' => $request->get('first_name'),
-                        'user_id' => $user->id,
-                    ]
-                );
+            } catch (Exception $e) {
+                $this->releaseCartItems();
+                throw $e;
             }
         } else {
-            return [
-                'status' => 'Failed',
-            ];
+            throw new Exception('Failed to reserve cart');
         }
 
         if ($this->makeInvoice($user, $address)) {
+            $this->emptyCart();
             return [
                 'invoice' => $this->invoice,
                 'paid' => false,
@@ -228,11 +243,13 @@ class CartRepository
         $canReserve = true;
         foreach ($this->cart as $item) {
             $variant = ProductVariant::find($item['id']);
-            if ($variant->quantity < $item['quantity']) {
+            $quantity = $item['quantity'];
+            $available = $variant->quantity;
+            if ($available < $quantity) {
                 $canReserve = false;
                 break;
             } else {
-                $variant->quantity -= $item['quantity'];
+                $variant->quantity -= $quantity;
                 $variant->save();
                 array_push($reserved, $item);
             }
