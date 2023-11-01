@@ -6,6 +6,7 @@ import CartRoot from '../components/shop/cart/CartRoot';
 import ProductVariantSingle from '../components/shop/products/ProductVariantSingle';
 import ProductVariantsRoot from '../components/shop/products/ProductVariantsRoot';
 import CheckoutRoot from '../components/shop/checkout/CheckoutRoot';
+import OrdersRoot from '../components/shop/orders/OrdersRoot';
 
 export const shop = [
   {
@@ -55,5 +56,11 @@ export const shop = [
     path: '/checkout',
     component: CheckoutRoot,
     meta: { requiresAuth: false },
+  },
+  {
+    name: 'orders',
+    path: '/orders',
+    component: OrdersRoot,
+    meta: { requiresAuth: true },
   },
 ];
