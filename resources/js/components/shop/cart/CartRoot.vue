@@ -42,29 +42,11 @@
               >
             </p>
           </div>
-          <div v-if="cartItems && cartItems.length > 0" class="mt-3" :class="cardSummaryClass">
-            <b-card>
-              <b-card-title>
-                Cart Summary
-              </b-card-title>
-              <b-card-body>
-                <p class="mb-0">Products: {{ cartItems.length }}</p>
-                <p class="pt-0 mt-0" v-if="cartItems.length > 1">Items: {{ totalItems }}</p>
-                <h4 class="mt-4">
-                  Totals: <u>{{ totals | kes }}</u>
-                </h4>
-                <p>
-                  <b-button @click="checkout" size="sm" variant="info" class=" text-white mr-2"
-                    ><i class="fa fa-check-circle"></i> Proceed to Checkout</b-button
-                  >
-                  or
-                  <router-link :to="{ name: 'shop' }">
-                    <i class="fa fa-shopping-cart"></i> Continue Shopping</router-link
-                  >
-                </p>
-              </b-card-body>
-            </b-card>
-          </div>
+          <cart-summary
+            :cart="cartItems"
+            :class="cardSummaryClass"
+            v-if="cartItems && cartItems.length > 0"
+          ></cart-summary>
         </div>
       </div>
     </div>
@@ -74,8 +56,9 @@
 <script>
   import CartItem from './CartItem';
   import store from '../../../store';
+  import CartSummary from './CartSummary.vue';
   export default {
-    components: { CartItem },
+    components: { CartItem, CartSummary },
     props: [],
     data() {
       return {};

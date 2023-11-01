@@ -71,6 +71,12 @@ class CheckoutRequest extends FormRequest
                 'exclude_with:user_id',
                 'required',
                 'string',
+            ],
+            'street_address' => [
+                'sometimes',
+                'nullable',
+                'string',
+                'max:255',
             ]
 
         ];

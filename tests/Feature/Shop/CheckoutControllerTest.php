@@ -160,14 +160,4 @@ class CheckoutControllerTest extends TestCase
         $this->assertEquals($originalQuantity1 - 2, $variant1->quantity);
         $this->assertEquals($originalQuantity2 - 3, $variant2->quantity);
     }
-
-    public function testPhoneNumberMatchedToAccount()
-    {
-        $this->markTestIncomplete('to be done');
-    }
-
-    public function testEmailMatchedToAccount()
-    {
-        $this->markTestIncomplete('to be done');
-    }
 }
