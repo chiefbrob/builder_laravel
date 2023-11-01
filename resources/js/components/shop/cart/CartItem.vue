@@ -61,6 +61,10 @@
       item: {
         required: true,
       },
+      full: {
+        required: false,
+        default: true,
+      },
     },
     data() {
       return {
