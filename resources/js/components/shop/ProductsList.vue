@@ -11,6 +11,15 @@
         />
         <span class="ml-2">Shop</span>
 
+        <router-link
+          v-if="shop.form.cart && shop.form.cart.length > 0"
+          class="float-right btn btn-sm btn-info text-white"
+          :to="{ name: 'cart' }"
+        >
+          {{ shop.form.cart.length }}
+          <i class="fa fa-shopping-cart"></i>
+        </router-link>
+
         <b-form-checkbox
           id="checkbox-1"
           v-model="deleted"
@@ -47,6 +56,8 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
+
   import Product from './Product';
   export default {
     components: { Product },
@@ -67,6 +78,9 @@
       this.loadProducts();
     },
     computed: {
+      ...mapState({
+        shop: state => state.shop,
+      }),
       user() {
         return this.$store.getters.user;
       },
