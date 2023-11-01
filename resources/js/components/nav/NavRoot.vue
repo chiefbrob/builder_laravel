@@ -11,10 +11,8 @@
     </b-alert>
 
     <b-navbar toggleable="lg" type="dark" variant="info" class="row">
-      <b-navbar-brand
-        class="pl-2 pointer"
-        @click="$router.push({ name: 'welcome' })"
-        v-text="$root.$store.state.config.name"
+      <b-navbar-brand class="pointer" @click="$router.push({ name: 'welcome' })"
+        ><span v-text="$root.$store.state.config.name"></span
       ></b-navbar-brand>
 
       <span>
@@ -27,6 +25,10 @@
 
           <b-dropdown-item href="#" v-if="user" @click="$router.push({ name: 'profile' })">
             @{{ user.username }}
+          </b-dropdown-item>
+
+          <b-dropdown-item href="#" v-if="user" @click="$router.push({ name: 'orders' })">
+            <i class="fa fa-inbox"></i> Orders
           </b-dropdown-item>
 
           <b-dropdown-item href="#" v-if="user" @click="$router.push({ name: 'settings' })">
