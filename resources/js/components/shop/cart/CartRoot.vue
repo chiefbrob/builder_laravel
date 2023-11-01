@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-md-8 offset-md-2">
+      <div class="col-md-10 offset-md-1">
         <h4 class="pt-2">
           Shopping Cart
 
@@ -10,8 +10,8 @@
             size="sm"
             variant="info"
             @click="checkout"
-            class="float-right text-white mr-2"
-            ><i class="fa fa-shopping-cart"></i> Checkout</b-button
+            class="float-right text-white "
+            ><i class="fa fa-check-circle"></i> Checkout</b-button
           >
           <b-button
             v-if="cartItems && cartItems.length > 0"
@@ -42,15 +42,28 @@
               >
             </p>
           </div>
-          <div v-if="cartItems && cartItems.length > 0" class="mt-3 col-md-12">
-            <h4>
-              Totals: <u>{{ totals | kes }}</u>
-            </h4>
-            <p>
-              <b-button @click="checkout" size="sm" variant="info" class=" text-white mr-2"
-                ><i class="fa fa-shopping-cart"></i> Proceed to Checkout</b-button
-              >
-            </p>
+          <div v-if="cartItems && cartItems.length > 0" class="mt-3" :class="cardSummaryClass">
+            <b-card>
+              <b-card-title>
+                Cart Summary
+              </b-card-title>
+              <b-card-body>
+                <p class="mb-0">Products: {{ cartItems.length }}</p>
+                <p class="pt-0 mt-0" v-if="cartItems.length > 1">Items: {{ totalItems }}</p>
+                <h4 class="mt-4">
+                  Totals: <u>{{ totals | kes }}</u>
+                </h4>
+                <p>
+                  <b-button @click="checkout" size="sm" variant="info" class=" text-white mr-2"
+                    ><i class="fa fa-check-circle"></i> Proceed to Checkout</b-button
+                  >
+                  or
+                  <router-link :to="{ name: 'shop' }">
+                    <i class="fa fa-shopping-cart"></i> Continue Shopping</router-link
+                  >
+                </p>
+              </b-card-body>
+            </b-card>
           </div>
         </div>
       </div>
@@ -81,6 +94,25 @@
         }
         return 0;
       },
+      totalItems() {
+        if (this.cartItems && this.cartItems.length > 0) {
+          let total = 0;
+          this.cartItems.forEach(item => {
+            total += item.quantity;
+          });
+          return total;
+        }
+        return 0;
+      },
+      cardSummaryClass() {
+        if (this.cartItems.length % 3 === 0) {
+          return 'col-md-12';
+        }
+        if (this.cartItems.length % 2 === 0) {
+          return 'col-md-4';
+        }
+        return 'col-md-8';
+      },
     },
     methods: {
       emptyCart() {
@@ -95,7 +127,7 @@
           });
       },
       checkout() {
-        console.log('checking out');
+        this.$router.push({ name: 'checkout' });
       },
     },
     mounted() {},
