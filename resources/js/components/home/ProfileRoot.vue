@@ -10,12 +10,16 @@
               class="rounded-0"
             ></b-card-img>
           </b-col>
-          <b-col md="4">
-            <b-card-body :title="$store.state.user.name">
-              <b-card-text>
+          <b-col md="8">
+            <b-card-title style="text-align: center;" class="mt-2">
+              <span v-text="$store.state.user.name"></span
+            ></b-card-title>
+            <b-card-body>
+              <b-card-text style="text-align: center;">
                 <p>
-                  Howdy {{ $store.state.user.admin ? 'Admin' : 'User' }}
-                  {{ $store.state.user.name }}, <br />
+                  Howdy <u>{{ $store.state.user.admin ? 'Admin' : 'User' }}</u>
+                  <b>{{ $store.state.user.name }}</b
+                  >, <br />
                   You created this account <b>{{ $store.state.user.created_at | relative }}</b>
                 </p>
                 <p>

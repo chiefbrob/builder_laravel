@@ -13,7 +13,7 @@
 
         <router-link
           v-if="shop.form.cart && shop.form.cart.length > 0"
-          class="float-right btn btn-sm btn-info text-white"
+          class="float-right py-0 btn btn-sm btn-info text-white"
           :to="{ name: 'cart' }"
         >
           {{ shop.form.cart.length }}
