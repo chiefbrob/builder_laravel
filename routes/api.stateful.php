@@ -88,4 +88,8 @@ Route::prefix('v1')->group(static function () {
             Route::delete('/', Admin\Roles\RemoveRoleController::class)->name('user-role.delete');
         });
     });
+
+    Route::prefix('invoices')->namespace('Invoices')->group(static function () {
+        Route::get('/', InvoicesIndexController::class)->name('v1.invoices.index');
+    });
 });
