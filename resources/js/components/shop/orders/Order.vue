@@ -11,8 +11,8 @@
       >
     </b-list-group>
     <b-card-footer>
-      <b-button size="sm" variant="link">Track</b-button>
-      <b-badge variant="success" class="float-right">DELIVERED</b-badge>
+      <b-button size="sm" variant="link" class="float-right">Track</b-button>
+      <b-badge variant="success">{{ order.status }}</b-badge>
     </b-card-footer>
   </b-card>
 </template>
