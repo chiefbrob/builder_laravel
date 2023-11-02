@@ -25,6 +25,10 @@
             >
             <clipboard content="copy me" variant="dark"></clipboard>
           </p>
+
+          <div class="row">
+            <div class="col-md-6"><phone-number style="max-width: 70%;"></phone-number></div>
+          </div>
           <p>Login as Admin using <u>test</u> and password <u>password</u></p>
         </b-jumbotron>
       </div>
