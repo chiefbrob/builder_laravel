@@ -127,22 +127,9 @@ class CartRepository
         $this->request = $request;
         if ($this->reserveCartItems()) {
             try {
-                if ($request->get('user_id')) {
+                if ($request->user_id) {
                     $user = auth()->user();
-                    if ($request->address_id) {
-                        $address = Address::find($request->address_id);
-                    } else {
-                        if (count($user->addresses) > 0) {
-                            $address = $user->addresses[0];
-                        } else {
-                            $address = Address::create(
-                                [
-                                    'first_name' => $user->name,
-                                    'user_id' => $user->id,
-                                ]
-                            );
-                        }
-                    }
+                    $address = Address::findOrFail($request->address_id);
                 } else {
                     $email = $request->get('email');
                     $fname = $request->get('first_name');

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Shop;
 
+use App\Models\Address;
 use App\Models\PaymentMethod;
 use App\Models\Product;
 use App\Models\ProductVariant;
@@ -146,8 +147,11 @@ class CheckoutControllerTest extends TestCase
             ]
         );
 
+        $address = Address::factory()->create(['user_id' => $this->user->id]);
+
         $response = $this->post(route('v1.checkout'), [
             'payment_method_id' => PaymentMethod::inRandomOrder()->first()->id,
+            'address_id' => $address->id
         ])->assertOk()->assertJson([
             'invoice' => [
                 'tax' => 0,

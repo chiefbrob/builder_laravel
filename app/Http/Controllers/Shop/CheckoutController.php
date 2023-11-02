@@ -29,7 +29,6 @@ class CheckoutController extends Controller
 
             return response()->json([
                 'message' => 'Failed to checkout',
-                'details' => $e->getMessage(),
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
