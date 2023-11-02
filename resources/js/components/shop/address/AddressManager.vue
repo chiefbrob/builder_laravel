@@ -28,6 +28,7 @@
         v-for="address in addresses"
         :key="address.id"
         :address="address"
+        @updated="loadAddresses"
       ></my-address>
     </div>
 
