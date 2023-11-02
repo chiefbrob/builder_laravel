@@ -92,4 +92,13 @@ Route::prefix('v1')->group(static function () {
     Route::prefix('invoices')->namespace('Invoices')->group(static function () {
         Route::get('/', InvoicesIndexController::class)->name('v1.invoices.index');
     });
+
+    Route::prefix('addresses')->namespace('Address')->group(
+        static function () {
+            Route::post(
+                '/', 
+                CreateAddressController::class
+            )->name('v1.address.store');
+        }
+    );
 });
