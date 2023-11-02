@@ -104,6 +104,9 @@ Route::prefix('v1')->group(static function () {
             Route::put('/{address_id}', UpdateAddressController::class)
                 ->name('v1.address.update');
 
+            Route::delete('/{address_id}', DeleteAddressController::class)
+                ->name('v1.address.delete');
+
         }
     );
 });
