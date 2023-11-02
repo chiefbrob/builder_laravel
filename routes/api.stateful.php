@@ -97,6 +97,9 @@ Route::prefix('v1')->group(static function () {
         static function () {
             Route::post('/', CreateAddressController::class)
                 ->name('v1.address.store');
+
+            Route::get('/', GetAddressController::class)
+                ->name('v1.address.index');
             
             Route::put('/{address_id}', UpdateAddressController::class)
                 ->name('v1.address.update');
