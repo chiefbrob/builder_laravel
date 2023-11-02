@@ -8,6 +8,8 @@ This template allows you to quickly start building laravel applications from scr
 
 [Means](https://means.dabotap.com) - Transport Platform
 
+[Clutch Bags Kenya](https://clutchbagskenya.co.ke/) - Online shopping for ladies clutch bags
+
 [Ifanye](https://ifanye.dabotap.com) - Tasks & Team work
 
 [Starred Repos](http://starredrepos.on.chiefbrob.info/) - Fetch your Github Starred Repositories **opensource**
@@ -20,18 +22,19 @@ Seperation of concerns is important.
 
 ## Features
 
-- Full Authentication
+- Full Authentication, Oauth2
 - Admin & User Sections
 - Blog
 - Feature Flags - control new features
 - Easy to deploy (Docker, VPS)
 - Contact, Terms & Conditions & Privacy policy pages
-- E-commerce shop
+- E-commerce shop, cart, address manager
 - Tests with PHPUnit and Jest
 - GraphQL
 - UI with [BootstrapVue](https://bootstrap-vue.org/)
 - Tasks management
 - Search Website Content
+- WYSIWYG Editor
 
 ## Features WIP
 
