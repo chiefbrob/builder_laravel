@@ -95,10 +95,12 @@ Route::prefix('v1')->group(static function () {
 
     Route::prefix('addresses')->namespace('Address')->group(
         static function () {
-            Route::post(
-                '/', 
-                CreateAddressController::class
-            )->name('v1.address.store');
+            Route::post('/', CreateAddressController::class)
+                ->name('v1.address.store');
+            
+            Route::put('/{address_id}', UpdateAddressController::class)
+                ->name('v1.address.update');
+
         }
     );
 });

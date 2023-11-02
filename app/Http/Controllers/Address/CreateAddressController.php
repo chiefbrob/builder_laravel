@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Address\CreateAddressRequest;
 use App\Models\Address;
 use Exception;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 
 class CreateAddressController extends Controller
@@ -23,7 +23,7 @@ class CreateAddressController extends Controller
             return response()->json(
                 [
                     'message' => 'Failed to create address'
-                ]
+                ], Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
     }
