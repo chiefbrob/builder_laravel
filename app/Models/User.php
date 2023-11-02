@@ -38,6 +38,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'language',
         'details',
         'team_id',
+        'default_address_id'
     ];
 
     protected $appends = ['admin', 'rolesList'];
@@ -82,6 +83,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public function addresses(): HasMany
     {
         return $this->hasMany(Address::class);
+    }
+
+    public function getDefaultAddressAttribute(): Address|null
+    {
+        if ($this->default_address_id) {
+            return Address::findOrFail($this->default_address_id);
+        }
+        return null;
     }
 
     public function logins(): HasMany

@@ -25,11 +25,32 @@ class CreateAddressControllerTest extends TestCase
             'post_code' => '00100',
             'phone_number' => '254722222222',
         ];
-        $this->post(route('v1.address.store'), $data)
+        $response = $this->post(route('v1.address.store'), $data)
             ->assertCreated()
             ->assertJson($data);
 
+        $this->user->refresh();
+
+        $this->assertNotNull($this->user->defaultAddress);
+
+        $address_id = $response->baseResponse->original['id'];
+
+        $this->assertEquals($this->user->default_address_id, $address_id);
 
         $this->assertDatabaseHas('addresses', $data);
+
+        $data2 = [
+            'first_name' => 'Foo',
+            'street_address' => 'Bar foo xim'
+        ];
+
+        $response = $this->post(route('v1.address.store'), $data2)
+            ->assertCreated()
+            ->assertJson($data2);
+
+        $address_id = $response->baseResponse->original['id'];
+
+        $this->assertNotEquals($this->user->default_address_id, $address_id);
     }
+    
 }
