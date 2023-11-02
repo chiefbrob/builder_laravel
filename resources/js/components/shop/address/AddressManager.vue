@@ -31,6 +31,21 @@
         @updated="loadAddresses"
       ></my-address>
     </div>
+    <div class="row mt-3" v-else>
+      <div class="col-md-6 offset-md-3">
+        <p v-if="loading"><i class="fa fa-spinner"></i> Loading...</p>
+        <p v-else>
+          No Addresses found.
+          <b-button
+            v-b-modal="'create-address-modal'"
+            size="sm"
+            class="float-right text-white"
+            variant="info"
+            ><i class="fa fa-plus"></i> New address</b-button
+          >
+        </p>
+      </div>
+    </div>
 
     <b-pagination
       @input="pageChanged"

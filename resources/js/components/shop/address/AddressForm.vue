@@ -40,7 +40,7 @@
 
     <field-error :solid="false" :errors="errors" field="street_address"></field-error>
 
-    <phone-number @updated="newPhoneNumber"></phone-number>
+    <phone-number :number="form.phone_number" @updated="newPhoneNumber"></phone-number>
 
     <field-error :solid="false" :errors="errors" field="phone_number"></field-error>
 
@@ -70,7 +70,18 @@
         },
       };
     },
+    created() {
+      if (this.address) {
+        this.loadDefaults();
+      }
+    },
     methods: {
+      loadDefaults() {
+        this.form.first_name = this.address.first_name;
+        this.form.last_name = this.address.last_name;
+        this.form.street_address = this.address.street_address;
+        this.form.phone_number = this.address.phone_number;
+      },
       submit() {
         this.$emit('submitted', this.form);
       },
