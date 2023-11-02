@@ -20,7 +20,7 @@ class GetAddressController extends Controller
         try {
             return Address::where('user_id', auth()->id())
                 ->orderBy('id', 'DESC')
-                ->paginate();
+                ->paginate(4);
         } catch (Exception $e) {
             Log::error($e);
             return response()->json(
