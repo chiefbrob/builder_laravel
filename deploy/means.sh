@@ -2,7 +2,7 @@
 mkdir -p /var/www/means.on.chiefbrob.info
 rm -f /etc/nginx/sites-enabled/default
 cat <<EOF > /etc/nginx/sites-available/means.on.chiefbrob.info
-sserver {
+server {
     listen 80;
     #listen [::]:80 default_server ipv6only=on;
 
