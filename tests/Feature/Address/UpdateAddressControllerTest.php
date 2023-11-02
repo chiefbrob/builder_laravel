@@ -64,4 +64,36 @@ class UpdateAddressControllerTest extends TestCase
 
         $this->assertDatabaseMissing('addresses', $newData);
     }
+
+    public function testCanMakeAddressDefault()
+    {
+        $response = $this->put(
+            route('v1.address.update', ['address_id' => $this->address->id]), 
+            [
+                'first_name' => 'Bar Bare',
+                'street_address' => 'Somewhere notth east'
+            ]
+        )->assertOk()
+            ->assertJson(
+                [
+                    'first_name' => 'Bar Bare',
+                    'street_address' => 'Somewhere notth east'
+                ]
+            );
+
+
+        $this->assertDatabaseHas('addresses', 
+            [
+                'first_name' => 'Bar Bare',
+                'street_address' => 'Somewhere notth east'
+            ]
+        );
+
+        $this->user->refresh();
+
+        $address_id = $response->baseResponse->original['id'];
+        $this->assertNotNull($this->user->defaultAddress);
+
+        $this->assertEquals($this->user->default_address_id, $address_id);
+    }
 }

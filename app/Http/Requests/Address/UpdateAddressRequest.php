@@ -31,6 +31,7 @@ class UpdateAddressRequest extends FormRequest
             'county' => ['sometimes', 'nullable', 'string', 'max:30'],
             'post_code' => ['sometimes', 'nullable', 'string', 'max:30'],
             'phone_number' => ['sometimes', 'nullable', 'string', 'max:20'],
+            'set_default' => ['sometimes', 'nullable', 'string', 'in:true']
         ];
     }
 }
