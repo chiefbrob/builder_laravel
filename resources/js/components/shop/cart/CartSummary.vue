@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3">
+  <div>
     <b-card>
       <b-card-title>
         Cart Summary
