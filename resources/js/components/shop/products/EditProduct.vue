@@ -1,36 +1,31 @@
 <template>
   <div>
     <div class="mb-5 pb-5 row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-6 offset-md-3 mt-1">
-            <shop-bread-crumb class="p-1 mt-1" :product="product" v-if="product"></shop-bread-crumb>
-          </div>
-          <product
-            class="col-md-6 offset-md-3"
-            v-if="product"
+      <div class="col-md-6 offset-md-3">
+        <b-card v-if="product" :title="product.name">
+          <product-form
+            @variantAdded="loadProduct"
+            :url="`/api/v1/products/${product.id}`"
             :product="product"
-            @updated="loadProduct"
-          ></product>
-        </div>
+          ></product-form>
+        </b-card>
         <p v-if="loading"><i class="fa fa-spinner"></i> Loading</p>
-        <p v-if="!loading && !product"></p>
+        <p v-if="!loading && !product">Nothing to display</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import ShopBreadCrumb from './nav/ShopBreadCrumb.vue';
-  import Product from './Product';
+  import ProductForm from './ProductForm.vue';
   import { mapState } from 'vuex';
   export default {
+    components: { ProductForm },
     props: [],
-    components: { Product, ShopBreadCrumb },
     data() {
       return {
-        loading: true,
         product: null,
+        loading: true,
       };
     },
     computed: {

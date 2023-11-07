@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import ProductForm from './ProductForm';
+  import ProductForm from './ProductForm.vue';
   export default {
     components: { ProductForm },
     props: [],

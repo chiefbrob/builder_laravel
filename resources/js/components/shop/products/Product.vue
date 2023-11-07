@@ -98,8 +98,8 @@
 
 <script>
   import { mapState } from 'vuex';
-  import ProductVariant from './products/ProductVariant';
-  import ProductSlideshow from './products/ProductSlideshow';
+  import ProductVariant from './ProductVariant.vue';
+  import ProductSlideshow from './ProductSlideshow.vue';
   export default {
     components: { ProductSlideshow, ProductVariant },
     props: {
