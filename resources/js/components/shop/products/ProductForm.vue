@@ -107,9 +107,9 @@
 </template>
 
 <script>
-  import TextEditor from '../shared/TextEditor';
-  import EditProductVariants from './products/EditProductVariants';
-  import ProductVariantForm from './products/ProductVariantForm';
+  import TextEditor from '../../shared/TextEditor';
+  import EditProductVariants from './EditProductVariants.vue';
+  import ProductVariantForm from './ProductVariantForm.vue';
   export default {
     components: { EditProductVariants, ProductVariantForm, TextEditor },
     props: {

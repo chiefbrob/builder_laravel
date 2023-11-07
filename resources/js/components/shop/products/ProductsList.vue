@@ -58,7 +58,7 @@
 <script>
   import { mapState } from 'vuex';
 
-  import Product from './Product';
+  import Product from './Product.vue';
   export default {
     components: { Product },
     data() {

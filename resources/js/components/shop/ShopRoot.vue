@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import ProductsList from './ProductsList';
+  import ProductsList from './products/ProductsList.vue';
   export default {
     components: { ProductsList },
     props: [],
