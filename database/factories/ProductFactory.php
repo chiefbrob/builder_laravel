@@ -22,6 +22,7 @@ class ProductFactory extends Factory
             'price' => $this->faker->numberBetween(1000, 3000),
             'description' => $this->faker->text,
             'photo' => null,
+            'featured' => $this->faker->boolean()
         ];
     }
 }
