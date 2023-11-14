@@ -7,7 +7,7 @@ use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Product;
 use App\PhotoManager;
 use Exception;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 
 class UpdateProductController extends Controller
@@ -17,6 +17,7 @@ class UpdateProductController extends Controller
      *
      * @param  \App\Http\Requests\Product\UpdateProductRequest  $request
      * @param  int  $id
+     * 
      * @return \Illuminate\Http\Response
      */
     public function __invoke(UpdateProductRequest $request, $id)

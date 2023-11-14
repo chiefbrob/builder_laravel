@@ -30,10 +30,20 @@ class ProductsIndexController extends Controller
                     ->with('productVariants')
                     ->paginate();
             }
+            $products = Product::query();
 
-            return Product::with('productVariants')->whereHas('productVariants', function ($q) {
-                $q->where('quantity', '>', 0);
-            })->paginate();
+            
+            if ($request->get('featured', false)) {
+                $featured = $request->featured === '1' ? true : false;
+                $products->where('featured', $featured);
+            }
+            
+            return $products->with('productVariants')
+                ->whereHas(
+                    'productVariants', function ($q) {
+                        $q->where('quantity', '>', 0);
+                    }
+                )->paginate();
         } catch (Exception $e) {
             Log::error($e);
 
