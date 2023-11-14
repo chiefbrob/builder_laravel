@@ -24,11 +24,13 @@ class Product extends Variants
         'price',
         'description',
         'photo',
-        'long_description'
+        'long_description',
+        'featured'
     ];
 
     protected $casts = [
         'price' => MoneyCast::class,
+        'featured' => 'boolean'
     ];
 
     protected $with = ['productVariants'];

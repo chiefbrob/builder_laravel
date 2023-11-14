@@ -29,7 +29,23 @@ class CreateProductRequest extends FormRequest
             'price' => ['required', 'integer', 'min:0'],
             'description' => ['required', 'string', 'max:200'],
             'photo' => ['required', 'image', 'mimes:jpeg,jpg,png', 'max:2048'],
-            'long_description' => ['sometimes', 'nullable', 'string']
+            'long_description' => ['sometimes', 'nullable', 'string'],
+            'featured' => ['sometimes', 'nullable', 'boolean']
         ];
+    }
+    
+    protected function prepareForValidation(): void
+    {
+        $featured = null;
+        if ($this->featured) {
+            if ($this->featured === 'true') {
+                $featured = true;
+            } else {
+                $featured = false;
+            }
+        }
+        $this->merge([
+            'featured' => $featured,
+        ]);
     }
 }
