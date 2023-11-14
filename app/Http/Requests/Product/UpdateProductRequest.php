@@ -28,8 +28,30 @@ class UpdateProductRequest extends FormRequest
             'slug' => ['required', 'string', 'min:3', 'max:20'],
             'price' => ['required', 'integer', 'min:0'],
             'description' => ['required', 'string', 'max:200'],
-            'photo' => ['sometimes', 'nullable', 'image', 'mimes:jpeg,jpg', 'max:2048'],
-            'long_description' => ['sometimes', 'nullable', 'string']
+            'photo' => [
+                'sometimes', 
+                'nullable', 
+                'image', 
+                'mimes:jpeg,jpg', 
+                'max:2048'
+            ],
+            'long_description' => ['sometimes', 'nullable', 'string'],
+            'featured' => ['sometimes', 'nullable', 'boolean']
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $featured = null;
+        if ($this->featured) {
+            if ($this->featured === 'true') {
+                $featured = true;
+            } else {
+                $featured = false;
+            }
+        }
+        $this->merge([
+            'featured' => $featured,
+        ]);
     }
 }

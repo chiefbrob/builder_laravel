@@ -71,8 +71,22 @@
 
         <field-error :solid="false" :errors="errors" field="long_description"></field-error>
 
+        <p class="mt-3">
+          <b-form-checkbox
+            id="product-featured-checkbox"
+            v-model="form.featured"
+            name="checkbox-1"
+            :unchecked-value="false"
+          >
+            Featured product
+          </b-form-checkbox>
+        </p>
+
+        <field-error :solid="false" :errors="errors" field="featured"></field-error>
+
         <p class="py-3">
           <input type="submit" class="btn btn-success btn-sm" text="Submit" />
+
           <b-button
             v-if="product"
             v-b-modal.add-product-variant
@@ -131,6 +145,7 @@
           photo: null,
           long_description: null,
           quantity: 1,
+          featured: false,
         },
         errors: [],
         variantErrors: [],
@@ -145,6 +160,7 @@
         if (this.product) {
           delete this.product.photo;
           this.form = { ...this.product };
+          console.log(this.form.featured, this.product.featured);
           if (this.product.product_variants.length === 1) {
             this.form.quantity = this.product.product_variants[0].quantity;
           }
@@ -164,6 +180,7 @@
         form.append('description', this.form.description);
 
         form.append('long_description', this.form.long_description);
+        form.append('featured', this.form.featured);
         axios
           .post(this.url, form, {
             headers: { 'Content-Type': 'multipart/form-data' },
