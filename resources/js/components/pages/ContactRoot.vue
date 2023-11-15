@@ -13,14 +13,8 @@
         </b-form-group>
         <field-error :solid="false" :errors="errors" field="email"></field-error>
 
-        <b-form-group id="input-group-4" label="Phone Number:" label-for="phone_number">
-          <b-form-input
-            id="phone_number"
-            v-model="form.phone_number"
-            type="text"
-            required
-          ></b-form-input>
-        </b-form-group>
+        <phone-number @updated="newPhoneNumber" :number="defaultNumber"></phone-number>
+
         <field-error :solid="false" :errors="errors" field="phone_number"></field-error>
 
         <b-form-group id="input-group-5" label="Title: *" label-for="title">
@@ -37,6 +31,9 @@
             >Send</b-button
           >
           <i v-else class="fa fa-spinner"></i>
+          <b-button class="float-right" variant="link" @click="$router.push({ name: 'contacts' })"
+            >View My Contacts</b-button
+          >
         </p>
       </div>
     </div>
@@ -49,7 +46,7 @@
         </p>
         <p>
           <b-button variant="success" @click="submitted = false"> Send New Message</b-button>
-          <b-button class="text-white" variant="info" @click="$router.push({ name: 'home' })"
+          <b-button class="text-white" variant="info" @click="$router.push({ name: 'contacts' })"
             >View My Contacts</b-button
           >
         </p>
@@ -74,6 +71,7 @@
         loading: false,
         max: 100,
         submitted: false,
+        defaultNumber: window.User?.phone_number,
       };
     },
     computed: {
@@ -122,6 +120,9 @@
           .finally(() => {
             this.loading = false;
           });
+      },
+      newPhoneNumber(number) {
+        this.form.phone_number = number.countryCallingCode + number.nationalNumber;
       },
     },
     created() {
