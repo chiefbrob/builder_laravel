@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,20 @@ use Illuminate\Support\Facades\Session;
 Auth::routes(['verify' => true]);
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::prefix('auth/v1')->namespace('Auth\Socialite')->group(static function () {
+    Route::get(
+        '/google/redirect', 
+        function (Request $request) {
+            return Socialite::driver('google')->redirect();
+        }
+    )->name('auth.v1.google.redirect');
+
+    Route::get(
+        '/google/callback', 
+        GoogleAuthController::class
+    )->name('auth.v1.google.callback');
+});
 
 // Route::get('/test-mail', function (Request $request) {
 //     $email = $request->email ??  config('app.email');

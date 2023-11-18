@@ -7,8 +7,11 @@ use App\Models\Address;
 use App\Models\Invoice;
 use App\Models\ProductVariant;
 use App\Models\User;
+use App\Notifications\SendWelcomeEmailNotification;
 use Exception;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -163,6 +166,12 @@ class CartRepository
                                 'phone_number' => $request->get('phone_number'),
                                 'password' => Hash::make($pass),
                             ]
+                        );
+
+                        event(new Registered($user));
+                        Notification::send(
+                            $user, 
+                            new SendWelcomeEmailNotification($user)
                         );
                     }
     

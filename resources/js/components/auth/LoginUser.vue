@@ -2,7 +2,17 @@
   <div class="container">
     <div class="mb-5 pb-5 row">
       <div class="col-md-4 offset-md-4">
-        <h4 class="pt-3">Login</h4>
+        <div class="row">
+          <div class="col-md-12">
+            <h4 class="pt-3">
+              Login
+
+              <span class="float-right">
+                <a href="/auth/v1/google/redirect" class="btn btn-link">Google</a>
+              </span>
+            </h4>
+          </div>
+        </div>
 
         <form
           class="py-3 row"
