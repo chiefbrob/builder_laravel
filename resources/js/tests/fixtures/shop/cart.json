@@ -1,0 +1,76 @@
+[
+  {
+    "id": 2,
+    "product": {
+      "id": 2,
+      "name": "Mug",
+      "slug": "mug",
+      "photo": "16981351066093.jpeg",
+      "price": 700,
+      "created_at": "2023-10-24T05:16:43.000000Z",
+      "deleted_at": null,
+      "updated_at": "2023-10-30T08:26:35.000000Z",
+      "description": "High quality mug",
+      "long_description": "null nothuings ehse",
+      "product_variants": [
+        {
+          "id": 2,
+          "name": "Mug",
+          "photo": null,
+          "quantity": 1,
+          "variants": [],
+          "created_at": "2023-10-24T05:16:43.000000Z",
+          "deleted_at": null,
+          "product_id": 2,
+          "updated_at": "2023-11-01T09:50:42.000000Z",
+          "variant_id": null,
+          "description": "<p>Loremp ipsum dolor on mug</p><h2>A title</h2><p>a titie</p>",
+          "product_size_id": null
+        }
+      ]
+    },
+    "quantity": 1,
+    "product_variant": {
+      "id": 2,
+      "name": "Mug",
+      "photo": null,
+      "product": {
+        "id": 2,
+        "name": "Mug",
+        "slug": "mug",
+        "photo": "16981351066093.jpeg",
+        "price": 700,
+        "created_at": "2023-10-24T05:16:43.000000Z",
+        "deleted_at": null,
+        "updated_at": "2023-10-30T08:26:35.000000Z",
+        "description": "High quality mug",
+        "long_description": "null nothuings ehse",
+        "product_variants": [
+          {
+            "id": 2,
+            "name": "Mug",
+            "photo": null,
+            "quantity": 1,
+            "variants": [],
+            "created_at": "2023-10-24T05:16:43.000000Z",
+            "deleted_at": null,
+            "product_id": 2,
+            "updated_at": "2023-11-01T09:50:42.000000Z",
+            "variant_id": null,
+            "description": "<p>Loremp ipsum dolor on mug</p><h2>A title</h2><p>a titie</p>",
+            "product_size_id": null
+          }
+        ]
+      },
+      "quantity": 1,
+      "variants": [],
+      "created_at": "2023-10-24T05:16:43.000000Z",
+      "deleted_at": null,
+      "product_id": 2,
+      "updated_at": "2023-11-01T09:50:42.000000Z",
+      "variant_id": null,
+      "description": "<p>Loremp ipsum dolor on mug</p><h2>A title</h2><p>a titie</p>",
+      "product_size_id": null
+    }
+  }
+]

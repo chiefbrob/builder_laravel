@@ -26,7 +26,7 @@
         @click="submitOrder"
         size="sm"
         variant="success"
-        :disabled="!formComplete || loading"
+        :disabled="!formComplete || loading || checkout"
         ><i class="fa fa-check-circle"></i> Confirm Order</b-button
       >
       <span v-if="loading"><i class="fa fa-spinner"></i> Loading...</span>
@@ -45,6 +45,7 @@
           payment_method_id: 3,
         },
         loading: false,
+        checkout: false,
       };
     },
     computed: {
@@ -61,6 +62,7 @@
         axios
           .post('/api/v1/checkout', this.form)
           .then(results => {
+            this.checkout = true;
             this.$root.$emit('sendMessage', 'Order Created', 'success');
             setTimeout(() => {
               this.$router.push({ name: 'orders' });
