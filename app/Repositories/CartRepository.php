@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Events\Invoices\InvoiceCreatedEvent;
 use App\Http\Requests\Shop\CheckoutRequest;
 use App\Models\Address;
 use App\Models\Invoice;
@@ -223,6 +224,7 @@ class CartRepository
                 'payment_method_id' => $this->request->payment_method_id,
             ]
         );
+        event(new InvoiceCreatedEvent($invoice));
 
         if ($invoice->id) {
             $this->invoice = $invoice;

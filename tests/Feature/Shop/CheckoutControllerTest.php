@@ -2,12 +2,15 @@
 
 namespace Tests\Feature\Shop;
 
+use App\Mail\Invoices\SendCustomerInvoiceMail;
+use App\Mail\Invoices\SendShopInvoiceMail;
 use App\Models\Address;
 use App\Models\PaymentMethod;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\Shop\Variants;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class CheckoutControllerTest extends TestCase
@@ -65,6 +68,7 @@ class CheckoutControllerTest extends TestCase
      */
     public function testGuestUserCanCheckout()
     {
+        Mail::fake();
         $variant1 = ProductVariant::inRandomOrder()->first();
 
         $originalQuantity = $variant1->quantity;
@@ -108,10 +112,14 @@ class CheckoutControllerTest extends TestCase
         $this->assertDatabaseHas('addresses', [
             'first_name' => 'Brian',
         ]);
+
+        Mail::assertQueued(SendShopInvoiceMail::class);
+        Mail::assertQueued(SendCustomerInvoiceMail::class);
     }
 
     public function testAuthUserCanCheckout()
     {
+        Mail::fake();
         $this->actingAsRandomUser();
 
         $variants = $this->product1->productVariants;
@@ -163,5 +171,8 @@ class CheckoutControllerTest extends TestCase
 
         $this->assertEquals($originalQuantity1 - 2, $variant1->quantity);
         $this->assertEquals($originalQuantity2 - 3, $variant2->quantity);
+
+        Mail::assertQueued(SendShopInvoiceMail::class);
+        Mail::assertQueued(SendCustomerInvoiceMail::class);
     }
 }
