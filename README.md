@@ -22,7 +22,7 @@ Seperation of concerns is important.
 
 ## Features
 
-- Full Authentication, Oauth2
+- Full Authentication, Oauth2, Google Login
 - Admin & User Sections
 - Blog
 - Feature Flags - control new features
@@ -44,6 +44,14 @@ Seperation of concerns is important.
 - Automation of deployment with Github
 - Vite & Vue 3
 
+## Setting Up Google Login
+
+- Visit [Google Developers Console](https://console.developers.google.com/)
+- New Project
+- Setup OAuth consent screen
+- Setup Credentials (OAuth Client ID)
+- Add feature flag `socialite.google`
+
 ## Available Feature Flags
 
 Enable features `https://laravel.test/admin/feature_flags`
@@ -52,6 +60,7 @@ Enable features `https://laravel.test/admin/feature_flags`
 - blog
 - languages
 - teams
+- socialite.google
 
 ## Adding Features
 
