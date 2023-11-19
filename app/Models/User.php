@@ -38,7 +38,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'language',
         'details',
         'team_id',
-        'default_address_id'
+        'default_address_id',
+        'google_id'
     ];
 
     protected $appends = ['admin', 'rolesList'];
