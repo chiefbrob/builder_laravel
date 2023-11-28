@@ -26,7 +26,7 @@ Seperation of concerns is important.
 - Admin & User Sections
 - Blog
 - Feature Flags - control new features
-- Easy to deploy (Docker, VPS)
+- Easy to deploy notes
 - Contact, Terms & Conditions & Privacy policy pages
 - E-commerce shop, cart, address manager
 - Tests with PHPUnit and Jest
@@ -113,23 +113,6 @@ git rebase template/master
 ## Deploying
 
 Refer to [deploy/README.md](deploy/README.md)
-
-## Run with docker-compose
-
-Login Docker
-
-`docker login`
-
-Build Image
-
-```bash
-npm run production
-docker-compose build
-```
-
-Test Image
-
-`docker-compose up -d` and `docker-compose stop`
 
 ## Testing
 
