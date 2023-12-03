@@ -7,7 +7,7 @@
             <h4 class="pt-3">
               Login
 
-              <span class="float-right">
+              <span class="float-right" v-if="$featureIsEnabled('socialite.google')">
                 <a href="/auth/v1/google/redirect" class="btn btn-link">Google</a>
               </span>
             </h4>
