@@ -2,7 +2,12 @@
   <div class="container">
     <div class="mb-5 pb-5 row">
       <div class="col-md-4 offset-md-4">
-        <h4 class="pt-3">Create new account</h4>
+        <h4 class="pt-3">
+          Create new account
+          <span class="float-right" v-if="$featureIsEnabled('socialite.google')">
+            <a href="/auth/v1/google/redirect" class="btn btn-link">Google</a>
+          </span>
+        </h4>
 
         <form
           class="py-3 row"
