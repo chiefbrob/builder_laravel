@@ -7,6 +7,7 @@ import ProductVariantSingle from '../components/shop/products/ProductVariantSing
 import ProductVariantsRoot from '../components/shop/products/ProductVariantsRoot';
 import CheckoutRoot from '../components/shop/checkout/CheckoutRoot';
 import OrdersRoot from '../components/shop/orders/OrdersRoot';
+import ViewOrderRoot from '../components/shop/orders/ViewOrderRoot';
 
 export const shop = [
   {
@@ -61,6 +62,12 @@ export const shop = [
     name: 'orders',
     path: '/orders',
     component: OrdersRoot,
+    meta: { requiresAuth: true },
+  },
+  {
+    name: 'view-order',
+    path: '/orders/:reference',
+    component: ViewOrderRoot,
     meta: { requiresAuth: true },
   },
 ];

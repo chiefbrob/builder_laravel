@@ -3,35 +3,34 @@
 namespace App\Http\Controllers\Invoices;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Invoices\InvoicesIndexRequest;
+use App\Http\Requests\Invoices\GetInvoiceRequest;
 use App\Models\Invoice;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Log;
 
-class InvoicesIndexController extends Controller
+class GetInvoiceController extends Controller
 {
     /**
      * Handle the incoming request.
      */
-    public function __invoke(InvoicesIndexRequest $request)
+    public function __invoke(GetInvoiceRequest $request, string $reference)
     {
         try {
             $user = User::findOrFail(auth()->id());
-            
-            $invoices = Invoice::query();
+            $invoice = Invoice::query();
             if (!$user->isAdmin()) {
-                $invoices->where('user_id', $user->id);
+                $invoice->where('user_id', $user->id);
             }
-            return $invoices->with('address')
+            return $invoice->where('reference', $reference)
                 ->with('invoiceStates')
-                ->orderBy('id', 'DESC')
-                ->paginate();
+                ->with('address')->firstOrFail();
+            
         } catch (Exception $e) {
-            Log::error($e);
             return response()->json(
-                ['message' => 'Failed to get Invoices'],
+                [
+                    'message' => 'Failed to fetch invoice'
+                ], 
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }

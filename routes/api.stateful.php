@@ -91,6 +91,12 @@ Route::prefix('v1')->group(static function () {
 
     Route::prefix('invoices')->namespace('Invoices')->group(static function () {
         Route::get('/', InvoicesIndexController::class)->name('v1.invoices.index');
+        Route::get('/{reference}', 'GetInvoiceController')
+            ->name('v1.invoices.single');
+        Route::post(
+            '/{reference}/invoice-states', 
+            'CreateInvoiceStateChangeController'
+        )->name('v1.invoices.createstate');
     });
 
     Route::prefix('addresses')->namespace('Address')->group(

@@ -2,15 +2,15 @@
 
 namespace Tests\Feature\Invoices;
 
+use App\Models\Invoice;
+use App\Models\InvoiceState;
 use App\Models\PaymentMethod;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class InvoicesIndexControllerTest extends TestCase
+class CreateInvoiceStateChangeControllerTest extends TestCase
 {
     public Product $product;
     public Product $product2;
@@ -29,14 +29,14 @@ class InvoicesIndexControllerTest extends TestCase
         $this->variant1 = ProductVariant::create(
             [
                 'product_id' => $this->product->id,
-                'name' => 'variant foo 1',
+                'name' => 'variant bar 1',
                 'quantity' => 5
             ]
         );
         $this->variant2 = ProductVariant::create(
             [
                 'product_id' => $this->product->id,
-                'name' => 'variant foo 2',
+                'name' => 'variant xim 2',
                 'quantity' => 3
             ]
         );
@@ -45,14 +45,14 @@ class InvoicesIndexControllerTest extends TestCase
         $this->variant3 = ProductVariant::create(
             [
                 'product_id' => $this->product2->id,
-                'name' => 'variant bar 22',
+                'name' => 'variant xim 22',
                 'quantity' => 10
             ]
         );
         $this->variant4 = ProductVariant::create(
             [
                 'product_id' => $this->product2->id,
-                'name' => 'variant bar 33',
+                'name' => 'variant foobar 33',
                 'quantity' => 0
             ]
         );
@@ -94,55 +94,64 @@ class InvoicesIndexControllerTest extends TestCase
         $this->post(
             route('v1.checkout'), 
             [
-                'first_name' => 'Brian',
-                'phone_number' => '254732938104',
+                'first_name' => 'Chief',
+                'phone_number' => '254732928373',
                 'payment_method_id' => PaymentMethod::inRandomOrder()->first()->id,
             ]
         )->assertOk();
         $this->user = User::first();
         
     }
-    
 
-    public function testCanGetPaginatedInvoices(): void
+    public function testAdminCanUpdateInvoiceState(): void
     {
-        $this->actingAs($this->user);
-        $this->get(route('v1.invoices.index'))
-            ->assertOk()
-            ->assertJsonCount(1, 'data')
-            ->assertJson(
+        $this->actingAsAdmin();
+        $invoice = Invoice::first();
+        $invoiceState = [
+            'invoice_id' => $invoice->id,
+            'status' => InvoiceState::STATUS_PROCESSING,
+            'notes' => 'foo bar',
+            'previous_status' => 'PENDING'
+        ];
+        $this->post(
+            route(
+                'v1.invoices.createstate', 
                 [
-                    'data' => [
-                        [
-                            'cart' => [
-                                [
-                                    'id' => $this->variant1->id,
-                                ],
-                                [
-                                    'id' => $this->variant2->id,
-                                ],
-                                [
-                                    'id' => $this->variant3->id,
-                                ]
-                            ]
-                        ]
-                    ]
+                    'reference' => $invoice->reference,
+                    'invoice_id' => $invoice->id,
+                    'status' => InvoiceState::STATUS_PROCESSING,
+                    'notes' => 'foo bar'
                 ]
-            );
+            )
+        )->assertCreated()
+            ->assertJson($invoiceState);
+
+        $this->assertDatabaseHas('invoice_states', $invoiceState);
+
+        $invoice->refresh();
+
+        $this->assertEquals($invoice->status, $invoiceState['status']);
+
+        $this->assertDatabaseHas('invoices', [
+            'id' => $invoice->id,
+            'status' => $invoiceState['status']
+        ]);
     }
 
-    public function testOtherUserCannotSeeUsersInvoices(): void
+    public function testOtherUserCannotUpdateInvoiceState(): void
     {
-        $otherUser = User::factory()->create();
-        $this->actingAs($otherUser)->get(route('v1.invoices.index'))
-            ->assertOk()
-            ->assertJsonCount(0, 'data');
-    }
-
-    public function testAdminCanSeeAllInvoices(): void
-    {
-        $this->actingAsAdmin()->get(route('v1.invoices.index'))
-            ->assertOk()
-            ->assertJsonCount(1, 'data');
+        $this->actingAsRandomUser();
+        $invoice = Invoice::first();
+        $this->post(
+            route(
+                'v1.invoices.createstate', 
+                [
+                    'reference' => $invoice->reference,
+                    'invoice_id' => $invoice->id,
+                    'status' => InvoiceState::STATUS_PROCESSING,
+                    'notes' => 'foo xim'
+                ]
+            )
+        )->assertStatus(403);
     }
 }
