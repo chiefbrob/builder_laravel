@@ -35,6 +35,7 @@ Seperation of concerns is important.
 - Tasks management
 - Search Website Content
 - WYSIWYG Editor
+- Backup to Google [Read Tutorial](https://medium.com/@al_imran_ahmed/how-to-backup-your-laravel-application-in-google-drive-2803c31756a0) | [bugfix](https://github.com/masbug/flysystem-google-drive-ext/issues/77)
 
 ## Features WIP
 
