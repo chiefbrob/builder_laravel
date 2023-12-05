@@ -36,7 +36,21 @@ Route::prefix('v2')->group(static function () {
         return response()->json(['message' => 'Status Ok',], Response::HTTP_OK);
     })->name('v2.status');
 
-    Route::post('/login', v2\Auth\V2LoginController::class)->name('v2.login');
+    Route::middleware('throttle:6,1')->group(
+        static function () {
+            Route::post(
+                '/login', 
+                v2\Auth\V2LoginController::class
+            )->name('v2.login');
+
+            Route::post(
+                '/register', 
+                v2\Auth\V2RegisterController::class
+            )->name('v2.register');
+        }
+    );
+
+    
 
     Route::middleware(['auth:api'])->group(function () {
         Route::get('/user', function (Request $request) {

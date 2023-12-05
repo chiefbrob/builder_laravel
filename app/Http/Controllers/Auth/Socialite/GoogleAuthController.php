@@ -27,9 +27,7 @@ class GoogleAuthController extends Controller
             $googleUser = Socialite::driver('google')->user();
             $user = User::where('email', $googleUser->email)->first();
             if (!$user) {
-                $username = strtolower(
-                    preg_replace('/[^a-zA-Z0-9]+/', '', $user->name)
-                ).rand(1000, 9999);
+                $username = User::createUsername($user->name);
 
                 $pass = Str::random(16);
 
