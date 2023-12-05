@@ -108,4 +108,11 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(InvoiceState::class);
     }
+
+    public static function createUsername($name): string
+    {
+        return strtolower(
+            preg_replace('/[^a-zA-Z0-9]+/', '', $name)
+        ).rand(1000, 9999);
+    }
 }
