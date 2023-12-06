@@ -31,3 +31,6 @@ curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 add-apt-repository -y ppa:certbot/certbot
 apt-get update && apt-get install -y python3-certbot-nginx
+
+#setup cron
+* * * * * cd /var/www/on/builder-laravel && php artisan schedule:run >> /dev/null 2>&1
