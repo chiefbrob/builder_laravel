@@ -9,13 +9,13 @@ export const auth = [
     name: 'register',
     path: '/register',
     component: RegisterUser,
-    meta: { requiresAuth: false },
+    meta: { requiresGuest: true },
   },
   {
     name: 'login',
     path: '/login',
     component: LoginUser,
-    meta: { requiresAuth: false },
+    meta: { requiresGuest: true },
   },
   {
     name: 'profile',

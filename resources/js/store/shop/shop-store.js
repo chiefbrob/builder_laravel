@@ -31,6 +31,9 @@ const mutations = {
   updateProducts(state, products) {
     state.products = products;
   },
+  updateCart(state, cart) {
+    state.form.cart = cart;
+  },
 };
 
 export default {

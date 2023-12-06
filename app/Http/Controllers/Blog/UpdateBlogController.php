@@ -35,7 +35,9 @@ class UpdateBlogController extends Controller
                     $default_image,
                     'blog',
                     $blog->default_image,
-                    false
+                    true,
+                    800,
+                    600
                 );
             } elseif ($blog->default_image) {
                 PhotoManager::deletePhoto('blog', $blog->default_image);

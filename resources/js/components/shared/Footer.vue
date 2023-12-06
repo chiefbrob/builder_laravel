@@ -2,7 +2,7 @@
   <!-- Footer -->
   <footer id="footer" class="page-footer font-small cyan darken-3" style="z-index: 150">
     <!-- Footer Elements -->
-    <div class="container">
+    <div class="container" v-if="false">
       <!-- Grid row-->
       <div class="row">
         <!-- Grid column -->

@@ -38,6 +38,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'language',
         'details',
         'team_id',
+        'default_address_id',
+        'google_id'
     ];
 
     protected $appends = ['admin', 'rolesList'];
@@ -82,5 +84,35 @@ class User extends Authenticatable implements MustVerifyEmail
     public function addresses(): HasMany
     {
         return $this->hasMany(Address::class);
+    }
+
+    public function getDefaultAddressAttribute(): Address|null
+    {
+        if ($this->default_address_id) {
+            return Address::findOrFail($this->default_address_id);
+        }
+        return null;
+    }
+
+    public function logins(): HasMany
+    {
+        return $this->hasMany(Login::class);
+    }
+
+    public function invoices(): HasMany
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
+    public function invoiceStates(): HasMany
+    {
+        return $this->hasMany(InvoiceState::class);
+    }
+
+    public static function createUsername($name): string
+    {
+        return strtolower(
+            preg_replace('/[^a-zA-Z0-9]+/', '', $name)
+        ).rand(1000, 9999);
     }
 }

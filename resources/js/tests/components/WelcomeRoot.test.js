@@ -34,6 +34,6 @@ describe('WelcomeRoot.vue', () => {
   });
 
   test('it renders correctly', async () => {
-    expect(wrapper.text().includes('It uses utility classes for typography')).toBe(true);
+    expect(wrapper.text().includes('Welcome to your app')).toBe(true);
   });
 });

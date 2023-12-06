@@ -2,26 +2,30 @@
   <div>
     <div class="mb-5 pb-5 row">
       <div class="col-md-6 offset-md-3">
-        <div class="row">
-          <product class="col-md-8 offset-md-2" v-if="product" :product="product"></product>
-        </div>
+        <b-card v-if="product" :title="product.name">
+          <product-form
+            @variantAdded="loadProduct"
+            :url="`/api/v1/products/${product.id}`"
+            :product="product"
+          ></product-form>
+        </b-card>
         <p v-if="loading"><i class="fa fa-spinner"></i> Loading</p>
-        <p v-if="!loading && !product"></p>
+        <p v-if="!loading && !product">Nothing to display</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import Product from './Product';
+  import ProductForm from './ProductForm.vue';
   import { mapState } from 'vuex';
   export default {
+    components: { ProductForm },
     props: [],
-    components: { Product },
     data() {
       return {
-        loading: true,
         product: null,
+        loading: true,
       };
     },
     computed: {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Shop\RemoveItemFromCartRequest;
 use App\Models\ProductVariant;
 use App\Repositories\CartRepository;
 use Exception;
@@ -15,10 +16,11 @@ class RemoveItemFromCartController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Shop\RemoveItemFromCartRequest $request
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(RemoveItemFromCartRequest $request)
     {
         try {
             $variant = ProductVariant::findOrFail($request->product_variant_id);
@@ -33,7 +35,7 @@ class RemoveItemFromCartController extends Controller
             Log::error($e);
 
             return response()->json([
-                'message' => 'Failed to add remove item from cart',
+                'message' => 'Failed to remove item(s) from cart',
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

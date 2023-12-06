@@ -2,35 +2,13 @@
   <div>
     <form class="py-3 row" enctype="multipart/form-data" @submit.prevent="submitForm" method="POST">
       <div class="col-md-12">
-        <b-form-group
-          id="input-group-1"
-          label="Title: *"
-          label-for="title"
-          description="Blog title."
-        >
-          <b-form-input
-            id="title"
-            v-model="form.title"
-            type="text"
-            required
-            :placeholder="`Enter long title`"
-          ></b-form-input>
+        <b-form-group id="input-group-1" label="Title: *" label-for="title">
+          <b-form-input id="title" v-model="form.title" type="text" required></b-form-input>
         </b-form-group>
         <field-error :solid="false" :errors="errors" field="title"></field-error>
 
-        <b-form-group
-          id="input-group-2"
-          label="Sub title: *"
-          label-for="subtitle"
-          description="Short title"
-        >
-          <b-form-input
-            id="subtitle"
-            v-model="form.subtitle"
-            type="text"
-            required
-            :placeholder="`Enter short title`"
-          ></b-form-input>
+        <b-form-group id="input-group-2" label="Subtitle: *" label-for="subtitle">
+          <b-form-input id="subtitle" v-model="form.subtitle" type="text" required></b-form-input>
         </b-form-group>
         <field-error :solid="false" :errors="errors" field="subtitle"></field-error>
 
@@ -53,6 +31,7 @@
           <b-form-group label="Photo:" label-cols-sm="2">
             <b-form-file
               @change="imageUpdated"
+              placeholder="No photo selected"
               id="default-image"
               size="sm"
               accept=".jpg, .jpeg"
@@ -62,19 +41,15 @@
           <field-error :solid="false" :errors="errors" field="default_image"></field-error>
         </div>
 
-        <b-form-group label="Contents:">
-          <b-form-textarea
-            id="textarea"
-            v-model="form.contents"
-            placeholder="Enter something special..."
-            rows="5"
-          ></b-form-textarea>
-        </b-form-group>
+        <text-editor
+          :contents="blog ? blog.contents : ''"
+          @contentsUpdated="contentsUpdated"
+        ></text-editor>
 
         <field-error :solid="false" :errors="errors" field="contents"></field-error>
 
         <p class="py-3">
-          <input type="submit" class="btn btn-success" text="Submit" />
+          <input type="submit" class="btn btn-success btn-sm" text="Submit" />
         </p>
       </div>
     </form>
@@ -82,7 +57,9 @@
 </template>
 
 <script>
+  import TextEditor from '../shared/TextEditor';
   export default {
+    components: { TextEditor },
     props: {
       blog: {
         required: false,
@@ -152,6 +129,9 @@
             this.errors = response.data.errors;
             this.$root.$emit('sendMessage', 'Failed to update blog!');
           });
+      },
+      contentsUpdated(html) {
+        this.form.contents = html;
       },
     },
   };

@@ -15,6 +15,7 @@ class DeleteProductController extends Controller
      * Handle the incoming request.
      *
      * @param  \App\Http\Requests\Product\DeleteProductRequest  $request
+     * 
      * @return \Illuminate\Http\Response
      */
     public function __invoke(DeleteProductRequest $request, int $id)

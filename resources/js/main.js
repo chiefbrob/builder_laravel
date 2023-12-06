@@ -36,6 +36,18 @@ let router = new VueRouter(routes);
 router.beforeEach((to, from, next) => {
   const auth = to.matched[0].meta;
 
+  const toAuth = to.name === 'register' || to.name === 'login';
+  const fromAuth = from.name === 'register' || from.name === 'login';
+  const originalTo = localStorage.getItem('original-to-path');
+
+  if (toAuth) {
+    if (!fromAuth) {
+      if (originalTo === null) {
+        localStorage.setItem('original-to-path', from.path);
+      }
+    }
+  }
+
   if (auth?.requiresAuth === true || auth?.requiresAdmin === true) {
     if (!window.User) {
       localStorage.setItem('original-to-path', to.path);
@@ -87,34 +99,15 @@ const app = new Vue({
         .get(`/api/v1/cart`)
         .then(results => {
           this.cart = results.data.cart;
+          store.commit('shop/updateCart', this.cart);
         })
         .catch(error => {
-          this.$root.$emit('sendMessage', 'Failed to load Cart');
+          //   this.$root.$emit('sendMessage', 'Failed to load Cart');
         })
         .finally(f => {
-          this.loadOfflineCart();
+          //
         });
     },
-    loadOfflineCart() {
-      let offlineCart = JSON.parse(localStorage.getItem('cart'));
-      if (offlineCart) {
-        for (let index = 0; index < offlineCart.length; index++) {
-          const offlineCartItem = offlineCart[index];
-
-          let onlineCart = this.cart;
-
-          for (let j = 0; j < onlineCart.length; j++) {
-            const onlineCartItem = onlineCart[j];
-            if (onlineCartItem.id === offlineCartItem.id) {
-              if (onlineCartItem.quantity !== offlineCart.quantity) {
-                //cart update time
-              }
-            }
-          }
-        }
-      }
-    },
-    setCart(cart) {},
   },
 });
 

@@ -9,15 +9,15 @@
           <template #header>{{ $root.$store.state.config.name }}</template>
 
           <template #lead>
-            This is a simple hero unit, a simple jumbotron-style component for calling extra
-            attention to featured content or information.
+            Welcome to your app. Edit this file named <b>WelcomeRoot.vue</b> in components folder.
+            See <b>deploy</b> folder on instructions of how to setup for testing or production.
           </template>
 
           <hr class="my-4" />
 
           <p>
-            It uses utility classes for typography and spacing to space content out within the
-            larger container.
+            Head over to <b>/admin/feature_flags</b> to enable features on your installation.
+            Features include <b>shop</b>, <b>teams</b>, <b>languages</b>
           </p>
           <p>
             <b-button variant="light" href="https://github.com/chiefbrob/builder_laravel">
@@ -25,6 +25,10 @@
             >
             <clipboard content="copy me" variant="dark"></clipboard>
           </p>
+
+          <div class="row">
+            <div class="col-md-6"><phone-number style="max-width: 70%;"></phone-number></div>
+          </div>
           <p>Login as Admin using <u>test</u> and password <u>password</u></p>
         </b-jumbotron>
       </div>

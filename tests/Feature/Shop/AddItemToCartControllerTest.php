@@ -50,6 +50,13 @@ class AddItemToCartControllerTest extends TestCase
                 [
                     'id' => $this->variant->id,
                     'quantity' => 2,
+                    'product' => [
+                        'id' => $this->variant->product->id,
+                        'name' => $this->variant->product->name,
+                    ],
+                    'product_variant' => [
+                        'id' => $this->variant->id
+                    ]
                 ],
             ],
 

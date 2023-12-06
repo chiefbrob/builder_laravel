@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Address;
 use App\Models\InvoiceState;
+use App\Models\PaymentMethod;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\User;
@@ -69,6 +70,7 @@ class InvoiceFactory extends Factory
             'discount' => $discount,
             'grand_total' => $repo->getGrandTotal(),
             'status' => InvoiceState::STATUS_PENDING,
+            'payment_method_id' => PaymentMethod::first()->id,
         ];
     }
 }

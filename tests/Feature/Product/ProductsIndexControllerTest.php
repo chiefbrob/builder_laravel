@@ -9,7 +9,6 @@ use Tests\TestCase;
 
 class ProductsIndexControllerTest extends TestCase
 {
-    use RefreshDatabase;
 
     /**
      * A basic feature test example.
@@ -172,5 +171,63 @@ class ProductsIndexControllerTest extends TestCase
             ],
             'total' => 1,
         ]);
+    }
+
+    public function testFeaturedProducts()
+    {
+        
+        $this->actingAsRandomUser();
+        $product = Product::factory()->create(['featured'=> false]);
+        $variant1 = ProductVariant::create([
+            'product_id' => $product->id,
+            'name' => 'Green Dress',
+            'quantity' => 10,
+        ]);
+        $variant2 = ProductVariant::create([
+            'product_id' => $product->id,
+            'name' => 'Pink Dress',
+            'quantity' => 3,
+        ]);
+
+        $product1 = Product::factory()->create(['featured' => true]);
+
+        $variant1 = ProductVariant::create([
+            'product_id' => $product1->id,
+            'name' => 'Red Dress',
+            'quantity' => 19,
+        ]);
+        $variant2 = ProductVariant::create([
+            'product_id' => $product1->id,
+            'name' => 'Black Dress',
+            'quantity' => 30,
+        ]);
+
+        $product2 = Product::factory()->create(['featured' => false]);
+        $variant1 = ProductVariant::create([
+            'product_id' => $product2->id,
+            'name' => 'Maroon Dress',
+            'quantity' => 60,
+        ]);
+        $variant2 = ProductVariant::create([
+            'product_id' => $product2->id,
+            'name' => 'Teal Dress',
+            'quantity' => 13,
+        ]);
+
+        // dd(Product::where('featured', true)->count());
+
+        $this->get(route('v1.product.index', ['featured' => true]))
+            ->assertOk()
+            ->assertJsonCount(1, 'data')
+            ->assertJson(
+                [
+                    'data' => [
+                        [
+                            'id' => $product1->id
+                        ]
+                    ]
+                ]
+            );
+
     }
 }

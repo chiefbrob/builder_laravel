@@ -14,10 +14,32 @@ Route::prefix('v1')->group(static function () {
         return auth()->user();
     })->middleware('auth')->name('v1.user');
 
+    Route::prefix('shop/products')->namespace('Shop')->group(
+        static function () {
+            Route::get('/', ShopProductsIndexController::class)
+                ->name('v1.shop.products.index');
+        }
+    );
+
     Route::prefix('products')->namespace('Product')->group(static function () {
         Route::post('/', CreateProductController::class)->name('v1.product.create');
-        Route::post('/{id}', UpdateProductController::class)->name('v1.product.update');
-        Route::delete('/{id}', DeleteProductController::class)->name('v1.product.delete');
+        Route::post('/{id}', UpdateProductController::class)
+            ->name('v1.product.update');
+        Route::delete('/{id}', DeleteProductController::class)
+            ->name('v1.product.delete');
+
+        Route::patch('/{product_id}', RestoreProductController::class)
+            ->name('v1.product.restore');
+
+        Route::post(
+            '/{product_id}/product-variants', 
+            CreateProductVariantController::class
+        )->name('v1.product-variant.create');
+
+        Route::post(
+            '/{product_id}/product-variants/{product_variant_id}/', 
+            UpdateProductVariantController::class
+        )->name('v1.product-variant.update');
     });
 
     Route::prefix('contacts')->namespace('Contact')->group(static function () {
@@ -66,4 +88,31 @@ Route::prefix('v1')->group(static function () {
             Route::delete('/', Admin\Roles\RemoveRoleController::class)->name('user-role.delete');
         });
     });
+
+    Route::prefix('invoices')->namespace('Invoices')->group(static function () {
+        Route::get('/', InvoicesIndexController::class)->name('v1.invoices.index');
+        Route::get('/{reference}', 'GetInvoiceController')
+            ->name('v1.invoices.single');
+        Route::post(
+            '/{reference}/invoice-states', 
+            'CreateInvoiceStateChangeController'
+        )->name('v1.invoices.createstate');
+    });
+
+    Route::prefix('addresses')->namespace('Address')->group(
+        static function () {
+            Route::post('/', CreateAddressController::class)
+                ->name('v1.address.store');
+
+            Route::get('/', GetAddressController::class)
+                ->name('v1.address.index');
+            
+            Route::put('/{address_id}', UpdateAddressController::class)
+                ->name('v1.address.update');
+
+            Route::delete('/{address_id}', DeleteAddressController::class)
+                ->name('v1.address.delete');
+
+        }
+    );
 });

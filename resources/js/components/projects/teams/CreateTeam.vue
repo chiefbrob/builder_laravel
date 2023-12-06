@@ -4,6 +4,12 @@
       <div class="col-md-4 offset-md-4">
         <h4>Create Team</h4>
         <team-form @submit="submitted" :errors="errors"></team-form>
+        <p>
+          <i
+            >You need <b-button size="sm" variant="link" to="/admin/roles">manager</b-button> role
+            to create a team
+          </i>
+        </p>
       </div>
     </div>
   </div>

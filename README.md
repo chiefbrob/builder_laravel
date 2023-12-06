@@ -8,24 +8,34 @@ This template allows you to quickly start building laravel applications from scr
 
 [Means](https://means.dabotap.com) - Transport Platform
 
+[Clutch Bags Kenya](https://clutchbagskenya.co.ke/) - Online shopping for ladies clutch bags
+
 [Ifanye](https://ifanye.dabotap.com) - Tasks & Team work
 
 [Starred Repos](http://starredrepos.on.chiefbrob.info/) - Fetch your Github Starred Repositories **opensource**
 
+## Vue 3 Migration
+
+Migration to vue 3 would be noisy and this software works well. In future, user interface updates will be provided with a different repository. Refer to [Builder Vue3](https://github.com/chiefbrob/builder-vue3)
+
+Seperation of concerns is important.
+
 ## Features
 
-- Full Authentication
+- Full Authentication, Oauth2, Google Login
 - Admin & User Sections
 - Blog
 - Feature Flags - control new features
 - Easy to deploy (Docker, VPS)
 - Contact, Terms & Conditions & Privacy policy pages
-- E-commerce shop
+- E-commerce shop, cart, address manager
 - Tests with PHPUnit and Jest
 - GraphQL
 - UI with [BootstrapVue](https://bootstrap-vue.org/)
 - Tasks management
 - Search Website Content
+- WYSIWYG Editor
+- Backup to Google [Read Tutorial](https://medium.com/@al_imran_ahmed/how-to-backup-your-laravel-application-in-google-drive-2803c31756a0) | [bugfix](https://github.com/masbug/flysystem-google-drive-ext/issues/77)
 
 ## Features WIP
 
@@ -35,6 +45,14 @@ This template allows you to quickly start building laravel applications from scr
 - Automation of deployment with Github
 - Vite & Vue 3
 
+## Setting Up Google Login
+
+- Visit [Google Developers Console](https://console.developers.google.com/)
+- New Project
+- Setup OAuth consent screen
+- Setup Credentials (OAuth Client ID)
+- Add feature flag `socialite.google`
+
 ## Available Feature Flags
 
 Enable features `https://laravel.test/admin/feature_flags`
@@ -43,6 +61,7 @@ Enable features `https://laravel.test/admin/feature_flags`
 - blog
 - languages
 - teams
+- socialite.google
 
 ## Adding Features
 

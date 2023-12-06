@@ -4,7 +4,7 @@
       <div class="col-md-10 offset-md-1">
         <strong>Privacy Policy</strong>
         <p>
-          Dabotap Tech built the Dabotap app as a Free app. This SERVICE is provided by Dabotap Tech
+          {{ name }} built this app as a Free app. This SERVICE is provided by {{ name }}
           at no cost and is intended for use as is.
         </p>
         <p>
@@ -19,15 +19,15 @@
         </p>
         <p>
           The terms used in this Privacy Policy have the same meanings as in our Terms and
-          Conditions, which are accessible at Dabotap unless otherwise defined in this Privacy
+          Conditions, which are accessible at {{ name }} unless otherwise defined in this Privacy
           Policy.
         </p>
         <p><strong>Information Collection and Use</strong></p>
         <p>
           For a better experience, while using our Service, we may require you to provide us with
-          certain personally identifiable information, including but not limited to Dabotap Tech.
-          The information that we request will be retained by us and used as described in this
-          privacy policy.
+          certain personally identifiable information, including but not limited to {{ name }}. The
+          information that we request will be retained by us and used as described in this privacy
+          policy.
         </p>
         <div>
           <p>
@@ -125,6 +125,8 @@
           <a :href="`mailto:${email}`"> {{ email }}</a
           >.
         </p>
+        <hr />
+        <p>{{ description }}</p>
       </div>
     </div>
   </div>
@@ -135,6 +137,8 @@
     data() {
       return {
         email: this.$root.$store.state.config.email,
+        name: this.$root.$store.state.config.name,
+        description: this.$root.$store.state.config.description,
       };
     },
   };

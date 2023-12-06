@@ -36,7 +36,10 @@ class CreateProductController extends Controller
                 $product->photo = PhotoManager::savePhoto(
                     $photo,
                     'products',
-                    $product->default_image
+                    $product->default_image,
+                    true,
+                    800,
+                    600
                 );
 
                 $product->save();

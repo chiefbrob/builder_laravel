@@ -2,7 +2,7 @@
 mkdir -p /var/www/means.on.chiefbrob.info
 rm -f /etc/nginx/sites-enabled/default
 cat <<EOF > /etc/nginx/sites-available/means.on.chiefbrob.info
-sserver {
+server {
     listen 80;
     #listen [::]:80 default_server ipv6only=on;
 
@@ -50,8 +50,8 @@ EOF
 chmod +x post-receive
 mysql
 CREATE DATABASE builder_laravel;
-CREATE USER 'builder_laravel'@'%' IDENTIFIED BY 'Kenya1sHome!';
-GRANT ALL PRIVILEGES ON builder_laravel.* TO 'builder_laravel'@'%';
+CREATE USER 'clutchbagskenya'@'%' IDENTIFIED BY 'KenyYhd4887&9!';
+GRANT ALL PRIVILEGES ON clutchbagskenya.* TO 'clutchbagskenya'@'%';
 FLUSH PRIVILEGES;
 exit;
 

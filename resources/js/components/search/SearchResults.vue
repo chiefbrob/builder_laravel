@@ -47,10 +47,10 @@
 </template>
 
 <script>
-  import Blog from '../blog/Blog';
-  import Product from '../shop/Product';
-  import Team from '../projects/teams/Team';
-  import Task from '../projects/tasks/Task';
+  import Blog from '../blog/Blog.vue';
+  import Product from '../shop/products/Product.vue';
+  import Team from '../projects/teams/Team.vue';
+  import Task from '../projects/tasks/Task.vue';
   export default {
     components: { Blog, Product, Task, Team },
     data() {

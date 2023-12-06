@@ -41,3 +41,5 @@
 <meta property="og:site_name" content="Site Name">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content=""> --}}
+<link href="/css/quill.snow.css" rel="stylesheet">
+

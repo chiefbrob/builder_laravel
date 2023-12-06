@@ -19,7 +19,7 @@ class EmptyCartController extends Controller
      */
     public function __invoke(Request $request)
     {
-        try {
+        
             $repo = new CartRepository();
 
             return response()->json(
@@ -27,6 +27,7 @@ class EmptyCartController extends Controller
                     'cart' => $repo->emptyCart(),
                 ]
             );
+            try {
         } catch (Exception $e) {
             Log::error($e);
 

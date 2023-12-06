@@ -1,21 +1,25 @@
 <template>
   <div>
     <div class="row mb-5 py-5">
-      <b-card no-body class="overflow-hidden col-md-6 offset-md-3 py-2 ">
+      <b-card no-body class="overflow-hidden col-md-8 offset-md-2 py-2 ">
         <b-row no-gutters>
-          <b-col md="4">
+          <b-col md="3">
             <b-card-img
               :src="$store.getters.avatarUrl"
               :alt="$store.state.user.name"
               class="rounded-0"
             ></b-card-img>
           </b-col>
-          <b-col md="4">
-            <b-card-body :title="$store.state.user.name">
-              <b-card-text>
+          <b-col md="9">
+            <b-card-title style="text-align: center;" class="mt-2">
+              <span v-text="$store.state.user.name"></span
+            ></b-card-title>
+            <b-card-body>
+              <b-card-text style="text-align: center;">
                 <p>
-                  Howdy {{ $store.state.user.admin ? 'Admin' : 'User' }}
-                  {{ $store.state.user.name }}, <br />
+                  Howdy <u>{{ $store.state.user.admin ? 'Admin' : 'User' }}</u>
+                  <b>{{ $store.state.user.name }}</b
+                  >, <br />
                   You created this account <b>{{ $store.state.user.created_at | relative }}</b>
                 </p>
                 <p>
@@ -34,12 +38,15 @@
           </b-col>
         </b-row>
       </b-card>
+      <address-manager class="col-md-8 offset-md-2 mt-3"></address-manager>
     </div>
   </div>
 </template>
 
 <script>
+  import AddressManager from '../shop/address/AddressManager.vue';
   export default {
+    components: { AddressManager },
     methods: {
       startDriving() {
         //
