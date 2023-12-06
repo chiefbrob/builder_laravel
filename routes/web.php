@@ -5,6 +5,7 @@ use App\Mail\TestMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -31,7 +32,7 @@ Route::prefix('auth/v1')->namespace('Auth\Socialite')->group(static function () 
         function (Request $request) {
             return Socialite::driver('google')->redirect();
         }
-    )->name('auth.v1.google.redirect');
+    )->middleware('throttle:3,1')->name('auth.v1.google.redirect');
 
     Route::get(
         '/google/callback', 
@@ -67,13 +68,19 @@ Route::post('/language/{locale}', function ($locale) {
 
 Route::get('/graphql', function (Request $request) {
     return view('vendor/graphiql/index');
-})->middleware('admin')->name('v1.graphql-web');
+})->middleware(['admin', 'throttle:10,1'])->name('v1.graphql-web');
 
 
-Route::get('/profile/clients', function (Request $request) {
-    return view('clients', [
-        'clients' => $request->user()->clients
-    ]);
-})->middleware(['auth'])->name('profile.clients');
+Route::get(
+    '/profile/clients', 
+    function (Request $request) {
+        return view(
+            'clients', [
+                'clients' => $request->user()->clients
+            ]
+        );
+    }
+)->middleware(['auth'])->name('profile.clients');
 
-Route::get('/{any?}', [\App\Http\Controllers\HomeController::class, 'index'])->where('any', '.*')->name('home');
+Route::get('/{any?}', [\App\Http\Controllers\HomeController::class, 'index'])
+    ->where('any', '.*')->name('home');
