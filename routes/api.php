@@ -59,5 +59,10 @@ Route::prefix('v2')->group(static function () {
             return auth()->user();
         })->name('v2.user');
         Route::post('/logout', v2\Auth\V2LogoutController::class)->name('v2.logout');
+
+        Route::prefix('contacts')->group(static function () {
+            Route::get('/', v2\Contact\V2GetContactsController::class)
+                ->name('v2.contact.index');
+        });
     });
 });

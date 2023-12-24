@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Contact;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\ContactRequest;
 use App\Models\Contact;
+use App\Models\User;
 use App\PhotoManager;
 use Exception;
 use Illuminate\Http\Request;
@@ -34,6 +35,14 @@ class CreateContactController extends Controller
                     $contact->default_image
                 );
                 $contact->save();
+            }
+
+            if ($request->email) {
+                $matchedUser = User::where('email', $request->email)->first();
+                if ($matchedUser && ! $contact->user_id) {
+                    $contact->user_id = $matchedUser->id;
+                    $contact->save();
+                }
             }
 
             return $contact;
