@@ -26,13 +26,15 @@ Route::prefix('v1')->group(static function () {
     Route::delete('/cart/empty', Shop\EmptyCartController::class)->name('v1.cart.empty');
     Route::post('/checkout', Shop\CheckoutController::class)->name('v1.checkout');
     Route::get('/blog', Blog\GetBlogsController::class)->name('v1.blog.index');
-    Route::post('/contact', Contact\CreateContactController::class)->name('v1.contact.create');
+    Route::middleware('throttle:3,1')
+        ->post('/contact', Contact\CreateContactController::class)
+        ->name('v1.contact.create');
     Route::get('/products', Product\ProductsIndexController::class)->name('v1.product.index');
     Route::post('/search', Search\SearchController::class)->name('v1.search');
 });
 
 Route::prefix('v2')->group(static function () {
-    Route::get('/', function (Request $request) {
+    Route::middleware('throttle:20,1')->get('/', function (Request $request) {
         return response()->json(['message' => 'Status Ok',], Response::HTTP_OK);
     })->name('v2.status');
 
