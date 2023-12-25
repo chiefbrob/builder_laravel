@@ -137,7 +137,11 @@
           })
           .catch(({ response }) => {
             this.errors = response.data.errors;
-            this.$root.$emit('sendMessage', 'Profile update failed!');
+            let message = 'Profile update failed!';
+            if (response.status === 413) {
+              message = 'Failed. Photo is too large';
+            }
+            this.$root.$emit('sendMessage', message);
           });
       },
       newPhoneNumber(number) {
