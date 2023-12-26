@@ -62,9 +62,16 @@ Route::prefix('v2')->group(static function () {
     
 
     Route::middleware(['auth:api'])->group(function () {
-        Route::get('/user', function (Request $request) {
-            return auth()->user();
-        })->name('v2.user');
+        Route::prefix('user')->group(
+            static function () {
+                Route::get('/', function (Request $request) {
+                    return auth()->user();
+                })->name('v2.user');
+                Route::put('/', v2\User\V2UserProfileUpdateController::class)
+                    ->name('v2.user.update');
+            }
+        );
+        
         Route::post('/logout', v2\Auth\V2LogoutController::class)->name('v2.logout');
 
         Route::prefix('contacts')->group(static function () {
