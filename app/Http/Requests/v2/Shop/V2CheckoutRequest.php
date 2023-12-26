@@ -84,9 +84,9 @@ class V2CheckoutRequest extends CartCheckoutRequest
 
     protected function prepareForValidation(): void
     {
-        if (auth()->user()) {
+        if (auth('api')->user()) {
             $this->merge([
-                'user_id' => auth()->user()->id,
+                'user_id' => auth('api')->user()->id,
             ]);
         }
     }

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\v2\Shop;
 
+use App\Models\Address;
 use App\Models\Invoice;
 use App\Models\PaymentMethod;
 use App\Models\Product;
@@ -61,7 +62,7 @@ class V2CheckoutControllerTest extends TestCase
         }
     }
 
-    public function testGuestApiCanCheckout(): void
+    private function makeCart()
     {
         $variants = [
             $this->product1->productVariants[0], 
@@ -76,6 +77,12 @@ class V2CheckoutControllerTest extends TestCase
                 'quantity' => 2
             ];
         }
+        return $cart;
+    }
+
+    public function testGuestApiCanCheckout(): void
+    {
+        $cart = $this->makeCart();
         $phoneNumber = '254722222222';
         $this->post(route('v2.checkout', [
             'phone_number' => $phoneNumber,
@@ -87,6 +94,8 @@ class V2CheckoutControllerTest extends TestCase
             ->assertJson(
                 [
                     'invoice' => [
+                        'sub_total' => 17000,
+                        'grand_total' => 17000,
                         'tax' => 0,
                         'user' =>  [
                             'name' => 'Henry Doe',
@@ -117,5 +126,26 @@ class V2CheckoutControllerTest extends TestCase
         $invoice = Invoice::latest()->first();
 
         $this->assertEquals(count($invoice->cart), count($cart));
+    }
+
+    public function testApiUserCanCheckout():  void
+    {
+        $this->actingAsRandomApiUser();
+
+        $address = Address::factory()->create(['user_id' => $this->user->id]);
+        $cart = $this->makeCart();
+
+        $this->post(route('v2.checkout'), [
+            'payment_method_id' => PaymentMethod::inRandomOrder()->first()->id,
+            'address_id' => $address->id,
+            'cart' => $cart
+        ])->assertOk()->assertJson([
+            'invoice' => [
+                'sub_total' => 17000,
+                'grand_total' => 17000,
+                'tax' => 0,
+                'address_id' => $address->id,
+            ],
+        ]);
     }
 }

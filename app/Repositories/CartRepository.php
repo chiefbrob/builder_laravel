@@ -26,9 +26,12 @@ class CartRepository
 
     private $request = null;
 
-    public function __construct($cart = [])
+    private $api;
+
+    public function __construct($cart = [], $api = false)
     {
         $this->cart = Session::get('cart', $cart);
+        $this->api = $api;
     }
 
     public function addToCart(ProductVariant $variant, int $quantity = 1): array
@@ -132,7 +135,8 @@ class CartRepository
         if ($this->reserveCartItems()) {
             try {
                 if ($request->user_id) {
-                    $user = auth()->user();
+                    $auth = $this->api ? 'api' : null;
+                    $user = auth($auth)->user();
                     $address = Address::findOrFail($request->address_id);
                 } else {
                     $email = $request->get('email');

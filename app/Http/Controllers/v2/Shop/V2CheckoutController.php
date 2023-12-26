@@ -31,7 +31,7 @@ class V2CheckoutController extends Controller
                 ];
             }
 
-            $repo = new CartRepository($newCart);
+            $repo = new CartRepository($newCart, true);
 
             return response()->json($repo->checkout($request));
 
