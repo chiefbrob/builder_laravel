@@ -1,26 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Shop;
+namespace App\Http\Requests\v2\Shop;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Shop\CartCheckoutRequest;
 
-class CheckoutRequest extends CartCheckoutRequest
+class V2CheckoutRequest extends CartCheckoutRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
     public function rules()
     {
         return [
@@ -77,16 +62,26 @@ class CheckoutRequest extends CartCheckoutRequest
                 'nullable',
                 'string',
                 'max:255',
+            ],
+            'cart' => [
+                'required',
+                'array',
+                'min: 1'
+            ],
+            'cart.*.quantity' => [
+                'required',
+                'integer',
+                'min:1'
+            ],
+            'cart.*.id' => [
+                'required',
+                'integer',
+                'exists:product_variants,id'
             ]
 
         ];
     }
 
-    /**
-     * Prepare the data for validation.
-     *
-     * @return void
-     */
     protected function prepareForValidation(): void
     {
         if (auth()->user()) {

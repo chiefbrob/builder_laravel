@@ -52,6 +52,13 @@ Route::prefix('v2')->group(static function () {
         }
     );
 
+    Route::prefix('shop')->group(
+        static function () {
+            Route::post('/checkout', v2\Shop\V2CheckoutController::class)
+                ->name('v2.checkout');
+        }
+    );
+
     
 
     Route::middleware(['auth:api'])->group(function () {

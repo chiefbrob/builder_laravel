@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Events\Invoices\InvoiceCreatedEvent;
-use App\Http\Requests\Shop\CheckoutRequest;
+use App\Http\Requests\Shop\CartCheckoutRequest;
 use App\Models\Address;
 use App\Models\Invoice;
 use App\Models\ProductVariant;
@@ -26,9 +26,9 @@ class CartRepository
 
     private $request = null;
 
-    public function __construct()
+    public function __construct($cart = [])
     {
-        $this->cart = Session::get('cart', []);
+        $this->cart = Session::get('cart', $cart);
     }
 
     public function addToCart(ProductVariant $variant, int $quantity = 1): array
@@ -126,7 +126,7 @@ class CartRepository
         return $this->getSubTotal() + $this->getTax();
     }
 
-    public function checkout(CheckoutRequest $request)
+    public function checkout(CartCheckoutRequest $request)
     {
         $this->request = $request;
         if ($this->reserveCartItems()) {

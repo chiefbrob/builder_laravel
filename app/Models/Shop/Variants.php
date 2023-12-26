@@ -4,6 +4,6 @@ namespace App\Models\Shop;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Variants extends Model
+abstract class Variants extends Model
 {
 }
