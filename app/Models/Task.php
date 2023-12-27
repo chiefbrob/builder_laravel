@@ -42,6 +42,60 @@ class Task extends Model
 
     protected $appends = ["openTasks", "subTasks"];
 
+    public static function createFromTemplate(TaskTemplate $template, Team $team, User $user): Task
+    {
+        $config = $template->toArray();
+
+        $taskData = array_merge(
+            $config, 
+            ['team_id' => $team->id, 'user_id' => $user->id]
+        );
+
+        $task = Task::create($taskData);
+
+        if ($task->team->shortcode) {
+            $task->shortcode = $task->team->shortcode . '-' . $task->id;
+            $task->save();
+        }
+
+        Task::createSubtasksFromConfig($task, $config['config'], $user);
+
+        $task->fresh();
+
+        return $task;
+    }
+
+    public static function createSubtasksFromConfig(Task $task, array $config, User $user): void
+    {
+        if (count($config) > 0) {
+            foreach ($config as $taskBlueprint) {
+                $taskData = array_merge(
+                    $taskBlueprint,
+                    [
+                        'user_id' => $user->id,
+                        'team_id' => $task->team_id,
+                        'task_id' => $task->id
+                    ]
+                );
+                $subtask = Task::create($taskData);
+                if ($subtask->team->shortcode) {
+                    $subtask->shortcode = $subtask->team->shortcode . '-' . $subtask->task_id . '-' . $subtask->id;
+                    $subtask->save();
+                }
+
+                if (isset($taskBlueprint['tasks'])) {
+                    Task::createSubtasksFromConfig(
+                        $subtask, 
+                        $taskBlueprint['tasks'],
+                        $user
+                    );
+                }
+                
+                
+            }
+        }
+    }
+
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);

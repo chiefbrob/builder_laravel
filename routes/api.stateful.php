@@ -114,6 +114,9 @@ Route::prefix('v1')->group(
                         Route::post(
                             '/', 'CreateTaskTemplateController'
                         )->name('v1.task-template.create');
+                        Route::post(
+                            '/', 'CreateTaskFromTemplateController'
+                        )->name('v1.task-template.use');
                     }
                 );
                 
