@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasTasks;
 use App\Traits\HasUsers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +13,7 @@ class Team extends Model
     use HasFactory;
     use SoftDeletes;
     use HasUsers;
+    use HasTasks;
 
     protected $fillable = [
         'name',

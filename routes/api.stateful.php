@@ -53,25 +53,40 @@ Route::prefix('v1')->group(static function () {
         Route::delete('/{id}', BlogDeleteController::class)->name('v1.blog.delete');
     });
 
-    Route::prefix('users')->group(static function () {
-        Route::post('/{user_id}', UserProfileUpdateController::class)->name('v1.user.update');
-        Route::delete('/{user_id}', User\UserDeactivateController::class)->name('v1.user.delete');
-        Route::get('/', User\UserIndexController::class)->name('v1.user.index');
-    });
+    Route::prefix('users')->group(
+        static function () {
+            Route::post('/{user_id}', 'UserProfileUpdateController')
+                ->name('v1.user.update');
+            Route::delete('/{user_id}', 'User\UserDeactivateController')
+                ->name('v1.user.delete');
+            Route::get('/', 'User\UserIndexController')->name('v1.user.index');
+        }
+    );
 
-    Route::prefix('teams')->group(static function () {
-        Route::get('/', Team\TeamIndexController::class)->name('v1.teams.index');
-        Route::put('/{team_id}', Team\UpdateTeamController::class)->name('v1.teams.update');
-        Route::post('/', Team\CreateTeamController::class)->name('v1.teams.create');
-        Route::post('/{team_id}/users', Team\AddUserToTeamController::class)->name('v1.teams.adduser');
-        Route::delete('/{team_id}/users', Team\RemoveUserFromTeamController::class)->name('v1.teams.removeuser');
-    });
+    Route::prefix('teams')->namespace('Team')->group(
+        static function () {
+            Route::get('/', 'TeamIndexController')->name('v1.teams.index');
+            Route::put('/{team_id}', 'UpdateTeamController')
+                ->name('v1.teams.update');
+            Route::post('/', 'CreateTeamController')->name('v1.teams.create');
+            Route::post('/{team_id}/users', 'AddUserToTeamController')
+                ->name('v1.teams.adduser');
+            Route::delete('/{team_id}/users', 'RemoveUserFromTeamController')
+                ->name('v1.teams.removeuser');
+        }
+    );
 
-    Route::prefix('tasks')->group(static function () {
-        Route::post('/', Task\CreateTaskController::class)->name('v1.tasks.create');
-        Route::get('/', Task\TaskIndexController::class)->name('v1.tasks.index');
-        Route::put('/{task_id}', Task\TaskStateChangeController::class)->name('v1.tasks.update');
-    });
+    Route::prefix('tasks')->namespace('Task')->group(
+        static function () {
+            Route::post('/', 'CreateTaskController')->name('v1.tasks.create');
+            Route::get('/', 'TaskIndexController')->name('v1.tasks.index');
+            Route::put('/{task_id}', 'TaskStateChangeController')
+                ->name('v1.tasks.update');
+            
+            Route::post('/task-templates', 'CreateTaskTemplateController')
+                ->name('v1.task-template.create');
+        }
+    );
 
     Route::prefix('admin')->group(static function () {
         Route::prefix('roles')->group(static function () {
