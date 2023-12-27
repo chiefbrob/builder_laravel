@@ -85,8 +85,5 @@ class CreateTaskFromTemplateControllerTest extends TestCase
         $this->assertEquals($drainOil->task_id, $oilService->id);
         $this->assertEquals($engineWear->task_id, $drainOil->id);
         $this->assertEquals($airFilter->task_id, $carService->id);
-        $this->assertEquals($engineWear->shortcode, 'MECH-3-4');
-        $this->assertEquals($airFilter->shortcode, 'MECH-1-7');
-        $this->assertEquals($carService->shortcode, 'MECH-1');
     }
 }

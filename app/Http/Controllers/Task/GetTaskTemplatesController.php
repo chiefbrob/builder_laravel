@@ -24,6 +24,11 @@ class GetTaskTemplatesController extends Controller
                 $tts->where('team_id', $request->team_id)
                     ->whereIn('team_id', auth()->user()->myTeamIds);
             }
+
+            if (!$request->team_id && !$request->task_template_id) {
+                $tts->whereIn('team_id', auth()->user()->myTeamIds)
+                    ->orWhereNull('team_id');
+            }
             
             return $tts->orderBy('id', 'DESC')->paginate();
         } catch (Exception $e) {
