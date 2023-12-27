@@ -31,6 +31,9 @@
             url: '{{ config('app.url') }}',
             email: '{{ config('app.email') }}',
         };
+        @if(\Illuminate\Support\Facades\Session::has('admin-id'))
+        window.CanExitToAdmin = true;
+        @endif
         window.feature_flags = @json(\FriendsOfCat\LaravelFeatureFlags\FeatureFlagsForJavascript::get());
         window.User = @json(Auth::user());
         window.locale =  @json(\Illuminate\Support\Facades\App::currentLocale());

@@ -83,6 +83,10 @@ Route::prefix('v1')->group(
                 Route::delete('/{user_id}', 'User\UserDeactivateController')
                     ->name('v1.user.delete');
                 Route::get('/', 'User\UserIndexController')->name('v1.user.index');
+                Route::post(
+                    '/admin/loginBackToAdmin', 
+                    'User\LoginBackToAdminController'
+                )->name('v1.user.loginBackToAdmin');
             }
         );
 
@@ -140,6 +144,8 @@ Route::prefix('v1')->group(
                             ->name('admin.users');
                         Route::delete('/', 'Users\AdminDeleteUserController')
                             ->name('admin.users.delete');
+                        Route::post('/loginAs', 'Users\LoginAsUserController')
+                            ->name('v1.admin.users.loginAs');
                     }
                 );
 

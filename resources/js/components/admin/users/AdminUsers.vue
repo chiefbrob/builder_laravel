@@ -9,12 +9,13 @@
         v-for="(user, index) in items"
         v-bind:key="index"
       >
-        <b-card-title>
-          {{ user.name }}
-        </b-card-title>
+        <b-card-title> {{ user.name }} </b-card-title>
         <b-card-sub-title>{{ user.email }}</b-card-sub-title>
 
-        <b-card-text> Registered: {{ user.created_at | relative }} </b-card-text>
+        <b-card-text>
+          @{{ user.username }} <br />
+          Registered: {{ user.created_at | relative }}
+        </b-card-text>
 
         <b-card-text>
           Verified:
@@ -28,6 +29,9 @@
           <b-button size="sm" variant="danger" href="#" @click="deleteUser(user)">
             <i class="fa fa-trash"></i>
           </b-button>
+          <b-button size="sm" variant="dark" @click="loginAs(user)"
+            ><i class="fa fa-user"></i> Login</b-button
+          >
         </b-card-text>
       </b-card>
     </div>
@@ -104,6 +108,24 @@
           })
           .catch(error => {
             this.$root.$emit('sendMessage', 'Failed to load Admin Users');
+          });
+      },
+      loginAs(user) {
+        this.$root.$emit('sendMessage', 'Logging in ...', 'success');
+
+        axios
+          .post(`/api/v1/admin/users/loginAs`, {
+            user_id: user.id,
+          })
+          .then(results => {
+            this.$root.$emit('sendMessage', `Logged in as ${user.name}. Reloading`, 'info');
+
+            setTimeout(() => {
+              window.location = '/';
+            }, 500);
+          })
+          .catch(error => {
+            this.$root.$emit('sendMessage', 'Failed to login as user');
           });
       },
     },

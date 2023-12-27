@@ -37,6 +37,10 @@
 
           <b-dropdown-item href="#" @click="logout" v-if="user">Log Out</b-dropdown-item>
 
+          <b-dropdown-item href="#" @click="exitToAdmin" v-if="canExitToAdmin"
+            ><i class="fa fa-sign-out"></i> Exit to Admin</b-dropdown-item
+          >
+
           <b-dropdown-item to="/login" v-if="!user">Login</b-dropdown-item>
 
           <b-dropdown-item to="/register" v-if="!user">Register</b-dropdown-item>
@@ -203,6 +207,9 @@
       ...mapState({
         shop: state => state.shop,
       }),
+      canExitToAdmin() {
+        return window.CanExitToAdmin;
+      },
       teamsActive() {
         let name = this.$route.name;
         return name.includes('team') || name.includes('task');
@@ -293,6 +300,19 @@
           })
           .catch(error => {
             this.$root.$emit('sendMessage', 'Failed Load User');
+          });
+      },
+      exitToAdmin() {
+        this.$root.$emit('sendMessage', 'Exiting to admin', 'success');
+
+        axios
+          .post('/api/v1/users/admin/loginBackToAdmin')
+          .then(results => {
+            this.$root.$emit('sendMessage', 'Success, loading admin page', 'success');
+            window.location = '/admin/users';
+          })
+          .catch(error => {
+            this.$root.$emit('sendMessage', 'Failed to Exit to admin');
           });
       },
     },
