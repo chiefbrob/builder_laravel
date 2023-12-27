@@ -2,22 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Events\Invoices\InvoiceCreatedEvent;
-use App\Http\Requests\Shop\CartCheckoutRequest;
 use App\Http\Requests\UserProfileUpdateRequest;
-use App\Models\Address;
-use App\Models\Invoice;
-use App\Models\ProductVariant;
 use App\Models\Team;
 use App\Models\User;
-use App\Notifications\SendWelcomeEmailNotification;
 use App\PhotoManager;
 use Exception;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
 
 class UserRepository
 {
