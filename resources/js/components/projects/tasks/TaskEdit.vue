@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mb-5 pb-5 mt-2 row">
-      <div class="col-md-10 offset-md-1">
+      <div class="col-md-4 offset-md-4">
         <h4>
           <span v-if="task">{{ task.title }}</span>
         </h4>
@@ -58,9 +58,9 @@
             this.$router.push({
               name: 'task-single',
               params: {
-                task_id: results.data.data.id,
+                task_id: results.data.id,
                 team_id: this.team.id,
-                task_slug: this.$root.$slugify(results.data.data.title),
+                task_slug: this.$root.$slugify(results.data.title),
               },
             });
           })

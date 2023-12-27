@@ -50,11 +50,13 @@
       </b-card-text>
       <b-card-text v-if="full">
         <p>
-          <b-button variant="link" @click="showTeamMembers = !showTeamMembers">
+          <b-button variant="link" size="sm" @click="showTeamMembers = !showTeamMembers">
             {{ showTeamMembers ? 'Hide Team Members' : 'Show Team Members' }}
           </b-button>
 
-          <b-button variant="link" @click="showTasks">Tasks</b-button>
+          <b-button variant="link" size="sm" @click="showTasks">Tasks</b-button>
+
+          <b-button variant="link" size="sm" @click="showWorkflows">Workflows</b-button>
         </p>
         <div v-if="addingUser && showTeamMembers">
           <p class="my-4">
@@ -142,7 +144,14 @@
           },
         });
       },
-
+      showWorkflows() {
+        this.$router.push({
+          name: 'workflows',
+          params: {
+            shortcode: this.team.shortcode,
+          },
+        });
+      },
       getUsers() {
         this.loading = true;
         if (this.manager) {

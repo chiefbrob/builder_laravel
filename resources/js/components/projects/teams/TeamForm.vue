@@ -20,7 +20,7 @@
 
         <b-form-group id="input-group-1" label="Shortcode: *" label-for="name">
           <b-form-input
-            :disabled="team && team.shortcode"
+            :disabled="team && team.shortcode !== null"
             id="shortcode"
             v-model="form.shortcode"
             type="text"

@@ -61,7 +61,9 @@ class CreateTaskFromTemplateControllerTest extends TestCase
                     'task_template_id' => $tt->id,
                     'team_id' => $team->id,
                 ]
-            )
+            ), [
+                'task_template_id' => $tt->id
+            ]
         )
             ->assertCreated()
             ->assertJson(

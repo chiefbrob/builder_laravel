@@ -8,6 +8,8 @@ import CreateTask from '../components/projects/tasks/CreateTask';
 import TaskSingle from '../components/projects/tasks/TaskSingle';
 import TaskEdit from '../components/projects/tasks/TaskEdit';
 
+import WorkflowsRoot from '../components/projects/workflows/WorkflowsRoot';
+
 export const teams = [
   {
     name: 'teams',
@@ -61,6 +63,12 @@ export const teams = [
     name: 'new-subtask',
     path: '/teams/:team_id/tasks/:task_id/create',
     component: CreateTask,
+    meta: { requiresAuth: true },
+  },
+  {
+    name: 'workflows',
+    path: '/workflows/:shortcode?',
+    component: WorkflowsRoot,
     meta: { requiresAuth: true },
   },
 ];

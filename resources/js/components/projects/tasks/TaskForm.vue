@@ -40,7 +40,7 @@
         </p>
 
         <p class="py-3">
-          <input type="submit" class="btn btn-success" text="Submit" />
+          <input type="submit" class="btn btn-sm btn-success" text="Submit" />
         </p>
       </div>
     </form>

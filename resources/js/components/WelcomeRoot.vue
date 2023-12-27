@@ -20,10 +20,15 @@
             Features include <b>shop</b>, <b>teams</b>, <b>languages</b>
           </p>
           <p>
-            <b-button variant="light" href="https://github.com/chiefbrob/builder_laravel">
+            <b-button size="sm" variant="light" href="https://github.com/chiefbrob/builder_laravel">
               <i class="fa-brands fa-github"></i> Edit on GitHub</b-button
             >
-            <clipboard content="copy me" variant="dark"></clipboard>
+            <clipboard :content="demoUrl" variant="dark">
+              <i class="fa fa-clipboard"></i> Copy Demo link
+            </clipboard>
+            <b-button size="sm" target="_blank" variant="light" :href="demoUrl"
+              >Go to Demo</b-button
+            >
           </p>
 
           <div class="row">
@@ -36,4 +41,12 @@
   </div>
 </template>
 
-<script></script>
+<script>
+  export default {
+    data() {
+      return {
+        demoUrl: 'https://builder-laravel.on.chiefbrob.info',
+      };
+    },
+  };
+</script>

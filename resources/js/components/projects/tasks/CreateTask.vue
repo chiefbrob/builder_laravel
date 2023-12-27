@@ -1,9 +1,13 @@
 <template>
   <div>
     <div class="mb-5 pb-5 mt-2 row">
-      <div class="col-md-10 offset-md-1">
+      <div class="col-md-4 offset-md-4">
         <h4>
-          <span v-if="team">{{ team.name }}</span> Create Task
+          <span v-if="team">{{ team.name }}</span>
+          <div v-if="$router.currentRoute.params.task_id">
+            Create SubTask to <a href="#">task</a>
+          </div>
+          <div v-else>Create Task</div>
         </h4>
         <task-form v-if="team" :errors="errors" :team="team" @submit="createTask"></task-form>
         <div v-else><i class="fa fa-spinner"></i> Loading</div>

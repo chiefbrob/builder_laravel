@@ -50,6 +50,31 @@
           class="text-white"
           ><i class="fa fa-pen"></i> Edit</b-button
         >
+        <b-button
+          v-b-modal="'task-to-template-modal-' + task.id"
+          class="float-right"
+          v-if="full && manager"
+          size="sm"
+          variant="dark"
+          ><i class="fa fa-check-circle"></i> New Workflow</b-button
+        >
+
+        <b-modal
+          ok-only
+          :ref="'task-to-template-modal-' + task.id"
+          :id="'task-to-template-modal-' + task.id"
+          title="New Workflow"
+          @ok="createWorkflow"
+        >
+          <h6>{{ task.title }}</h6>
+          <p>A Workflow is a task with its subtasks that can be recreated</p>
+          <p>
+            <b>Private</b> workflow can only be used within this team. <b>Public</b> workflows can
+            be accessed by anyone with manager role
+          </p>
+          <b-form-select v-model="publicTemplate" :options="['public', 'private']"></b-form-select>
+          <textarea name="" id="" class="form-control" rows="4"></textarea>
+        </b-modal>
       </b-card-text>
       <b-card-text v-if="full">Created: {{ task.created_at | relative }}</b-card-text>
       <b-card-text v-if="full">{{ task.description }}</b-card-text>
@@ -115,10 +140,15 @@
         loading: false,
         errors: [],
         showSubtasks: this.full,
+        publicTemplate: 'private',
       };
     },
 
-    computed: {},
+    computed: {
+      manager() {
+        return window.User.rolesList.includes('manager');
+      },
+    },
     methods: {
       taskStatusVariant(status) {
         switch (status) {
@@ -182,6 +212,30 @@
       },
       taskUpdated(task) {
         this.$emit('taskUpdated', task);
+      },
+      createWorkflow(e) {
+        e.preventDefault();
+        this.loading = true;
+        axios
+          .post('/api/v1/tasks/task-templates/', {
+            task_id: this.task.id,
+            title: this.task.title,
+            team_id: this.task.team_id,
+          })
+          .then(response => {
+            this.$root.$emit('sendMessage', 'Workflow Created', 'success');
+            this.$router.push({
+              name: 'workflows',
+              params: { shortcode: this.task.team.shortcode },
+            });
+          })
+          .catch(e => {
+            this.$root.$emit('sendMessage', 'Failed to Create Workflow');
+          })
+          .finally(f => {
+            this.loading = false;
+          });
+        console.log();
       },
     },
   };
