@@ -31,6 +31,7 @@
       </b-button>
       <b-modal
         ok-only
+        ok-title="Create Task"
         :ok-disabled="!workflow.team_id && !form.team_id"
         :ref="'use-workflow-' + workflow.id"
         :id="'use-workflow-' + workflow.id"
@@ -38,7 +39,7 @@
         @ok="useWorkflow"
       >
         <template #modal-title> <i class="fa fa-chart-gantt"></i> {{ workflow.title }} </template>
-        <p>Creates a new task</p>
+        <p>Creates a new task with subtasks if any and assign roles</p>
         <b-form-group v-if="!workflow.team_id" label="Select Team">
           <b-form-select :options="teamOptions" v-model="form.team_id"></b-form-select>
         </b-form-group>

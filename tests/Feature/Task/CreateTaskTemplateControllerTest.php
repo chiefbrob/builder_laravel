@@ -17,7 +17,8 @@ class CreateTaskTemplateControllerTest extends TestCase
     {
         $this->actingAsRandomUser();
         $task = Task::factory()->create(['user_id' => $this->user->id]);
-        $task->team->addUser($this->user);
+        $task->team->addUser($this->user); 
+        $this->assignRole($this->user, 'manager');
 
         $this->post(
             route(

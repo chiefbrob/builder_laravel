@@ -49,7 +49,7 @@
         form: {
           status: ['OPEN'],
           team_id: this.team.id,
-          assigned_to: null,
+          assigned_to: [window.User.id],
         },
         loading: true,
         meta: {

@@ -33,6 +33,15 @@ trait HasRoles
         return $role ? true : false;
     }
 
+    public function hasRoleName(string $roleName): bool
+    {
+        $role = Role::where('name', $roleName)->first();
+        if ($role) {
+            return $this->hasRole($role);
+        }
+        return false;
+    }
+
     /**
      * Assign a role to user
      *

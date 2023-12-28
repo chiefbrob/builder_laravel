@@ -27,7 +27,7 @@
     },
     data() {
       return {
-        selectedUsers: [],
+        selectedUsers: [window.User],
       };
     },
     computed: {

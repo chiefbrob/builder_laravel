@@ -5,7 +5,7 @@
         bg-variant="info"
         border-variant="light"
         text-variant="light"
-        class="col-md-3"
+        class="col-md-4"
         v-for="(user, index) in items"
         v-bind:key="index"
       >
@@ -14,17 +14,9 @@
 
         <b-card-text>
           @{{ user.username }} <br />
-          Registered: {{ user.created_at | relative }}
+          {{ user.created_at | relative }}
         </b-card-text>
 
-        <b-card-text>
-          Verified:
-          <b-button size="sm" variant="success" v-if="user.verified_at">{{
-            user.verified_at | relative
-          }}</b-button>
-
-          <b-button size="sm" v-else variant="warning">-unverified-</b-button>
-        </b-card-text>
         <b-card-text v-if="user.id !== currentuser.id">
           <b-button size="sm" variant="danger" href="#" @click="deleteUser(user)">
             <i class="fa fa-trash"></i>
@@ -32,6 +24,11 @@
           <b-button size="sm" variant="dark" @click="loginAs(user)"
             ><i class="fa fa-user"></i> Login</b-button
           >
+          <b-button size="sm" variant="success" v-if="user.verified_at">{{
+            user.verified_at | relative
+          }}</b-button>
+
+          <b-button size="sm" v-else variant="warning">-unverified-</b-button>
         </b-card-text>
       </b-card>
     </div>

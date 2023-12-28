@@ -74,20 +74,25 @@
             <b-button size="sm" variant="danger" @click="addingUser = false">Cancel</b-button>
           </p>
         </div>
-        <div v-else-if="showTeamMembers">
-          <div v-for="(teamUser, index) in team.team_users" v-bind:key="index">
-            <p>
-              <profile-image style="width: 2em; float: left" :user="teamUser.user"></profile-image>
-              <span class="ml-2 "
-                >{{ teamUser.user.name }}
-                <b v-if="team.user_id === teamUser.user.id">(manager)</b>
-              </span>
-            </p>
-          </div>
-          <div>
+        <div v-else-if="showTeamMembers" class="row">
+          <div class="col-md-4">
             <b-button variant="link" @click="addingUser = true" v-if="users.length > 0"
               >New Team Member</b-button
             >
+          </div>
+          <div v-for="(teamUser, index) in team.team_users" class="col-md-4" v-bind:key="index">
+            <div>
+              <p>
+                <profile-image
+                  style="width: 2em; float: left"
+                  :user="teamUser.user"
+                ></profile-image>
+                <span class="ml-2 "
+                  >{{ teamUser.user.name }}
+                  <b v-if="team.user_id === teamUser.user.id">(manager)</b>
+                </span>
+              </p>
+            </div>
           </div>
         </div>
       </b-card-text>
@@ -166,8 +171,8 @@
         });
       },
       getUsers() {
-        this.loading = true;
         if (this.manager) {
+          this.loading = true;
           axios
             .get(`/api/v1/users`, {
               params: {

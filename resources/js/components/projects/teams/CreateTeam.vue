@@ -6,8 +6,8 @@
         <team-form @submit="submitted" :errors="errors"></team-form>
         <p>
           <i
-            >You need <b-button size="sm" variant="link" to="/admin/roles">manager</b-button> role
-            to create a team
+            >You need <b-button size="sm" variant="link" to="/roles">manager</b-button> role to
+            create a team
           </i>
         </p>
       </div>
