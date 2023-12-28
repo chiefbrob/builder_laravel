@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="pb-5 pt-2 row">
       <task-list
         :full="true"

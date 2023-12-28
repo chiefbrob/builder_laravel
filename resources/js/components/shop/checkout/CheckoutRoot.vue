@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="container">
     <div class="row pt-2 mt-3">
       <div class="col-md-10 offset-md-1">
         <div class="row" v-if="cart">

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="row mb-5 py-5">
       <b-card no-body class="overflow-hidden col-md-8 offset-md-2 py-2 ">
         <b-row no-gutters>

@@ -41,6 +41,7 @@
 
         <p class="py-3">
           <input type="submit" class="btn btn-sm btn-success" text="Submit" />
+          <new-workflow v-if="task" :task="task"></new-workflow>
         </p>
       </div>
     </form>
@@ -50,8 +51,9 @@
 <script>
   import TaskAssigneeChange from './TaskAssigneeChange';
   import TaskStatusChange from './TaskStatusChange';
+  import NewWorkflow from './NewWorkflow.vue';
   export default {
-    components: { TaskAssigneeChange, TaskStatusChange },
+    components: { NewWorkflow, TaskAssigneeChange, TaskStatusChange },
     props: {
       task: {
         required: false,

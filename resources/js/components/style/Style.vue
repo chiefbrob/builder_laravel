@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="row">
       <div class="col-md-10 offset-md-1">
         <file-uploader class="mb-5 pb-5"></file-uploader>

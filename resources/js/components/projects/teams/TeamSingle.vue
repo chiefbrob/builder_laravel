@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="mb-5 mt-2 pb-5 row">
       <div class="col-md-10 offset-md-1">
         <team v-if="team" :full="true" :team="team"></team>

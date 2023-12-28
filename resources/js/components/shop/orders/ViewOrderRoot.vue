@@ -1,16 +1,18 @@
 <template>
-  <div class="row">
-    <div class="col-md-10 offset-md-1">
-      <div class="row">
-        <order
-          class="col-md-6 offset-md-3"
-          :full="true"
-          @updated="loadOrder"
-          :order="order"
-          v-if="order"
-        ></order>
-        <div v-else>
-          <p><i class="fa fa-spinner"></i> Loading...</p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <div class="row">
+          <order
+            class="col-md-6 offset-md-3"
+            :full="true"
+            @updated="loadOrder"
+            :order="order"
+            v-if="order"
+          ></order>
+          <div v-else>
+            <p><i class="fa fa-spinner"></i> Loading...</p>
+          </div>
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <div class="mb-5 pb-5 row">
+  <div class="container">
+    <div class="mb-5 pb-5">
       <div class="col-md-10 offset-md-1">
-        <strong>Privacy Policy</strong>
+        <h2><strong>Privacy Policy</strong></h2>
         <p>
           {{ name }} built this app as a Free app. This SERVICE is provided by {{ name }}
           at no cost and is intended for use as is.

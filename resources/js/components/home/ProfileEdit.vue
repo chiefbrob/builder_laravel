@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <b-card tag="article" class="col-md-4 offset-md-4 py-5 ">
       <b-card-text>
         <form

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="row py-5  mb-5">
       <b-card class="col-md-8 offset-md-2" title="Settings">
         <b-tabs pills card vertical nav-wrapper-class="w-50">

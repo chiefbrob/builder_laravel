@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <b-row class="mb-5 pb-5">
-      <b-col md="6" offset="3">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 offset-md-4">
         <b-card
           title="Snap, We Could't find it!"
-          img-src="https://picsum.photos/600/300/?image=25"
-          img-alt="Image"
+          img-src="/images/pages/404.webp"
+          img-alt="404 Error"
           img-top
           tag="article"
           class="mb-2"
@@ -15,10 +15,21 @@
             different keywords
           </b-card-text>
 
-          <b-button @click="$router.push({ name: 'home' })" variant="info">Go Home</b-button>
+          <b-card-text>
+            <b-button
+              size="sm"
+              class="text-white"
+              @click="$router.push({ name: 'home' })"
+              variant="info"
+              >Go Home</b-button
+            >
+            <b-button size="sm" @click="$router.push({ name: 'contact' })" variant="link"
+              >Contact us</b-button
+            >
+          </b-card-text>
         </b-card>
-      </b-col>
-    </b-row>
+      </div>
+    </div>
   </div>
 </template>
 

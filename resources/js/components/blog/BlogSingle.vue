@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="mb-5 py-5 row">
       <div class="col-md-6 offset-md-3">
         <div v-if="loading"><i class="fa fa-spinner"></i> Loading</div>

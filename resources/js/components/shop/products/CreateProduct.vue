@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="mb-5 pb-5 row">
       <div class="col-md-6 offset-md-3">
         <h4 class="py-3">

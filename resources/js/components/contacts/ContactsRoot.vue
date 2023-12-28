@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="pb-5 row">
       <my-contacts class="col-md-10 offset-md-1 py-4"></my-contacts>
     </div>

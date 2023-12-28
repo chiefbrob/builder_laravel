@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="row mt-1">
       <div
         class="col-md-10 offset-md-1
@@ -21,18 +21,18 @@
           </p>
           <p>
             <b-button size="sm" variant="light" href="https://github.com/chiefbrob/builder_laravel">
-              <i class="fa-brands fa-github"></i> Edit on GitHub</b-button
+              <i class="fa-brands fa-github"></i> Edit</b-button
             >
             <clipboard :content="demoUrl" variant="dark">
-              <i class="fa fa-clipboard"></i> Copy Demo link
+              <i class="fa fa-clipboard"></i> Demo link
             </clipboard>
             <b-button size="sm" target="_blank" variant="light" :href="demoUrl"
-              >Go to Demo</b-button
+              ><i class="fa fa-globe"></i> Demo</b-button
             >
           </p>
 
           <div class="row">
-            <div class="col-md-6"><phone-number style="max-width: 70%;"></phone-number></div>
+            <div class="col-md-5"><phone-number></phone-number></div>
           </div>
           <p>Login as Admin using <u>test</u> and password <u>password</u></p>
         </b-jumbotron>

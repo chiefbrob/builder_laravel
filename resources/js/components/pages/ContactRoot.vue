@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="mb-5 pb-5 row" v-if="!submitted">
       <div class="col-md-4 offset-md-4 py-4">
         <h4>Contact</h4>

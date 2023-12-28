@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="mb-5 mt-2 pb-5 mt-2 row">
       <div class="col-md-4 offset-md-4">
         <h4>

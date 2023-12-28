@@ -39,6 +39,8 @@
     <!-- Copyright -->
     <div class="footer-copyright text-center pb-2">
       © {{ today.getFullYear() }} {{ $store.getters.config.name }}
+      <b-button size="sm" variant="link" :to="{ name: 'privacy-policy' }">Privacy Policy</b-button>
+      <b-button size="sm" variant="link" :to="{ name: 'terms' }">Terms</b-button>
     </div>
     <!-- Copyright -->
   </footer>
