@@ -49,6 +49,7 @@ class V2LoginControllerTest extends TestCase
                 'language',
                 'details',
                 'team_id',
+                'addresses'
             ]
         ]);
     }

@@ -38,10 +38,13 @@ class V2LoginController extends Controller
 
             $token->save();
 
+            $arrUser = $user->toArray();
+            $arrUser['addresses'] = $user->addresses;
+
             return response()->json([
                 'access_token' => $tokenResult->accessToken,
                 'token_type' => 'Bearer',
-                'user' => $user
+                'user' => $arrUser
             ]);
         } catch (Exception $e) {
             Log::error($e);
