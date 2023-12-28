@@ -95,7 +95,20 @@
         <task-list v-if="team" :team="team"></task-list>
       </b-card-text>
       <b-card-text v-if="!full">
-        <b-button variant="dark" size="sm" @click="showTasks">Tasks</b-button>
+        <b-button variant="dark" size="sm" @click="showTasks"
+          ><i class="fa fa-tasks"></i> Tasks</b-button
+        >
+        <b-button
+          variant="dark"
+          size="sm"
+          :to="{
+            name: 'workflows',
+            params: {
+              shortcode: team.shortcode,
+            },
+          }"
+          ><i class="fa-solid fa-chart-gantt"></i> Workflows</b-button
+        >
       </b-card-text>
     </b-card>
   </div>

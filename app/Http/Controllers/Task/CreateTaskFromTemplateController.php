@@ -18,15 +18,15 @@ class CreateTaskFromTemplateController extends Controller
      */
     public function __invoke(CreateTaskFromTemplateRequest $request)
     {
-        
-        $team = Team::where('id', $request->team_id)
-            ->whereIn('id', auth()->user()->myTeamIds)
-            ->firstOrFail();
-        $tt = TaskTemplate::where('id', $request->task_template_id)
-            ->firstOrFail();
-
-        return Task::createFromTemplate($tt, $team, auth()->user());
         try {
+            $team = Team::where('id', $request->team_id)
+                ->whereIn('id', auth()->user()->myTeamIds)
+                ->firstOrFail();
+            $tt = TaskTemplate::where('id', $request->task_template_id)
+                ->firstOrFail();
+
+            return Task::createFromTemplate($tt, $team, auth()->user());
+        
         } catch (Exception $e) {
             Log::error($e);
             return response()->json(

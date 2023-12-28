@@ -72,8 +72,27 @@
             <b>Private</b> workflow can only be used within this team. <b>Public</b> workflows can
             be accessed by anyone with manager role
           </p>
-          <b-form-select v-model="publicTemplate" :options="['public', 'private']"></b-form-select>
-          <textarea name="" id="" class="form-control" rows="4"></textarea>
+          <b-form-group label="Title">
+            <b-form-input type="text" v-model="workflowForm.title"></b-form-input>
+
+            <field-error :solid="false" :errors="errors" field="title"></field-error>
+          </b-form-group>
+          <b-form-group>
+            <b-form-checkbox v-model="publicTemplate">Public</b-form-checkbox>
+
+            <field-error :solid="false" :errors="errors" field="team_id"></field-error>
+          </b-form-group>
+          <b-form-group>
+            <textarea
+              name=""
+              placeholder="optional description"
+              :id="`task-textarea-` + task.id"
+              class="form-control"
+              v-model="workflowForm.description"
+              rows="4"
+            ></textarea>
+            <field-error :solid="false" :errors="errors" field="description"></field-error>
+          </b-form-group>
         </b-modal>
       </b-card-text>
       <b-card-text v-if="full">Created: {{ task.created_at | relative }}</b-card-text>
@@ -140,7 +159,12 @@
         loading: false,
         errors: [],
         showSubtasks: this.full,
-        publicTemplate: 'private',
+        publicTemplate: false,
+        workflowErrors: [],
+        workflowForm: {
+          title: this.task.title + ' Workflow',
+          description: null,
+        },
       };
     },
 
@@ -216,12 +240,15 @@
       createWorkflow(e) {
         e.preventDefault();
         this.loading = true;
-        axios
-          .post('/api/v1/tasks/task-templates/', {
+        const form = {
+          ...this.workflowForm,
+          ...{
+            team_id: this.publicTemplate ? null : this.task.team_id,
             task_id: this.task.id,
-            title: this.task.title,
-            team_id: this.task.team_id,
-          })
+          },
+        };
+        axios
+          .post('/api/v1/tasks/task-templates/', form)
           .then(response => {
             this.$root.$emit('sendMessage', 'Workflow Created', 'success');
             this.$router.push({
@@ -229,7 +256,8 @@
               params: { shortcode: this.task.team.shortcode },
             });
           })
-          .catch(e => {
+          .catch(({ response }) => {
+            this.workflowErrors = response.data.errors;
             this.$root.$emit('sendMessage', 'Failed to Create Workflow');
           })
           .finally(f => {

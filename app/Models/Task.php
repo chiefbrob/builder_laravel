@@ -44,7 +44,7 @@ class Task extends Model
 
     public static function createFromTemplate(TaskTemplate $template, Team $team, User $user): Task
     {
-        $config = $template->toArray();
+        $config = $template->toArray()['config'];
 
         $taskData = array_merge(
             $config, 
@@ -58,7 +58,7 @@ class Task extends Model
             $task->save();
         }
 
-        Task::createSubtasksFromConfig($task, $config['config'], $user);
+        Task::createSubtasksFromConfig($task, $config['subTasks'], $user);
 
         $task->fresh();
 
@@ -83,10 +83,10 @@ class Task extends Model
                     $subtask->save();
                 }
 
-                if (isset($taskBlueprint['tasks'])) {
+                if (isset($taskBlueprint['subTasks'])) {
                     Task::createSubtasksFromConfig(
                         $subtask, 
-                        $taskBlueprint['tasks'],
+                        $taskBlueprint['subTasks'],
                         $user
                     );
                 }

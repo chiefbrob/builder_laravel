@@ -22,33 +22,36 @@ class CreateTaskFromTemplateControllerTest extends TestCase
         $tt = TaskTemplate::factory()->create(
             [
                 'team_id' => $team->id,
-                'title' => 'Car Service',
+                'title' => 'New Car Service Workflow',
                 'config' => [
-                    [
-                        'title' => 'Engine Oil Service',
-                        'status' => Task::DOING,
-                        'tasks' => [
-                            [
-                                'title' => 'Drain Engine Oil',
-                                'tasks' => [
-                                    [
-                                        'title' => 'Check for engine wear'
+                    'title' => 'Car Service',
+                    'subTasks' => [
+                        [
+                            'title' => 'Engine Oil Service',
+                            'status' => Task::DOING,
+                            'subTasks' => [
+                                [
+                                    'title' => 'Drain Engine Oil',
+                                    'subTasks' => [
+                                        [
+                                            'title' => 'Check for engine wear'
+                                        ]
                                     ]
-                                ]
-                            ],
-                            [
-                                'title' => 'Change Oil filter'
-                            ],
-                            [
-                                'title' => 'Refill oil'
-                            ],
+                                ],
+                                [
+                                    'title' => 'Change Oil filter'
+                                ],
+                                [
+                                    'title' => 'Refill oil'
+                                ],
+                            ]
+                        ],
+                        [
+                            'title' => 'Change Air Filters',
+                        ],
+                        [
+                            'title' => 'Check Braking System',
                         ]
-                    ],
-                    [
-                        'title' => 'Change Air Filters',
-                    ],
-                    [
-                        'title' => 'Check Braking System',
                     ]
                 ]
             ]
