@@ -55,6 +55,8 @@ class GetTaskTemplatesControllerTest extends TestCase
         $task = Task::factory()->create(['user_id' => $this->user->id]);
         $task->team->addUser($this->user);
 
+        $this->assignRole($this->user, 'manager');
+
         $this->post(
             route(
                 'v1.task-template.create', 
