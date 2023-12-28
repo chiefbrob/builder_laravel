@@ -28,6 +28,8 @@ class CartRepository
 
     private $api;
 
+    private $tempPassword;
+
     public function __construct($cart = [], $api = false)
     {
         $this->cart = Session::get('cart', $cart);
@@ -150,7 +152,7 @@ class CartRepository
     
                         $email = $fname.rand(100, 1000000).'@'.$domain;
                     }
-                    $pass = Str::random(16);
+                    
     
                     $name = $request->get('first_name');
     
@@ -163,6 +165,8 @@ class CartRepository
                         ->first();
 
                     if (!$user) {
+                        $pass = Str::random(16);
+                        $this->tempPassword = $pass;
                         $user = User::create(
                             [
                                 'name' => $request->get('first_name'),
@@ -201,10 +205,16 @@ class CartRepository
 
         if ($this->makeInvoice($user, $address)) {
             $this->emptyCart();
-            return [
+            $arr = [
                 'invoice' => $this->invoice,
                 'paid' => false,
+                'user' => $user,
+                'address' => $address
             ];
+            if (isset($this->tempPassword)) {
+                $arr['password'] = $this->tempPassword;
+            }
+            return $arr;
         } else {
             $this->releaseCartItems();
 

@@ -46,12 +46,6 @@ class V2CheckoutRequest extends CartCheckoutRequest
                 'min:2',
                 'max:20'
             ],
-            'email' => [
-                'exclude_with:user_id',
-                'sometimes',
-                'nullable',
-                'email',
-            ],
             'phone_number' => [
                 'exclude_with:user_id',
                 'required',
