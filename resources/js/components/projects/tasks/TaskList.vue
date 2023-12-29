@@ -1,12 +1,17 @@
 <template>
   <div>
-    <div class="row py-1" v-if="full">
+    <div class="row mb-2" v-if="full">
       <task-state-selector class="col-md-4" @updated="statusUpdated"></task-state-selector>
       <team-user-selector
         class="col-md-4"
         :team="team"
         @updated="usersUpdated"
       ></team-user-selector>
+      <task-period-selector
+        class="col-md-4"
+        @periodUpdated="setPeriod"
+        v-if="$featureIsEnabled('task-filter-period')"
+      ></task-period-selector>
     </div>
     <div class="row">
       <task
@@ -29,10 +34,11 @@
 </template>
 
 <script>
-  import TeamUserSelector from '../teams/TeamUserSelector';
-  import TaskStateSelector from './TaskStateSelector';
+  import TeamUserSelector from '../teams/TeamUserSelector.vue';
+  import TaskStateSelector from './TaskStateSelector.vue';
+  import TaskPeriodSelector from './TaskPeriodSelector.vue';
   export default {
-    components: { TaskStateSelector, TeamUserSelector },
+    components: { TaskStateSelector, TeamUserSelector, TaskPeriodSelector },
     props: {
       team: {
         type: Object,
@@ -90,6 +96,7 @@
         });
         this.loadTasks();
       },
+      setPeriod(period) {},
     },
   };
 </script>

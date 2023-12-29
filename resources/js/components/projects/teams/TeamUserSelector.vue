@@ -1,17 +1,20 @@
 <template>
-  <multiselect
-    :close-on-select="false"
-    :searchable="true"
-    :multiple="true"
-    v-model="selectedUsers"
-    track-by="id"
-    :options="userOptions"
-    :custom-label="name"
-    @input="updated"
-    :allow-empty="true"
-    id="team-user-selector"
-    placeholder="Select assignee"
-  ></multiselect>
+  <div>
+    <multiselect
+      :close-on-select="false"
+      :searchable="true"
+      :multiple="true"
+      v-model="selectedUsers"
+      track-by="id"
+      :options="userOptions"
+      :custom-label="name"
+      @input="updated"
+      :allow-empty="true"
+      style="padding: 0;"
+      id="team-user-selector"
+      placeholder="Select assignee"
+    ></multiselect>
+  </div>
 </template>
 
 <script>

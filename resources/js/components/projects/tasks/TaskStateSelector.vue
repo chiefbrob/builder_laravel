@@ -1,13 +1,16 @@
 <template>
-  <multiselect
-    :close-on-select="false"
-    :searchable="true"
-    :multiple="true"
-    v-model="selectedStates"
-    :options="taskStates"
-    @input="updated"
-    placeholder="Select state"
-  ></multiselect>
+  <div>
+    <multiselect
+      :close-on-select="false"
+      :searchable="true"
+      :multiple="true"
+      v-model="selectedStates"
+      :options="taskStates"
+      style="padding: 0;"
+      @input="updated"
+      placeholder="Select state"
+    ></multiselect>
+  </div>
 </template>
 
 <script>
