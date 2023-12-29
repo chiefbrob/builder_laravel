@@ -155,10 +155,10 @@
         });
       },
       productName() {
-        if (this.full || this.product.name.length < 19) {
+        if (this.full || this.product.name.length < 15) {
           return this.product.name;
         } else {
-          return this.product.name.substring(0, 19) + '...';
+          return this.product.name.substring(0, 15) + '...';
         }
       },
     },
