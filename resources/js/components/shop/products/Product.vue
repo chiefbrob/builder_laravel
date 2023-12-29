@@ -2,8 +2,8 @@
   <div>
     <b-card style="padding: 0;" border-variant="light" text-variant="light" bg-variant="info">
       <b-card-title>
-        <span :class="full ? '' : 'pointer'" class="p-2" @click="viewProduct">{{
-          productName
+        <span :class="full ? '' : 'pointer'" class="p-2 truncated-text" @click="viewProduct">{{
+          product.name
         }}</span>
       </b-card-title>
       <b-card-text @click="viewProduct">
@@ -154,13 +154,6 @@
           return true;
         });
       },
-      productName() {
-        if (this.full || this.product.name.length < 15) {
-          return this.product.name;
-        } else {
-          return this.product.name.substring(0, 15) + '...';
-        }
-      },
     },
     methods: {
       showVariants() {
@@ -252,5 +245,10 @@
 <style scoped>
   .card-body {
     padding: 0;
+  }
+  .truncated-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 </style>
