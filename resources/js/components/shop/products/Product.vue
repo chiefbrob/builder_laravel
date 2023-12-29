@@ -3,7 +3,7 @@
     <b-card style="padding: 0;" border-variant="light" text-variant="light" bg-variant="info">
       <b-card-title>
         <span :class="full ? '' : 'pointer'" class="p-2" @click="viewProduct">{{
-          product.name
+          productName
         }}</span>
       </b-card-title>
       <b-card-text @click="viewProduct">
@@ -153,6 +153,13 @@
           }
           return true;
         });
+      },
+      productName() {
+        if (this.full || this.product.name.length < 19) {
+          return this.product.name;
+        } else {
+          return this.product.name.substring(0, 19) + '...';
+        }
       },
     },
     methods: {

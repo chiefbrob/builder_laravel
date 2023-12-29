@@ -86,35 +86,6 @@ class ProductsIndexControllerTest extends TestCase
         $response->assertStatus(200)->assertJson([
             'data' => [
                 [
-                    'id' => $product->id,
-                    'name' => $product->name,
-                    'slug' => $product->slug,
-                    'price' => round($product->price, 3),
-                    'description' => $product->description,
-                    'photo' => null,
-                    'product_variants' => [
-                        [
-                            'id' => $variant1->id,
-                            'product_id' => $product->id,
-                            'name' => 'Green Dress',
-                            'quantity' => 10,
-                        ],
-                        [
-                            'id' => $variant2->id,
-                            'product_id' => $product->id,
-                            'name' => 'Pink Dress',
-                            'quantity' => 3,
-                        ],
-                        [
-                            'id' => $variant8->id,
-                            'product_id' => $product->id,
-                            'name' => 'Maroon',
-                            'quantity' => 0,
-                        ],
-                    ],
-
-                ],
-                [
                     'id' => $product1->id,
                     'name' => $product1->name,
                     'slug' => $product1->slug,
@@ -145,6 +116,36 @@ class ProductsIndexControllerTest extends TestCase
                         ],
                     ],
                 ],
+                [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'slug' => $product->slug,
+                    'price' => round($product->price, 3),
+                    'description' => $product->description,
+                    'photo' => null,
+                    'product_variants' => [
+                        [
+                            'id' => $variant1->id,
+                            'product_id' => $product->id,
+                            'name' => 'Green Dress',
+                            'quantity' => 10,
+                        ],
+                        [
+                            'id' => $variant2->id,
+                            'product_id' => $product->id,
+                            'name' => 'Pink Dress',
+                            'quantity' => 3,
+                        ],
+                        [
+                            'id' => $variant8->id,
+                            'product_id' => $product->id,
+                            'name' => 'Maroon',
+                            'quantity' => 0,
+                        ],
+                    ],
+
+                ],
+                
             ],
             'total' => 2,
         ]);

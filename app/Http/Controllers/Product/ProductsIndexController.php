@@ -28,6 +28,7 @@ class ProductsIndexController extends Controller
                 return Product::where('name', 'like', '%'.$query.'%')
                     ->orWhere('description', 'like', '%'.$query.'%')
                     ->with('productVariants')
+                    ->orderBy('id', 'DESC')
                     ->paginate();
             }
             $products = Product::query();
@@ -43,7 +44,7 @@ class ProductsIndexController extends Controller
                     'productVariants', function ($q) {
                         $q->where('quantity', '>', 0);
                     }
-                )->paginate();
+                )->orderBy('id', 'DESC')->paginate();
         } catch (Exception $e) {
             Log::error($e);
 
