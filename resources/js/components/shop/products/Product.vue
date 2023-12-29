@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card style="padding: 0;" border-variant="light" text-variant="light" bg-variant="info">
-      <b-card-title>
+      <b-card-title style="overflow: hidden;">
         <span :class="full ? '' : 'pointer'" class="p-2 truncated-text" @click="viewProduct">{{
           product.name
         }}</span>
