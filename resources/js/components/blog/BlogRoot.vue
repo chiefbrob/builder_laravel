@@ -16,7 +16,11 @@
               </b-button>
             </h4>
           </div>
-          <div class="col-md-4 " v-for="item in items" v-bind:key="item.id">
+          <div
+            class="col-lg-3 col-md-4 col-sm-6 col-xs-12 "
+            v-for="item in items"
+            v-bind:key="item.id"
+          >
             <blog-item :blog="item"></blog-item>
           </div>
           <div class="col-md-12" v-if="items.length === 0">

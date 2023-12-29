@@ -10,7 +10,7 @@
     </div>
     <div class="row">
       <task
-        class="col-md-4"
+        class="col-lg-4 col-md-6 col-sm-12 col-xs-12 mb-1"
         v-for="(task, index) in items"
         :task="task"
         :full="false"

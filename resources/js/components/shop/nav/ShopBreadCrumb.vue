@@ -17,7 +17,7 @@
       >{{ product.name }}</b-breadcrumb-item
     >
     <b-breadcrumb-item
-      v-if="!variant || page === 'variant'"
+      v-if="product.product_variants.length > 1 && (!variant || page === 'variant')"
       href="#"
       :active="!variant && page !== 'product'"
       @click="showVariants"

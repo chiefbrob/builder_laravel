@@ -1,58 +1,57 @@
 <template>
-  <div>
-    <b-card class="bg-gradient-primary">
-      <b-card-title>
-        <span @click="showTask" class="pointer">
-          <span v-if="full">{{ task.title }}</span>
-          <span v-else>{{ task.title | shortform }}</span>
-        </span>
-        <b-badge class="float-right" :variant="taskStatusVariant(task.status)">
-          {{ task.status }}
-        </b-badge>
-      </b-card-title>
+  <b-card class="bg-gradient-primary">
+    <b-card-title style="overflow: hidden;">
+      <span @click="showTask" class="pointer truncated-text">
+        {{ task.title }}
+      </span>
+    </b-card-title>
 
-      <b-card-sub-title v-if="full" class="row">
-        <div class="col-md-4">
-          <task-assignee-change
-            :members="task.team.team_users"
-            @taskUpdated="taskUpdated"
-            :task="task"
-          ></task-assignee-change>
-        </div>
-        <div class="col-md-4">
-          <task-status-change @taskUpdated="taskUpdated" :task="task"></task-status-change>
-        </div>
-      </b-card-sub-title>
-      <b-card-text :class="full ? 'py-2' : ''">
-        <b-button
-          v-b-popover.hover.top="'create a sub-task of ' + task.title"
-          title="Add Sub-Task"
-          @click="addSubtask(task)"
-          class="text-white"
-          size="sm"
-          variant="info"
-        >
-          <b-icon icon="plus"></b-icon> Add Subtask
-        </b-button>
-        <b-button
-          size="sm"
-          variant="success"
-          @click="
-            $router.push({
-              name: 'task-edit',
-              params: {
-                team_id: task.team_id,
-                task_id: task.id,
-                task_slug: $root.$slugify(task.title),
-              },
-            })
-          "
-          class="text-white"
-          ><i class="fa fa-pen"></i> Edit</b-button
-        >
-      </b-card-text>
-      <b-card-text v-if="full">Created: {{ task.created_at | relative }}</b-card-text>
-      <b-card-text v-if="full">{{ task.description }}</b-card-text>
+    <b-card-sub-title v-if="full" class="row">
+      <div class="col-md-4">
+        <task-assignee-change
+          :members="task.team.team_users"
+          @taskUpdated="taskUpdated"
+          :task="task"
+        ></task-assignee-change>
+      </div>
+      <div class="col-md-4">
+        <task-status-change @taskUpdated="taskUpdated" :task="task"></task-status-change>
+      </div>
+    </b-card-sub-title>
+    <b-card-text :class="full ? 'py-2' : ''">
+      <b-button
+        v-b-popover.hover.top="'create a sub-task of ' + task.title"
+        title="Add Sub-Task"
+        @click="addSubtask(task)"
+        class="text-white"
+        size="sm"
+        variant="info"
+      >
+        <b-icon icon="plus"></b-icon>
+      </b-button>
+      <b-button
+        size="sm"
+        variant="success"
+        @click="
+          $router.push({
+            name: 'task-edit',
+            params: {
+              team_id: task.team_id,
+              task_id: task.id,
+              task_slug: $root.$slugify(task.title),
+            },
+          })
+        "
+        class="text-white"
+        ><i class="fa fa-pen"></i
+      ></b-button>
+      <b-badge class="float-right" :variant="taskStatusVariant(task.status)">
+        {{ task.status }}
+      </b-badge>
+    </b-card-text>
+    <b-card-text v-if="full">Created: {{ task.created_at | relative }}</b-card-text>
+    <b-card-text v-if="full">{{ task.description }}</b-card-text>
+    <b-card-text>
       <b-form-checkbox
         v-if="full && task.subTasks && task.subTasks.length > 0"
         v-model="showSubtasks"
@@ -100,8 +99,11 @@
           </span>
         </p>
       </div>
-    </b-card>
-  </div>
+      <div v-if="!full && !showSubtasks && task.openTasks.length === 0">
+        {{ task.description.substring(0, 50) }}
+      </div>
+    </b-card-text>
+  </b-card>
 </template>
 
 <script>

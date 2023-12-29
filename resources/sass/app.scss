@@ -20,3 +20,9 @@
 }
 
 @import url('vue-multiselect/dist/vue-multiselect.min.css');
+
+.truncated-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

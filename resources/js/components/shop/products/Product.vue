@@ -246,9 +246,4 @@
   .card-body {
     padding: 0;
   }
-  .truncated-text {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  }
 </style>

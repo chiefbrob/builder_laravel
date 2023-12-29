@@ -42,7 +42,7 @@
         >
       </div>
       <product
-        class="col-md-4 mb-1"
+        class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-1"
         v-for="product in products"
         v-bind:key="product.id"
         :full="false"
