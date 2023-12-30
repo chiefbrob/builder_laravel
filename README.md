@@ -16,9 +16,13 @@ This template allows you to quickly start building laravel applications from scr
 
 ## Vue 3 Migration
 
-Migration to vue 3 would be noisy and this software works well. In future, user interface updates will be provided with a different repository. Refer to [Builder Vue3](https://github.com/chiefbrob/builder-vue3)
+This project would be updated to Vue 3 and Bootstrap Vue would be dropped. 
 
-Seperation of concerns is important.
+## Quasar
+
+V2 API is being built for [🔒 Quasar Builder](https://github.com/chiefbrob/quasar-builder). If you would want this, let me know :)
+
+Separation of concerns is important.
 
 ## Features
 
@@ -42,7 +46,7 @@ Seperation of concerns is important.
 - Language selector
 - Mpesa Payment Gateway
 - Offline apps
-- Automation of deployment with Github
+- Automation of deployment with GitHub
 - Vite & Vue 3
 
 ## Setting Up Google Login
@@ -71,11 +75,13 @@ You can easily create scaffolding for a new feature. i.e. Adding a new Resource 
 bash scaffold.sh Contact
 ```
 
-This would create Controllers, Requests, TestFiles for both PHP & Vue and UI
+This would create Controllers, Requests, and Test Files for both PHP & Vue and UI
 
 # Using Template
 
-Setup Environment
+Minimize editing existing HTML or code and instead extend Vue/PHP to minimize conflicts during rebase
+
+### Setup Environment
 
 Copy `.env.example` to `.env`
 Update `APP_NAME`, `APP_URL`
@@ -84,8 +90,9 @@ Update `config/app.php`
 Update `public/manifest.json`
 Update `resources/views/header-links.blade.php`
 Update deploy Folder Notes
+Setup passport
 
-## Local Setup
+### Local Setup
 
 MySQL required
 Valet is required
@@ -138,9 +145,9 @@ There are PHP Tests in the root `tests` folder and JavaScript Tests in `resource
 
 To debug Backend tests, you need to install xdebug.
 
-To debug Frontend tests using Jest on VSCode, select node.js then run script tdd.
+To debug Frontend tests using Jest on VSCode, select node.js then run `npm run tdd`.
 
-With these you can add breakpoints and stop compiler to view variables
+With these, you can add breakpoints and stop the compiler from viewing variables
 
 ## Fix Style
 
