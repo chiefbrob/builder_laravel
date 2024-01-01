@@ -43,6 +43,11 @@ class TaskIndexController extends Controller
                 $tasks->whereIn('assigned_to', $request->assigned_to);
             }
 
+            if (isset($request->period_start) && isset($request->period_end)) {
+                // $tasks->where();
+                
+            }
+
             return $tasks->orderBy($request->get('orderBy', 'id'), $request->get('orderDirection', 'DESC'))
                 ->paginate();
         } catch (Exception $e) {

@@ -6,6 +6,7 @@ use App\Models\Task;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class TaskIndexRequest extends FormRequest
 {
@@ -32,7 +33,9 @@ class TaskIndexRequest extends FormRequest
             'status.*' => 'sometimes|nullable|string',
             'assigned_to' => 'sometimes|nullable|array',
             'assigned_to.*' => ['required', 'integer', 'exists:users,id'],
-            'task_id' => 'sometimes|nullable|integer|exists:tasks,id'
+            'task_id' => 'sometimes|nullable|integer|exists:tasks,id',
+            'period_start' => ['date_format:Y-m-d'],
+            'period_end' => ['date_format:Y-m-d'],
         ];
     }
 }

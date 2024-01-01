@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\Task;
 use App\Models\Team;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -258,5 +259,48 @@ class TaskIndexControllerTest extends TestCase
                     ]
                 ]
             );
+    }
+
+    public function testFilterTasksByDate()
+    {
+        $when = now();
+        Carbon::setTestNow(now()->addDays(5));
+
+        $then = now();
+
+        $this->actingAs($this->user0)->post(route('v1.tasks.create'), [
+            'team_id' => $this->team['id'],
+            'title' => 'Something done in five days',
+            'status' => Task::OPEN
+        ])->assertCreated();
+
+        Carbon::setTestNow(now()->addDays(10));
+
+        $later = now();
+
+        $this->actingAs($this->user0)->post(route('v1.tasks.create'), [
+            'team_id' => $this->team['id'],
+            'title' => 'Something done in 15 days',
+            'status' => Task::OPEN
+        ])->assertCreated();
+
+        $this->markTestIncomplete("Will be back for this");
+
+
+        $this->actingAs($this->user0)->get(
+            route(
+                'v1.tasks.index',
+                [
+                    'team_id' => $this->team->id,
+                    'period_start' => now()->subDays(14)->toDateString(),
+                    'period_end' => now()->subDays(10)->toDateString()
+                ]
+            )
+        )
+            ->assertOk()
+            ->assertJsonCount(2, 'data')
+            ->assertJson([
+                'foo'
+            ]);
     }
 }
