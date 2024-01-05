@@ -26,7 +26,7 @@ Route::prefix('v1')->group(static function () {
     Route::delete('/cart/empty', Shop\EmptyCartController::class)->name('v1.cart.empty');
     Route::post('/checkout', Shop\CheckoutController::class)->name('v1.checkout');
     Route::get('/blog', Blog\GetBlogsController::class)->name('v1.blog.index');
-    Route::middleware('throttle:3,1')
+    Route::middleware('throttle:10,1')
         ->post('/contact', Contact\CreateContactController::class)
         ->name('v1.contact.create');
     Route::get('/products', Product\ProductsIndexController::class)->name('v1.product.index');
