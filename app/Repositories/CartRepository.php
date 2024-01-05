@@ -139,7 +139,22 @@ class CartRepository
                 if ($request->user_id) {
                     $auth = $this->api ? 'api' : null;
                     $user = auth($auth)->user();
-                    $address = Address::findOrFail($request->address_id);
+                    if ($request->address_id) {
+                        $address = Address::where('user_id', $user->id)
+                            ->where('id', $request->address_id)
+                            ->firstOrFail();
+                    } else {
+                        $address = Address::create(
+                            array_merge(
+                                $request->validated(), 
+                                [
+                                    'first_name' => $request->first_name ?? $user->name,
+                                    'phone_number' => $request->phone_number ?? $user->phone_number
+                                ]
+                            )
+                        );
+                    }
+                    
                 } else {
                     $email = $request->get('email');
                     $fname = $request->get('first_name');
