@@ -21,7 +21,7 @@ class AdminGetUsersController extends Controller
     public function __invoke(AdminGetUsersRequest $request)
     {
         try {
-            $users = User::paginate(15);
+            $users = User::orderBy('id', 'DESC')->paginate(15);
 
             $users->withPath('/admin/users');
 
