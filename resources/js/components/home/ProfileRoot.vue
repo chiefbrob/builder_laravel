@@ -38,7 +38,10 @@
           </b-col>
         </b-row>
       </b-card>
-      <address-manager class="col-md-8 offset-md-2 mt-3"></address-manager>
+      <address-manager
+        v-if="$featureIsEnabled('shop')"
+        class="col-md-8 offset-md-2 mt-3"
+      ></address-manager>
     </div>
   </div>
 </template>
