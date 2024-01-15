@@ -69,6 +69,9 @@ Route::prefix('v2')->group(static function () {
                 })->name('v2.user');
                 Route::post('/', v2\User\V2UserProfileUpdateController::class)
                     ->name('v2.user.update');
+
+                Route::delete('/', v2\User\V2DeleteAccountController::class)
+                    ->name('v2.user.delete');
             }
         );
         
