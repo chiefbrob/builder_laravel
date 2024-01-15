@@ -32,7 +32,7 @@ class V2UserProfileUpdateControllerTest extends TestCase
             'phone_number' => '255729393203',
         ];
 
-        $this->put(route('v2.user.update', $newData))->assertOk()
+        $this->post(route('v2.user.update', $newData))->assertOk()
             ->assertJson($newData);
 
         $this->assertDatabaseHas('users', $newData);
