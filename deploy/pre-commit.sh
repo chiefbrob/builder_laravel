@@ -19,5 +19,6 @@ fi
 
 # Commit only JS files
 git add .
-git commit  --no-verify -m "Commit Run Prod"
+commit_message=$(git log -1 --pretty=%B)
+git commit  --no-verify -m "$commit_message"
 git push
