@@ -20,6 +20,9 @@
             Features include <b>shop</b>, <b>teams</b>, <b>languages</b>
           </p>
           <p>
+            <b>NOTE</b> Extend vue components and Laravel classes to reduce conflicts during rebase
+          </p>
+          <p>
             <b-button size="sm" variant="light" href="https://github.com/chiefbrob/builder_laravel">
               <i class="fa-brands fa-github"></i> Edit</b-button
             >
