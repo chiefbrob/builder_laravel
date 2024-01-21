@@ -19,4 +19,5 @@ fi
 
 # Commit only JS files
 git add .
-git commit -m "Commit Run Prod" --no-verify
+git commit  --no-verify -m "Commit Run Prod"
+git push
