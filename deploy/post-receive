@@ -11,7 +11,7 @@ chmod -R 775 storage bootstrap/cache
 
 COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev
 php artisan migrate --force
-# Disabled this as its done on pre-commit
+# Disabled, creates heavy jobs on server. do this before pushing
 # npm i 
 # npm run production
 
