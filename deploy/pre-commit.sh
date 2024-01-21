@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Run npm tests
+# Prevents sending non production push & failing tests
 npm i
 npm run production
 npm test
@@ -19,4 +19,4 @@ fi
 
 # Commit only JS files
 git add .
-git commit -m "Commit Run Prod"
+git commit -m "Commit Run Prod" --no-verify
