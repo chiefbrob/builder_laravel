@@ -11,8 +11,9 @@ chmod -R 775 storage bootstrap/cache
 
 COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev
 php artisan migrate --force
-npm i
-npm run production
+# Disabled this as its done on pre-commit
+# npm i 
+# npm run production
 
 chown -R www-data:www-data .
 chmod -R 775 storage bootstrap/cache
