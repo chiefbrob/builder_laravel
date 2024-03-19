@@ -20,7 +20,14 @@ This project would be updated to Vue 3 and Bootstrap Vue would be dropped.
 
 ## Quasar
 
-V2 API is being built for [🔒 Quasar Builder](https://github.com/chiefbrob/quasar-builder). If you would want this, let me know :)
+V2 API is being built for [🔒 Quasar Builder](https://github.com/chiefbrob/quasar-builder). Links to various builds with it include: 
+
+- [Means App](https://app.means.dabotap.com)
+- [Means Conductors App](https://conductors-app.means.dabotap.com)
+- [Means Drivers Apk](https://bit.ly/means-drivers-app)
+- [ClutchBagsKenya App](https://shop.on.clutchbagskenya.co.ke)
+
+If you would want this, let me know :)
 
 Separation of concerns is important.
 
