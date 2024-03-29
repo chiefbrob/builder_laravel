@@ -42,7 +42,7 @@ class V2CheckoutControllerTest extends TestCase
     {
         foreach ($names as $name) {
             if (get_class($v) === 'App\Models\Product') {
-                ProductVariant::create(
+                ProductVariant::factory()->create(
                     [
                         'product_id' => $v->id,
                         'name' => 'Variant '.$name,
@@ -50,7 +50,7 @@ class V2CheckoutControllerTest extends TestCase
                     ]
                 );
             } else {
-                ProductVariant::create(
+                ProductVariant::factory()->create(
                     [
                         'product_id' => $v->product->id,
                         'variant_id' => $v->id,

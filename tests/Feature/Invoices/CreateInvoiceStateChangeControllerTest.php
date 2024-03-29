@@ -26,14 +26,14 @@ class CreateInvoiceStateChangeControllerTest extends TestCase
         parent::setUp();
 
         $this->product = Product::factory()->create(['name' => 'foo']);
-        $this->variant1 = ProductVariant::create(
+        $this->variant1 = ProductVariant::factory()->create(
             [
                 'product_id' => $this->product->id,
                 'name' => 'variant bar 1',
                 'quantity' => 5
             ]
         );
-        $this->variant2 = ProductVariant::create(
+        $this->variant2 = ProductVariant::factory()->create(
             [
                 'product_id' => $this->product->id,
                 'name' => 'variant xim 2',
@@ -42,14 +42,14 @@ class CreateInvoiceStateChangeControllerTest extends TestCase
         );
 
         $this->product2 = Product::factory()->create(['name' => 'bar']);
-        $this->variant3 = ProductVariant::create(
+        $this->variant3 = ProductVariant::factory()->create(
             [
                 'product_id' => $this->product2->id,
                 'name' => 'variant xim 22',
                 'quantity' => 10
             ]
         );
-        $this->variant4 = ProductVariant::create(
+        $this->variant4 = ProductVariant::factory()->create(
             [
                 'product_id' => $this->product2->id,
                 'name' => 'variant foobar 33',

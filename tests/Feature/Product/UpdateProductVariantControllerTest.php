@@ -19,7 +19,7 @@ class UpdateProductVariantControllerTest extends TestCase
 
         $product = Product::factory()->create();
 
-        $this->variant = ProductVariant::create([
+        $this->variant = ProductVariant::factory()->create([
             'product_id' => $product->id,
             'name' => 'Foo Bar',
             'description' => 'A foo bar product variant',

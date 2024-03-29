@@ -28,6 +28,7 @@ class CreateProductController extends Controller
                 [
                     'name' => $product->name,
                     'product_id' => $product->id,
+                    'description' => $product->description,
                 ]
             );
 

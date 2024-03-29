@@ -19,7 +19,7 @@ class AddItemToCartControllerTest extends TestCase
         parent::setUp();
 
         $this->product = Product::factory()->create();
-        $this->variant = ProductVariant::create([
+        $this->variant = ProductVariant::factory()->create([
             'product_id' => $this->product->id,
             'name' => 'variant 1',
             'quantity' => 3,

@@ -38,17 +38,17 @@ class ProductsIndexControllerTest extends TestCase
         $product = Product::factory()->create([
             'name' => 'Turkey Dress',
         ]);
-        $variant1 = ProductVariant::create([
+        $variant1 = ProductVariant::factory()->create([
             'product_id' => $product->id,
             'name' => 'Green Dress',
             'quantity' => 10,
         ]);
-        $variant2 = ProductVariant::create([
+        $variant2 = ProductVariant::factory()->create([
             'product_id' => $product->id,
             'name' => 'Pink Dress',
             'quantity' => 3,
         ]);
-        $variant8 = ProductVariant::create([
+        $variant8 = ProductVariant::factory()->create([
             'product_id' => $product->id,
             'name' => 'Maroon',
             'quantity' => 0,
@@ -56,17 +56,17 @@ class ProductsIndexControllerTest extends TestCase
         $product1 = Product::factory()->create([
             'name' => 'Roman Dress',
         ]);
-        $variant4 = ProductVariant::create([
+        $variant4 = ProductVariant::factory()->create([
             'product_id' => $product1->id,
             'name' => 'Metallic Dress',
             'quantity' => 20,
         ]);
-        $variant5 = ProductVariant::create([
+        $variant5 = ProductVariant::factory()->create([
             'product_id' => $product1->id,
             'name' => 'Arrow Dress',
             'quantity' => 7,
         ]);
-        $variant6 = ProductVariant::create([
+        $variant6 = ProductVariant::factory()->create([
             'product_id' => $product1->id,
             'variant_id' => $variant5->id,
             'name' => 'Spear',
@@ -75,7 +75,7 @@ class ProductsIndexControllerTest extends TestCase
         $product2 = Product::factory()->create([
             'name' => 'Skater Dress',
         ]);
-        $variant7 = ProductVariant::create([
+        $variant7 = ProductVariant::factory()->create([
             'product_id' => $product2->id,
             'name' => 'Yellow',
             'quantity' => 0,
@@ -179,12 +179,12 @@ class ProductsIndexControllerTest extends TestCase
         
         $this->actingAsRandomUser();
         $product = Product::factory()->create(['featured'=> false]);
-        $variant1 = ProductVariant::create([
+        $variant1 = ProductVariant::factory()->create([
             'product_id' => $product->id,
             'name' => 'Green Dress',
             'quantity' => 10,
         ]);
-        $variant2 = ProductVariant::create([
+        $variant2 = ProductVariant::factory()->create([
             'product_id' => $product->id,
             'name' => 'Pink Dress',
             'quantity' => 3,
@@ -192,24 +192,24 @@ class ProductsIndexControllerTest extends TestCase
 
         $product1 = Product::factory()->create(['featured' => true]);
 
-        $variant1 = ProductVariant::create([
+        $variant1 = ProductVariant::factory()->create([
             'product_id' => $product1->id,
             'name' => 'Red Dress',
             'quantity' => 19,
         ]);
-        $variant2 = ProductVariant::create([
+        $variant2 = ProductVariant::factory()->create([
             'product_id' => $product1->id,
             'name' => 'Black Dress',
             'quantity' => 30,
         ]);
 
         $product2 = Product::factory()->create(['featured' => false]);
-        $variant1 = ProductVariant::create([
+        $variant1 = ProductVariant::factory()->create([
             'product_id' => $product2->id,
             'name' => 'Maroon Dress',
             'quantity' => 60,
         ]);
-        $variant2 = ProductVariant::create([
+        $variant2 = ProductVariant::factory()->create([
             'product_id' => $product2->id,
             'name' => 'Teal Dress',
             'quantity' => 13,

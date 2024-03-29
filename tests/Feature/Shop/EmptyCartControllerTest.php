@@ -16,7 +16,7 @@ class EmptyCartControllerTest extends TestCase
     public function testEmptyCart(): void
     {
         $product = Product::factory()->create();
-        $variant1 = ProductVariant::create(
+        $variant1 = ProductVariant::factory()->create(
             ['name' => 'abc', 'quantity' => 5, 'product_id' => $product->id]
         );
 

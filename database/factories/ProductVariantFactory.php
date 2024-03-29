@@ -22,7 +22,7 @@ class ProductVariantFactory extends Factory
             'product_id' => Product::factory()->create()->id,
             'variant_id' => null,
             'name' => $this->faker->name,
-            'description' => $this->faker->sentences(5),
+            'description' => $this->faker->sentence(rand(5,20)),
             'photo' => null,
             'quantity' => rand(0, 100),
             'product_size_id' => ProductSize::first()->id,

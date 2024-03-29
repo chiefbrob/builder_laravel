@@ -36,7 +36,7 @@ class InvoiceFactory extends Factory
                 'price' => rand(1000, 5000),
             ]
         );
-        $variant1 = ProductVariant::create(
+        $variant1 = ProductVariant::factory()->create(
             [
                 'product_id' => $product1->id,
                 'name' => 'Variant '.$product1->name,
@@ -48,7 +48,7 @@ class InvoiceFactory extends Factory
                 'price' => rand(4000, 16000),
             ]
         );
-        $variant2 = ProductVariant::create(
+        $variant2 = ProductVariant::factory()->create(
             [
                 'product_id' => $product2->id,
                 'name' => 'Variant '.$product2->name,

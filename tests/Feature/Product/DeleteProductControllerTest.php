@@ -20,7 +20,7 @@ class DeleteProductControllerTest extends TestCase
     {
         $this->actingAsAdmin();
         $product = Product::factory()->create();
-        $variant = ProductVariant::create([
+        $variant = ProductVariant::factory()->create([
             'name' => $product->name,
             'product_id' => $product->id,
         ]);
