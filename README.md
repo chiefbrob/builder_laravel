@@ -1,6 +1,6 @@
-# Laravel 10 Template
+# Laravel 11 Template
 
-This template allows you to quickly start building laravel applications from scratch. php 8.1
+This template allows you to quickly start building laravel applications from scratch. php 8.2
 
 [Demo](https://builder-laravel.on.chiefbrob.info) | [Hire Me](https://www.fiverr.com/share/xPWA7a) | [Buy me Coffee](https://www.buymeacoffee.com/chiefbrob)
 
@@ -16,11 +16,11 @@ This template allows you to quickly start building laravel applications from scr
 
 ## Vue 3 Migration
 
-This project would be updated to Vue 3 and Bootstrap Vue would be dropped. 
+This project would be updated to Vue 3 and Bootstrap Vue would be dropped.
 
 ## Quasar
 
-V2 API is being built for [🔒 Quasar Builder](https://github.com/chiefbrob/quasar-builder). Links to various builds with it include: 
+V2 API is being built for [🔒 Quasar Builder](https://github.com/chiefbrob/quasar-builder). Links to various builds with it include:
 
 - [Means App](https://app.means.dabotap.com)
 - [Means Conductors App](https://conductors-app.means.dabotap.com)

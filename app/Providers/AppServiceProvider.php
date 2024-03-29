@@ -9,6 +9,7 @@ use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Passport\Passport;
 use League\Flysystem\Filesystem;
 use Masbug\Flysystem\GoogleDriveAdapter;
 
@@ -32,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadGoogleStorageDriver();
+        // Passport::enablePasswordGrant();
+
     }
 
     private function loadGoogleStorageDriver(string $driverName = 'google') 
