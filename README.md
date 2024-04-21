@@ -1,4 +1,6 @@
-# Laravel 11 Template
+# Laravel 10 Template
+
+### NOTE! Downgraded to 10 as tests are broken
 
 This template allows you to quickly start building laravel applications from scratch. php 8.2
 
