@@ -30,13 +30,8 @@
     "laravel/pint": "^1.2",
     "laravel/sail": "^1.0.1",
     "mockery/mockery": "^1.4.2",
-<<<<<<< HEAD
-    "nunomaduro/collision": "^8.1",
-    "phpunit/phpunit": "^11.1"
-=======
     "nunomaduro/collision": "^7.1",
     "phpunit/phpunit": "^10.0"
->>>>>>> 831a155 (downgrade to laravel 10)
   },
   "autoload": {
     "psr-4": {
