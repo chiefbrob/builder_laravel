@@ -39,4 +39,9 @@ class Product extends Variants
     {
         return $this->hasMany(ProductVariant::class);
     }
+
+    public function productCategories(): HasMany
+    {
+        return $this->hasMany(ProductCategory::class);
+    }
 }

@@ -59,6 +59,12 @@ Route::prefix('v1')->group(
             }
         );
 
+        Route::prefix('product-categories')->namespace('Product')->group(
+            static function () {
+                Route::post('/', 'CreateProductCategoryController')->name('v1.product-categories.create');
+            }
+        );
+
         Route::prefix('contacts')->namespace('Contact')->group(
             static function () {
                 Route::get('/', 'GetContactsController')->name('v1.contact.index');
