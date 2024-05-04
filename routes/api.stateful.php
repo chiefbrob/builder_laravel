@@ -158,6 +158,13 @@ Route::prefix('v1')->group(
                             ->name('user-role.delete');
                     }
                 );
+
+                Route::prefix('categories')->namespace('Categories')->group(
+                    static function () {
+                        Route::post('/', 'AdminCreateCategoryController')
+                            ->name('v1.admin.categories.create');
+                    }
+                );
             }
         );
 
