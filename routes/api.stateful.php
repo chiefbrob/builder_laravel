@@ -163,6 +163,8 @@ Route::prefix('v1')->group(
                     static function () {
                         Route::post('/', 'AdminCreateCategoryController')
                             ->name('v1.admin.categories.create');
+                        Route::put('/{category_id}', 'AdminUpdateCategoryController')
+                            ->name('v1.admin.categories.update');
                     }
                 );
             }
