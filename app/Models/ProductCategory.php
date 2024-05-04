@@ -26,5 +26,15 @@ class ProductCategory extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'product_id' => $this->product_id,
+            'category_id' => $this->category_id,
+            'category' => $this->category,
+        ];
+    }
     
 }

@@ -33,7 +33,7 @@ class Product extends Variants
         'featured' => 'boolean'
     ];
 
-    protected $with = ['productVariants'];
+    protected $with = ['productVariants', 'productCategories'];
 
     public function productVariants(): HasMany
     {

@@ -3,6 +3,7 @@
 namespace Tests\Feature\Product;
 
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\ProductVariant;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -230,5 +231,34 @@ class ProductsIndexControllerTest extends TestCase
                 ]
             );
 
+    }
+
+    public function testProductCategory()
+    {
+        $this->actingAsRandomUser();
+        $product = Product::factory()->create();
+
+        $productCat = ProductCategory::factory()->create(['product_id' => $product->id]);
+
+        $response = $this->get(route('v1.product.index', ['id' => $product->id]))->assertOk();
+
+        $response->assertStatus(200)->assertJson([
+            'id' => $product->id,
+            'name' => $product->name,
+            'slug' => $product->slug,
+            'price' => $product->price,
+            'description' => $product->description,
+            'photo' => null,
+            'product_categories' => [
+                [
+                    'id' => $productCat->id,
+                    'product_id' => $product->id,
+                    'category_id' => $productCat->category_id,
+                    'category' => [
+                        'name' => $productCat->category->name
+                    ]
+                ]
+            ]
+        ]);
     }
 }
