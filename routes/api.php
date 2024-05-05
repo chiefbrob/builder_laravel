@@ -66,7 +66,9 @@ Route::prefix('v2')->group(static function () {
         Route::prefix('user')->group(
             static function () {
                 Route::get('/', function (Request $request) {
-                    return auth()->user();
+                    $user = auth()->user();
+                    $user['addresses'] = auth()->user()->addresses;
+                    return $user;
                 })->name('v2.user');
                 Route::post('/', v2\User\V2UserProfileUpdateController::class)
                     ->name('v2.user.update');
