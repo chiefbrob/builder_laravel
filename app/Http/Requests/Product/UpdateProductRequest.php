@@ -36,7 +36,9 @@ class UpdateProductRequest extends FormRequest
                 'max:2048'
             ],
             'long_description' => ['sometimes', 'nullable', 'string'],
-            'featured' => ['sometimes', 'nullable', 'boolean']
+            'featured' => ['sometimes', 'nullable', 'boolean'],
+            'categories' => ['sometimes', 'array'],
+            'categories.*' => ['required', 'integer', 'exists:categories,id']
         ];
     }
 

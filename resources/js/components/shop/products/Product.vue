@@ -9,6 +9,7 @@
       <b-card-text @click="viewProduct">
         <product-slideshow :product="product" :full="full"></product-slideshow>
       </b-card-text>
+
       <b-card-text class="py-2">
         <p class="px-2">
           <b-button
@@ -47,6 +48,13 @@
         </p>
       </b-card-text>
     </b-card>
+    <div v-if="product.product_categories.length > 0 && full">
+      <div>
+        <b-badge class="mr-1" v-for="pc in product.product_categories" :key="pc.id">{{
+          pc.category.name
+        }}</b-badge>
+      </div>
+    </div>
     <div v-if="full" class="text-justify" v-html="product.long_description"></div>
 
     <div>

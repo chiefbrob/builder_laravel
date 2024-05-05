@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\PhotoManager;
 use Exception;
 use Illuminate\Http\Response;
@@ -42,6 +43,15 @@ class UpdateProductController extends Controller
                 $product->save();
             }
             $product->save();
+            $product->refresh();
+
+            ProductCategory::where('product_id', $product->id)->delete();
+            if ($request->categories) {
+                foreach ($request->categories as $category) {
+                    ProductCategory::create(['product_id'=> $product->id, 'category_id' => $category]);
+                }
+            }
+
             $product->refresh();
 
             return $product;

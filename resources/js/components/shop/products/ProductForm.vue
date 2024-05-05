@@ -84,6 +84,13 @@
 
         <field-error :solid="false" :errors="errors" field="featured"></field-error>
 
+        <edit-product-categories
+          v-if="product"
+          :product="product"
+          @selected="updateCategories"
+          :errors="errors"
+        ></edit-product-categories>
+
         <p class="py-3">
           <input type="submit" class="btn btn-success btn-sm" text="Submit" />
 
@@ -124,8 +131,9 @@
   import TextEditor from '../../shared/TextEditor';
   import EditProductVariants from './EditProductVariants.vue';
   import ProductVariantForm from './ProductVariantForm.vue';
+  import EditProductCategories from './categories/EditProductCategories.vue';
   export default {
-    components: { EditProductVariants, ProductVariantForm, TextEditor },
+    components: { EditProductVariants, ProductVariantForm, TextEditor, EditProductCategories },
     props: {
       url: {
         type: String,
@@ -150,6 +158,7 @@
         errors: [],
         variantErrors: [],
         editor: null,
+        categories: [],
       };
     },
     created() {
@@ -160,14 +169,17 @@
         if (this.product) {
           delete this.product.photo;
           this.form = { ...this.product };
-          console.log(this.form.featured, this.product.featured);
           if (this.product.product_variants.length === 1) {
             this.form.quantity = this.product.product_variants[0].quantity;
           }
+          this.categories = this.product.product_categories;
         }
       },
       imageUpdated(img) {
         this.form.photo = img.target.files[0];
+      },
+      updateCategories(val) {
+        this.categories = val.map(v => v.value);
       },
       submitForm() {
         let form = new FormData();
@@ -181,6 +193,12 @@
 
         form.append('long_description', this.form.long_description);
         form.append('featured', this.form.featured);
+        if (this.categories.length > 0) {
+          this.categories.forEach(element => {
+            form.append(`categories[${element}]`, element);
+          });
+          //   form.append('categories', categoriesArray);
+        }
         axios
           .post(this.url, form, {
             headers: { 'Content-Type': 'multipart/form-data' },

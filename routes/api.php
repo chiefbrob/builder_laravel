@@ -30,6 +30,7 @@ Route::prefix('v1')->group(static function () {
         ->post('/contact', Contact\CreateContactController::class)
         ->name('v1.contact.create');
     Route::get('/products', Product\ProductsIndexController::class)->name('v1.product.index');
+    Route::get('/categories', Product\GetCategoriesController::class)->name('v1.categories.index');
     Route::post('/search', Search\SearchController::class)->name('v1.search');
 });
 
