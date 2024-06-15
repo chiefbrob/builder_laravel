@@ -15,11 +15,11 @@ Vue.use(VueClipboard);
 
 Vue.use(VueRouter);
 
-require('./filters');
+import './filters';
 
 Vue.mixin(require('./mixin'));
 
-require('./components');
+import './components';
 
 import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';

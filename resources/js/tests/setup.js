@@ -10,8 +10,9 @@ import VuePhoneNumberInput from 'vue-phone-number-input';
 
 window.axios = axios;
 
-require('../filters');
-window.moment = require('moment');
+import '../filters';
+import moment from 'moment';
+window.moment = moment;
 
 Vue.use(VueClipboard);
 global._ = lodash;
@@ -19,7 +20,7 @@ global._ = lodash;
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.mixin(require('@/mixin'));
-require('@/components');
+import '@/components';
 
 Vue.component('vue-phone-number-input', VuePhoneNumberInput);
 
