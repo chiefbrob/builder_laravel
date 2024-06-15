@@ -140,7 +140,7 @@ Login Docker
 Build Image
 
 ```bash
-npm run production
+npm run build
 docker-compose build
 ```
 

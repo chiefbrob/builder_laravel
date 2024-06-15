@@ -13,7 +13,7 @@ COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev
 php artisan migrate --force
 # Disabled, creates heavy jobs on server. do this before pushing
 # npm i 
-# npm run production
+# npm run build
 
 chown -R www-data:www-data .
 chmod -R 775 storage bootstrap/cache

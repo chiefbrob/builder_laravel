@@ -89,11 +89,11 @@ npm-install:
 npm-dev:
 	docker compose exec web npm run dev
 npm-watch:
-	docker compose exec web npm run watch
+	docker compose exec web npm run dev
 npm-watch-poll:
-	docker compose exec web npm run watch-poll
+	docker compose exec web npm run dev-poll
 npm-hot:
-	docker compose exec web npm run hot
+	docker compose exec web npm run dev
 yarn:
 	docker compose exec web yarn
 yarn-install:

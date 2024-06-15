@@ -80,7 +80,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: NPM Install
-        run: npm i && npm run production
+        run: npm i && npm run build
       - name: Test Frontend
         run: npm test
 

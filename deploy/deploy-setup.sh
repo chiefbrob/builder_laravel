@@ -41,7 +41,7 @@ composer install --no-dev
 php artisan opcache:clear
 php artisan migrate --force
 php artisan optimize
-npm run production
+npm run build
 EOF
 chmod +x post-receive
 mysql
