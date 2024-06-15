@@ -41,6 +41,6 @@
     <noscript>
         JavaScript is Disabled.
       </noscript>
-    <script src="{{ mix('js/main.js') }}"></script>
+    @vite('resources/js/main.js')
     </body>
 </html>

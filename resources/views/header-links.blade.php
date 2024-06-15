@@ -13,7 +13,7 @@
 <link rel="dns-prefetch" href="//fonts.gstatic.com">
 <link rel="manifest" href="/manifest.json">
 <link rel="apple-touch-icon" href="/images/180.png">
-<link href="{{ mix('css/app.css') }}" rel="stylesheet">
+@vite('resources/css/app.css')
 <!-- Verify website ownership -->
 <meta name="google-site-verification" content="verification_token"><!-- Google Search Console -->
 <meta name="yandex-verification" content="verification_token"><!-- Yandex Webmasters -->
