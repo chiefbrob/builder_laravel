@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import AdminUsers from './AdminUsers';
+  import AdminUsers from './AdminUsers.vue';
   export default {
     components: {
       AdminUsers,

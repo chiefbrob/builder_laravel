@@ -128,7 +128,7 @@
 </template>
 
 <script>
-  import TextEditor from '../../shared/TextEditor';
+  import TextEditor from '../../shared/TextEditor.vue';
   import EditProductVariants from './EditProductVariants.vue';
   import ProductVariantForm from './ProductVariantForm.vue';
   import EditProductCategories from './categories/EditProductCategories.vue';

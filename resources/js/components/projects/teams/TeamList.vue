@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import Team from './Team';
+  import Team from './Team.vue';
   export default {
     components: { Team },
     data() {

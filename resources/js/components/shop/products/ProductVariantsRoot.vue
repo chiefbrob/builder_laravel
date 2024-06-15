@@ -35,7 +35,7 @@
 
 <script>
   import ShopBreadCrumb from '../nav/ShopBreadCrumb.vue';
-  import ProductVariant from './ProductVariant';
+  import ProductVariant from './ProductVariant.vue';
   import { mapState } from 'vuex';
   export default {
     props: [],

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import ProductVariant from './ProductVariant';
+  import ProductVariant from './ProductVariant.vue';
   export default {
     components: {
       ProductVariant,

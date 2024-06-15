@@ -23,7 +23,7 @@
 </template>
 
 <script>
-  import TaskList from '../projects/tasks/TaskList';
+  import TaskList from '../projects/tasks/TaskList.vue';
   export default {
     components: { TaskList },
     data() {

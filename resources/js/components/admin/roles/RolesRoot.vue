@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import RoleList from './RoleList';
+  import RoleList from './RoleList.vue';
   export default {
     components: {
       RoleList,

@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import Blog from './Blog';
+  import Blog from './Blog.vue';
   export default {
     components: {
       Blog,

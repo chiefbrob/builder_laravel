@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import TeamForm from './TeamForm';
+  import TeamForm from './TeamForm.vue';
   export default {
     components: { TeamForm },
     props: [],

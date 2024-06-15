@@ -54,7 +54,7 @@
 </template>
 
 <script>
-  import CartItem from './CartItem';
+  import CartItem from './CartItem.vue';
   import store from '../../../store';
   import CartSummary from './CartSummary.vue';
   export default {

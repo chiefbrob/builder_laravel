@@ -107,8 +107,8 @@
 </template>
 
 <script>
-  import TaskAssigneeChange from './TaskAssigneeChange';
-  import TaskStatusChange from './TaskStatusChange';
+  import TaskAssigneeChange from './TaskAssigneeChange.vue';
+  import TaskStatusChange from './TaskStatusChange.vue';
   export default {
     props: ['task', 'full'],
     components: { TaskAssigneeChange, TaskStatusChange },

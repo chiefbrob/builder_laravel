@@ -29,7 +29,7 @@
 </template>
 
 <script>
-  import TaskList from './TaskList';
+  import TaskList from './TaskList.vue';
   export default {
     components: {
       TaskList,

@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  import ProductVariant from './ProductVariant';
+  import ProductVariant from './ProductVariant.vue';
   import ShopBreadCrumb from '../nav/ShopBreadCrumb.vue';
   import { mapState } from 'vuex';
   export default {

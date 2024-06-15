@@ -44,7 +44,7 @@
 </template>
 
 <script>
-  import BlogItem from './Blog';
+  import BlogItem from './Blog.vue';
   export default {
     components: {
       BlogItem,

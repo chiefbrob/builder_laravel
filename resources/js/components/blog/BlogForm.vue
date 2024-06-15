@@ -57,7 +57,7 @@
 </template>
 
 <script>
-  import TextEditor from '../shared/TextEditor';
+  import TextEditor from '../shared/TextEditor.vue';
   export default {
     components: { TextEditor },
     props: {

@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import RoleForm from './RoleForm';
+  import RoleForm from './RoleForm.vue';
   export default {
     components: { RoleForm },
     props: [],

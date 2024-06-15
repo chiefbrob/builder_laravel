@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import MyContacts from './MyContacts';
+  import MyContacts from './MyContacts.vue';
   export default {
     components: { MyContacts },
   };

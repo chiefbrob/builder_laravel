@@ -49,8 +49,8 @@
 </template>
 
 <script>
-  import TaskAssigneeChange from './TaskAssigneeChange';
-  import TaskStatusChange from './TaskStatusChange';
+  import TaskAssigneeChange from './TaskAssigneeChange.vue';
+  import TaskStatusChange from './TaskStatusChange.vue';
   import NewWorkflow from './NewWorkflow.vue';
   export default {
     components: { NewWorkflow, TaskAssigneeChange, TaskStatusChange },

@@ -120,8 +120,8 @@
 </template>
 
 <script>
-  import ProfileImage from '../../home/ProfileImage';
-  import TaskList from '../tasks/TaskList';
+  import ProfileImage from '../../home/ProfileImage.vue';
+  import TaskList from '../tasks/TaskList.vue';
   export default {
     components: { ProfileImage, TaskList },
     props: ['team', 'full'],

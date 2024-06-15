@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import Role from './Role';
+  import Role from './Role.vue';
   export default {
     components: { Role },
     data() {

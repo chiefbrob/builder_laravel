@@ -36,7 +36,7 @@
 
 <script>
   import Contact from './Contact.vue';
-  import ContactStateSelector from './ContactStateSelector';
+  import ContactStateSelector from './ContactStateSelector.vue';
   export default {
     components: { Contact, ContactStateSelector },
     data() {

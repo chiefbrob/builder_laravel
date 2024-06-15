@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import BlogForm from './BlogForm';
+  import BlogForm from './BlogForm.vue';
   export default {
     components: { BlogForm },
     data() {

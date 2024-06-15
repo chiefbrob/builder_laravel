@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import TeamList from './TeamList';
+  import TeamList from './TeamList.vue';
   export default {
     components: {
       TeamList,

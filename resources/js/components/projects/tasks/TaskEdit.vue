@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import TaskForm from './TaskForm';
+  import TaskForm from './TaskForm.vue';
   export default {
     components: { TaskForm },
     props: [],

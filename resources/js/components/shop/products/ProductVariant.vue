@@ -63,7 +63,7 @@
 </template>
 
 <script>
-  import ProductVariantForm from './ProductVariantForm';
+  import ProductVariantForm from './ProductVariantForm.vue';
   export default {
     components: { ProductVariantForm },
     props: {
